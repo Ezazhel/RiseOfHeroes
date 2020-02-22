@@ -1,0 +1,43 @@
+<div class="Ui">
+  <div class="cInfo">
+    <div class="portrait">
+      <label>{{ player.level }}</label>
+    </div>
+    <div class="bars">
+      <div class="myProgress">
+        <span> {{ player.getExperience() }}</span>
+        <div
+          class="expBar"
+          [style.width.%]="player.getPercentExperience()"
+        ></div>
+      </div>
+      <div class="myProgress">
+        <span> {{ player.getHp() }}</span>
+        <div class="hpBar" [style.width.%]="player.getHpPercent()"></div>
+      </div>
+      <div class="myProgress">
+        <span> 0/0 </span>
+        <div class="manaBar"></div>
+      </div>
+    </div>
+  </div>
+  <div class="eInfo">
+    <div class="bars">
+      <div class="myProgress">
+        <span> Casting Bar </span>
+        <div class="expBar"></div>
+      </div>
+      <div class="myProgress">
+        <span>{{ monster.getHp() }}</span>
+        <div class="hpBar" [style.width.%]="monster.getHpPercent()"></div>
+      </div>
+      <div class="myProgress">
+        <span> 0/0 </span>
+        <div class="manaBar"></div>
+      </div>
+    </div>
+    <div class="portrait">
+      <label>{{ monster.level }}</label>
+    </div>
+  </div>
+</div>

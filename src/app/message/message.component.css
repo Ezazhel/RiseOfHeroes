@@ -1,0 +1,17 @@
+.log {
+  display: flex;
+  position: absolute;
+  bottom: 10vh;
+  flex-direction: column;
+  width: 25vw;
+  height: 25vh;
+  border: 1px solid black;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 5px;
+  height: 100%;
+  height: 100%;
+}
