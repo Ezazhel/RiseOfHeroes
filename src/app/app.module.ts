@@ -3,14 +3,18 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { GameComponent } from "./game/game.component";
-import { MessageComponent } from "./message/message.component";
-import { GamePlayerComponent } from './game/game-player/game-player.component';
+import { MessageComponent } from "./message/components/message/message.component";
+import { GamePlayerComponent, GameComponent } from "./game/components";
 
 @NgModule({
-  declarations: [AppComponent, GameComponent, MessageComponent, GamePlayerComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        GameComponent,
+        MessageComponent,
+        GamePlayerComponent
+    ],
+    imports: [BrowserModule, AppRoutingModule, FormsModule],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}
