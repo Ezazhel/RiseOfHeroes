@@ -1,9 +1,9 @@
 <div class="log">
-  <ng-container *ngIf="messageService.messages.length">
-    <div class="chat">
-      <div *ngFor="let message of messageService.messages">
-        {{ message }}
-      </div>
-    </div>
-  </ng-container>
+    <ng-container *ngIf="messageService.messages.length">
+        <div class="chat">
+            <div *ngFor="let message of messageService.messages">
+                <app-message-item message="{{ message }}"></app-message-item>
+            </div>
+        </div>
+    </ng-container>
 </div>

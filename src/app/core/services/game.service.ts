@@ -1,5 +1,6 @@
+import { MESSAGE } from "@core/constant/constant";
 import { MessageService } from "./message.service";
-import { Monster, Hero } from "@core/models";
+import { Monster, Hero, Message } from "@core/models";
 import { Injectable } from "@angular/core";
 
 @Injectable({
@@ -24,15 +25,30 @@ export class GameService {
         setInterval(() => {
             this.combat();
             if (this.player.isDead()) {
-                this.messageService.add("Vous êtes mort");
+                this.messageService.add(
+                    new Message(`Vous êtes mort`, MESSAGE.COMBAT)
+                );
                 this.reset();
             } else if (this.monster.isDead()) {
-                this.messageService.add("Vous avez tué" + this.monster.nom);
                 this.messageService.add(
-                    "Vous avez gagné " + this.monster.level + " expérience"
+                    new Message(
+                        `Vous avez tué ${this.monster.nom}`,
+                        MESSAGE.GENERAL
+                    )
+                );
+                this.messageService.add(
+                    new Message(
+                        `Vous avez gagné ${this.monster.level} expérience`,
+                        MESSAGE.GENERAL
+                    )
                 );
                 if (this.player.gainExperience(this.monster.level)) {
-                    this.messageService.add("Vous avez gagné un niveau");
+                    this.messageService.add(
+                        new Message(
+                            "Vous avez gagné un niveau",
+                            MESSAGE.GENERAL
+                        )
+                    );
                     this.monster.level++;
                 }
                 this.reset();
