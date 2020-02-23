@@ -4,9 +4,9 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { GamePlayerComponent, GameComponent } from "./game/components";
+import { GameComponent } from "./game/components";
 @NgModule({
-    declarations: [AppComponent, GameComponent, GamePlayerComponent],
+    declarations: [AppComponent, GameComponent],
     imports: [BrowserModule, AppRoutingModule, FormsModule, MessageModule],
     providers: [],
     bootstrap: [AppComponent]

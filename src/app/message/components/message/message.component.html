@@ -2,7 +2,7 @@
     <ng-container *ngIf="messageService.messages.length">
         <div class="chat">
             <div *ngFor="let message of messageService.messages">
-                <app-message-item message="{{ message }}"></app-message-item>
+                <app-message-item [message]="message"></app-message-item>
             </div>
         </div>
     </ng-container>

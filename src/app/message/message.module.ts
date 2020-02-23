@@ -4,6 +4,7 @@ import * as fromComponents from "./components";
 
 @NgModule({
     declarations: [fromComponents.components],
-    imports: [CommonModule]
+    imports: [CommonModule],
+    exports: [fromComponents.MessageComponent]
 })
 export class MessageModule {}
