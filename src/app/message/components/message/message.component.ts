@@ -1,3 +1,4 @@
+import { Message } from "@core/models";
 import { MessageService } from "@core/services";
 import { Component, OnInit } from "@angular/core";
 
@@ -10,4 +11,8 @@ export class MessageComponent implements OnInit {
     constructor(public messageService: MessageService) {}
 
     ngOnInit() {}
+
+    trackBy(index: number, item: Message): Message {
+        return item;
+    }
 }

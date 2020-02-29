@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+    background: -moz-linear-gradient(-45deg, #8a5a00cb, #533600, #463319);
+    background: -webkit-linear-gradient(-45deg, #dae7e3cb, #d0dfe9, #b6cccc);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
