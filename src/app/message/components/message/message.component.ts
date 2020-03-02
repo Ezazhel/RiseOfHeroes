@@ -1,4 +1,5 @@
 import { Message } from "@core/models";
+import { MESSAGE } from "@core/constant/constant";
 import { MessageService } from "@core/services";
 import { Component, OnInit } from "@angular/core";
 @Component({
@@ -15,9 +16,12 @@ export class MessageComponent implements OnInit {
     }
 
     filterByType(type: String) {
-        this.messages = this.messages.filter(item => {
-            item.type == type;
-        });
-        console.log(this.messages);
+        if (type == MESSAGE.ALL) {
+            this.messages = this.messageService.messages;
+        } else {
+            this.messages = this.messageService.messages.filter(
+                item => item.type == type
+            );
+        }
     }
 }

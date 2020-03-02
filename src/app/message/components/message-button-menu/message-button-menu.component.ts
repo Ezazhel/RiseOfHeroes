@@ -7,14 +7,16 @@ import { MESSAGE } from "@core/constant/constant";
 })
 export class MessageButtonMenuComponent implements OnInit {
     MESSAGE;
+    activeButton: String;
     @Output() filter = new EventEmitter<String>();
     constructor() {}
 
     ngOnInit(): void {
         this.MESSAGE = MESSAGE;
+        this.activeButton = MESSAGE.ALL;
     }
     onFilter(type: String) {
-        console.log("Un de mes boutons a été cliqué");
+        this.activeButton = type;
         this.filter.emit(type);
     }
 }

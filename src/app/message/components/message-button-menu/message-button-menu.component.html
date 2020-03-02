@@ -1,20 +1,26 @@
 <div class="menuLog">
     <app-message-button
+        [text]="'All'"
+        [type]="MESSAGE.ALL"
+        [active]="activeButton == MESSAGE.ALL"
+        (messageType)="onFilter($event)"
+    ></app-message-button>
+    <app-message-button
         [text]="'General'"
         [type]="MESSAGE.GENERAL"
-        [active]="true"
+        [active]="activeButton == MESSAGE.GENERAL"
         (messageType)="onFilter($event)"
     ></app-message-button>
     <app-message-button
         [text]="'Fight'"
         [type]="MESSAGE.COMBAT"
-        [active]="false"
+        [active]="activeButton == MESSAGE.COMBAT"
         (messageType)="onFilter($event)"
     ></app-message-button>
     <app-message-button
         [text]="'System'"
         [type]="MESSAGE.SYSTEM"
-        [active]="false"
+        [active]="activeButton == MESSAGE.SYSTEM"
         (messageType)="onFilter($event)"
     ></app-message-button>
 </div>

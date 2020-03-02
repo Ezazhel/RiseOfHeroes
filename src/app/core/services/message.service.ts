@@ -9,7 +9,6 @@ export class MessageService {
     messages: Message[] = [];
 
     private add(message: String, type: string) {
-        console.log(message);
         this.messages.push(new Message(message, type));
     }
     addGeneralMessage(message: String) {

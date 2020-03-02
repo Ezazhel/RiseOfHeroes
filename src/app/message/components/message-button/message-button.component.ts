@@ -15,7 +15,6 @@ export class MessageButtonComponent implements OnInit {
     ngOnInit() {}
 
     filter() {
-        console.log("J'ai cliqué sur un bouton");
         this.messageType.emit(this.type);
     }
 }
