@@ -1,4 +1,5 @@
 export const MESSAGE = {
     GENERAL: "GENERAL",
-    COMBAT: "COMBAT"
+    COMBAT: "COMBAT",
+    SYSTEM: "SYSTEM"
 };

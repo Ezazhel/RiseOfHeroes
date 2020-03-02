@@ -1,13 +1,7 @@
 <div class="log">
-    <div class="menuLog">
-        <button class="btnMenuLog active" onclick="">Général</button>
-        <button class="btnMenuLog" onclick="">Combat</button>
-        <button class="btnMenuLog" onclick="">System</button>
-    </div>
-    <ul class="chat">
-        <app-message-item
-            *ngFor="let message of messageService.messages; trackBy: trackBy"
-            [message]="message"
-        ></app-message-item>
-    </ul>
+    <app-message-button-menu
+        (filter)="filterByType($event)"
+        [ngClass]="'chat'"
+    ></app-message-button-menu>
+    <app-message-chat [messages]="messages"></app-message-chat>
 </div>

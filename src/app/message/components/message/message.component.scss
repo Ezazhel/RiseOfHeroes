@@ -6,45 +6,6 @@
     width: 25vw;
     height: 35vh;
     border: 1px solid black;
-    border-radius: 15px;
+    border-radius: 0px 0px 15px 15px;
     overflow: hidden;
-}
-
-.menuLog {
-    position: relative;
-    border-radius: inherit;
-    border: 1px solid red;
-}
-.menuLog button {
-    border-radius: inherit;
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 8px 10px;
-    transition: 0.3s;
-}
-.menuLog button:hover {
-    background-color: #afc2d4e0;
-}
-.menuLog button.active {
-    background-color: #f0f0f0;
-}
-
-ul.chat {
-    display: flex;
-    flex-direction: column-reverse;
-    position: relative;
-    border: 1px solid blue;
-    border-radius: inherit;
-    margin: 2px;
-    height: 100%;
-    height: 100%;
-    padding: 5px;
-    overflow: auto;
-    scrollbar-width: none;
-}
-.chat::-webkit-scrollbar {
-    display: none;
 }

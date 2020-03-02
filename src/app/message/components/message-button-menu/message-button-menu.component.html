@@ -1,0 +1,20 @@
+<div class="menuLog">
+    <app-message-button
+        [text]="'General'"
+        [type]="MESSAGE.GENERAL"
+        [active]="true"
+        (messageType)="onFilter($event)"
+    ></app-message-button>
+    <app-message-button
+        [text]="'Fight'"
+        [type]="MESSAGE.COMBAT"
+        [active]="false"
+        (messageType)="onFilter($event)"
+    ></app-message-button>
+    <app-message-button
+        [text]="'System'"
+        [type]="MESSAGE.SYSTEM"
+        [active]="false"
+        (messageType)="onFilter($event)"
+    ></app-message-button>
+</div>

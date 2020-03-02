@@ -1,0 +1,18 @@
+button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 8px 10px;
+    transition: 0.3s;
+}
+button:hover {
+    background-color: #afc2d4e0;
+}
+button.active {
+    background-color: #f0f0f0;
+}
+button.active:hover {
+    background-color: #f0f0f086;
+}

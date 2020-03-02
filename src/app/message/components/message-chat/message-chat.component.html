@@ -1,0 +1,6 @@
+<ul>
+    <app-message-item
+        *ngFor="let message of messages; trackBy: trackBy"
+        [message]="message"
+    ></app-message-item>
+</ul>

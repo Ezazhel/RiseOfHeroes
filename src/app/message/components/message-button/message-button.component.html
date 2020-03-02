@@ -1,1 +1,3 @@
-<p>message-button works!</p>
+<button [ngClass]="{ active: active == true }" (click)="filter()" type="button">
+    {{ text }}
+</button>
