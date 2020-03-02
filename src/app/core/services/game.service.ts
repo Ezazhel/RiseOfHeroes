@@ -25,29 +25,18 @@ export class GameService {
         setInterval(() => {
             this.combat();
             if (this.player.isDead()) {
-                this.messageService.add(
-                    new Message(`Vous êtes mort`, MESSAGE.COMBAT)
-                );
+                this.messageService.addCombatMessage(`Vous êtes mort`);
                 this.reset();
             } else if (this.monster.isDead()) {
-                this.messageService.add(
-                    new Message(
-                        `Vous avez tué ${this.monster.nom}`,
-                        MESSAGE.GENERAL
-                    )
+                this.messageService.addCombatMessage(
+                    `Vous avez tué ${this.monster.nom}`
                 );
-                this.messageService.add(
-                    new Message(
-                        `Vous avez gagné ${this.monster.level} expérience`,
-                        MESSAGE.GENERAL
-                    )
+                this.messageService.addGeneralMessage(
+                    `Vous avez gagné ${this.monster.level} expérience`
                 );
                 if (this.player.gainExperience(this.monster.level)) {
-                    this.messageService.add(
-                        new Message(
-                            "Vous avez gagné un niveau",
-                            MESSAGE.GENERAL
-                        )
+                    this.messageService.addGeneralMessage(
+                        "Vous avez gagné un niveau"
                     );
                     this.monster.level++;
                 }

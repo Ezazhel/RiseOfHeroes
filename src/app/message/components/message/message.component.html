@@ -4,10 +4,10 @@
         <button class="btnMenuLog" onclick="">Combat</button>
         <button class="btnMenuLog" onclick="">System</button>
     </div>
-    <div class="chat">
+    <ul class="chat">
         <app-message-item
             *ngFor="let message of messageService.messages; trackBy: trackBy"
             [message]="message"
         ></app-message-item>
-    </div>
+    </ul>
 </div>

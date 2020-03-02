@@ -1,1 +1,4 @@
-<p>{{ message.text }}</p>
+<li [ngClass]="['text-container', style]">
+    <span class="time-top">{{ date | date: "HH:mm a" }}</span>
+    <label class="text">{{ text }} </label>
+</li>

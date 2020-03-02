@@ -7,8 +7,14 @@ import { Message } from "@core/models";
 })
 export class MessageItemComponent implements OnInit {
     @Input("message") message: Message;
-
+    text: String;
+    date: Date;
+    style: String;
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.text = this.message.text;
+        this.date = this.message.date;
+        this.style = this.message.customStyle;
+    }
 }

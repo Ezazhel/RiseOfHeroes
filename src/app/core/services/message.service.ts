@@ -1,5 +1,6 @@
-import { Message } from "./../models/message";
+import { Message } from "@core/models/message";
 import { Injectable } from "@angular/core";
+import { MESSAGE } from "@core/constant/constant";
 
 @Injectable({
     providedIn: "root"
@@ -7,11 +8,16 @@ import { Injectable } from "@angular/core";
 export class MessageService {
     messages: Message[] = [];
 
-    add(message: Message) {
+    private add(message: String, type: string) {
         console.log(message);
-        this.messages.push(message);
+        this.messages.push(new Message(message, type));
     }
-
+    addGeneralMessage(message: String) {
+        this.add(message, MESSAGE.GENERAL);
+    }
+    addCombatMessage(message: String) {
+        this.add(message, MESSAGE.COMBAT);
+    }
     clear() {
         this.messages = [];
     }

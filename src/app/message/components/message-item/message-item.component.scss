@@ -1,0 +1,19 @@
+li.text-container {
+    list-style: none;
+    margin: 5px;
+}
+li.text-container.combat {
+    color: red;
+}
+li.text-container.general {
+    color: blue;
+}
+
+.time-top {
+    display: block;
+    font-size: x-small;
+}
+.text {
+    display: block;
+    font-size: medium;
+}
