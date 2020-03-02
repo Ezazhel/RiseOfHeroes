@@ -5,9 +5,16 @@ import { FormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { GameComponent } from "./game/components";
+import { ScrollingModule } from "@angular/cdk/scrolling/";
 @NgModule({
     declarations: [AppComponent, GameComponent],
-    imports: [BrowserModule, AppRoutingModule, FormsModule, MessageModule],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        MessageModule,
+        ScrollingModule
+    ],
     providers: [],
     bootstrap: [AppComponent]
 })

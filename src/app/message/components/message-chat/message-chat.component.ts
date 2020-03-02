@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, ViewEncapsulation } from "@angular/core";
+import { ScrollingModule } from "@angular/cdk/scrolling";
+import { Component, OnInit, Input } from "@angular/core";
 import { Message } from "@core/models/message";
-
 @Component({
     selector: "app-message-chat",
     templateUrl: "./message-chat.component.html",
