@@ -1,6 +1,6 @@
-import { ScrollingModule } from "@angular/cdk/scrolling";
 import { Component, OnInit, Input } from "@angular/core";
 import { Message } from "@core/models/message";
+import { Observable } from "rxjs";
 @Component({
     selector: "app-message-chat",
     templateUrl: "./message-chat.component.html",
