@@ -12,6 +12,9 @@ export class MessageService {
     filter: String;
 
     private add(message: String, type: string) {
+        if (this.messages.length == 100) {
+            this.messages = this.messages.splice(85, 100);
+        }
         this.messages.push(new Message(message, type));
         this.filterMessages();
     }
