@@ -28,8 +28,6 @@ export class MessageService {
         this.filter = filter;
     }
     filterMessages() {
-        if (!this.filteredMessages)
-            this.filteredMessages = new ReplaySubject(1);
         if (this.filter === MESSAGE.ALL) {
             this.filteredMessages.next(this.messages);
         } else {
