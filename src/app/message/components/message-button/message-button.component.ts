@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
-
 @Component({
     selector: "app-message-button",
     templateUrl: "./message-button.component.html",

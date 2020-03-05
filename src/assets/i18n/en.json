@@ -1,0 +1,14 @@
+{
+    "messageButton": {
+        "ALL": "All",
+        "General": "General",
+        "Combat": "Combat",
+        "System": "System"
+    },
+    "combatLog": {
+        "died": "You died",
+        "expEarn": "You earn {{exp}} experience points",
+        "monsterKilled": "You killed {{monster}} !",
+        "levelUp": "You gain a level !"
+    }
+}

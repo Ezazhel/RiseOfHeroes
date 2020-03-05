@@ -1,26 +1,28 @@
-<div class="menuLog">
-    <app-message-button
-        [text]="'All'"
-        [type]="MESSAGE.ALL"
-        [active]="activeButton == MESSAGE.ALL"
-        (messageType)="onFilter($event)"
-    ></app-message-button>
-    <app-message-button
-        [text]="'General'"
-        [type]="MESSAGE.GENERAL"
-        [active]="activeButton == MESSAGE.GENERAL"
-        (messageType)="onFilter($event)"
-    ></app-message-button>
-    <app-message-button
-        [text]="'Fight'"
-        [type]="MESSAGE.COMBAT"
-        [active]="activeButton == MESSAGE.COMBAT"
-        (messageType)="onFilter($event)"
-    ></app-message-button>
-    <app-message-button
-        [text]="'System'"
-        [type]="MESSAGE.SYSTEM"
-        [active]="activeButton == MESSAGE.SYSTEM"
-        (messageType)="onFilter($event)"
-    ></app-message-button>
-</div>
+<ng-container *transloco="let t; read: 'messageButton'">
+    <div class="menuLog">
+        <app-message-button
+            [text]="t('ALL')"
+            [type]="MESSAGE.ALL"
+            [active]="activeButton == MESSAGE.ALL"
+            (messageType)="onFilter($event)"
+        ></app-message-button>
+        <app-message-button
+            [text]="t('General')"
+            [type]="MESSAGE.GENERAL"
+            [active]="activeButton == MESSAGE.GENERAL"
+            (messageType)="onFilter($event)"
+        ></app-message-button>
+        <app-message-button
+            [text]="t('Combat')"
+            [type]="MESSAGE.COMBAT"
+            [active]="activeButton == MESSAGE.COMBAT"
+            (messageType)="onFilter($event)"
+        ></app-message-button>
+        <app-message-button
+            [text]="t('System')"
+            [type]="MESSAGE.SYSTEM"
+            [active]="activeButton == MESSAGE.SYSTEM"
+            (messageType)="onFilter($event)"
+        ></app-message-button>
+    </div>
+</ng-container>

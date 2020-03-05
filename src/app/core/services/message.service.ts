@@ -1,7 +1,7 @@
 import { Message } from "@core/models/message";
 import { Injectable } from "@angular/core";
 import { MESSAGE } from "@core/constant/constant";
-import { ReplaySubject } from "rxjs";
+import { ReplaySubject, Observable } from "rxjs";
 
 @Injectable({
     providedIn: "root"
@@ -18,11 +18,11 @@ export class MessageService {
         this.messages.push(new Message(message, type));
         this.filterMessages();
     }
-    addGeneralMessage(message: String) {
-        this.add(message, MESSAGE.GENERAL);
+    addGeneralMessage(observable: Observable<any>) {
+        observable.subscribe(message => this.add(message, MESSAGE.GENERAL));
     }
-    addCombatMessage(message: String) {
-        this.add(message, MESSAGE.COMBAT);
+    addCombatMessage(observable: Observable<any>) {
+        observable.subscribe(message => this.add(message, MESSAGE.COMBAT));
     }
     clear() {
         this.messages = [];

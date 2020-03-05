@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
     styleUrls: ["./message-chat.component.scss"]
 })
 export class MessageChatComponent implements OnInit {
-    @Input("messages") messages: Message[];
+    @Input("messages") messages: Message[] = [];
 
     constructor() {}
 
