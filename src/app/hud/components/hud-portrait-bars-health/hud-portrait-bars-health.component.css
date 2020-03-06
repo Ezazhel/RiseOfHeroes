@@ -1,0 +1,8 @@
+.hpBar {
+    height: 3vh;
+    background-color: green;
+    transition: width 1s;
+}
+:host-context(.monster) .myProgress {
+    flex-direction: row-reverse;
+}

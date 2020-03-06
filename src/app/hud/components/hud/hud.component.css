@@ -1,0 +1,21 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.hud-portrait {
+    display: flex;
+    width: 40vw;
+    height: 100%;
+    border: 1px solid black;
+}
+.player {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+.monster {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    flex-direction: row-reverse;
+    margin-left: auto;
+}

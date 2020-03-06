@@ -10,5 +10,9 @@
         "expEarn": "You earn {{exp}} experience points",
         "monsterKilled": "You killed {{monster}} !",
         "levelUp": "You gain a level !"
+    },
+    "hud": {
+        "notCasting": "Not casting",
+        "casting": "Casting {{spell}} !"
     }
 }

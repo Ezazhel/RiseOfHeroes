@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
     player: Hero;
     constructor(public gameService: GameService) {
         this.player = gameService.player;
+        this.gameService.startGame();
     }
     ngOnInit() {}
 }
