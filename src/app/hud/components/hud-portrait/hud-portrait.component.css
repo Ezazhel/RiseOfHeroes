@@ -5,6 +5,9 @@
     align-items: center;
     justify-content: center;
 }
+:host-context(.player) .portrait-avatar {
+    cursor: pointer;
+}
 .portrait-bars {
     display: flex;
     flex-direction: column;
