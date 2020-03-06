@@ -7,6 +7,7 @@ import { AppComponent } from "./app.component";
 import { HttpClientModule } from "@angular/common/http";
 import { TranslocoRootModule } from "./transloco-root.module";
 import { HudModule } from "app/hud/hud.module";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 @NgModule({
     declarations: [AppComponent],
     imports: [
@@ -16,7 +17,8 @@ import { HudModule } from "app/hud/hud.module";
         MessageModule,
         HttpClientModule,
         TranslocoRootModule,
-        HudModule
+        HudModule,
+        DragDropModule
     ],
     providers: [],
     bootstrap: [AppComponent]
