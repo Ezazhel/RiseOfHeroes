@@ -1,7 +1,7 @@
-import { MESSAGE } from "@core/constant/constant";
 import { MessageService } from "./message.service";
-import { Monster, Hero, Message } from "@core/models";
+import { Monster, Hero } from "@core/models";
 import { Injectable } from "@angular/core";
+import { TranslocoService } from "@ngneat/transloco";
 
 @Injectable({
     providedIn: "root"
@@ -10,33 +10,39 @@ export class GameService {
     player: Hero;
     monster: Monster;
 
-    constructor(public messageService: MessageService) {
-        console.log("Init Service");
+    constructor(
+        public messageService: MessageService,
+        private translate: TranslocoService
+    ) {
         this.initialize();
     }
     initialize() {
         this.player = new Hero("Steven");
-        console.log(this.player);
 
         this.monster = new Monster("Slime");
-        console.log(this.monster);
     }
     startGame() {
         setInterval(() => {
             this.combat();
             if (this.player.isDead()) {
-                this.messageService.addCombatMessage(`You died`);
+                this.messageService.addCombatMessage(
+                    this.translate.selectTranslate("combatLog.died")
+                );
                 this.reset();
             } else if (this.monster.isDead()) {
                 this.messageService.addCombatMessage(
-                    `You killed ${this.monster.nom}`
+                    this.translate.selectTranslate("combatLog.monsterKilled", {
+                        monster: this.monster.nom
+                    })
                 );
                 this.messageService.addGeneralMessage(
-                    `You earn ${this.monster.level} exp`
+                    this.translate.selectTranslate("combatLog.expEarn", {
+                        exp: this.monster.level
+                    })
                 );
                 if (this.player.gainExperience(this.monster.level)) {
                     this.messageService.addGeneralMessage(
-                        "Congrats you gain a level"
+                        this.translate.selectTranslate("combatLog.levelUp")
                     );
                     this.monster.level++;
                 }

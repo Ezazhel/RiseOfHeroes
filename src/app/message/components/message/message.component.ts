@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
     styleUrls: ["./message.component.scss"]
 })
 export class MessageComponent implements OnInit {
-    messages: Message[];
+    messages: Message[] = [];
 
     constructor(public messageService: MessageService) {}
 
