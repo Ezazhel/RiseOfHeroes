@@ -1,4 +1,4 @@
-<ng-container>
+<ng-container *transloco="let t; read: 'hud'">
     <div class="myProgress">
         <ng-container *ngIf="isHero(); else monster">
             <span> {{ entity.getExperience() }}</span>
@@ -8,7 +8,7 @@
             ></div>
         </ng-container>
         <ng-template #monster>
-            <span> {{ "Casting (add translation)" }}</span>
+            <span> {{ t("notCasting") }}</span>
             <div
                 class="miscellaneousBar"
                 [style.width.%]="entity.getCastingSpell()"
