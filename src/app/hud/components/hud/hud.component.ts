@@ -10,10 +10,14 @@ import { GameService } from "@core/services";
 export class HudComponent implements OnInit {
     monster: Entity;
     player: Entity;
+    cpt: number;
     constructor(public gameService: GameService) {
         this.monster = gameService.monster;
         this.player = gameService.player;
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.cpt = 0;
+        setInterval(() => this.cpt++, 1000);
+    }
 }

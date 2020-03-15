@@ -1,9 +1,9 @@
 {
     "messageButton": {
-        "ALL": "All",
-        "General": "General",
-        "Combat": "Combat",
-        "System": "System"
+        "all": "All",
+        "general": "General",
+        "combat": "Combat",
+        "system": "System"
     },
     "combatLog": {
         "died": "You died",
@@ -14,5 +14,10 @@
     "hud": {
         "notCasting": "Not casting",
         "casting": "Casting {{spell}} !"
+    },
+    "hud-modal": {
+        "stat": "Stats",
+        "talents": "Talents",
+        "bag": "Inventory"
     }
 }

@@ -1,25 +1,25 @@
 <ng-container *transloco="let t; read: 'messageButton'">
     <div class="menuLog">
         <app-message-button
-            [text]="t('ALL')"
+            [text]="t('all')"
             [type]="MESSAGE.ALL"
             [active]="activeButton == MESSAGE.ALL"
             (messageType)="onFilter($event)"
         ></app-message-button>
         <app-message-button
-            [text]="t('General')"
+            [text]="t('general')"
             [type]="MESSAGE.GENERAL"
             [active]="activeButton == MESSAGE.GENERAL"
             (messageType)="onFilter($event)"
         ></app-message-button>
         <app-message-button
-            [text]="t('Combat')"
+            [text]="t('combat')"
             [type]="MESSAGE.COMBAT"
             [active]="activeButton == MESSAGE.COMBAT"
             (messageType)="onFilter($event)"
         ></app-message-button>
         <app-message-button
-            [text]="t('System')"
+            [text]="t('system')"
             [type]="MESSAGE.SYSTEM"
             [active]="activeButton == MESSAGE.SYSTEM"
             (messageType)="onFilter($event)"

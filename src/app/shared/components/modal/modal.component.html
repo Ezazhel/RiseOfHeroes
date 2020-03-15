@@ -1,10 +1,9 @@
 <div class="modal" cdkDrag cdkDragBoundary="body">
     <div class="modal-header" cdkDragHandle>
-        Le Header
+        {{ header }}
         <span class="close">&times;</span>
     </div>
-    <div class="modal-body">Le contenu</div>
-    <div class="resizable-s"></div>
-    <div class="resizable-e"></div>
-    <div class="resizable-se"></div>
+    <div class="modal-body">
+        <ng-content> </ng-content>
+    </div>
 </div>

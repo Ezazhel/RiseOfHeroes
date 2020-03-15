@@ -7,4 +7,16 @@
     class="hud-portrait monster"
 ></app-hud-portrait>
 
-<app-modal></app-modal>
+<ng-container *transloco="let t; read: 'hud-modal'">
+    <app-modal [header]="t('bag')">
+        <p>Le contenu</p>
+    </app-modal>
+
+    <app-modal [header]="t('stat')">
+        <p>Le contenu 3</p>
+    </app-modal>
+
+    <app-modal [header]="t('talents')">
+        <p>Le contenu 2</p>
+    </app-modal>
+</ng-container>

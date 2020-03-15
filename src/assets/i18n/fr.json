@@ -1,14 +1,23 @@
 {
     "messageButton": {
-        "ALL": "Tout",
-        "General": "General",
-        "Combat": "Combat",
-        "System": "Système"
+        "all": "Tout",
+        "general": "General",
+        "combat": "Combat",
+        "system": "Système"
     },
     "combatLog": {
         "died": "Vous êtes mort",
         "expEarn": "Vous avez reçu {{exp}} point d'exp",
         "monsterKilled": "Voius avez tué {{monster}} !",
         "levelUp": "Vous avez gagné un niveau !"
+    },
+    "hud": {
+        "notCasting": "Pas d'incantation",
+        "casting": "Lance : {{spell}} !"
+    },
+    "hud-modal": {
+        "stat": "Stats",
+        "talents": "Talents",
+        "bag": "Inventaire"
     }
 }
