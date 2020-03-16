@@ -15,16 +15,6 @@ export class InventorySlotComponent implements OnInit {
         this.items.push(new Equipment("dagger", "common", "dagger", false));
         this.items.push(new Consumable("healthPotion", 20, "potionRed"));
         this.items.push(new Consumable("manaPotion", 20, "potionBlue"));
-
-        this.items.push(new Equipment("armor", "common", "armor", true));
-        this.items.push(new Equipment("dagger", "common", "dagger", false));
-        this.items.push(new Consumable("healthPotion", 20, "potionRed"));
-        this.items.push(new Consumable("manaPotion", 20, "potionBlue"));
-
-        this.items.push(new Equipment("armor", "common", "armor", true));
-        this.items.push(new Equipment("dagger", "common", "dagger", false));
-        this.items.push(new Consumable("healthPotion", 20, "potionRed"));
-        this.items.push(new Consumable("manaPotion", 20, "potionBlue"));
     }
     trackBy(index: number, item: Item): Item {
         return item;

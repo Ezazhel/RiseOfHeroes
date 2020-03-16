@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { InventoryService } from "@core/services";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
-  selector: 'app-inventory',
-  templateUrl: './inventory.component.html',
-  styleUrls: ['./inventory.component.css']
+    selector: "app-inventory",
+    templateUrl: "./inventory.component.html",
+    styleUrls: ["./inventory.component.css"]
 })
 export class InventoryComponent implements OnInit {
+    display: boolean;
+    constructor(public inventoryService: InventoryService) {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {
+        this.inventoryService.showInventory.subscribe(d => {
+            this.display = d;
+        });
+    }
+    showInventory() {
+        this.inventoryService.setshowInventory();
+    }
 }

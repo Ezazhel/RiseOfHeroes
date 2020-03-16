@@ -1,9 +1,11 @@
 import { Entity } from "./entity";
+import { Inventory } from "./inventory";
 export class Hero extends Entity {
     constructor(nom: string) {
         super(nom);
         this.init();
     }
+    inventory: Inventory;
     experience: number = 0;
     getExperienceFormula(): number {
         return 2 * this.level;

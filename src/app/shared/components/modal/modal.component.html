@@ -1,7 +1,7 @@
 <div class="modal" cdkDrag cdkDragBoundary="body">
     <div class="modal-header" cdkDragHandle>
         {{ header }}
-        <span class="close">&times;</span>
+        <span class="close" (click)="closeModal()">&times;</span>
     </div>
     <div class="modal-body">
         <ng-content> </ng-content>
