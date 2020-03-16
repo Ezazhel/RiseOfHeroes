@@ -7,7 +7,6 @@
     width: 25vw;
     min-width: 10vw;
     min-height: 15vh;
-    height: 35vh;
     z-index: 1001;
     background: #f2f2f2;
 }
@@ -18,7 +17,8 @@
     cursor: move;
 }
 .modal-body {
-    margin-top: 1em;
+    box-sizing: border-box;
+    margin: 0 1em;
 }
 .close {
     position: absolute;

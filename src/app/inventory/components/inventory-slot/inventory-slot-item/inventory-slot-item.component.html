@@ -1,0 +1,12 @@
+<ng-container *ngIf="isEquipment(); else c">
+    <li class="slot-item equipment">
+        <span class="sprite {{ equipment.style }}"> </span>
+    </li>
+</ng-container>
+<ng-template #c>
+    <li class="slot-item">
+        <span class="sprite {{ consumable.style }}">
+            <span class="consummables"> {{ consumable.quantity }} </span>
+        </span>
+    </li>
+</ng-template>

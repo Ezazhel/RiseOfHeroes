@@ -1,16 +1,17 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": "src",
-    "paths": {
-      "@env": ["environments/environment"],
-      "@shared/*": ["app/shared/*"],
-      "@core/*": ["app/core/*"]
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": "src",
+        "paths": {
+            "@env": ["environments/environment"],
+            "@shared/*": ["app/shared/*"],
+            "@core/*": ["app/core/*"],
+            "@assets/*": ["assets/*"]
+        },
+        "outDir": "./out-tsc/app",
+        "types": []
     },
-    "outDir": "./out-tsc/app",
-    "types": []
-  },
-  "files": ["src/main.ts", "src/polyfills.ts"],
-  "include": ["src/**/*.d.ts"],
-  "exclude": ["src/test.ts", "src/**/*.spec.ts"]
+    "files": ["src/main.ts", "src/polyfills.ts"],
+    "include": ["src/**/*.d.ts"],
+    "exclude": ["src/test.ts", "src/**/*.spec.ts"]
 }

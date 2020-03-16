@@ -9,9 +9,9 @@ import { ReplaySubject, Observable } from "rxjs";
 export class MessageService {
     messages: Message[] = [];
     filteredMessages: ReplaySubject<Message[]> = new ReplaySubject(1);
-    filter: String;
+    filter: string;
 
-    private add(message: String, type: string) {
+    private add(message: string, type: string) {
         if (this.messages.length == 100) {
             this.messages = this.messages.splice(85, 100);
         }
@@ -27,7 +27,7 @@ export class MessageService {
     clear() {
         this.messages = [];
     }
-    setFilter(filter: String) {
+    setFilter(filter: string) {
         this.filter = filter;
     }
     filterMessages() {

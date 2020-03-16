@@ -1,0 +1,6 @@
+<ul class="slots">
+    <app-inventory-slot-item
+        *ngFor="let item of items; trackBy: trackBy"
+        [item]="item"
+    ></app-inventory-slot-item>
+</ul>
