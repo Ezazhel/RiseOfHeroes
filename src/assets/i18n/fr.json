@@ -16,7 +16,7 @@
         "casting": "Lance : {{spell}} !"
     },
     "hud-modal": {
-        "stat": "Stats",
+        "stats": "Stats",
         "talents": "Talents",
         "bag": "Inventaire"
     }

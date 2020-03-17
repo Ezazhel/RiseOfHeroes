@@ -1,4 +1,4 @@
-import { InventoryService } from "@core/services";
+import { HeroService } from "@core/services";
 import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
@@ -8,14 +8,14 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class InventoryComponent implements OnInit {
     display: boolean;
-    constructor(public inventoryService: InventoryService) {}
+    constructor(public heroService: HeroService) {}
 
     ngOnInit(): void {
-        this.inventoryService.showInventory.subscribe(d => {
+        this.heroService.showInventory.subscribe(d => {
             this.display = d;
         });
     }
     showInventory() {
-        this.inventoryService.setshowInventory();
+        this.heroService.setshowInventory();
     }
 }

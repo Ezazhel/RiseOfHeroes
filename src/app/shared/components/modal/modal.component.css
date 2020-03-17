@@ -4,7 +4,7 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     top: 15vh;
     right: 2vw;
-    width: 25vw;
+    width: fit-content;
     min-width: 10vw;
     min-height: 15vh;
     z-index: 1001;
