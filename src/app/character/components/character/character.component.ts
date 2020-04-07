@@ -1,5 +1,4 @@
-import { Component, OnInit } from "@angular/core";
-import { HeroService } from "@core/services";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 
 @Component({
     selector: "app-character",
@@ -7,15 +6,12 @@ import { HeroService } from "@core/services";
     styleUrls: ["./character.component.css"]
 })
 export class CharacterComponent implements OnInit {
-    display: boolean = false;
-    constructor(public heroService: HeroService) {}
+    @Output() closing = new EventEmitter<void>();
+    constructor() {}
 
-    ngOnInit(): void {
-        this.heroService.showStats.subscribe(d => {
-            this.display = d;
-        });
-    }
-    showStats() {
-        this.heroService.setshowStats();
+    ngOnInit(): void {}
+    showStats() {}
+    onClose() {
+        this.closing.emit();
     }
 }

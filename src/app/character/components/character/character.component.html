@@ -1,9 +1,5 @@
 <ng-container *transloco="let t; read: 'hud-modal'">
-    <app-modal
-        (close)="showStats()"
-        [header]="t('stats')"
-        [style.display]="display ? 'block' : 'none'"
-    >
+    <app-modal [cclass]="'stat'" (close)="onClose()" [header]="t('stats')">
         <div class="character-body">
             <app-character-equipment></app-character-equipment>
             <app-character-stats></app-character-stats>

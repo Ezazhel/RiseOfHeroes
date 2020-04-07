@@ -1,8 +1,10 @@
+export type EntityType = "hero" | "monster";
 export class Entity {
     constructor(nom: string) {
         this.nom = nom;
         this.level = 1;
     }
+    type: EntityType;
     nom: string;
     level: number;
     currentHp: number;
@@ -42,4 +44,5 @@ export class Entity {
     }
     getExperience() {}
     getPercentExperience() {}
+    getCastingSpell() {}
 }

@@ -7,6 +7,6 @@ import * as fromComponents from "./components/";
 @NgModule({
     declarations: [ModalComponent, fromComponents.components],
     imports: [CommonModule, TranslocoModule, DragDropModule],
-    exports: [TranslocoModule, fromComponents.components]
+    exports: [TranslocoModule, fromComponents.components, DragDropModule]
 })
 export class SharedModule {}

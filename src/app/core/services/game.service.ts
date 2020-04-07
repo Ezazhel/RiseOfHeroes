@@ -1,25 +1,47 @@
+import { AppState } from "@core/models";
 import { MessageService } from "./message.service";
-import { Monster, Hero } from "@core/models";
+import { Monster, Hero, Equipment, Consumable } from "@core/models";
 import { Injectable } from "@angular/core";
 import { TranslocoService } from "@ngneat/transloco";
+import { BehaviorSubject } from "rxjs";
+import { Store } from "@ngrx/store";
+import * as inventoryAction from "@core/models/inventory/inventory.action";
 
 @Injectable({
-    providedIn: "root"
+    providedIn: "root",
 })
 export class GameService {
     player: Hero;
+    player$: BehaviorSubject<Hero> = new BehaviorSubject(null);
     monster: Monster;
 
     constructor(
         public messageService: MessageService,
-        private translate: TranslocoService
+        private translate: TranslocoService,
+        private store: Store<AppState>
     ) {
         this.initialize();
     }
     initialize() {
-        this.player = new Hero("Steven");
-
+        this.player$.next(new Hero("Steven"));
         this.monster = new Monster("Slime");
+        this.player = this.player$.value;
+        this.store.dispatch(
+            new inventoryAction.InventoryAddItemAction(
+                new Equipment("armor", "common", "armor", true)
+            )
+        );
+        this.store.dispatch(
+            new inventoryAction.InventoryAddItemAction(
+                new Equipment("armor", "common", "armor", true)
+            )
+        );
+        this.store.dispatch(
+            new inventoryAction.InventoryAddItemAction(
+                new Consumable("Health Potion", 20, "potionRed")
+            )
+        );
+        this.player$.next(this.player);
     }
     startGame() {
         setInterval(() => {
@@ -32,12 +54,12 @@ export class GameService {
             } else if (this.monster.isDead()) {
                 this.messageService.addCombatMessage(
                     this.translate.selectTranslate("combatLog.monsterKilled", {
-                        monster: this.monster.nom
+                        monster: this.monster.nom,
                     })
                 );
                 this.messageService.addGeneralMessage(
                     this.translate.selectTranslate("combatLog.expEarn", {
-                        exp: this.monster.level
+                        exp: this.monster.level,
                     })
                 );
                 if (this.player.gainExperience(this.monster.level)) {

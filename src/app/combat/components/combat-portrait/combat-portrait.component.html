@@ -1,0 +1,39 @@
+<div class="portrait">
+    <label>{{ (entity$ | async)?.level }}</label>
+</div>
+<ng-container class="combat-portrait" *transloco="let t; read: 'hud'">
+    <div class="bars">
+        <div class="myProgress hp">
+            <span> {{ (entity$ | async)?.hp }}</span>
+            <div
+                class="fillingBar"
+                [style.width.%]="healthPercentage$ | async"
+            ></div>
+        </div>
+        <div class="myProgress mana">
+            <span> 0/0 </span>
+            <div class="manaBar"></div>
+        </div>
+        <ng-container *ngIf="(entity$ | async)?.type === 'hero'; else monster">
+            <div class="myProgress exp">
+                <span>
+                    {{ (entity$ | async)?.exp }} /
+                    {{ nextLevelExp$ | async }}</span
+                >
+                <div
+                    class="fillingBar"
+                    [style.width.%]="experiencePercentage$ | async"
+                ></div>
+            </div>
+        </ng-container>
+        <ng-template #monster>
+            <div class="myProgress miscellaneous">
+                <span> {{ t("notCasting") }}</span>
+                <div
+                    class="fillingBar"
+                    [style.width.%]="castingPercentage$ | async"
+                ></div>
+            </div>
+        </ng-template>
+    </div>
+</ng-container>

@@ -1,0 +1,11 @@
+@import "variables.scss";
+
+.combat-portrait {
+    display: flex;
+    width: 40vw;
+}
+:host {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}

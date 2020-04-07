@@ -1,12 +1,33 @@
-<ng-container *ngIf="isEquipment(); else c">
-    <li class="slot-item equipment">
-        <span class="sprite {{ equipment.style }}"> </span>
-    </li>
+<ng-container *ngIf="item.itemType == 'equipment'">
+    <div
+        class="slot-item equipment"
+        (click)="displayAction()"
+        (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseLeave()"
+    >
+        <span class="sprite {{ item.style }}"> </span>
+        <button (click)="throwItem()" class="throw"></button>
+        <button (click)="equipItem()" class="equip">E</button>
+    </div>
 </ng-container>
-<ng-template #c>
-    <li class="slot-item">
-        <span class="sprite {{ consumable.style }}">
-            <span class="consummables"> {{ consumable.quantity }} </span>
+<ng-container *ngIf="item.itemType == 'consumable'">
+    <div
+        class="slot-item"
+        (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseLeave()"
+        (click)="displayAction()"
+    >
+        <span class="sprite {{ item.style }}">
+            <span class="consummables"> {{ item.quantity }} </span>
         </span>
-    </li>
-</ng-template>
+        <button (click)="throwItem()" class="throw"></button>
+        <button (click)="equipItem()" class="equip">E</button>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="item.itemType == 'empty'">
+    <div class="slot-item empty"></div>
+</ng-container>
+<div class="description" [style.display]="descriptionDisplay">
+    Test
+</div>

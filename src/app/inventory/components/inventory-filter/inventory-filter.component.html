@@ -1,1 +1,5 @@
-<p>inventory-filter works!</p>
+<ng-container *transloco="let t; read: 'inventoryFilter'">
+    <button (click)="filterBy('undefined')">{{ t("all") }}</button>
+    <button (click)="filterBy('armor')">{{ t("armor") }}</button>
+    <button (click)="filterBy('consumable')">{{ t("consumable") }}</button>
+</ng-container>

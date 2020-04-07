@@ -29,6 +29,7 @@ export class MessageService {
     }
     setFilter(filter: string) {
         this.filter = filter;
+        this.filterMessages();
     }
     filterMessages() {
         if (this.filter === MESSAGE.ALL) {

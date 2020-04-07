@@ -1,5 +1,5 @@
 import { Monster, Hero } from "@core/models";
-import { GameService, HeroService } from "@core/services";
+import { GameService } from "@core/services";
 import { Component, OnInit, Input } from "@angular/core";
 @Component({
     selector: "app-root",
@@ -9,19 +9,9 @@ import { Component, OnInit, Input } from "@angular/core";
 export class AppComponent implements OnInit {
     title = "Rise of Hero";
     player: Hero;
-    constructor(
-        public gameService: GameService,
-        public heroService: HeroService
-    ) {
+    constructor(public gameService: GameService) {
         this.player = gameService.player;
         this.gameService.startGame();
     }
     ngOnInit() {}
-
-    showInventory() {
-        this.heroService.setshowInventory();
-    }
-    showStats() {
-        this.heroService.setshowStats();
-    }
 }

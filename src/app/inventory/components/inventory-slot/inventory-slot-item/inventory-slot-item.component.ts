@@ -1,28 +1,50 @@
+import { AppState } from "@core/models";
 import { Equipment, Consumable, Item } from "@core/models";
-import { Component, OnInit, Input } from "@angular/core";
-
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { InventoryRemoveItemAction } from "@core/models/inventory/inventory.action";
 @Component({
     selector: "app-inventory-slot-item",
     templateUrl: "./inventory-slot-item.component.html",
-    styleUrls: ["./inventory-slot-item.component.css"]
+    styleUrls: ["./inventory-slot-item.component.scss"],
 })
 export class InventorySlotItemComponent implements OnInit {
     @Input() item: Item;
-    equipment: Equipment;
-    consumable: Consumable;
+    @Input() index: number;
     style: string;
-    constructor() {}
+    descriptionDisplay: string;
+    delayedAction: number;
+    actionDisplay: string;
+    constructor(private store: Store<AppState>) {}
 
     ngOnInit(): void {
-        console.log(this.item);
-        if (this.isEquipment()) {
-            this.equipment = this.item as Equipment;
-        } else {
-            this.consumable = this.item as Consumable;
-        }
         this.style = this.item.style;
     }
     isEquipment(): boolean {
         return this.item instanceof Equipment;
+    }
+    onMouseEnter() {
+        this.descriptionDisplay = "block";
+    }
+    onMouseLeave() {
+        this.descriptionDisplay = "none";
+        this.hideAction();
+    }
+    displayAction() {
+        if (this.delayedAction !== undefined) clearTimeout(this.delayedAction);
+        this.actionDisplay = "flex";
+    }
+    hideAction() {
+        this.delayedAction = window.setTimeout(
+            () => (this.actionDisplay = "none"),
+            100
+        );
+    }
+
+    throwItem() {
+        this.store.dispatch(new InventoryRemoveItemAction(this.index));
+    }
+    equipItem() {
+        //this.InventoryService.equip(this.item);
     }
 }

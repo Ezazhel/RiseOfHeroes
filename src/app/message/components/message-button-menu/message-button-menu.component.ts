@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { MESSAGE } from "@core/constant/constant";
+import { MessageService } from "@core/services";
 @Component({
     selector: "app-message-button-menu",
     templateUrl: "./message-button-menu.component.html",
@@ -8,15 +9,14 @@ import { MESSAGE } from "@core/constant/constant";
 export class MessageButtonMenuComponent implements OnInit {
     MESSAGE;
     activeButton: String;
-    @Output() filter = new EventEmitter<String>();
-    constructor() {}
+    constructor(private messageService: MessageService) {}
 
     ngOnInit(): void {
         this.MESSAGE = MESSAGE;
         this.activeButton = MESSAGE.ALL;
     }
-    onFilter(type: String) {
-        this.activeButton = type;
-        this.filter.emit(type);
+
+    filterByType(type: string) {
+        this.messageService.setFilter(type);
     }
 }

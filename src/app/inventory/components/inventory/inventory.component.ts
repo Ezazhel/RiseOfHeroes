@@ -1,21 +1,21 @@
-import { HeroService } from "@core/services";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output } from "@angular/core";
+import { ItemType } from "@core/models";
 
 @Component({
     selector: "app-inventory",
     templateUrl: "./inventory.component.html",
-    styleUrls: ["./inventory.component.css"]
+    styleUrls: ["./inventory.component.css"],
 })
 export class InventoryComponent implements OnInit {
-    display: boolean;
-    constructor(public heroService: HeroService) {}
-
-    ngOnInit(): void {
-        this.heroService.showInventory.subscribe(d => {
-            this.display = d;
-        });
+    constructor() {}
+    filterBy: ItemType;
+    @Output() closing = new EventEmitter<void>();
+    ngOnInit(): void {}
+    onClose() {
+        this.closing.emit();
     }
-    showInventory() {
-        this.heroService.setshowInventory();
+    toggle() {}
+    setFilterBy(type: ItemType) {
+        this.filterBy = type;
     }
 }

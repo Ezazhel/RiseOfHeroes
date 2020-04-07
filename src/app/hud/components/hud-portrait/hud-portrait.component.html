@@ -1,8 +1,36 @@
-<app-hud-portrait-avatar
-    [entity]="entity"
-    class="portrait-avatar"
-></app-hud-portrait-avatar>
-<app-hud-portrait-bars
-    [entity]="entity"
-    class="portrait-bars"
-></app-hud-portrait-bars>
+<div class="portrait">
+    <label>{{ entity.level }}</label>
+</div>
+<ng-container *transloco="let t; read: 'hud'">
+    <div class="bars">
+        <div class="myProgress hp">
+            <span> {{ entity.getHp() }}</span>
+            <div
+                class="fillingBar"
+                [style.width.%]="entity.getHpPercent()"
+            ></div>
+        </div>
+        <div class="myProgress mana">
+            <span> 0/0 </span>
+            <div class="manaBar"></div>
+        </div>
+        <ng-container *ngIf="entity.type == 'hero'; else monster">
+            <div class="myProgress exp">
+                <span> {{ entity.getExperience() }}</span>
+                <div
+                    class="fillingBar"
+                    [style.width.%]="entity.getPercentExperience()"
+                ></div>
+            </div>
+        </ng-container>
+        <ng-template #monster>
+            <div class="myProgress miscellaneous">
+                <span> {{ t("notCasting") }}</span>
+                <div
+                    class="fillingBar"
+                    [style.width.%]="entity.getCastingSpell()"
+                ></div>
+            </div>
+        </ng-template>
+    </div>
+</ng-container>

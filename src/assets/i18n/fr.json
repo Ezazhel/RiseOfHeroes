@@ -19,5 +19,10 @@
         "stats": "Stats",
         "talents": "Talents",
         "bag": "Inventaire"
+    },
+    "inventoryFilter": {
+        "all": "Tout",
+        "armor": "Armure",
+        "consumable": "Consommable"
     }
 }

@@ -4,25 +4,25 @@
             [text]="t('all')"
             [type]="MESSAGE.ALL"
             [active]="activeButton == MESSAGE.ALL"
-            (messageType)="onFilter($event)"
+            (messageType)="filterByType($event)"
         ></app-message-button>
         <app-message-button
             [text]="t('general')"
             [type]="MESSAGE.GENERAL"
             [active]="activeButton == MESSAGE.GENERAL"
-            (messageType)="onFilter($event)"
+            (messageType)="filterByType($event)"
         ></app-message-button>
         <app-message-button
             [text]="t('combat')"
             [type]="MESSAGE.COMBAT"
             [active]="activeButton == MESSAGE.COMBAT"
-            (messageType)="onFilter($event)"
+            (messageType)="filterByType($event)"
         ></app-message-button>
         <app-message-button
             [text]="t('system')"
             [type]="MESSAGE.SYSTEM"
             [active]="activeButton == MESSAGE.SYSTEM"
-            (messageType)="onFilter($event)"
+            (messageType)="filterByType($event)"
         ></app-message-button>
     </div>
 </ng-container>

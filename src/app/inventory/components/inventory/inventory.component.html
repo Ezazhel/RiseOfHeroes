@@ -1,10 +1,5 @@
 <ng-container *transloco="let t; read: 'hud-modal'">
-    <app-modal
-        (close)="showInventory()"
-        [header]="t('bag')"
-        [style.display]="display ? 'block' : 'none'"
-    >
-        <app-inventory-money></app-inventory-money>
+    <app-modal [cclass]="'inventory'" (close)="onClose()" [header]="t('bag')">
         <app-inventory-filter></app-inventory-filter>
         <app-inventory-slot></app-inventory-slot>
     </app-modal>

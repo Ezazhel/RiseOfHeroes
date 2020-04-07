@@ -1,16 +1,47 @@
-<app-hud-portrait
+<app-combat></app-combat>
+
+<!-- <app-hud-portrait
     [entity]="player"
-    class="hud-portrait player "
+    class="hud-portrait player"
 ></app-hud-portrait>
 <app-hud-portrait
     [entity]="monster"
     class="hud-portrait monster"
-></app-hud-portrait>
+></app-hud-portrait> -->
 
 <ng-container>
-    <app-inventory></app-inventory>
-    <app-character></app-character>
-
+    <app-inventory
+        *ngIf="showInventory"
+        (closing)="showInventory = !showInventory"
+    ></app-inventory>
+    <app-character
+        (closing)="showStat = !showStat"
+        *ngIf="showStat"
+    ></app-character>
+    <div class="dock">
+        <ul>
+            <li>
+                <i
+                    class="sprite sprite-backpack"
+                    (click)="showInventory = !showInventory"
+                ></i>
+                <span class="nbSlot"
+                    >{{ (inventory$ | async).items.length }}/{{
+                        (inventory$ | async).maxSlots
+                    }}</span
+                >
+            </li>
+            <li>
+                <i
+                    class="sprite sprite-scroll"
+                    (click)="showStat = !showStat"
+                ></i>
+            </li>
+            <li>
+                <i class="sprite sprite-tome"></i>
+            </li>
+        </ul>
+    </div>
     <!-- <app-modal [header]="t('stat')">
         <p>Le contenu 3</p>
     </app-modal>

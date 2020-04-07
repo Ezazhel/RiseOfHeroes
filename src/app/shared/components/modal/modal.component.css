@@ -2,13 +2,19 @@
     position: absolute;
     box-sizing: border-box;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    top: 15vh;
-    right: 2vw;
     width: fit-content;
     min-width: 10vw;
     min-height: 15vh;
     z-index: 1001;
     background: #f2f2f2;
+}
+.modal.inventory {
+    left: 15%;
+    top: 25%;
+}
+.modal.stat {
+    left: 30%;
+    top: 25%;
 }
 .modal-header {
     background-color: #5b9bd5;

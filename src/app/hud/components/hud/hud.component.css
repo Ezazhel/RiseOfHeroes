@@ -3,19 +3,83 @@
     flex-direction: row;
     width: 100%;
 }
+
 .hud-portrait {
     display: flex;
     width: 40vw;
-    height: 100%;
-    border: 1px solid black;
 }
-.player {
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
+
+.nbSlot {
+    font-size: x-small;
+    position: relative;
+    right: -15px;
+    bottom: 15px;
 }
-.monster {
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    flex-direction: row-reverse;
-    margin-left: auto;
+
+.dock {
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    right: 0;
+}
+.dock ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+.dock ul li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 0 10px;
+    position: relative;
+    transition: all 0.3s linear;
+    background: transparent;
+    cursor: pointer;
+}
+.sprite:hover {
+    box-shadow: 1px 1px black, -1px -1px black;
+    transform: scale(1.2);
+}
+
+/* SPIRITE*/
+.sprite {
+    background-image: url(~/assets/dock.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-backpack {
+    width: 64px;
+    height: 64px;
+    background-position: -5px -5px;
+}
+
+.sprite-envelope {
+    width: 64px;
+    height: 64px;
+    background-position: -79px -5px;
+}
+
+.sprite-map {
+    width: 64px;
+    height: 64px;
+    background-position: -5px -79px;
+}
+
+.sprite-scroll {
+    width: 64px;
+    height: 64px;
+    background-position: -79px -79px;
+}
+
+.sprite-tome {
+    width: 64px;
+    height: 64px;
+    background-position: -153px -5px;
 }

@@ -19,15 +19,4 @@ export class MessageComponent implements OnInit {
             messages => (this.messages = messages)
         );
     }
-    filterByType(type: string) {
-        this.messageService.setFilter(type);
-
-        if (type === MESSAGE.ALL) {
-            this.messages = this.messageService.messages;
-        } else {
-            this.messages = this.messageService.messages.filter(
-                messages => messages.type === type
-            );
-        }
-    }
 }

@@ -1,3 +1,4 @@
+import { reducers } from "@core/models/";
 import { MessageModule } from "./message/message.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
@@ -8,6 +9,10 @@ import { HttpClientModule } from "@angular/common/http";
 import { TranslocoRootModule } from "./transloco-root.module";
 import { HudModule } from "./hud/hud.module";
 import { DragDropModule } from "@angular/cdk/drag-drop";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { CombatEffects } from "@core/models/combat/combat.effect";
 @NgModule({
     declarations: [AppComponent],
     imports: [
@@ -18,9 +23,12 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
         HttpClientModule,
         TranslocoRootModule,
         HudModule,
-        DragDropModule
+        DragDropModule,
+        StoreModule.forRoot(reducers),
+        EffectsModule.forRoot([CombatEffects]),
+        StoreDevtoolsModule.instrument({ name: "idle" }),
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule {}
