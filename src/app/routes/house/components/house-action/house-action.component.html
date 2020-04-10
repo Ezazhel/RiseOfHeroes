@@ -1,0 +1,64 @@
+<ng-container *ngIf="hero$ | async as hero">
+    <div class="tab">
+        <button
+            (click)="dTab = 'training'"
+            [ngClass]="dTab === 'training' ? 'active' : ''"
+        >
+            Training
+        </button>
+        <button
+            (click)="dTab = 'work'"
+            [ngClass]="dTab === 'work' ? 'active' : ''"
+        >
+            Work
+        </button>
+        <button *ngIf="_showTravel$ | async">Travel</button>
+    </div>
+    <div class="tab-container">
+        <ng-container *ngIf="dTab === 'training'">
+            <app-card
+                header="Strength ({{ (hero$ | async).attack }})"
+                (click)="train(hero, 'strength')"
+            >
+                <ng-container cardBody>
+                    <span>
+                        {{ TEqpmt("strength").description }}
+                    </span>
+                    <span>
+                        reward : +
+                        {{ TEqpmt("strength").reward }} strength
+                    </span>
+                </ng-container>
+                <ng-container cardFooter>
+                    <span class="text-right training">
+                        Max training {{ TEqpmt("strength").done }}/{{
+                            TEqpmt("strength").bonus
+                        }}
+                    </span>
+                    <app-progressbar
+                        time="{{ TEqpmt('strength').speed }}ms"
+                        [animate]="idleState"
+                    ></app-progressbar>
+                </ng-container>
+            </app-card>
+            <app-card
+                header="Defense ({{ hero.defense }})"
+                (click)="train(hero, 'endurance')"
+            >
+                <ng-container cardBody>
+                    <label> Sleep over your sheets </label>
+                </ng-container>
+            </app-card>
+        </ng-container>
+        <ng-container *ngIf="dTab === 'work'">
+            <app-card header="Work" (click)="work()">
+                <ng-container cardBody>
+                    <label>
+                        Total gold
+                        {{ (currencies$ | async)?.get("gold").quantity }}
+                    </label>
+                </ng-container>
+            </app-card>
+        </ng-container>
+    </div>
+</ng-container>

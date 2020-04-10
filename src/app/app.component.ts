@@ -1,17 +1,16 @@
-import { Monster, Hero } from "@core/models";
+import { GameStateLoadAction } from "./core/models/game-state/game-state.action";
 import { GameService } from "@core/services";
 import { Component, OnInit, Input } from "@angular/core";
+import { GameStateService } from "@core/services/game-state.service";
+import { Store } from "@ngrx/store";
+import { AppState } from "@core/models";
 @Component({
     selector: "app-root",
     templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.css"]
+    styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
     title = "Rise of Hero";
-    player: Hero;
-    constructor(public gameService: GameService) {
-        this.player = gameService.player;
-        this.gameService.startGame();
-    }
+    constructor(public gameState: GameStateService) {}
     ngOnInit() {}
 }

@@ -1,15 +1,15 @@
+import { GameStateInventoryRemoveItemAction } from "@core/models/game-state/game-state.action";
+import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
 import { AppState } from "@core/models";
-import { Equipment, Consumable, Item } from "@core/models";
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { InventoryRemoveItemAction } from "@core/models/inventory/inventory.action";
 @Component({
     selector: "app-inventory-slot-item",
     templateUrl: "./inventory-slot-item.component.html",
     styleUrls: ["./inventory-slot-item.component.scss"],
 })
 export class InventorySlotItemComponent implements OnInit {
-    @Input() item: Item;
+    @Input() item: ITemplateBaseItem;
     @Input() index: number;
     style: string;
     descriptionDisplay: string;
@@ -18,10 +18,7 @@ export class InventorySlotItemComponent implements OnInit {
     constructor(private store: Store<AppState>) {}
 
     ngOnInit(): void {
-        this.style = this.item.style;
-    }
-    isEquipment(): boolean {
-        return this.item instanceof Equipment;
+        this.style = this.item.icon;
     }
     onMouseEnter() {
         this.descriptionDisplay = "block";
@@ -42,7 +39,9 @@ export class InventorySlotItemComponent implements OnInit {
     }
 
     throwItem() {
-        this.store.dispatch(new InventoryRemoveItemAction(this.index));
+        this.store.dispatch(
+            new GameStateInventoryRemoveItemAction(this.item.id)
+        );
     }
     equipItem() {
         //this.InventoryService.equip(this.item);

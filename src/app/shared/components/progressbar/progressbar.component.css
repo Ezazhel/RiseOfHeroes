@@ -1,0 +1,12 @@
+.progress {
+    width: 100%;
+    height: 15px;
+    background: grey;
+    box-sizing: border-box;
+}
+
+.filling-bar {
+    max-width: inherit;
+    height: inherit;
+    background-color: green;
+}

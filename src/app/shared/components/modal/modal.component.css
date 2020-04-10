@@ -16,6 +16,10 @@
     left: 30%;
     top: 25%;
 }
+.modal.tools {
+    left: 50%;
+    top: 25%;
+}
 .modal-header {
     background-color: #5b9bd5;
     color: #fff;

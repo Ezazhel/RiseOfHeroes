@@ -1,0 +1,56 @@
+.slots {
+    margin: 5px;
+    padding: 25px;
+    height: 100%;
+    max-width: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    overflow: auto;
+    max-height: 25vh;
+    min-width: 250px;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.filter {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    button {
+        background-color: inherit;
+        float: left;
+        flex: 1;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 8px 10px;
+        transition: 0.3s;
+    }
+    button:hover {
+        background-color: #afc2d4e0;
+    }
+    button.active {
+        background-color: #f0f0f0;
+    }
+    button.active:hover {
+        background-color: #f0f0f086;
+    }
+}

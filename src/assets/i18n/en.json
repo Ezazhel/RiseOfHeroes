@@ -20,9 +20,25 @@
         "talents": "Talents",
         "bag": "Inventory"
     },
+    "hud-tools": {
+        "language": "Language",
+        "tools": "Options",
+        "HARDRESET": "HARD RESET /!\\"
+    },
     "inventoryFilter": {
         "all": "All",
         "armor": "armor",
-        "consumable": "consumable"
+        "weapon": "weapon",
+        "item": "item"
+    },
+    "game": {
+        "InitWelcome": "Welcome Peasant ! (Yeah, you are actually a peasant)",
+        "loadWelcome": "Welcome back !",
+        "InitWelcomeAfterReset": "I hope you are ready this time...!",
+        "alertHARDRESET": "Are you sure you want to hard reset your game ?"
+    },
+    "house": {
+        "yourHouse": "This is your house",
+        "houseInformation": "Feel free to train, go to work or shop."
     }
 }

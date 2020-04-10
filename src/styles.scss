@@ -2,12 +2,16 @@
 html,
 body {
     height: 99%;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     width: 100%;
 }
 body {
     background: #f2f2f2;
     background-repeat: no-repeat;
     background-attachment: fixed;
+}
+
+.text-right {
+    text-align: right;
 }

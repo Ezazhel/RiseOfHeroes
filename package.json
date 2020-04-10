@@ -23,6 +23,9 @@
         "@ngrx/effects": "^9.0.0",
         "@ngrx/store": "^9.0.0",
         "@ngrx/store-devtools": "^9.0.0",
+        "@types/underscore": "^1.9.4",
+        "immutable": "^4.0.0-rc.12",
+        "lodash": "^4.17.15",
         "rxjs": "~6.5.4",
         "tslib": "^1.11.1",
         "zone.js": "~0.10.2"
@@ -34,6 +37,7 @@
         "@angular/compiler-cli": "^9.0.5",
         "@types/jasmine": "~3.3.8",
         "@types/jasminewd2": "~2.0.3",
+        "@types/lodash": "^4.14.149",
         "@types/node": "^12.12.29",
         "codelyzer": "^5.1.2",
         "jasmine-core": "~3.4.0",

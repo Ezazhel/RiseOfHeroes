@@ -20,9 +20,25 @@
         "talents": "Talents",
         "bag": "Inventaire"
     },
+    "hud-tools": {
+        "language": "Langue",
+        "tools": "Options",
+        "HARDRESET": "REMISE A ZERO"
+    },
     "inventoryFilter": {
         "all": "Tout",
-        "armor": "Armure",
-        "consumable": "Consommable"
+        "armor": "Armures",
+        "weapon": "Armes",
+        "item": "Objets"
+    },
+    "game": {
+        "InitWelcome": "Bienvenue péon ! (Oui, actuellement vous êtes un péon)",
+        "loadWelcome": "Bon retour parmis nous !",
+        "InitWelcomeAfterReset": "J'espère que cette fois vous serez prêt...!",
+        "alertHARDRESET": "Certains de repartir de zéro ?"
+    },
+    "house": {
+        "yourHouse": "Voici votre maison",
+        "houseInformation": "N'hésitez pas à vous entrainer, aller travailler ou encore faire des achats en ville"
     }
 }

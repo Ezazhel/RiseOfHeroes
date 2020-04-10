@@ -1,37 +1,32 @@
-import { filter, map } from "rxjs/operators";
-import { InventoryRecords } from "@core/models/inventory/inventory.reducer";
-import { Item, Consumable, Equipment, ItemType } from "@core/models";
-import { Component, OnInit, OnDestroy, Input } from "@angular/core";
+import { ItemFilter } from "@core/models/game-data/game-data.model";
+import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
+import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
+import { inventoryFiltered } from "@core/models/selector";
 
 @Component({
     selector: "app-inventory-slot",
     templateUrl: "./inventory-slot.component.html",
-    styleUrls: ["./inventory-slot.component.css"],
+    styleUrls: ["./inventory-slot.component.scss"],
 })
 export class InventorySlotComponent implements OnInit {
-    public items$: Observable<Item[]> = this.store.pipe(
-        select("inventory"),
-        map((inventoryRecord: InventoryRecords) => {
-            if (inventoryRecord.filtered !== "all") {
-                return inventoryRecord.items.filter((item, i) => {
-                    return item.itemType === inventoryRecord.filtered;
-                });
-            } else {
-                return inventoryRecord.items;
-            }
-        })
-    );
+    private filter: ItemFilter = "all";
 
-    @Input() filterBy: ItemType;
+    public items$: Observable<ITemplateBaseItem[]> = this.store.pipe(
+        select(inventoryFiltered(this.filter))
+    );
 
     constructor(private store: Store<AppState>) {}
 
     ngOnInit(): void {}
 
-    trackBy(index: number, item: Item): Item {
-        return item;
+    trackBy(index: number, item: ITemplateBaseItem): string {
+        return item.id;
+    }
+    filterBy(type: string) {
+        this.filter = type as ItemFilter;
+        this.items$ = this.store.pipe(select(inventoryFiltered(this.filter)));
     }
 }

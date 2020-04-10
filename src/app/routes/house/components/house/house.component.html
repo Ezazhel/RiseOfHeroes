@@ -1,0 +1,11 @@
+<ng-container *transloco="let t; read: 'house'">
+    <div>
+        <h2>{{ t("yourHouse") }}</h2>
+        <p>{{ t("houseInformation") }}</p>
+    </div>
+    <house-action
+        [hero]="_hero$ | async"
+        [currencies]="_currencies$ | async"
+        [_trainingEquipment]="_trainingEquipment$ | async"
+    ></house-action>
+</ng-container>

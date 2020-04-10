@@ -1,7 +1,7 @@
 import { HudComponent } from "./hud/hud.component";
-import { HudPortraitComponent } from "./hud-portrait/hud-portrait.component";
+import { HudToolsComponent } from "./hud-tools/hud-tools.component";
 
-export const components: any[] = [HudComponent, HudPortraitComponent];
+export const components: any[] = [HudComponent, HudToolsComponent];
 
 export * from "./hud/hud.component";
-export * from "./hud-portrait/hud-portrait.component";
+export * from "./hud-tools/hud-tools.component";
