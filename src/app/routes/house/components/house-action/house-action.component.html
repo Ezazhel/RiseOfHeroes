@@ -24,20 +24,24 @@
                     <span>
                         {{ TEqpmt("strength").description }}
                     </span>
-                    <span>
-                        reward : +
-                        {{ TEqpmt("strength").reward }} strength
-                    </span>
                 </ng-container>
                 <ng-container cardFooter>
-                    <span class="text-right training">
-                        Max training {{ TEqpmt("strength").done }}/{{
-                            TEqpmt("strength").bonus
-                        }}
-                    </span>
+                    <div class="training-reward-information">
+                        <span>
+                            reward : +
+                            {{ TEqpmt("strength").reward }} strength
+                        </span>
+                        <span>
+                            Max training {{ TEqpmt("strength").done }}/{{
+                                TEqpmt("strength").bonus
+                            }}
+                        </span>
+                    </div>
                     <app-progressbar
                         time="{{ TEqpmt('strength').speed }}ms"
-                        [animate]="idleState"
+                        [animate]="
+                            training.get('strength') ? 'filling' : 'initial'
+                        "
                     ></app-progressbar>
                 </ng-container>
             </app-card>
@@ -46,7 +50,28 @@
                 (click)="train(hero, 'endurance')"
             >
                 <ng-container cardBody>
-                    <label> Sleep over your sheets </label>
+                    <span>
+                        {{ TEqpmt("endurance").description }}
+                    </span>
+                </ng-container>
+                <ng-container cardFooter>
+                    <div class="training-reward-information">
+                        <span>
+                            reward : +
+                            {{ TEqpmt("endurance").reward }} endurance
+                        </span>
+                        <span>
+                            Max training {{ TEqpmt("endurance").done }}/{{
+                                TEqpmt("endurance").bonus
+                            }}
+                        </span>
+                    </div>
+                    <app-progressbar
+                        time="{{ TEqpmt('endurance').speed }}ms"
+                        [animate]="
+                            training.get('endurance') ? 'filling' : 'initial'
+                        "
+                    ></app-progressbar>
                 </ng-container>
             </app-card>
         </ng-container>

@@ -1,4 +1,7 @@
-import { HouseUpdateTrainingEquipmentDone } from "./../../store/house.action";
+import {
+    HouseUpdateTrainingEquipmentDone,
+    HouseTraining,
+} from "./../../store/house.action";
 import { TrainingEquipment, TrainingType } from "./../../store/house.model";
 import {
     GameStateUpdateHeroAction,
@@ -13,6 +16,7 @@ import { Currency } from "@core/models/game-data/game-data.model";
 import { Map } from "immutable";
 import { map, first } from "rxjs/operators";
 import { _runtimeChecksFactory } from "@ngrx/store/src/runtime_checks";
+import { trainingEquipement } from "../../store/house.selector";
 
 @Component({
     selector: "house-action",
@@ -49,13 +53,18 @@ export class HouseActionComponent implements OnInit, OnDestroy {
     );
 
     public TEqpmt = (type: TrainingType) => this._trainingEquipment.get(type);
-
-    private _isIdling: boolean = false;
+    public training: Map<TrainingType, boolean>;
     train(hero: Hero, stat: TrainingType) {
-        if (this._isIdling) return;
-        this._isIdling = true;
+        let _trainEquipment = this._trainingEquipment.get(stat);
+        if (
+            this.training.get(stat) ||
+            _trainEquipment.done === _trainEquipment.bonus
+        ) {
+            return;
+        }
         clearTimeout(this.idlingTimer);
-        this.idling(hero, stat);
+        this.training = this.training.map((value, key) => false);
+        this.idling(hero, stat, _trainEquipment);
     }
 
     work(): void {
@@ -68,42 +77,53 @@ export class HouseActionComponent implements OnInit, OnDestroy {
         );
     }
 
-    private idling(hero: Hero, idle: TrainingType) {
-        let trainingObject = this._trainingEquipment.get(idle);
-        console.log("First get", trainingObject.done);
+    private idling(
+        hero: Hero,
+        stat: TrainingType,
+        trainingObject: TrainingEquipment
+    ) {
+        let trainEquipment = trainingObject;
+        this.training = this.training.update(stat, () => true);
+
         this.idlingTimer = window.setTimeout(() => {
-            switch (idle) {
+            switch (stat) {
                 case "strength":
                     hero = {
                         ...hero,
-                        attack: hero.attack + trainingObject.reward,
+                        attack: hero.attack + trainEquipment.reward,
                     };
                     break;
                 case "endurance":
                     hero = {
                         ...hero,
-                        defense: hero.defense + trainingObject.reward,
+                        defense: hero.defense + trainEquipment.reward,
                     };
                     break;
             }
-            this.store.dispatch(new GameStateUpdateHeroAction(hero));
-            this.store.dispatch(new HouseUpdateTrainingEquipmentDone(idle));
-            trainingObject = this._trainingEquipment.get(idle);
-            console.log("Second get", this._trainingEquipment.get(idle));
+            console.log(trainEquipment.done);
 
-            if (trainingObject.done === trainingObject.bonus) return;
-            this.train(hero, idle);
-        }, trainingObject.speed);
-        this.idleState = "filling";
+            this.store.dispatch(new GameStateUpdateHeroAction(hero));
+            this.store.dispatch(new HouseUpdateTrainingEquipmentDone(stat));
+            if (trainEquipment.done >= trainEquipment.bonus - 1) {
+                this.training = this.training.update(stat, () => false);
+                return;
+            }
+            this.idling(hero, stat, {
+                ...trainEquipment,
+                done: trainEquipment.done + 1,
+            });
+            console.log("Filling");
+        }, trainEquipment.speed);
         setTimeout(() => {
-            this.idleState = "initial";
-            this._isIdling = false;
-        }, trainingObject.speed - 1);
+            this.training = this.training.update(stat, () => false);
+        }, trainEquipment.speed - 1);
     }
 
     constructor(private store: Store<AppState>) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.training = this._trainingEquipment?.map((value, key) => false);
+    }
 
     ngOnDestroy(): void {
         clearTimeout(this.idlingTimer);

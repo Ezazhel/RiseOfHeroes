@@ -7,5 +7,5 @@ export interface TrainingEquipment {
     speed: number;
     reward: number; //Number of stat gain each cycle
     description: string;
-    done?: number;
+    done: number;
 }

@@ -29,6 +29,8 @@ button {
         background-color: hsla(51, 76%, 65%, 1);
     }
 }
-.training {
+.training-reward-information {
+    display: flex;
+    justify-content: space-evenly;
     font-size: x-small;
 }

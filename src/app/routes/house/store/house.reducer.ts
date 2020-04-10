@@ -12,7 +12,7 @@ const initialState: HouseState = {
                 name: "Push-Up ! ",
                 description: "Do some push-up in order to build muscle",
                 bonus: 0,
-                speed: 1 * 1000,
+                speed: 10 * 1000,
                 reward: 1,
                 done: 0,
             },
@@ -24,7 +24,7 @@ const initialState: HouseState = {
                 name: "Cold shower ",
                 description: "Take cold shower, save penguins !",
                 bonus: 0,
-                speed: 2 * 1000,
+                speed: 10 * 1000,
                 reward: 1,
                 done: 0,
             },
@@ -68,6 +68,14 @@ export function houseReducer(
                 trainingEquipment: state.trainingEquipment.updateIn(
                     [action.payload, "done"],
                     (value: number) => (value = value + 1)
+                ),
+            };
+        case HouseAction.HOUSE_TRAINING:
+            return {
+                ...state,
+                trainingEquipment: state.trainingEquipment.updateIn(
+                    [action.payload, "isTraining"],
+                    (value: boolean) => !value
                 ),
             };
         default:
