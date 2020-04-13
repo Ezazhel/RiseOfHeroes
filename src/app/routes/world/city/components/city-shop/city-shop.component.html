@@ -1,0 +1,13 @@
+<ul>
+    <li *ngFor="let item of shop.items; trackBy: trackBy">
+        <span class="item-name">
+            {{ item[1].name }}
+        </span>
+        <div class="action">
+            <span class="item-value"> {{ item[1].value }}g </span>
+            <button *ngIf="item[1].value <= 150" (click)="buyItem(item[1])">
+                Buy
+            </button>
+        </div>
+    </li>
+</ul>

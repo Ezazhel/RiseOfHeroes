@@ -12,7 +12,14 @@
         >
             Work
         </button>
-        <button *ngIf="_showTravel$ | async">Travel</button>
+        <button *ngIf="_showTravel$ | async">
+            <a
+                [routerLink]="['/world/city']"
+                routerLinkActive="router-link-active"
+            >
+                Travel
+            </a>
+        </button>
     </div>
     <div class="tab-container">
         <ng-container *ngIf="dTab === 'training'">

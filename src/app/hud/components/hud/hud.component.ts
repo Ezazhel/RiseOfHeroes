@@ -12,7 +12,7 @@ import { totalInventory } from "@core/models/selector";
 @Component({
     selector: "app-hud",
     templateUrl: "./hud.component.html",
-    styleUrls: ["./hud.component.css"],
+    styleUrls: ["./hud.component.scss"],
 })
 export class HudComponent implements OnInit {
     showInventory: boolean;

@@ -9,7 +9,7 @@ import {
 @Component({
     selector: "app-progressbar",
     templateUrl: "./progressbar.component.html",
-    styleUrls: ["./progressbar.component.css"],
+    styleUrls: ["./progressbar.component.scss"],
     animations: [
         trigger("fill", [
             state("initial", style({ width: "0%" })),

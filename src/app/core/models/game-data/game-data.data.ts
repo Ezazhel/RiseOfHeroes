@@ -1,34 +1,88 @@
-import { Item, Consumable, Equipment } from "@core/models";
-export const items: Consumable[] = [
+import { Map } from "immutable";
+import {
+    ITemplateItem,
+    ITemplateWeapon,
+    ITemplateArmor,
+    City,
+} from "./game-data.model";
+export const items: ITemplateItem[] = [
     {
         id: "HealthPotion",
         name: "Health Potion",
-        itemType: "consumable",
-        use: null,
-        getInformation: null,
-        quantity: 1,
+        type: "item",
+        value: 0,
+        level: 0,
         icon: "potionRed",
     },
     {
         id: "ManaPotion",
         name: "Mana Potion",
-        itemType: "consumable",
-        use: null,
-        getInformation: null,
-        quantity: 1,
+        type: "item",
+        level: 0,
+        value: 0,
         icon: "potionRed",
     },
 ];
-export const armor: Equipment[] = [
+export const armor: ITemplateArmor[] = [
     {
         id: "Armor",
         name: "Armor",
-        itemType: "equipment",
-        use: null,
-        getInformation: null,
+        type: "armor",
         icon: "armor",
-        rarity: null,
-        isDowngrade: null,
-        isUpgrade: null,
+        value: 100,
+        level: 0,
+        subType: "chest",
+        defense: 10,
     },
 ];
+
+export const cities: Map<string, City> = Map<string, City>([
+    [
+        "zulah",
+        {
+            id: "zulah",
+            name: "Zul'ah",
+            levelRequirement: 1,
+        },
+    ],
+    [
+        "heapoo",
+        {
+            id: "heapoo",
+            name: "Heapoo",
+            levelRequirement: 5,
+        },
+    ],
+    [
+        "krakotoa",
+        {
+            id: "krakotoa",
+            name: "Krakotoa",
+            levelRequirement: 10,
+        },
+    ],
+    [
+        "baalrug",
+        {
+            id: "baalrug",
+            name: "baalrug",
+            levelRequirement: 15,
+        },
+    ],
+    [
+        "cresolia",
+        {
+            id: "cresolia",
+            name: "Crésolia",
+            levelRequirement: 26,
+        },
+    ],
+    [
+        "onigashi",
+        {
+            id: "onigashi",
+            name: "Onigashi",
+            levelRequirement: 35,
+        },
+    ],
+]);

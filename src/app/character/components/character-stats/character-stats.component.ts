@@ -8,7 +8,7 @@ import { heroSelector } from "@core/models/selector";
 @Component({
     selector: "app-character-stats",
     templateUrl: "./character-stats.component.html",
-    styleUrls: ["./character-stats.component.css"],
+    styleUrls: ["./character-stats.component.scss"],
 })
 export class CharacterStatsComponent implements OnInit {
     public _hero$: Observable<Hero> = this.store.pipe(select(heroSelector));

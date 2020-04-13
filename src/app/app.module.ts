@@ -13,7 +13,6 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { CombatModule } from "app/routes/combat/combat.module";
 // factory meta-reducer configuration function
 @NgModule({
     declarations: [AppComponent],
@@ -26,7 +25,6 @@ import { CombatModule } from "app/routes/combat/combat.module";
         HudModule,
         DragDropModule,
         MessageModule,
-        CombatModule,
         HouseModule,
         StoreModule.forRoot(reducers),
         EffectsModule.forRoot([]),

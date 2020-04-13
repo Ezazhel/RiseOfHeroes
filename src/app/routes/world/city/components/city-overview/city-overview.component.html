@@ -1,0 +1,12 @@
+<div *ngFor="let shop of shops">
+    <button (click)="shop.display = !shop.display">
+        {{ shop.name }}
+    </button>
+    <app-modal
+        [header]="shop.name"
+        (close)="shop.display = !shop.display"
+        [style.display]="shop.display ? 'block' : 'none'"
+    >
+        <app-city-shop [shop]="shop"></app-city-shop>
+    </app-modal>
+</div>

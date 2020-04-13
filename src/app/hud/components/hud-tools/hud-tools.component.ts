@@ -6,7 +6,7 @@ import { GameService } from "@core/services";
 @Component({
     selector: "app-hud-tools",
     templateUrl: "./hud-tools.component.html",
-    styleUrls: ["./hud-tools.component.css"],
+    styleUrls: ["./hud-tools.component.scss"],
 })
 export class HudToolsComponent implements OnInit {
     @Output() closing = new EventEmitter<void>();
@@ -17,12 +17,9 @@ export class HudToolsComponent implements OnInit {
         private messageService: MessageService
     ) {}
 
-    ngOnInit(): void {
-        console.log(this.transloco.getActiveLang());
-    }
+    ngOnInit(): void {}
     public setActiveLang(lang: string) {
         this.transloco.setActiveLang(lang);
-        console.log(this.transloco.getActiveLang());
     }
 
     public reset() {

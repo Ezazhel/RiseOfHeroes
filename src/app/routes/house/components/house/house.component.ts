@@ -17,7 +17,7 @@ import { take, tap, first } from "rxjs/operators";
 @Component({
     selector: "app-house",
     templateUrl: "./house.component.html",
-    styleUrls: ["./house.component.css"],
+    styleUrls: ["./house.component.scss"],
 })
 export class HouseComponent implements OnInit, OnDestroy {
     private heroSubscription: Subscription;
