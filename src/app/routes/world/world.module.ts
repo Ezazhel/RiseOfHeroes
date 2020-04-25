@@ -1,4 +1,3 @@
-import { CityModule } from "./city/city.module";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "./../../shared/shared.module";
 import { NgModule } from "@angular/core";

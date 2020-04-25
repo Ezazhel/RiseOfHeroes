@@ -34,6 +34,7 @@ export class GameService {
             defense: 5,
             value: 50,
             level: 1,
+            style: "rare",
         };
         this.store.dispatch(
             new gameStateAction.GameStateInventoryAddItemAction(item)
@@ -49,6 +50,7 @@ export class GameService {
             value: 50,
             type: "item",
             level: 0,
+            style: "common",
         };
         this.store.dispatch(
             new gameStateAction.GameStateInventoryAddItemAction(consumable)

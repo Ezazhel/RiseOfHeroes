@@ -13,6 +13,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { StoreRouterConnectingModule } from "@ngrx/router-store";
 // factory meta-reducer configuration function
 @NgModule({
     declarations: [AppComponent],
@@ -27,6 +28,9 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
         MessageModule,
         HouseModule,
         StoreModule.forRoot(reducers),
+        StoreRouterConnectingModule.forRoot({
+            stateKey: "router",
+        }),
         EffectsModule.forRoot([]),
         StoreDevtoolsModule.instrument({ name: "idle" }),
     ],

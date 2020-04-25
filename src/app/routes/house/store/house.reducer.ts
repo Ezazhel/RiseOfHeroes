@@ -12,6 +12,7 @@ const initialState: HouseState = {
                 name: "Push-Up ! ",
                 description: "Do some push-up in order to build muscle",
                 bonus: 0,
+                baseBonus: 0,
                 speed: 10 * 1000,
                 reward: 1,
                 done: 0,
@@ -21,9 +22,10 @@ const initialState: HouseState = {
             "endurance",
             {
                 id: "endurance",
-                name: "Cold shower ",
+                name: "Cold shower",
                 description: "Take cold shower, save penguins !",
                 bonus: 0,
+                baseBonus: 0,
                 speed: 10 * 1000,
                 reward: 1,
                 done: 0,
@@ -46,7 +48,7 @@ export function houseReducer(
                 (value, key) => {
                     return {
                         ...value,
-                        bonus: value.bonus + 5 * action.payload,
+                        bonus: value.baseBonus + 5 * action.payload,
                     };
                 }
             );

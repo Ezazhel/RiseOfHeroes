@@ -3,6 +3,8 @@ import { EntityType } from "../entity";
 
 export type ItemCategories = "item" | "weapon" | "armor";
 
+export type ItemSellableType = "equipment" | "consumable";
+
 export type ItemFilter = "all" | "item" | "weapon" | "armor";
 
 export type ItemGroups = "default" | "rare" | "magic";
@@ -32,6 +34,8 @@ export interface ITemplateBaseItem extends ITemplateId {
      * Note that the icon must exist in the game's sprites collection to be valid.
      */
     readonly icon: string;
+
+    readonly style: string;
     /**
      * The value of the object. This is used for buying/selling.
      */

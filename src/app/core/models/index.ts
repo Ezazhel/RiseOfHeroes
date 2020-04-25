@@ -1,8 +1,10 @@
 import { ActionReducerMap, ActionReducer, Action } from "@ngrx/store";
+import { routerReducer, RouterReducerState } from "@ngrx/router-store";
 import * as fromGameState from "./game-state/game-state.reducer";
 
 export interface AppState {
     gameState: fromGameState.GameState;
+    router: RouterReducerState;
 }
 
 export function metaReducer(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -14,6 +16,7 @@ export function metaReducer(reducer: ActionReducer<any>): ActionReducer<any> {
 
 export const reducers: ActionReducerMap<AppState> = {
     gameState: fromGameState.gameRecuder,
+    router: routerReducer,
 };
 
 export * from "./message";

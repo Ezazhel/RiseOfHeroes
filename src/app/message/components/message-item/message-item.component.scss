@@ -1,7 +1,6 @@
 li.text-container {
     list-style: none;
     margin: 5px;
-    height: 44px;
 }
 li.text-container.combat {
     color: red;
@@ -16,5 +15,5 @@ li.text-container.general {
 }
 .text {
     display: block;
-    font-size: medium;
+    font-size: smaller;
 }

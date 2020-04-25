@@ -16,35 +16,109 @@
     bottom: 15px;
 }
 
-.dock {
+.menu-action {
+    //https://codepen.io/erikterwan/pen/EVzeRP
     position: absolute;
-    top: 50%;
+    bottom: 5vh;
     text-align: center;
     display: flex;
-    justify-content: center;
-    right: 0;
-}
-.dock ul {
-    display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    position: relative;
-    margin: 0;
-    padding: 0;
+    right: 25px;
+    input {
+        display: block;
+        width: 40px;
+        height: 32px;
+        position: absolute;
+        top: -7px;
+        left: -5px;
+        cursor: pointer;
+        opacity: 0; /* hide this */
+        z-index: 2; /* and place it over the hamburger */
+
+        -webkit-touch-callout: none;
+    }
+    span.burger {
+        display: block;
+        width: 33px;
+        height: 4px;
+        margin-bottom: 5px;
+        position: relative;
+
+        background: #cdcdcd;
+        border-radius: 3px;
+
+        z-index: 1;
+
+        transform-origin: 4px 0px;
+
+        transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1),
+            background 0.4s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+    }
+    span.burger:first-child {
+        transform-origin: 0% 0%;
+    }
+    span.burger:nth-last-child(2) {
+        transform-origin: 0% 100%;
+    }
+    /* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+    input:checked ~ span.burger {
+        opacity: 1;
+        transform: rotate(45deg) translate(-2px, -11px);
+        background: #232323;
+    }
+    /*
+ * But let's hide the middle one.
+ */
+    input:checked ~ span.burger:nth-last-child(3) {
+        opacity: 0;
+        transform: rotate(0deg) scale(0.2, 0.2);
+    }
+    /*
+ * Ohyeah and the last one should go the other direction
+ */
+    input:checked ~ span.burger:nth-last-child(2) {
+        transform: rotate(-45deg) translate(11px, -1px);
+    }
+    input:checked ~ div.dock {
+        animation: slideup;
+        animation-duration: 0.4s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-out;
+        display: flex;
+    }
 }
-.dock ul li {
-    list-style-type: none;
-    display: inline-block;
-    padding: 0 10px;
-    position: relative;
-    transition: all 0.3s linear;
-    background: transparent;
-    cursor: pointer;
-}
-.sprite:hover {
-    box-shadow: 1px 1px black, -1px -1px black;
-    transform: scale(1.2);
+
+.dock {
+    position: absolute;
+    bottom: 0px;
+    right: -25px;
+    text-align: center;
+    display: none;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        li {
+            list-style-type: none;
+            display: inline-block;
+            padding: 0 10px;
+            position: relative;
+            transition: all 0.3s linear;
+            background: transparent;
+            cursor: pointer;
+        }
+    }
 }
 
 /* SPIRITE*/
@@ -52,39 +126,51 @@
     background-image: url(~/assets/dock.png);
     background-repeat: no-repeat;
     display: block;
+    &:hover {
+        box-shadow: 0px 0px 1px 1px lightgray;
+        transform: scale(1.2);
+    }
+    &.sprite-backpack {
+        width: 64px;
+        height: 64px;
+        background-position: -5px -5px;
+    }
+
+    &.sprite-envelope {
+        width: 64px;
+        height: 64px;
+        background-position: -79px -5px;
+    }
+
+    &.sprite-map {
+        width: 64px;
+        height: 64px;
+        background-position: -5px -79px;
+    }
+
+    &.sprite-scroll {
+        width: 64px;
+        height: 64px;
+        background-position: -79px -79px;
+    }
+
+    &.sprite-tome {
+        width: 64px;
+        height: 64px;
+        background-position: -153px -5px;
+    }
+    &.sprite-tools {
+        width: 64px;
+        height: 64px;
+        background-position: -153px -79px;
+    }
 }
 
-.sprite-backpack {
-    width: 64px;
-    height: 64px;
-    background-position: -5px -5px;
-}
-
-.sprite-envelope {
-    width: 64px;
-    height: 64px;
-    background-position: -79px -5px;
-}
-
-.sprite-map {
-    width: 64px;
-    height: 64px;
-    background-position: -5px -79px;
-}
-
-.sprite-scroll {
-    width: 64px;
-    height: 64px;
-    background-position: -79px -79px;
-}
-
-.sprite-tome {
-    width: 64px;
-    height: 64px;
-    background-position: -153px -5px;
-}
-.sprite-tools {
-    width: 64px;
-    height: 64px;
-    background-position: -153px -79px;
+@keyframes slideup {
+    0% {
+        bottom: 0px;
+    }
+    100% {
+        bottom: 48px;
+    }
 }

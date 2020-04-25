@@ -1,15 +1,22 @@
 import {
     ITemplateItem,
     City,
-} from "./../../../../../core/models/game-data/game-data.model";
+    ITemplateWeapon,
+    ITemplateArmor,
+    ItemSellableType,
+} from "@core/models/game-data/game-data.model";
 import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
 import { Map } from "immutable";
 import { Component, OnInit } from "@angular/core";
 
 export interface Shop {
+    type: string;
     name: string;
     items: Map<string, ITemplateBaseItem>;
     display: boolean;
+    crafts?: any[];
+    upgrades?: any[];
+    acceptType: ItemSellableType;
 }
 
 @Component({
@@ -25,17 +32,21 @@ export class CityComponent implements OnInit {
     };
     shops: Shop[] = [
         {
+            type: "blacksmith",
             name: "Blacksmith",
-            items: Map<string, ITemplateBaseItem>([
+            items: Map<string, ITemplateWeapon | ITemplateArmor>([
                 [
                     "armor1",
                     {
                         id: "armor1",
                         name: "Armor",
-                        value: 250,
+                        value: 2,
                         level: 1,
-                        icon: "",
+                        icon: "armor",
                         type: "armor",
+                        subType: "chest",
+                        defense: 5,
+                        style: "rare",
                     },
                 ],
                 [
@@ -43,18 +54,24 @@ export class CityComponent implements OnInit {
                     {
                         id: "armor2",
                         name: "Gauntlet",
-                        value: 150,
+                        value: 1,
                         level: 1,
-                        icon: "",
-                        type: "item",
+                        icon: "armor",
+                        type: "armor",
+                        subType: "chest",
+                        defense: 5,
+                        style: "common",
                     },
                 ],
             ]),
+            crafts: [],
             display: false,
+            acceptType: "equipment",
         },
         {
+            type: "alchemist",
             name: "Alchemist",
-            items: Map<string, ITemplateBaseItem>([
+            items: Map<string, ITemplateItem>([
                 [
                     "item1",
                     {
@@ -62,8 +79,9 @@ export class CityComponent implements OnInit {
                         name: "Health Potion",
                         value: 150,
                         level: 0,
-                        icon: "",
+                        icon: "potionRed",
                         type: "item",
+                        style: "",
                     },
                 ],
                 [
@@ -73,12 +91,15 @@ export class CityComponent implements OnInit {
                         name: "Mana Potion",
                         value: 150,
                         level: 0,
-                        icon: "",
+                        icon: "potionBlue",
                         type: "item",
+                        style: "",
                     },
                 ],
             ]),
+            upgrades: [],
             display: false,
+            acceptType: "consumable",
         },
     ];
 

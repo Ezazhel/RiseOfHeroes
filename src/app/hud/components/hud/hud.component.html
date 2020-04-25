@@ -9,30 +9,36 @@
     ></app-character>
     <app-hud-tools (closing)="showOptions = !showOptions" *ngIf="showOptions">
     </app-hud-tools>
-    <div class="dock">
-        <ul>
-            <li>
-                <i
-                    class="sprite sprite-backpack"
-                    (click)="showInventory = !showInventory"
-                ></i>
-                <span class="nbSlot">{{ totalInventory$ | async }}</span>
-            </li>
-            <li>
-                <i
-                    class="sprite sprite-scroll"
-                    (click)="showStat = !showStat"
-                ></i>
-            </li>
-            <li>
-                <i class="sprite sprite-tome"></i>
-            </li>
-            <li>
-                <i
-                    class="sprite sprite-tools"
-                    (click)="showOptions = !showOptions"
-                ></i>
-            </li>
-        </ul>
-    </div>
+    <nav class="menu-action">
+        <input type="checkbox" checked />
+        <span class="burger"></span>
+        <span class="burger"></span>
+        <span class="burger"></span>
+        <div class="dock">
+            <ul>
+                <li>
+                    <i
+                        class="sprite sprite-backpack"
+                        (click)="showInventory = !showInventory"
+                    ></i>
+                    <span class="nbSlot">{{ totalInventory$ | async }}</span>
+                </li>
+                <li>
+                    <i
+                        class="sprite sprite-scroll"
+                        (click)="showStat = !showStat"
+                    ></i>
+                </li>
+                <li>
+                    <i class="sprite sprite-tome"></i>
+                </li>
+                <li>
+                    <i
+                        class="sprite sprite-tools"
+                        (click)="showOptions = !showOptions"
+                    ></i>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </ng-container>

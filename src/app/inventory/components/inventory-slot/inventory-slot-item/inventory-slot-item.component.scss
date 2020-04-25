@@ -1,13 +1,19 @@
 @import "sprite-item.scss";
 .slot-item {
-    width: 50px;
+    width: 48px;
     margin: 4px;
-    height: 50px;
-    background: hsla(180, 3%, 59%);
+    height: 48px;
     user-select: none;
+    box-shadow: 0px 0px 3px 1.5px grey;
     position: relative;
     &.slot-item:not(.empty) {
         cursor: pointer;
+    }
+    &.rare {
+        box-shadow: 0px 0px 3px 0.6px blue;
+    }
+    &.common {
+        box-shadow: 0px 0px 3px 0.6px lightgreen;
     }
 }
 
@@ -89,7 +95,8 @@ button:active {
     box-shadow: 0 1px #666;
     transform: translateY(1px);
 }
-.throw {
+.throw,
+.sell {
     position: absolute;
     top: 0;
     right: 0;
@@ -100,11 +107,16 @@ button:active {
         background-color: hsla(356, 100%, 41%, 0.9);
     }
     &:after {
-        content: "x";
         position: absolute;
         top: 0;
         font-size: x-small;
         right: 3px;
+    }
+    &.throw:after {
+        content: "x";
+    }
+    &.sell:after {
+        content: "$";
     }
 }
 

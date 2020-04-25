@@ -16,5 +16,7 @@ export class CombatComponent implements OnInit {
 
     constructor(private store: Store<AppState>) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        console.log("test");
+    }
 }

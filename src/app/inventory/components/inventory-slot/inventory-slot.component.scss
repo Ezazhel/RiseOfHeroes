@@ -1,7 +1,6 @@
 .slots {
     margin: 5px;
-    padding: 25px;
-    height: 100%;
+    padding: 5px;
     max-width: 250px;
     display: flex;
     flex-wrap: wrap;
@@ -9,6 +8,7 @@
     overflow: auto;
     max-height: 25vh;
     min-width: 250px;
+    box-sizing: border-box;
 }
 /* width */
 ::-webkit-scrollbar {
@@ -52,5 +52,16 @@
     }
     button.active:hover {
         background-color: #f0f0f086;
+    }
+}
+.description {
+    background: hsl(228, 60%, 8%);
+    border: 2px solid white;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    .stat {
+        margin-top: 5px;
+        font-size: smaller;
     }
 }

@@ -1,7 +1,7 @@
 import { GameStateInventoryRemoveItemAction } from "@core/models/game-state/game-state.action";
 import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
 import { AppState } from "@core/models";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Store } from "@ngrx/store";
 @Component({
     selector: "app-inventory-slot-item",
@@ -11,6 +11,10 @@ import { Store } from "@ngrx/store";
 export class InventorySlotItemComponent implements OnInit {
     @Input() item: ITemplateBaseItem;
     @Input() index: number;
+    @Input() selling: boolean;
+    @Output() itemHover = new EventEmitter<ITemplateBaseItem>();
+    @Output() sellThrow = new EventEmitter<ITemplateBaseItem>();
+
     style: string;
     descriptionDisplay: string;
     delayedAction: number;
@@ -21,27 +25,14 @@ export class InventorySlotItemComponent implements OnInit {
         this.style = this.item.icon;
     }
     onMouseEnter() {
-        this.descriptionDisplay = "block";
+        this.itemHover.emit(this.item);
     }
     onMouseLeave() {
-        this.descriptionDisplay = "none";
-        this.hideAction();
-    }
-    displayAction() {
-        if (this.delayedAction !== undefined) clearTimeout(this.delayedAction);
-        this.actionDisplay = "flex";
-    }
-    hideAction() {
-        this.delayedAction = window.setTimeout(
-            () => (this.actionDisplay = "none"),
-            100
-        );
+        this.itemHover.emit(null);
     }
 
-    throwItem() {
-        this.store.dispatch(
-            new GameStateInventoryRemoveItemAction(this.item.id)
-        );
+    sellOrThrow() {
+        this.sellThrow.emit(this.item);
     }
     equipItem() {
         //this.InventoryService.equip(this.item);

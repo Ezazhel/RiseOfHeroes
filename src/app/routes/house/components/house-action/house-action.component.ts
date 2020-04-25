@@ -25,7 +25,6 @@ import { trainingEquipement } from "../../store/house.selector";
 })
 export class HouseActionComponent implements OnInit, OnDestroy {
     public dTab: string = "training";
-    public idleState: string = "initial";
     idlingTimer: number; //Timer general allowing only one training.
 
     private _hero$: Subject<Hero> = new BehaviorSubject<Hero>(null);
@@ -53,7 +52,16 @@ export class HouseActionComponent implements OnInit, OnDestroy {
     );
 
     public TEqpmt = (type: TrainingType) => this._trainingEquipment.get(type);
+    public displayStat(hero: Hero, stat: TrainingType) {
+        switch (stat) {
+            case "strength":
+                return hero.attack;
+            case "endurance":
+                return hero.defense;
+        }
+    }
     public training: Map<TrainingType, boolean>;
+
     train(hero: Hero, stat: TrainingType) {
         let _trainEquipment = this._trainingEquipment.get(stat);
         if (
@@ -69,6 +77,7 @@ export class HouseActionComponent implements OnInit, OnDestroy {
 
     work(): void {
         clearTimeout(this.idlingTimer);
+        this.training = this.training.map((value, key) => false);
         this.store.dispatch(
             new GameStateCurrenciesAddCurrencyAction({
                 name: "gold",
@@ -119,6 +128,12 @@ export class HouseActionComponent implements OnInit, OnDestroy {
         }, trainEquipment.speed - 1);
     }
 
+    public trackByFn(
+        index: number,
+        el: Map<TrainingType, TrainingEquipment>
+    ): TrainingType {
+        return el[index];
+    }
     constructor(private store: Store<AppState>) {}
 
     ngOnInit(): void {

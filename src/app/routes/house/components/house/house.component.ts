@@ -30,25 +30,9 @@ export class HouseComponent implements OnInit, OnDestroy {
         Map<TrainingType, TrainingEquipment>
     >;
 
-    constructor(
-        public gameService: GameService,
-        public messageService: MessageService,
-        public translate: TranslocoService,
-        private store: Store<AppState>
-    ) {}
+    constructor(private store: Store<AppState>) {}
 
     ngOnInit(): void {
-        this.gameService.initGame().then((newGame: boolean) => {
-            if (newGame) {
-                this.messageService.addGeneralMessage(
-                    this.translate.selectTranslate("game.InitWelcome")
-                );
-            } else {
-                this.messageService.addGeneralMessage(
-                    this.translate.selectTranslate("game.loadWelcome")
-                );
-            }
-        });
         this.heroSubscription = this._hero$
             .pipe(take(1))
             .subscribe((hero: Hero) =>

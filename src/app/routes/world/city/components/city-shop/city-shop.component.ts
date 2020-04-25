@@ -9,14 +9,13 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class CityShopComponent implements OnInit {
     @Input() shop: Shop;
+    displayedContent: string = "shop";
 
-    public buyItem(item: ITemplateBaseItem): void {
-        this.shop.items = this.shop.items.remove(item.id);
+    displayContent(content: string) {
+        console.log(content);
+        this.displayedContent = content;
     }
 
-    trackBy(index: number, item: ITemplateBaseItem): string {
-        return item.id;
-    }
     constructor() {}
 
     ngOnInit(): void {}

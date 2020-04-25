@@ -7,7 +7,12 @@ import { Shop } from "../city/city.component";
     styleUrls: ["./city-overview.component.scss"],
 })
 export class CityOverviewComponent implements OnInit {
-    @Input() shops: Shop;
+    @Input() shops: Shop[];
+    _shop: Shop;
+    setShop(shop) {
+        this._shop = shop;
+    }
+
     constructor() {}
 
     ngOnInit(): void {}
