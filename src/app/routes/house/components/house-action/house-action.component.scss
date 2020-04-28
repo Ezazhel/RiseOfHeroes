@@ -1,0 +1,36 @@
+button {
+    user-select: none; /* standard syntax */
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+    outline: none;
+    font-size: medium;
+    border: none;
+    color: white;
+    background-color: hsla(180, 8%, 69%, 1);
+    cursor: pointer;
+    width: 120px;
+    height: 30px;
+    font-size: small;
+    :active {
+        box-shadow: 0 1px #666;
+    }
+    &.active {
+        background-color: hsla(180, 8%, 29%, 1);
+    }
+    &.strength {
+        background-color: hsla(356, 100%, 41%, 0.6);
+    }
+    &.defense {
+        background-color: hsla(125, 100%, 41%, 0.6);
+    }
+    &.gold {
+        background-color: hsla(51, 76%, 65%, 1);
+    }
+}
+.training-reward-information {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: x-small;
+}

@@ -1,0 +1,22 @@
+:host {
+    display: inline-block;
+    margin: 5px;
+    min-width: 10vw;
+}
+ul {
+    list-style: none;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+li {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.stat-label {
+}
+.stat-value {
+}

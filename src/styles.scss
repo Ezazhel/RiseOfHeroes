@@ -1,27 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
-
+html,
+body {
+    height: 99%;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
 body {
     background: #f2f2f2;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
-.myProgress {
-    display: flex;
-    position: relative;
-    width: 100%;
-    background-color: grey;
-    height: 3vh;
-    font-size: small;
+.text-right {
+    text-align: right;
 }
-.myProgress span {
-    position: absolute;
-    top: 50%; /* position the top  edge of the element at the middle of the parent */
-    left: 50%; /* position the left edge of the element at the middle of the parent */
-
-    transform: translate(
-        -50%,
-        -50%
-    ); /* This is a shorthand of
-                                         translateX(-50%) and translateY(-50%) */
+.text-left {
+    text-align: left;
 }

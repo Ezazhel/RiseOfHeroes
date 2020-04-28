@@ -1,0 +1,37 @@
+button {
+    border: none;
+    border-radius: 10px;
+    background: hsla(184, 9%, 62%, 1);
+    outline: none;
+    margin: 5px;
+    cursor: pointer;
+    height: 25px;
+    transition: 0.3s;
+    font-size: small;
+
+    &:hover {
+        background-color: #afc2d4e0;
+    }
+    &.active {
+        background-color: #f0f0f0;
+
+        &:hover {
+            background-color: #f0f0f086;
+        }
+    }
+    &.danger {
+        background-color: red;
+    }
+}
+.flex-row {
+    display: flex;
+    align-items: center;
+}
+.flex {
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    min-height: inherit;
+    flex-direction: column;
+    justify-content: space-between;
+}

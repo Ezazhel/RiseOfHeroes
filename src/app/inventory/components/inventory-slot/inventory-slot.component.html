@@ -1,0 +1,46 @@
+<ng-container *transloco="let t; read: 'inventoryFilter'">
+    <div class="filter">
+        <button (click)="filterBy('all')">{{ t("all") }}</button>
+        <button (click)="filterBy('weapon')">{{ t("weapon") }}</button>
+        <button (click)="filterBy('armor')">{{ t("armor") }}</button>
+        <button (click)="filterBy('item')">{{ t("item") }}</button>
+    </div>
+</ng-container>
+<div fxLayout="row nowrap" fxLayoutAlign="end center">
+    <label> {{ (_currencies$ | async)?.get("gold").quantity }}g </label>
+</div>
+
+<div class="slots">
+    <app-inventory-slot-item
+        (sellThrow)="sellOrThrowItem(item)"
+        (itemHover)="setItem($event)"
+        *ngFor="let item of items$ | async; let index = index; trackBy: trackBy"
+        [index]="index"
+        [selling]="selling"
+        [item]="item"
+    ></app-inventory-slot-item>
+</div>
+
+<div *ngIf="item" class="description" fxLayout="column nowrap">
+    {{ item.name }}
+    <div class="stat" fxLayout="column nowrap">
+        <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+            <label>
+                Category
+            </label>
+            <label>
+                Type
+            </label>
+        </div>
+        <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+            <label>
+                Attack
+            </label>
+            <label>
+                Speed
+            </label>
+        </div>
+        <label> Primary Stat</label>
+        <label> Secondary Stat</label>
+    </div>
+</div>

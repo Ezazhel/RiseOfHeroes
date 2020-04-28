@@ -1,0 +1,10 @@
+<div *ngIf="shop" class="shop-ui">
+    <app-city-shop-tab
+        [shop]="shop"
+        (selectedTab)="displayContent($event)"
+    ></app-city-shop-tab>
+    <app-city-shop-content
+        [displayedContent]="displayedContent"
+        [shop]="shop"
+    ></app-city-shop-content>
+</div>

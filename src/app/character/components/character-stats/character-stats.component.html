@@ -1,0 +1,27 @@
+<ng-container *ngIf="_hero$ | async as hero">
+    <ul>
+        <li>
+            <span class="stat-label">PV :</span>
+            <span class="stat-value">{{ hero.maxhp }}</span>
+        </li>
+
+        <li>
+            <span class="stat-label">Mana :</span>
+            <span class="stat-value"> 0</span>
+        </li>
+
+        <li>
+            <span class="stat-label">Expérience :</span>
+            <span class="stat-value"> 0</span>
+        </li>
+
+        <li>
+            <span class="stat-label"> Attaque : </span>
+            <span class="stat-value"> {{ hero.attack }}</span>
+        </li>
+        <li>
+            <span class="stat-label"> Defense :</span>
+            <span class="stat-value"> {{ hero.defense }}</span>
+        </li>
+    </ul>
+</ng-container>

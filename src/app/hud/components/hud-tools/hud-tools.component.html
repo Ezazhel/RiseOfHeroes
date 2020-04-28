@@ -1,0 +1,19 @@
+<ng-container *transloco="let t; read: 'hud-tools'">
+    <app-modal [cclass]="'tools'" (close)="onClose()" [header]="t('tools')">
+        <div class="flex">
+            <div class="flex-row">
+                <label>
+                    {{ t("language") }}
+                </label>
+                <button (click)="setActiveLang('en')">EN</button>
+                <button (click)="setActiveLang('fr')">FR</button>
+            </div>
+            <div class="flex-row">
+                <label> </label>
+                <button class="danger" (click)="reset()">
+                    {{ t("HARDRESET") }}
+                </button>
+            </div>
+        </div>
+    </app-modal>
+</ng-container>

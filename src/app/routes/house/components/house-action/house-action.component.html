@@ -1,0 +1,66 @@
+<ng-container *ngIf="hero$ | async as hero">
+    <div class="tab">
+        <button
+            (click)="dTab = 'training'"
+            [ngClass]="dTab === 'training' ? 'active' : ''"
+        >
+            Training
+        </button>
+        <button
+            (click)="dTab = 'work'"
+            [ngClass]="dTab === 'work' ? 'active' : ''"
+        >
+            Work
+        </button>
+        <button *ngIf="_showTravel$ | async">
+            <a
+                [routerLink]="['/world/city']"
+                routerLinkActive="router-link-active"
+            >
+                Travel
+            </a>
+        </button>
+    </div>
+    <div class="tab-container">
+        <div [style.display]="dTab === 'training' ? 'block' : 'none'">
+            <app-card
+                *ngFor="let t of _trainingEquipment; trackBy: trackByFn"
+                header="{{ t[0] | titlecase }} ({{
+                    displayStat(hero$ | async, t[0])
+                }}) "
+                (click)="train(hero, t[0])"
+            >
+                <ng-container cardBody>
+                    <span>
+                        {{ t[1].description }}
+                    </span>
+                </ng-container>
+                <ng-container cardFooter>
+                    <div class="training-reward-information">
+                        <span>
+                            reward : +
+                            {{ t[1].reward }} strength
+                        </span>
+                        <span>
+                            Max training {{ t[1].done }}/{{ t[1].bonus }}
+                        </span>
+                    </div>
+                    <app-progressbar
+                        time="{{ t[1].speed }}ms"
+                        [animate]="training.get(t[0]) ? 'filling' : 'initial'"
+                    ></app-progressbar>
+                </ng-container>
+            </app-card>
+        </div>
+        <div [style.display]="dTab === 'work' ? 'block' : 'none'">
+            <app-card header="Work" (click)="work()">
+                <ng-container cardBody>
+                    <label>
+                        Total gold
+                        {{ (currencies$ | async)?.get("gold").quantity }}
+                    </label>
+                </ng-container>
+            </app-card>
+        </div>
+    </div>
+</ng-container>

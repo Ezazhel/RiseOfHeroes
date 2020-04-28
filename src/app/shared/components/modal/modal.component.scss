@@ -1,0 +1,72 @@
+.modal {
+    position: absolute;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: fit-content;
+    min-width: 10vw;
+    min-height: 15vh;
+    z-index: 1001;
+    background: #f2f2f2;
+    &.inventory {
+        left: 15%;
+        top: 25%;
+    }
+    &.stat {
+        left: 30%;
+        top: 25%;
+    }
+    &.tools {
+        left: 50%;
+        top: 25%;
+    }
+}
+
+.modal .modal-header {
+    background-color: #5b9bd5;
+    color: #fff;
+    padding: 5px;
+    cursor: move;
+}
+.modal-body {
+    box-sizing: border-box;
+    min-height: inherit;
+    height: inherit;
+    margin: 0 1em;
+}
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+    font-size: 28px;
+}
+.close:hover,
+.close:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+}
+.resizable-e {
+    position: absolute;
+    cursor: e-resize;
+    height: 100%;
+    width: 7px;
+    right: -5px;
+    top: 0;
+}
+.resizable-se {
+    position: absolute;
+    cursor: se-resize;
+    height: 15px;
+    width: 15px;
+    right: 0;
+    bottom: 0;
+}
+.resizable-s {
+    position: absolute;
+    cursor: s-resize;
+    height: 7px;
+    width: 100%;
+    bottom: -5px;
+    left: 0;
+}

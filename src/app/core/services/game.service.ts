@@ -1,62 +1,127 @@
+import {
+    ITemplateArmor,
+    entityId,
+    ITemplateItem,
+    ITemplateBaseItem,
+} from "./../models/game-data/game-data.model";
+import { GameState } from "./../models/game-state/game-state.reducer";
+import { AppState } from "@core/models";
 import { MessageService } from "./message.service";
-import { Monster, Hero } from "@core/models";
 import { Injectable } from "@angular/core";
-import { TranslocoService } from "@ngneat/transloco";
-
+import { Store } from "@ngrx/store";
+import { EntitySubtype, Hero } from "@core/models/entity";
+import * as _ from "lodash";
+import * as Immutable from "immutable";
+import { GameStateNewAction } from "@core/models/game-state/game-state.action";
+import { Currency } from "@core/models/game-data/game-data.model";
+import * as gameStateAction from "@core/models/game-state/game-state.action";
+import { GameStateService } from "./game-state.service";
 @Injectable({
-    providedIn: "root"
+    providedIn: "root",
 })
 export class GameService {
-    player: Hero;
-    monster: Monster;
-
     constructor(
         public messageService: MessageService,
-        private translate: TranslocoService
-    ) {
-        this.initialize();
-    }
+        private store: Store<AppState>
+    ) {}
     initialize() {
-        this.player = new Hero("Steven");
-
-        this.monster = new Monster("Slime");
+        let item: ITemplateArmor = {
+            id: entityId("armor"),
+            icon: "armor",
+            name: "armor",
+            type: "armor",
+            subType: "chest",
+            defense: 5,
+            value: 50,
+            level: 1,
+            style: "rare",
+        };
+        this.store.dispatch(
+            new gameStateAction.GameStateInventoryAddItemAction(item)
+        );
+        item = { ...item, id: entityId("armor") };
+        this.store.dispatch(
+            new gameStateAction.GameStateInventoryAddItemAction(item)
+        );
+        let consumable: ITemplateItem = {
+            id: entityId("health potion"),
+            icon: "potionRed",
+            name: "Health Potion",
+            value: 50,
+            type: "item",
+            level: 0,
+            style: "common",
+        };
+        this.store.dispatch(
+            new gameStateAction.GameStateInventoryAddItemAction(consumable)
+        );
     }
-    startGame() {
-        setInterval(() => {
-            this.combat();
-            if (this.player.isDead()) {
-                this.messageService.addCombatMessage(
-                    this.translate.selectTranslate("combatLog.died")
-                );
-                this.reset();
-            } else if (this.monster.isDead()) {
-                this.messageService.addCombatMessage(
-                    this.translate.selectTranslate("combatLog.monsterKilled", {
-                        monster: this.monster.nom
-                    })
-                );
-                this.messageService.addGeneralMessage(
-                    this.translate.selectTranslate("combatLog.expEarn", {
-                        exp: this.monster.level
-                    })
-                );
-                if (this.player.gainExperience(this.monster.level)) {
-                    this.messageService.addGeneralMessage(
-                        this.translate.selectTranslate("combatLog.levelUp")
-                    );
-                    this.monster.level++;
-                }
-                this.reset();
+
+    static create(entityClass: EntitySubtype) {
+        const HERO_DEFAULTS: Partial<Hero> = {
+            eid: "hero",
+            type: "hero",
+            subType: entityClass,
+            level: 1,
+            exp: 0,
+            baseattack: 0,
+            basespeed: 0,
+            basemagic: 0,
+            basedefense: 0,
+        };
+        let character: Partial<Hero> = null;
+        switch (entityClass) {
+            case "peasant":
+                character = _.assign({}, HERO_DEFAULTS, {
+                    baseattack: 25,
+                    maxressource: 0,
+                    basespeed: 1,
+                    basedefense: 10,
+                    hp: 500,
+                    maxhp: 500,
+                });
+                break;
+            default:
+                throw new Error("Unknow character class:" + entityClass);
+        }
+        character = _.extend(character, {
+            defense: character.basedefense,
+            speed: character.basespeed,
+            attack: character.baseattack,
+            magic: character.basemagic,
+        });
+        return character as Hero;
+    }
+
+    initGame(
+        load: boolean = !!localStorage.getItem(GameStateService.STATE_KEY)
+    ): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+            if (load) {
+                resolve(false);
+                return;
             }
-        }, 1000);
-    }
-
-    combat() {
-        this.player.takeDamage(this.monster.dealDamage());
-        this.monster.takeDamage(this.player.dealDamage());
-    }
-    reset() {
-        this.player.init();
-        this.monster.init();
+            const character = GameService.create("peasant");
+            const initialState: GameState = {
+                companions: null,
+                inventory: Immutable.OrderedMap<string, ITemplateBaseItem>(),
+                currencies: Immutable.Map<string, Currency>([
+                    ["gold", { name: "gold", quantity: 5 }],
+                ]),
+                location: "house",
+                combatZone: "",
+                maxSlots: 16,
+                hero: character,
+            };
+            this.store.dispatch(new GameStateNewAction(initialState));
+            this.store.dispatch(
+                new gameStateAction.GameStateCurrenciesAddCurrencyAction({
+                    name: "gold",
+                    quantity: 8,
+                })
+            );
+            this.initialize();
+            resolve(true);
+        });
     }
 }

@@ -1,0 +1,21 @@
+button {
+    height: 25px;
+    margin: 5px;
+    background: hsla(213, 23%, 51%, 0.25);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: small;
+
+    &:hover {
+        background: hsla(213, 23%, 51%, 0.45);
+    }
+    &.active {
+        background: hsla(113, 23%, 51%, 0.75);
+
+        &:hover {
+            background: hsla(113, 23%, 51%, 1);
+        }
+    }
+}

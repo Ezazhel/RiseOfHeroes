@@ -1,8 +1,44 @@
-<app-hud-portrait
-    [entity]="player"
-    class="hud-portrait player "
-></app-hud-portrait>
-<app-hud-portrait
-    [entity]="monster"
-    class="hud-portrait monster"
-></app-hud-portrait>
+<ng-container>
+    <app-inventory
+        *ngIf="showInventory"
+        (closing)="showInventory = !showInventory"
+    ></app-inventory>
+    <app-character
+        (closing)="showStat = !showStat"
+        *ngIf="showStat"
+    ></app-character>
+    <app-hud-tools (closing)="showOptions = !showOptions" *ngIf="showOptions">
+    </app-hud-tools>
+    <nav class="menu-action">
+        <input type="checkbox" checked />
+        <span class="burger"></span>
+        <span class="burger"></span>
+        <span class="burger"></span>
+        <div class="dock">
+            <ul>
+                <li>
+                    <i
+                        class="sprite sprite-backpack"
+                        (click)="showInventory = !showInventory"
+                    ></i>
+                    <span class="nbSlot">{{ totalInventory$ | async }}</span>
+                </li>
+                <li>
+                    <i
+                        class="sprite sprite-scroll"
+                        (click)="showStat = !showStat"
+                    ></i>
+                </li>
+                <li>
+                    <i class="sprite sprite-tome"></i>
+                </li>
+                <li>
+                    <i
+                        class="sprite sprite-tools"
+                        (click)="showOptions = !showOptions"
+                    ></i>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</ng-container>

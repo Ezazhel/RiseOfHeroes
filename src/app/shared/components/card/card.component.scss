@@ -1,0 +1,45 @@
+:host {
+    width: 250px;
+    height: 145px;
+    background: #f2f2f2;
+    box-shadow: 0 0.2rem 0.15rem grey;
+    box-sizing: border-box;
+    margin: 1em;
+    display: inline-block;
+    user-select: none; /* standard syntax */
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0 0.5rem 0.75rem grey;
+        transform: translateY(-2px);
+    }
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    cursor: pointer;
+    height: inherit;
+    box-sizing: border-box;
+    .card-header {
+        text-align: center;
+        margin: 5px;
+        border-bottom: 1px solid hsla(0, 0%, 73%, 1);
+    }
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        margin: 5px;
+    }
+    .card-footer {
+        display: flex;
+        flex-direction: column;
+        margin-top: auto;
+    }
+    label {
+        align-self: flex-end;
+    }
+}

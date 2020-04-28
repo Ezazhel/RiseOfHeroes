@@ -1,7 +1,7 @@
 import { MESSAGE } from "@core/constant/constant";
 
 export class Message {
-    constructor(text: String, type: String) {
+    constructor(text: string, type: string) {
         this.text = text;
         this.type = type;
         this.date = new Date();
@@ -17,7 +17,7 @@ export class Message {
     }
 
     date: Date;
-    text: String;
-    type: String;
-    customStyle: String;
+    text: string;
+    type: string;
+    customStyle: string;
 }

@@ -1,0 +1,9 @@
+<div class="modal" [ngClass]="customClass" cdkDrag cdkDragBoundary="body">
+    <div class="modal-header" cdkDragHandle>
+        {{ header }}
+        <span class="close" (click)="closeModal()">&times;</span>
+    </div>
+    <div class="modal-body">
+        <ng-content> </ng-content>
+    </div>
+</div>

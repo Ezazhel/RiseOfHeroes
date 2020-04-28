@@ -1,0 +1,10 @@
+<div fxLayout="row nowrap" fxLayoutAlign="center center">
+    <button
+        (click)="setShop(shop)"
+        *ngFor="let shop of shops"
+        [ngClass]="{ active: shop.name === _shop?.name }"
+    >
+        {{ shop.name }}
+    </button>
+</div>
+<app-city-shop [shop]="_shop"></app-city-shop>
