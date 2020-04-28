@@ -6,7 +6,8 @@
             "@env": ["environments/environment"],
             "@shared/*": ["app/shared/*"],
             "@core/*": ["app/core/*"],
-            "@assets/*": ["assets/*"]
+            "@assets/*": ["assets/*"],
+            "@routes/*": ["app/routes/*"]
         },
         "outDir": "./out-tsc/app",
         "types": []
