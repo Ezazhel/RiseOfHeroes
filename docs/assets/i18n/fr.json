@@ -1,0 +1,44 @@
+{
+    "messageButton": {
+        "all": "Tout",
+        "general": "General",
+        "combat": "Combat",
+        "system": "Système"
+    },
+    "combatLog": {
+        "died": "Vous êtes mort",
+        "expEarn": "Vous avez reçu {{exp}} point d'exp",
+        "monsterKilled": "Voius avez tué {{monster}} !",
+        "levelUp": "Vous avez gagné un niveau !"
+    },
+    "hud": {
+        "notCasting": "Pas d'incantation",
+        "casting": "Lance : {{spell}} !"
+    },
+    "hud-modal": {
+        "stats": "Stats",
+        "talents": "Talents",
+        "bag": "Inventaire"
+    },
+    "hud-tools": {
+        "language": "Langue",
+        "tools": "Options",
+        "HARDRESET": "REMISE A ZERO"
+    },
+    "inventoryFilter": {
+        "all": "Tout",
+        "armor": "Armures",
+        "weapon": "Armes",
+        "item": "Objets"
+    },
+    "game": {
+        "InitWelcome": "Bienvenue péon ! (Oui, actuellement vous êtes un péon)",
+        "loadWelcome": "Bon retour parmis nous !",
+        "InitWelcomeAfterReset": "J'espère que cette fois vous serez prêt...!",
+        "alertHARDRESET": "Certains de repartir de zéro ?"
+    },
+    "house": {
+        "yourHouse": "Voici votre maison",
+        "houseInformation": "N'hésitez pas à vous entrainer, aller travailler ou encore faire des achats en ville"
+    }
+}
