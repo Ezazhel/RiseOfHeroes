@@ -3,7 +3,6 @@ import {
     ITemplateItem,
     ITemplateWeapon,
     ITemplateArmor,
-    City,
 } from "./game-data.model";
 export const items: ITemplateItem[] = [
     {
@@ -13,6 +12,7 @@ export const items: ITemplateItem[] = [
         value: 0,
         level: 0,
         icon: "potionRed",
+        style: "",
     },
     {
         id: "ManaPotion",
@@ -21,6 +21,7 @@ export const items: ITemplateItem[] = [
         level: 0,
         value: 0,
         icon: "potionRed",
+        style: "",
     },
 ];
 export const armor: ITemplateArmor[] = [
@@ -33,56 +34,57 @@ export const armor: ITemplateArmor[] = [
         level: 0,
         subType: "chest",
         defense: 10,
+        style: "",
     },
 ];
 
-export const cities: Map<string, City> = Map<string, City>([
-    [
-        "zulah",
-        {
-            id: "zulah",
-            name: "Zul'ah",
-            levelRequirement: 1,
-        },
-    ],
-    [
-        "heapoo",
-        {
-            id: "heapoo",
-            name: "Heapoo",
-            levelRequirement: 5,
-        },
-    ],
-    [
-        "krakotoa",
-        {
-            id: "krakotoa",
-            name: "Krakotoa",
-            levelRequirement: 10,
-        },
-    ],
-    [
-        "baalrug",
-        {
-            id: "baalrug",
-            name: "baalrug",
-            levelRequirement: 15,
-        },
-    ],
-    [
-        "cresolia",
-        {
-            id: "cresolia",
-            name: "Crésolia",
-            levelRequirement: 26,
-        },
-    ],
-    [
-        "onigashi",
-        {
-            id: "onigashi",
-            name: "Onigashi",
-            levelRequirement: 35,
-        },
-    ],
-]);
+// export const cities: Map<string, City> = Map<string, City>([
+//     [
+//         "zulah",
+//         {
+//             id: "zulah",
+//             name: "Zul'ah",
+//             levelRequirement: 1,
+//         },
+//     ],
+//     [
+//         "heapoo",
+//         {
+//             id: "heapoo",
+//             name: "Heapoo",
+//             levelRequirement: 5,
+//         },
+//     ],
+//     [
+//         "krakotoa",
+//         {
+//             id: "krakotoa",
+//             name: "Krakotoa",
+//             levelRequirement: 10,
+//         },
+//     ],
+//     [
+//         "baalrug",
+//         {
+//             id: "baalrug",
+//             name: "baalrug",
+//             levelRequirement: 15,
+//         },
+//     ],
+//     [
+//         "cresolia",
+//         {
+//             id: "cresolia",
+//             name: "Crésolia",
+//             levelRequirement: 26,
+//         },
+//     ],
+//     [
+//         "onigashi",
+//         {
+//             id: "onigashi",
+//             name: "Onigashi",
+//             levelRequirement: 35,
+//         },
+//     ],
+// ]);

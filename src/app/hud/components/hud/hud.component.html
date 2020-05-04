@@ -9,6 +9,7 @@
     ></app-character>
     <app-hud-tools (closing)="showOptions = !showOptions" *ngIf="showOptions">
     </app-hud-tools>
+    <app-map (closing)="showMap = !showMap" *ngIf="showMap"></app-map>
     <nav class="menu-action">
         <input type="checkbox" checked />
         <span class="burger"></span>
@@ -16,6 +17,12 @@
         <span class="burger"></span>
         <div class="dock">
             <ul>
+                <li>
+                    <i
+                        class="sprite sprite-map"
+                        (click)="showMap = !showMap"
+                    ></i>
+                </li>
                 <li>
                     <i
                         class="sprite sprite-backpack"

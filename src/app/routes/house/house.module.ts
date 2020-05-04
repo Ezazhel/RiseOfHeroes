@@ -20,7 +20,6 @@ import { houseReducer } from "./store/house.reducer";
                 children: [{ path: "action", component: HouseActionComponent }],
             },
         ]),
-        StoreModule.forFeature("houseState", houseReducer),
     ],
     providers: [],
 })

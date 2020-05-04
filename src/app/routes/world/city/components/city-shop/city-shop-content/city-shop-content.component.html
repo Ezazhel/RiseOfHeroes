@@ -3,7 +3,7 @@
         <div fxLayout="column">
             Shop reset in {{ timer }}
             <div
-                *ngFor="let item of shop.items; trackBy: trackByFn"
+                *ngFor="let item of (shop$ | async)?.items; trackBy: trackByFn"
                 class="content {{ item[1].style }}"
                 (mouseenter)="inventory.setItem(item[1])"
                 (mouseleave)="inventory.setItem(null)"

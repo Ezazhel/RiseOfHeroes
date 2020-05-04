@@ -109,9 +109,3 @@ export function instantiateEntity<T extends ITemplateId>(
 export function entityId(id: string): string {
     return `${id}-${newGuid()}`;
 }
-
-export interface City {
-    id: string;
-    name: string;
-    levelRequirement: number;
-}

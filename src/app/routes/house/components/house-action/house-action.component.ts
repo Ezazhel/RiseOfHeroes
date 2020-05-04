@@ -14,9 +14,9 @@ import { AppState } from "@core/models";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { Currency } from "@core/models/game-data/game-data.model";
 import { Map } from "immutable";
-import { map, first } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { _runtimeChecksFactory } from "@ngrx/store/src/runtime_checks";
-import { trainingEquipement } from "../../store/house.selector";
+import { MessageService } from "@core/services";
 
 @Component({
     selector: "house-action",
@@ -25,7 +25,7 @@ import { trainingEquipement } from "../../store/house.selector";
 })
 export class HouseActionComponent implements OnInit, OnDestroy {
     public dTab: string = "training";
-    idlingTimer: number; //Timer general allowing only one training.
+    idlingTimer: number; //Timer general allowing only one training or working.
 
     private _hero$: Subject<Hero> = new BehaviorSubject<Hero>(null);
     hero$: Observable<Hero> = this._hero$;
@@ -60,6 +60,7 @@ export class HouseActionComponent implements OnInit, OnDestroy {
                 return hero.defense;
         }
     }
+
     public training: Map<TrainingType, boolean>;
 
     train(hero: Hero, stat: TrainingType) {
@@ -75,14 +76,32 @@ export class HouseActionComponent implements OnInit, OnDestroy {
         this.idling(hero, stat, _trainEquipment);
     }
 
-    work(): void {
+    public work = {
+        working: false,
+        time: 1000,
+        reward: 1,
+    };
+    goToWork(): void {
         clearTimeout(this.idlingTimer);
-        this.training = this.training.map((value, key) => false);
-        this.store.dispatch(
-            new GameStateCurrenciesAddCurrencyAction({
-                name: "gold",
-                quantity: 1,
-            })
+
+        this.working();
+    }
+    private working() {
+        this.work = { ...this.work, working: true };
+
+        this.idlingTimer = window.setTimeout(() => {
+            this.training = this.training.map((value, key) => false);
+            this.store.dispatch(
+                new GameStateCurrenciesAddCurrencyAction({
+                    name: "gold",
+                    quantity: this.work.reward,
+                })
+            );
+            this.working();
+        }, this.work.time);
+        setTimeout(
+            () => (this.work = { ...this.work, working: false }),
+            this.work.time - 1
         );
     }
 
@@ -131,10 +150,13 @@ export class HouseActionComponent implements OnInit, OnDestroy {
     public trackByFn(
         index: number,
         el: Map<TrainingType, TrainingEquipment>
-    ): TrainingType {
-        return el[index];
+    ): number {
+        return index;
     }
-    constructor(private store: Store<AppState>) {}
+    constructor(
+        private store: Store<AppState>,
+        private messageService: MessageService
+    ) {}
 
     ngOnInit(): void {
         this.training = this._trainingEquipment?.map((value, key) => false);

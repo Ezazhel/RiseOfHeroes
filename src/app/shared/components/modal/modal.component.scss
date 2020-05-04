@@ -7,6 +7,8 @@
     min-height: 15vh;
     z-index: 1001;
     background: #f2f2f2;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     &.inventory {
         left: 15%;
         top: 25%;
@@ -17,6 +19,10 @@
     }
     &.tools {
         left: 50%;
+        top: 25%;
+    }
+    &.map {
+        left: 75%;
         top: 25%;
     }
 }

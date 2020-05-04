@@ -1,0 +1,40 @@
+<ng-container *transloco="let t; read: 'map'">
+    <app-modal [cclass]="'map'" (close)="onClose()" [header]="t('map')">
+        <div fxLayout="column nowrap">
+            <div
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+                class="travel-container"
+            >
+                <div fxLayout="column">
+                    <label> {{ t("house") }} </label>
+                    <span class="requirement"></span>
+                </div>
+                <a
+                    [routerLink]="['/house']"
+                    class="travel-link-button"
+                    [routerLinkActive]="'active'"
+                >
+                    {{ t("travel") }}
+                </a>
+            </div>
+            <div
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+                class="travel-container"
+            >
+                <div fxLayout="column">
+                    <label>Zulah</label>
+                    <span class="requirement"></span>
+                </div>
+                <a
+                    [routerLink]="['/world/city', 'zulah']"
+                    [routerLinkActive]="'active'"
+                    class="travel-link-button"
+                >
+                    {{ t("travel") }}
+                </a>
+            </div>
+        </div>
+    </app-modal>
+</ng-container>

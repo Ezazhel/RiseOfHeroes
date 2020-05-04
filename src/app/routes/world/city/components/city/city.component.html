@@ -1,5 +1,14 @@
 <div class="container">
-    <h1>{{ city.name }}</h1>
-    <p>Description of city</p>
-    <app-city-overview [shops]="shops"></app-city-overview>
+    <h1>{{ (city$ | async)?.name }}</h1>
+    <p>{{ (city$ | async)?.description }}</p>
+    <div fxLayout="row nowrap" fxLayoutAlign="center center">
+        <button
+            *ngFor="let shop of (city$ | async)?.shops; trackBy: trackByFn"
+            (click)="setShopType(shop[1].type)"
+            [ngClass]="{ active: shop[1].type === shopType }"
+        >
+            {{ shop[1].name }}
+        </button>
+    </div>
+    <app-city-shop [shopType]="shopType" [cityId]="'zulah'"></app-city-shop>
 </div>
