@@ -1,31 +1,10 @@
-<div fxLayout="row" fxLayoutAlign="space-between">
+<div fxLayout="row" fxLayoutAlign="space-between" *ngIf="_shop">
     <ng-container *ngIf="displayedContent === 'shop'">
-        <div fxLayout="column">
-            Shop reset in {{ timer }}
-            <div
-                *ngFor="let item of (shop$ | async)?.items; trackBy: trackByFn"
-                class="content {{ item[1].style }}"
-                (mouseenter)="inventory.setItem(item[1])"
-                (mouseleave)="inventory.setItem(null)"
-            >
-                <i class="sprite sprite-{{ item[1].icon }} "></i>
-                <span class="item-name">
-                    {{ item[1].name }}
-                </span>
-                <div class="action">
-                    <span class="item-value"> {{ item[1].value }}g </span>
-                    <button
-                        *ngIf="
-                            item[1].value <=
-                            (_currencies$ | async)?.get('gold').quantity
-                        "
-                        (click)="buyItem(item[1])"
-                    >
-                        Buy
-                    </button>
-                </div>
-            </div>
-        </div>
+        <app-city-shop-content-shop
+            [shop]="_shop"
+            [cityId]="cityId"
+            (onSetItem)="inventory.setItem($event)"
+        ></app-city-shop-content-shop>
     </ng-container>
     <app-inventory-slot
         (sell)="sellItem($event)"

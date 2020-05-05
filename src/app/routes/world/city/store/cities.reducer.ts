@@ -1,4 +1,4 @@
-import { interval } from "rxjs";
+import { interval, timer } from "rxjs";
 import { Map } from "immutable";
 import { City, Shop } from "./cities.model";
 import {
@@ -8,7 +8,7 @@ import {
     ITemplateBaseItem,
 } from "@core/models/game-data/game-data.model";
 import * as CityAction from "./cities.action";
-import { citiesStateSelector } from "./city.selector";
+
 const initialState: CitiesState = {
     cities: Map<string, City>([
         [

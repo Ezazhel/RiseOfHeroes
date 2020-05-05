@@ -1,0 +1,26 @@
+<div fxLayout="column">
+    Shop reset in {{ timer }}
+    <div
+        *ngFor="let item of _shop.items; trackBy: trackByFn"
+        class="content {{ item[1].style }}"
+        (mouseenter)="setItem(item[1])"
+        (mouseleave)="setItem(null)"
+    >
+        <i class="sprite sprite-{{ item[1].icon }} "></i>
+        <span class="item-name">
+            {{ item[1].name }}
+        </span>
+        <div class="action">
+            <span class="item-value"> {{ item[1].value }}g </span>
+            <button
+                *ngIf="
+                    item[1].value <=
+                    (_currencies$ | async)?.get('gold').quantity
+                "
+                (click)="buyItem(item[1])"
+            >
+                Buy
+            </button>
+        </div>
+    </div>
+</div>

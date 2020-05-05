@@ -1,0 +1,54 @@
+@import "variables.scss";
+@import "sprite-item.scss";
+.content {
+    display: flex;
+    height: 50px;
+    min-width: 30vw;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0.2rem 0.15rem lightslategrey;
+    box-sizing: border-box;
+    margin: 5px 0px;
+    border: 1px solid lightslategrey;
+    background: white;
+    padding-right: 5px;
+    &.rare {
+        box-shadow: 0 0.2rem 0.15rem $chambray;
+        border: 1px solid $chambray;
+    }
+    &.common {
+        box-shadow: 0 0.2rem 0.15rem $eucalyptus;
+        border: 1px solid $eucalyptus;
+    }
+    span.item-name {
+        vertical-align: middle;
+    }
+    .action {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        span.item-value {
+            font-size: xx-small;
+        }
+        button {
+            background-color: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            height: 25px;
+            transition: 0.3s;
+            font-size: small;
+
+            &:hover {
+                background-color: #afc2d4e0;
+            }
+            &.active {
+                background-color: #f0f0f0;
+
+                &:hover {
+                    background-color: #f0f0f086;
+                }
+            }
+        }
+    }
+}

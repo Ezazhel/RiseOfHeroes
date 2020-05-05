@@ -1,14 +1,14 @@
-<div class="container">
-    <h1>{{ (city$ | async)?.name }}</h1>
-    <p>{{ (city$ | async)?.description }}</p>
+<div class="container" *ngIf="city$ | async as city">
+    <h1>{{ city.name }}</h1>
+    <p>{{ city?.description }}</p>
     <div fxLayout="row nowrap" fxLayoutAlign="center center">
         <button
-            *ngFor="let shop of (city$ | async)?.shops; trackBy: trackByFn"
-            (click)="setShopType(shop[1].type)"
-            [ngClass]="{ active: shop[1].type === shopType }"
+            *ngFor="let shop of city.shops; trackBy: trackByFn"
+            (click)="setShop(shop[1])"
+            [ngClass]="{ active: shop[1].type === (shop$ | async)?.type }"
         >
             {{ shop[1].name }}
         </button>
     </div>
-    <app-city-shop [shopType]="shopType" [cityId]="'zulah'"></app-city-shop>
+    <app-city-shop [shop]="shop$" [cityId]="city.id"></app-city-shop>
 </div>

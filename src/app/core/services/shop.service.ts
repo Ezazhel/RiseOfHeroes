@@ -23,9 +23,10 @@ import { Map } from "immutable";
     providedIn: "root",
 })
 export class ShopService {
+    cityId: string;
     constructor(private store: Store<AppState>) {}
 
-    renewShopItem(cityId: string, shop: Shop) {
+    renewShopItem(cityId: string = this.cityId, shop: Shop) {
         this.store.dispatch(
             new CityShopRenewItem({
                 city: cityId,

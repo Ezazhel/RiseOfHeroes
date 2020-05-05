@@ -7,7 +7,7 @@ import { AppState } from "@core/models";
 import { citySelector } from "../../store/city.selector";
 import { Map } from "immutable";
 import { ShopService } from "@core/services/shop.service";
-import { first } from "rxjs/operators";
+import { map } from "rxjs/operators";
 @Component({
     selector: "app-city",
     templateUrl: "./city.component.html",
@@ -17,10 +17,12 @@ export class CityComponent implements OnInit {
     city$: Observable<City> = this.store.pipe(
         select(citySelector(this.route.snapshot.paramMap.get("cityId")))
     );
-    shopType: string = "";
+    shop$: Observable<Shop>;
 
-    setShopType(value: string) {
-        this.shopType = value;
+    setShop(value: Shop) {
+        this.shop$ = this.city$.pipe(
+            map((city: City) => city.shops.get(value.type))
+        );
     }
     public trackByFn(index: number, el: Map<string, Shop>): number {
         return index;
@@ -28,8 +30,11 @@ export class CityComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private store: Store<AppState>
-    ) {}
+        private store: Store<AppState>,
+        private shopService: ShopService
+    ) {
+        this.shopService.cityId = this.route.snapshot.paramMap.get("cityId");
+    }
 
     ngOnInit(): void {}
 }

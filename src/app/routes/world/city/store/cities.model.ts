@@ -3,7 +3,7 @@ import {
     ItemSellableType,
 } from "@core/models/game-data/game-data.model";
 import { Map } from "immutable";
-import { Subject } from "rxjs";
+import { Subject, Subscription } from "rxjs";
 
 export interface City {
     id: string;

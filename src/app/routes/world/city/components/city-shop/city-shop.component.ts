@@ -13,19 +13,11 @@ import { shopSelector } from "../../store/city.selector";
     styleUrls: ["./city-shop.component.scss"],
 })
 export class CityShopComponent implements OnInit {
-    @Input() shopType: string;
+    @Input("shop") shop$: Observable<Shop>;
     @Input() cityId: string;
-    _shop$: Observable<Shop>;
     displayedContent: string = "shop";
 
-    constructor(
-        private shopService: ShopService,
-        private store: Store<AppState>
-    ) {}
+    constructor() {}
 
-    ngOnInit(): void {
-        this._shop$ = this.store.pipe(
-            select(shopSelector(this.cityId, this.shopType))
-        );
-    }
+    ngOnInit(): void {}
 }
