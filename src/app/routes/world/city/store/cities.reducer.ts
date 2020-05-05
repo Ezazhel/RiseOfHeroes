@@ -1,3 +1,4 @@
+import { interval } from "rxjs";
 import { Map } from "immutable";
 import { City, Shop } from "./cities.model";
 import {
@@ -59,6 +60,8 @@ const initialState: CitiesState = {
                             crafts: [],
                             display: false,
                             acceptType: "equipment",
+                            intervalStock: 15,
+                            lastTick: performance.now(),
                         },
                     ],
                     [
@@ -95,6 +98,8 @@ const initialState: CitiesState = {
                             upgrades: [],
                             display: false,
                             acceptType: "consumable",
+                            intervalStock: 2 * 60,
+                            lastTick: performance.now(),
                         },
                     ],
                 ]),
@@ -131,10 +136,15 @@ export function citiesReducer(
             //Pass a list of items for a shop, might be call multiple time depending of timer (not every shop have the same timer)
             return {
                 ...state,
-                cities: state.cities.set(action.payload.city, {
-                    ...state.cities.get(action.payload.city),
-                    shops: action.payload.shops,
-                }),
+                cities: state.cities.set(
+                    action.payload.city,
+                    renewItem(
+                        state,
+                        action.payload.city,
+                        action.payload.shopType,
+                        action.payload.items
+                    )
+                ),
             };
         case CityAction.CITY_SHOP_SELL:
             //Add an object to a specific shop in a specific city
@@ -172,4 +182,21 @@ function setOrRemoveItem(
     }
     city = { ...city, shops: city.shops.set(shopType, shop) };
     return city;
+}
+
+function renewItem(
+    state: CitiesState,
+    cityId: string,
+    shopType: string,
+    items?: Map<string, ITemplateBaseItem>
+): City {
+    let city = state.cities.get(cityId);
+    return (city = {
+        ...city,
+        shops: city.shops.set(shopType, {
+            ...city.shops.get(shopType),
+            items: items,
+            lastTick: performance.now(),
+        }),
+    });
 }

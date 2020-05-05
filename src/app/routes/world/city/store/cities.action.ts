@@ -27,5 +27,5 @@ export interface ShopInteraction {
     shopType?: string;
     shops?: Map<string, Shop>;
     item?: ITemplateBaseItem;
-    items?: ITemplateBaseItem[];
+    items?: Map<string, ITemplateBaseItem>;
 }

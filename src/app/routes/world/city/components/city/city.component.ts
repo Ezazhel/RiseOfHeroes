@@ -14,7 +14,9 @@ import { first } from "rxjs/operators";
     styleUrls: ["./city.component.scss"],
 })
 export class CityComponent implements OnInit {
-    city$: Observable<City>;
+    city$: Observable<City> = this.store.pipe(
+        select(citySelector(this.route.snapshot.paramMap.get("cityId")))
+    );
     shopType: string = "";
 
     setShopType(value: string) {
@@ -26,20 +28,8 @@ export class CityComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private store: Store<AppState>,
-        private shopService: ShopService
+        private store: Store<AppState>
     ) {}
 
-    ngOnInit(): void {
-        this.route.paramMap.subscribe((params: ParamMap) => {
-            let cityId = params.get("cityId");
-            this.city$ = this.store.pipe(select(citySelector(cityId)));
-            this.city$.pipe(first()).subscribe((city: City) => {
-                setTimeout(
-                    () => this.shopService.renewShopItem(city),
-                    3 * 1000
-                );
-            });
-        });
-    }
+    ngOnInit(): void {}
 }

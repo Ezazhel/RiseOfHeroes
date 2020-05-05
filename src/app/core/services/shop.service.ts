@@ -25,18 +25,13 @@ import { Map } from "immutable";
 export class ShopService {
     constructor(private store: Store<AppState>) {}
 
-    renewShopItem(city: City) {
-        city.shops.forEach((shop) => {
-            city = {
-                ...city,
-                shops: city.shops.set(shop.type, {
-                    ...shop,
-                    items: this.renewByType(shop.type),
-                }),
-            };
-        });
+    renewShopItem(cityId: string, shop: Shop) {
         this.store.dispatch(
-            new CityShopRenewItem({ city: city.id, shops: city.shops })
+            new CityShopRenewItem({
+                city: cityId,
+                shopType: shop.type,
+                items: this.renewByType(shop.type),
+            })
         );
     }
     private renewByType(type: string): Map<string, ITemplateBaseItem> {

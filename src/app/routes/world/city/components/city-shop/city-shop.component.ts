@@ -13,9 +13,7 @@ import { shopSelector } from "../../store/city.selector";
     styleUrls: ["./city-shop.component.scss"],
 })
 export class CityShopComponent implements OnInit {
-    @Input() set shopType(value: string) {
-        this._shop$ = this.store.pipe(select(shopSelector(this.cityId, value)));
-    }
+    @Input() shopType: string;
     @Input() cityId: string;
     _shop$: Observable<Shop>;
     displayedContent: string = "shop";

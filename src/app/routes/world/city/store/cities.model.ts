@@ -3,6 +3,7 @@ import {
     ItemSellableType,
 } from "@core/models/game-data/game-data.model";
 import { Map } from "immutable";
+import { Subject } from "rxjs";
 
 export interface City {
     id: string;
@@ -19,6 +20,6 @@ export interface Shop {
     crafts?: any[];
     upgrades?: any[];
     acceptType: ItemSellableType;
-    intervalStock?: number; //time for a restock
-    restockTimer?: number; //time left till restock
+    intervalStock?: number; //time for a restock in second
+    lastTick?: number; //time of the last displayed counter. Used like : let restock = performance.now() - lastTick >= 0 ? decrement : renewStock,
 }

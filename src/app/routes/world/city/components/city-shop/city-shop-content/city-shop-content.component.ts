@@ -3,8 +3,9 @@ import {
     OnInit,
     Input,
     OnDestroy,
-    Output,
-    EventEmitter,
+    OnChanges,
+    SimpleChange,
+    SimpleChanges,
 } from "@angular/core";
 import {
     ITemplateBaseItem,
@@ -15,36 +16,35 @@ import { AppState } from "@core/models";
 import {
     Observable,
     Subscription,
-    interval,
+    timer,
     Subject,
     BehaviorSubject,
+    asyncScheduler,
 } from "rxjs";
 import { currencySelector } from "@core/models/selector";
 import { Map } from "immutable";
-import {
-    GameStateCurrenciesAddCurrencyAction,
-    GameStateInventoryAddItemAction,
-} from "@core/models/game-state/game-state.action";
 import { Shop } from "@routes/world/city/store/cities.model";
 import { ShopService } from "@core/services/shop.service";
-import { ActivatedRoute } from "@angular/router";
 import { first } from "rxjs/operators";
+import { TranslocoService } from "@ngneat/transloco";
 
 @Component({
     selector: "app-city-shop-content",
     templateUrl: "./city-shop-content.component.html",
     styleUrls: ["./city-shop-content.component.scss"],
 })
-export class CityShopContentComponent implements OnInit, OnDestroy {
+export class CityShopContentComponent implements OnInit, OnDestroy, OnChanges {
+    @Input() cityId: string;
     @Input() displayedContent: string;
+
     private _shop$: Subject<Shop> = new BehaviorSubject<Shop>(null);
     shop$: Observable<Shop> = this._shop$;
-    @Input("shop") set _shop(value: Shop) {
-        this._shop$.next(value);
-    }
-    @Input() cityId: string;
     minutes: Subscription;
     timer: string;
+    @Input("shop") set _shop(value: Shop) {
+        this._shop$.next(value);
+        this.renew(value);
+    }
 
     public _currencies$: Observable<Map<string, Currency>> = this.store.pipe(
         select(currencySelector)
@@ -75,35 +75,58 @@ export class CityShopContentComponent implements OnInit, OnDestroy {
         });
     }
 
+    private renew(value: Shop) {
+        if (this.minutes != undefined) this.minutes.unsubscribe();
+        const nf = new Intl.NumberFormat(this.transloco.getActiveLang(), {
+            maximumSignificantDigits: 2,
+            minimumIntegerDigits: 2,
+        });
+        const perf = performance.now();
+        let renewTimerMinute =
+            (perf - value.lastTick) / 1000 / value.intervalStock; //cycle
+        let renewTimerSecond =
+            ((perf - value.lastTick) / 1000) % value.intervalStock; //second
+        if (renewTimerMinute >= 1) {
+            console.log("Renew minute", this.cityId);
+            this.shopService.renewShopItem(this.cityId, value);
+            if (this.minutes != undefined) this.minutes.unsubscribe();
+        }
+        let t = value.intervalStock - Math.floor(renewTimerSecond); // renewTimer will always be lt intervalStock
+        this.timer = `${nf.format(Math.floor(t / 60))} : ${nf.format(
+            Math.floor(t % 60)
+        )}`;
+        this.minutes = timer(0, 1000, asyncScheduler).subscribe((x) => {
+            this.timer = `${nf.format(Math.floor(t / 60))} : ${nf.format(
+                Math.floor(t % 60)
+            )}`;
+            --t;
+
+            if (t < 0) {
+                console.log("Renew interval");
+                this.shopService.renewShopItem(this.cityId, value);
+                t = value.intervalStock;
+            }
+        });
+    }
+
     trackByFn(index: number, item: ITemplateBaseItem): string {
         return item.id;
     }
     constructor(
         private store: Store<AppState>,
-        private shopService: ShopService
+        private shopService: ShopService,
+        private transloco: TranslocoService
     ) {}
 
-    ngOnInit(): void {
-        var timer = 1 * 60;
-        var minutes;
-        var seconds;
-        this.minutes = interval(1000).subscribe((x) => {
-            minutes = Math.floor(timer / 60);
-            seconds = Math.floor(timer % 60);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-            this.timer = minutes + ":" + seconds;
-            console.log(this.timer);
-
-            --timer;
-            if (timer < 0) {
-                console.log("timeup");
-            }
-        });
-    }
+    ngOnInit(): void {}
 
     ngOnDestroy() {
         this.minutes.unsubscribe();
+    }
+    ngOnChanges(changes: SimpleChanges) {
+        console.log(changes);
+        this._shop$.pipe(first()).subscribe((value) => {
+            this.renew(value);
+        });
     }
 }
