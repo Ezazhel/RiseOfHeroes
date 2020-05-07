@@ -38,6 +38,7 @@ export class CityShopContentShopComponent
     _shop: Shop;
     minutes: Subscription;
     timer: string;
+    _previousSecond: number = 0;
 
     public _currencies$: Observable<Map<string, Currency>> = this.store.pipe(
         select(currencySelector)
@@ -45,7 +46,7 @@ export class CityShopContentShopComponent
     public buyItem(item: ITemplateBaseItem): void {
         this.shopService.buyItem(item, this._shop.type, this.cityId);
     }
-    private renew(value: Shop, previousLastTick) {
+    private renew(value: Shop) {
         if (this.minutes != undefined) this.minutes.unsubscribe();
         const nf = new Intl.NumberFormat(this.transloco.getActiveLang(), {
             maximumSignificantDigits: 2,
@@ -56,20 +57,20 @@ export class CityShopContentShopComponent
         let renewTimerMinute =
             (perf - value.lastTick) / 1000 / value.intervalStock; //use when we come back on shop
         let renewTimerSecond =
-            ((perf - previousLastTick) / 1000) % value.intervalStock; //second
-        console.log("Timer Second", renewTimerSecond);
-        console.log("Last tick", value.lastTick);
+            ((perf - value.lastTick) / 1000) % value.intervalStock; //second
+        let t = value.intervalStock - renewTimerSecond - this._previousSecond; // renewTimer will always be lt intervalStock
+        t = Math.round(t);
 
-        let t = value.intervalStock - Math.floor(renewTimerSecond); // renewTimer will always be lt intervalStock
         this.minutes = timer(0, 1000).subscribe((x) => {
             this.timer = `${nf.format(Math.floor(t / 60))} : ${nf.format(
                 Math.floor(t % 60)
             )}`;
             --t;
-
             if (t < 0 || renewTimerMinute >= 1) {
+                renewTimerMinute >= 1
+                    ? (this._previousSecond = renewTimerSecond)
+                    : (this._previousSecond = 0);
                 this.shopService.renewShopItem(this.cityId, value);
-                t = value.intervalStock;
                 this.minutes.unsubscribe();
             }
         });
@@ -92,16 +93,14 @@ export class CityShopContentShopComponent
     ngOnChanges(changes: SimpleChanges): void {
         const pShop = changes["shop"].previousValue as Shop;
         const cShop = changes["shop"].currentValue as Shop;
-        console.log(changes);
         if (changes["shop"].firstChange || pShop?.type != cShop.type) {
-            console.log("call renew");
-            this.renew(this._shop, cShop.lastTick);
+            this._previousSecond = 0;
+            if (this._shop.intervalStock !== undefined) this.renew(this._shop);
         } else if (
             pShop?.type === cShop.type &&
             pShop?.lastTick !== cShop.lastTick
         ) {
-            console.log("call renew with delay");
-            this.renew(this._shop, pShop.lastTick); // /!\ PROBLEM : Timer are irrelevant once pass here
+            this.renew(this._shop); // /!\ PROBLEM : Timer are irrelevant once pass here
         }
     }
     ngOnDestroy() {

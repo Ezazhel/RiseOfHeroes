@@ -1,5 +1,7 @@
 <div fxLayout="column">
-    Shop reset in {{ timer }}
+    <span *ngIf="_shop.intervalStock !== undefined"
+        >Shop reset in {{ timer }}</span
+    >
     <div
         *ngFor="let item of _shop.items; trackBy: trackByFn"
         class="content {{ item[1].style }}"

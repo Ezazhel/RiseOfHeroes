@@ -4,7 +4,6 @@ import { RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import * as fromComponents from "./components";
-import { CityShopContentShopComponent } from "./components/city-shop/city-shop-content/city-shop-content-shop/city-shop-content-shop.component";
 
 @NgModule({
     declarations: [fromComponents.components],

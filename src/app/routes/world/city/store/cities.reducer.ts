@@ -98,8 +98,6 @@ const initialState: CitiesState = {
                             upgrades: [],
                             display: false,
                             acceptType: "consumable",
-                            intervalStock: 2 * 60,
-                            lastTick: performance.now(),
                         },
                     ],
                 ]),
