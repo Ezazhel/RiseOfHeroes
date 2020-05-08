@@ -1,6 +1,6 @@
 import { EventEmitter, Output, Input } from "@angular/core";
 import { Component, OnInit } from "@angular/core";
-import { Shop } from "../../city/city.component";
+import { Shop } from "@routes/world/city/store/cities.model";
 
 @Component({
     selector: "app-city-shop-tab",
@@ -15,7 +15,6 @@ export class CityShopTabComponent implements OnInit {
     selectTab(tab: string) {
         this.activeTab = tab;
         this.selectedTab.emit(tab);
-        console.log(tab);
     }
 
     constructor() {}

@@ -1,0 +1,23 @@
+@import "variables.scss";
+:host {
+    .description {
+        background: hsl(228, 60%, 8%);
+        border: 2px solid white;
+        border-radius: 5px;
+        color: white;
+        padding: 5px;
+        .stat {
+            margin-top: 5px;
+            font-size: smaller;
+        }
+        .rare {
+            color: $blueRareItem;
+        }
+        .common {
+            color: $greenCommonItem;
+        }
+        .price {
+            margin-left: auto;
+        }
+    }
+}

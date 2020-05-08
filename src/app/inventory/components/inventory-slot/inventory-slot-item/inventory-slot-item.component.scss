@@ -1,4 +1,6 @@
 @import "sprite-item.scss";
+@import "variables.scss";
+
 .slot-item {
     width: 48px;
     margin: 4px;
@@ -10,10 +12,10 @@
         cursor: pointer;
     }
     &.rare {
-        box-shadow: 0px 0px 3px 0.6px blue;
+        box-shadow: 0px 0px 5px 2px $blueRareItem;
     }
     &.common {
-        box-shadow: 0px 0px 3px 0.6px lightgreen;
+        box-shadow: 0px 0px 5px 2px $greenCommonItem;
     }
 }
 
@@ -98,9 +100,9 @@ button:active {
 .throw,
 .sell {
     position: absolute;
+    background: $red;
     top: 0;
     right: 0;
-    background-color: hsla(356, 100%, 41%, 0.6);
     width: 12px;
     height: 12px;
     &:hover {

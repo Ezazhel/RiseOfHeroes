@@ -18,6 +18,7 @@ export class HudComponent implements OnInit {
     showInventory: boolean;
     showStat: boolean;
     showOptions: boolean;
+    showMap: boolean;
 
     constructor(
         public gameService: GameService,

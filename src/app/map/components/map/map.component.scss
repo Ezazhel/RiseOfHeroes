@@ -1,0 +1,31 @@
+@import "variables.scss";
+
+.travel-container {
+    width: 15vw;
+    padding: 10px;
+    margin: 5px 0px;
+    box-shadow: 0px 0px 5px $lightgreybutton;
+    border-radius: 10px;
+    user-select: none;
+    &:hover {
+        box-shadow: 0px 0px 5px $darkgreybutton;
+    }
+    .requirement {
+    }
+    .travel-link-button {
+        text-decoration: none;
+        display: block;
+        padding: 5px;
+        background: $lightgreybutton;
+        color: white;
+        border-radius: 10px;
+        &:hover {
+            box-shadow: 0px 0px 5px $darkgreybutton;
+        }
+    }
+    .active {
+        background: hsla(113, 23%, 51%, 0.75);
+
+        pointer-events: none;
+    }
+}

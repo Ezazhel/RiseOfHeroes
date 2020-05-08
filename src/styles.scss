@@ -1,13 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files
+
+https://www.colortools.io/color-palette/wild-heaven/
+
+*/
+@import "variables.scss";
 html,
 body {
     height: 99%;
     margin: 0px;
     padding: 0px;
     width: 100%;
+    color: $greenTextOnBody;
+}
+* {
+    font-family: Roboto;
 }
 body {
-    background: #f2f2f2;
+    background: $body;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }

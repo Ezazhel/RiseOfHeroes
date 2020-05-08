@@ -1,9 +1,20 @@
 <ng-container *transloco="let t; read: 'inventoryFilter'">
     <div class="filter">
-        <button (click)="filterBy('all')">{{ t("all") }}</button>
-        <button (click)="filterBy('weapon')">{{ t("weapon") }}</button>
-        <button (click)="filterBy('armor')">{{ t("armor") }}</button>
-        <button (click)="filterBy('item')">{{ t("item") }}</button>
+        <button (click)="filterBy('all')" [class.active]="filter === 'all'">
+            {{ t("all") }}
+        </button>
+        <button
+            (click)="filterBy('weapon')"
+            [class.active]="filter === 'weapon'"
+        >
+            {{ t("weapon") }}
+        </button>
+        <button (click)="filterBy('armor')" [class.active]="filter === 'armor'">
+            {{ t("armor") }}
+        </button>
+        <button (click)="filterBy('item')" [class.active]="filter === 'item'">
+            {{ t("item") }}
+        </button>
     </div>
 </ng-container>
 <div fxLayout="row nowrap" fxLayoutAlign="end center">
@@ -21,26 +32,7 @@
     ></app-inventory-slot-item>
 </div>
 
-<div *ngIf="item" class="description" fxLayout="column nowrap">
-    {{ item.name }}
-    <div class="stat" fxLayout="column nowrap">
-        <div fxLayout="row nowrap" fxLayoutAlign="space-between">
-            <label>
-                Category
-            </label>
-            <label>
-                Type
-            </label>
-        </div>
-        <div fxLayout="row nowrap" fxLayoutAlign="space-between">
-            <label>
-                Attack
-            </label>
-            <label>
-                Speed
-            </label>
-        </div>
-        <label> Primary Stat</label>
-        <label> Secondary Stat</label>
-    </div>
-</div>
+<app-inventory-slot-detail
+    *ngIf="item"
+    [item]="item"
+></app-inventory-slot-detail>

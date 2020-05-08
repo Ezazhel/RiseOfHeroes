@@ -1,26 +1,21 @@
 <ng-container *ngIf="hero$ | async as hero">
-    <div class="tab">
-        <button
-            (click)="dTab = 'training'"
-            [ngClass]="dTab === 'training' ? 'active' : ''"
-        >
-            Training
-        </button>
-        <button
-            (click)="dTab = 'work'"
-            [ngClass]="dTab === 'work' ? 'active' : ''"
-        >
-            Work
-        </button>
-        <button *ngIf="_showTravel$ | async">
-            <a
-                [routerLink]="['/world/city']"
-                routerLinkActive="router-link-active"
+    <div fxLayout="column nowrap">
+        <div class="tab" fxLayout="row" fxLayoutAlign="center center">
+            <button
+                (click)="dTab = 'training'"
+                [ngClass]="dTab === 'training' ? 'active' : ''"
             >
-                Travel
-            </a>
-        </button>
+                Training
+            </button>
+            <button
+                (click)="dTab = 'work'"
+                [ngClass]="dTab === 'work' ? 'active' : ''"
+            >
+                Work
+            </button>
+        </div>
     </div>
+
     <div class="tab-container">
         <div [style.display]="dTab === 'training' ? 'block' : 'none'">
             <app-card
@@ -53,12 +48,24 @@
             </app-card>
         </div>
         <div [style.display]="dTab === 'work' ? 'block' : 'none'">
-            <app-card header="Work" (click)="work()">
+            <app-card header="Work" (click)="goToWork()">
                 <ng-container cardBody>
                     <label>
-                        Total gold
-                        {{ (currencies$ | async)?.get("gold").quantity }}
+                        You are working as a peasant !
                     </label>
+                </ng-container>
+                <ng-container cardFooter>
+                    <div class="training-reward-information">
+                        <span> reward : +{{ work.reward }}g </span>
+                        <span>
+                            current gold
+                            {{ (currencies$ | async)?.get("gold").quantity }}
+                        </span>
+                    </div>
+                    <app-progressbar
+                        time="{{ work.time }}ms"
+                        [animate]="work.working ? 'filling' : 'initial'"
+                    ></app-progressbar>
                 </ng-container>
             </app-card>
         </div>

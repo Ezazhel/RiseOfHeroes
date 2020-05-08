@@ -39,6 +39,11 @@
     },
     "house": {
         "yourHouse": "Voici votre maison",
-        "houseInformation": "N'hésitez pas à vous entrainer, aller travailler ou encore faire des achats en ville"
+        "houseInformation": "N'hésitez pas à vous entrainer, aller travailler"
+    },
+    "map": {
+        "map": "Carte",
+        "travel": "Voyager",
+        "house": "Maison"
     }
 }

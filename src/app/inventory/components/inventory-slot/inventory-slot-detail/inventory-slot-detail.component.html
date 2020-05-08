@@ -1,0 +1,44 @@
+<div class="description" fxLayout="column nowrap">
+    <span class="{{ item.style }}">{{ item.name }} </span>
+    <ng-template #useable [ngIf]="item.type === 'item'">
+        Template item</ng-template
+    >
+    <ng-template #weapon [ngIf]="item.type === 'weapon'">
+        <div class="stat" fxLayout="column nowrap">
+            <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                <label>
+                    Category
+                </label>
+                <label>
+                    Type
+                </label>
+            </div>
+            <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                <label>
+                    Attack
+                </label>
+                <label>
+                    Speed
+                </label>
+            </div>
+            <label> Primary Stat</label>
+            <label> Secondary Stat</label>
+        </div>
+    </ng-template>
+    <ng-template #armor [ngIf]="item.type === 'armor'">
+        <div class="stat" fxLayout="column nowrap">
+            <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                <label>
+                    {{ item.subType }}
+                </label>
+            </div>
+            <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                <label> {{ item.armor }} Armor </label>
+            </div>
+            <!-- Loop of an array Stats. -->
+            <label> Primary Stat</label>
+            <label> Secondary Stat</label>
+        </div>
+    </ng-template>
+    <span class="price">{{ item.value }}g</span>
+</div>

@@ -1,6 +1,31 @@
+@import "variables.scss";
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+button {
+    height: 25px;
+    margin: 5px;
+    background: $blueTextOnBody;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    color: $carreraWhite;
+    font-size: small;
+
+    &:hover {
+        background: transparentize($color: $blueTextOnBody, $amount: 0.35);
+    }
+    &.active {
+        background: transparentize($color: $greenTextOnBody, $amount: 0.25);
+        color: $outerspaceGrey;
+
+        &:hover {
+            background: $greenTextOnBody;
+        }
+    }
 }

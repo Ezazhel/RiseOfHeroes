@@ -1,12 +1,15 @@
+@import "variables.scss";
 .modal {
     position: absolute;
     box-sizing: border-box;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0px 0px 2px 0px #f2f2f2;
     width: fit-content;
     min-width: 10vw;
     min-height: 15vh;
     z-index: 1001;
-    background: #f2f2f2;
+    background: $body;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     &.inventory {
         left: 15%;
         top: 25%;
@@ -19,10 +22,14 @@
         left: 50%;
         top: 25%;
     }
+    &.map {
+        left: 75%;
+        top: 25%;
+    }
 }
 
 .modal .modal-header {
-    background-color: #5b9bd5;
+    background-color: $lavenderTextOnBody;
     color: #fff;
     padding: 5px;
     cursor: move;

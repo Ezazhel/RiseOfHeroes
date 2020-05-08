@@ -31,7 +31,7 @@ export class GameService {
             name: "armor",
             type: "armor",
             subType: "chest",
-            defense: 5,
+            armor: 5,
             value: 50,
             level: 1,
             style: "rare",

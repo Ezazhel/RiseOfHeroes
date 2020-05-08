@@ -4,7 +4,7 @@ import { MessageService } from "@core/services";
 @Component({
     selector: "app-message-button-menu",
     templateUrl: "./message-button-menu.component.html",
-    styleUrls: ["./message-button-menu.component.scss"]
+    styleUrls: ["./message-button-menu.component.scss"],
 })
 export class MessageButtonMenuComponent implements OnInit {
     MESSAGE;
@@ -18,5 +18,6 @@ export class MessageButtonMenuComponent implements OnInit {
 
     filterByType(type: string) {
         this.messageService.setFilter(type);
+        this.activeButton = type;
     }
 }

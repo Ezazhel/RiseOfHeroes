@@ -1,3 +1,5 @@
+@import "variables.scss";
+
 .log {
     display: flex;
     position: absolute;
@@ -9,4 +11,5 @@
     border: 1px solid black;
     border-radius: 0px 0px 15px 15px;
     overflow: hidden;
+    background: $lavenderTextOnBody;
 }

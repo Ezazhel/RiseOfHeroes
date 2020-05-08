@@ -1,0 +1,50 @@
+@import "variables.scss";
+@import "sprite-item.scss";
+.content {
+    display: flex;
+    height: 50px;
+    min-width: 30vw;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0.2rem 0.15rem lightslategrey;
+    box-sizing: border-box;
+    margin: 5px 0px;
+    border: 1px solid lightslategrey;
+    background: white;
+    padding-right: 5px;
+    color: $body;
+    font-weight: bold;
+    &.rare {
+        box-shadow: 0 0.2rem 0.15rem $blueRareItem;
+        color: $blueRareItem;
+    }
+    &.common {
+        box-shadow: 0 0.2rem 0.15rem $greenCommonItem;
+        color: $greenCommonItem;
+    }
+    span.item-name {
+        vertical-align: middle;
+    }
+    .action {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        span.item-value {
+            font-size: x-small;
+            color: $body;
+        }
+        button {
+            background-color: $lightgreybutton;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            height: 25px;
+            transition: 0.3s;
+            font-size: small;
+            border-radius: 10px;
+            &:hover {
+                background-color: $lightgreybutton;
+            }
+        }
+    }
+}
