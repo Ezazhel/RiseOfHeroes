@@ -16,14 +16,14 @@ const initialState: CitiesState = {
             {
                 id: "zulah",
                 name: "Zul'Ah",
-                description: "some description",
+                description: "city.zulah.description",
                 levelRequirement: 0,
                 shops: Map<string, Shop>([
                     [
                         "blacksmith",
                         {
                             type: "blacksmith",
-                            name: "Blacksmith",
+                            name: "city.city_shop.blacksmith",
                             items: Map<
                                 string,
                                 ITemplateWeapon | ITemplateArmor
@@ -68,7 +68,7 @@ const initialState: CitiesState = {
                         "alchemist",
                         {
                             type: "alchemist",
-                            name: "Alchemist",
+                            name: "city.city_shop.alchemist",
                             items: Map<string, ITemplateItem>([
                                 [
                                     "item1",

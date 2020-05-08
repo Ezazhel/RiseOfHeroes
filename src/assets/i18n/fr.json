@@ -38,12 +38,59 @@
         "alertHARDRESET": "Certains de repartir de zéro ?"
     },
     "house": {
-        "yourHouse": "Voici votre maison",
-        "houseInformation": "N'hésitez pas à vous entrainer, aller travailler"
+        "yourHouse": "Ma maison",
+        "houseInformation": "N'hésitez pas à vous entrainer, aller travailler",
+        "training": {
+            "buttonText": "Entraînement",
+            "strength": {
+                "cardHeader": "Force",
+                "level1": {
+                    "name": "Pompes !",
+                    "description": "Fais quelques pompes pour gagner du muscle"
+                }
+            },
+            "endurance": {
+                "cardHeader": "Endurance",
+                "level1": {
+                    "name": "Douche froide",
+                    "description": "Prends une douche froide, sauve les pingouins !"
+                }
+            }
+        },
+        "work": {
+            "buttonText": "Travail",
+            "currentGold": "or possédé",
+
+            "level1": {
+                "name": "Paysan",
+                "description": "Tu es un simple paysan !"
+            }
+        },
+        "reward": "Récompense",
+        "maxTraining": "Max"
     },
     "map": {
         "map": "Carte",
         "travel": "Voyager",
         "house": "Maison"
+    },
+    "city": {
+        "city_shop": {
+            "blacksmith": "Forgeron",
+            "alchemist": "Alchimiste",
+            "tab": {
+                "shop": "Boutique",
+                "craft": "Artisanat",
+                "upgrade": "Amélioration"
+            },
+            "content": {
+                "shopReset": "Les stocks seront mis à jour dans :  {{timer}}",
+                "yourInventory": "Votre inventaire",
+                "buy": "Acheter"
+            }
+        },
+        "zulah": {
+            "description": "Zul'ah était autrefois une magnifique cité. Aujourd'hui c'est bourg sans roi, où vit le bas peuple."
+        }
     }
 }

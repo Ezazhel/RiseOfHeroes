@@ -11,9 +11,8 @@ export class CityShopTabComponent implements OnInit {
     @Input() shop: Shop;
     @Output() selectedTab = new EventEmitter<string>();
 
-    activeTab: string = "shop";
+    @Input() activeTab: string = "shop";
     selectTab(tab: string) {
-        this.activeTab = tab;
         this.selectedTab.emit(tab);
     }
 

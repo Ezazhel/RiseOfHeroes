@@ -24,38 +24,7 @@ export class GameService {
         public messageService: MessageService,
         private store: Store<AppState>
     ) {}
-    initialize() {
-        let item: ITemplateArmor = {
-            id: entityId("armor"),
-            icon: "armor",
-            name: "armor",
-            type: "armor",
-            subType: "chest",
-            armor: 5,
-            value: 50,
-            level: 1,
-            style: "rare",
-        };
-        this.store.dispatch(
-            new gameStateAction.GameStateInventoryAddItemAction(item)
-        );
-        item = { ...item, id: entityId("armor") };
-        this.store.dispatch(
-            new gameStateAction.GameStateInventoryAddItemAction(item)
-        );
-        let consumable: ITemplateItem = {
-            id: entityId("health potion"),
-            icon: "potionRed",
-            name: "Health Potion",
-            value: 50,
-            type: "item",
-            level: 0,
-            style: "common",
-        };
-        this.store.dispatch(
-            new gameStateAction.GameStateInventoryAddItemAction(consumable)
-        );
-    }
+    initialize() {}
 
     static create(entityClass: EntitySubtype) {
         const HERO_DEFAULTS: Partial<Hero> = {
@@ -106,7 +75,7 @@ export class GameService {
                 companions: null,
                 inventory: Immutable.OrderedMap<string, ITemplateBaseItem>(),
                 currencies: Immutable.Map<string, Currency>([
-                    ["gold", { name: "gold", quantity: 5 }],
+                    ["gold", { name: "gold", quantity: 0 }],
                 ]),
                 location: "house",
                 combatZone: "",
@@ -114,12 +83,6 @@ export class GameService {
                 hero: character,
             };
             this.store.dispatch(new GameStateNewAction(initialState));
-            this.store.dispatch(
-                new gameStateAction.GameStateCurrenciesAddCurrencyAction({
-                    name: "gold",
-                    quantity: 8,
-                })
-            );
             this.initialize();
             resolve(true);
         });

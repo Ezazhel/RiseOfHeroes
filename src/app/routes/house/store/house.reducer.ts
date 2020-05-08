@@ -9,8 +9,9 @@ const initialState: HouseState = {
             "strength",
             {
                 id: "strength",
-                name: "Push-Up ! ",
-                description: "Do some push-up in order to build muscle",
+                cardHeader: "house.training.strength.cardHeader",
+                name: "house.training.strength.level1.name ",
+                description: "house.training.strength.level1.description",
                 bonus: 0,
                 baseBonus: 0,
                 speed: 10 * 1000,
@@ -22,8 +23,9 @@ const initialState: HouseState = {
             "endurance",
             {
                 id: "endurance",
-                name: "Cold shower",
-                description: "Take cold shower, save penguins !",
+                cardHeader: "house.training.endurance.cardHeader",
+                name: "house.training.endurance.level1.name",
+                description: "house.training.endurance.level1.description",
                 bonus: 0,
                 baseBonus: 0,
                 speed: 10 * 1000,

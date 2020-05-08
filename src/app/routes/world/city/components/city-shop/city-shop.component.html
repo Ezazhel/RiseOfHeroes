@@ -1,6 +1,7 @@
 <div *ngIf="shop$ | async as shop" class="shop-ui">
     <app-city-shop-tab
         [shop]="shop"
+        [activeTab]="displayedContent"
         (selectedTab)="displayedContent = $event"
     ></app-city-shop-tab>
     <app-city-shop-content
