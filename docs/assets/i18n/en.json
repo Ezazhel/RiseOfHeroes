@@ -39,6 +39,11 @@
     },
     "house": {
         "yourHouse": "This is your house",
-        "houseInformation": "Feel free to train, go to work or shop."
+        "houseInformation": "Feel free to train, go to work."
+    },
+    "map": {
+        "map": "Map",
+        "travel": "Travel",
+        "house": "House"
     }
 }
