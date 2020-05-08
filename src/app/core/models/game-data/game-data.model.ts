@@ -13,10 +13,19 @@ export type ItemElements = "holy" | "water" | "wind" | "heal";
 
 export type ItemArmorType = "chest" | "helm" | "boots" | "shield";
 
+export type WeaponCategory = "sword" | "hammer" | "spear" | "dagger";
+
+export type WeaponHandling = "2h" | "1h";
+
 export interface Currency {
     readonly name: string;
     readonly quantity: number;
     readonly icon?: string; //sprite image
+}
+
+export interface Stat {
+    name: string;
+    value: number;
 }
 export interface ITemplateId {
     /**
@@ -67,14 +76,21 @@ export interface ITemplateItem extends ITemplateBaseItem {
     readonly type: "item";
 }
 
-export interface ITemplateWeapon extends ITemplateBaseItem {
+export interface ITemplateBaseEquipmennt extends ITemplateBaseItem {
+    stats?: Stat[];
+}
+export interface ITemplateWeapon extends ITemplateBaseEquipmennt {
     readonly type: "weapon";
+
+    weaponCategory: WeaponCategory;
+    weaponHandling: WeaponHandling;
+
     /**
      * The attack value for this weapon.
      */
     attack: number;
 }
-export interface ITemplateArmor extends ITemplateBaseItem {
+export interface ITemplateArmor extends ITemplateBaseEquipmennt {
     /**
      * What part of the body does the armor apply to?
      */
@@ -84,7 +100,7 @@ export interface ITemplateArmor extends ITemplateBaseItem {
     /**
      * The defensive rating of this piece of armor.
      */
-    readonly defense: number;
+    readonly armor: number;
 }
 
 /**

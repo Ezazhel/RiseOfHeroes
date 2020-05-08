@@ -1,7 +1,9 @@
+@import "variables.scss";
 :host {
     width: 250px;
     height: 145px;
     background: #f2f2f2;
+    color: $body;
     box-shadow: 0 0.2rem 0.15rem grey;
     box-sizing: border-box;
     margin: 1em;

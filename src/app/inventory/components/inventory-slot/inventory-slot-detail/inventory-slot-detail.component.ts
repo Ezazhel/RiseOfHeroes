@@ -1,4 +1,8 @@
-import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
+import {
+    ITemplateWeapon,
+    ITemplateArmor,
+    ITemplateItem,
+} from "@core/models/game-data/game-data.model";
 import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
@@ -7,7 +11,7 @@ import { Component, OnInit, Input } from "@angular/core";
     styleUrls: ["./inventory-slot-detail.component.scss"],
 })
 export class InventorySlotDetailComponent implements OnInit {
-    @Input() item: ITemplateBaseItem;
+    @Input() item: ITemplateWeapon | ITemplateArmor | ITemplateItem;
     constructor() {}
 
     ngOnInit(): void {}

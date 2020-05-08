@@ -1,3 +1,4 @@
+@import "variables.scss";
 .container {
     display: flex;
     justify-content: center;
@@ -8,21 +9,23 @@
 button {
     height: 25px;
     margin: 5px;
-    background: hsla(213, 23%, 51%, 0.25);
+    background: $blueTextOnBody;
     border: none;
     outline: none;
     cursor: pointer;
     transition: 0.3s;
+    color: $carreraWhite;
     font-size: small;
 
     &:hover {
-        background: hsla(213, 23%, 51%, 0.45);
+        background: transparentize($color: $blueTextOnBody, $amount: 0.35);
     }
     &.active {
-        background: hsla(113, 23%, 51%, 0.75);
+        background: transparentize($color: $greenTextOnBody, $amount: 0.25);
+        color: $outerspaceGrey;
 
         &:hover {
-            background: hsla(113, 23%, 51%, 1);
+            background: $greenTextOnBody;
         }
     }
 }

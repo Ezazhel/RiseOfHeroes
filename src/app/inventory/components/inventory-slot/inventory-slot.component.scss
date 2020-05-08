@@ -1,3 +1,4 @@
+@import "variables.scss";
 .slots {
     margin: 5px;
     padding: 5px;
@@ -35,23 +36,26 @@
     display: flex;
     justify-content: space-between;
     button {
-        background-color: inherit;
+        background: $blueTextOnBody;
         float: left;
         flex: 1;
+        color: #f2f2f2;
+
         border: none;
         outline: none;
         cursor: pointer;
         padding: 8px 10px;
         transition: 0.3s;
-    }
-    button:hover {
-        background-color: #afc2d4e0;
-    }
-    button.active {
-        background-color: #f0f0f0;
-    }
-    button.active:hover {
-        background-color: #f0f0f086;
+        &:hover {
+            background: transparentize($color: $blueTextOnBody, $amount: 0.35);
+        }
+        &.active {
+            background: transparentize($color: $greenTextOnBody, $amount: 0.25);
+
+            &:hover {
+                background: $greenTextOnBody;
+            }
+        }
     }
 }
 .description {

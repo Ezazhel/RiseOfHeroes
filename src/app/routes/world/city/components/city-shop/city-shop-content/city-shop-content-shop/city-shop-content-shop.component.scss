@@ -12,13 +12,15 @@
     border: 1px solid lightslategrey;
     background: white;
     padding-right: 5px;
+    color: $body;
+    font-weight: bold;
     &.rare {
-        box-shadow: 0 0.2rem 0.15rem $chambray;
-        border: 1px solid $chambray;
+        box-shadow: 0 0.2rem 0.15rem $blueRareItem;
+        color: $blueRareItem;
     }
     &.common {
-        box-shadow: 0 0.2rem 0.15rem $eucalyptus;
-        border: 1px solid $eucalyptus;
+        box-shadow: 0 0.2rem 0.15rem $greenCommonItem;
+        color: $greenCommonItem;
     }
     span.item-name {
         vertical-align: middle;
@@ -28,26 +30,20 @@
         flex-direction: column;
         text-align: center;
         span.item-value {
-            font-size: xx-small;
+            font-size: x-small;
+            color: $body;
         }
         button {
-            background-color: inherit;
+            background-color: $lightgreybutton;
             border: none;
             outline: none;
             cursor: pointer;
             height: 25px;
             transition: 0.3s;
             font-size: small;
-
+            border-radius: 10px;
             &:hover {
-                background-color: #afc2d4e0;
-            }
-            &.active {
-                background-color: #f0f0f0;
-
-                &:hover {
-                    background-color: #f0f0f086;
-                }
+                background-color: $lightgreybutton;
             }
         }
     }

@@ -1,12 +1,13 @@
+@import "variables.scss";
 .progress {
     width: 100%;
     height: 15px;
-    background: grey;
+    background: $lightgreybutton;
     box-sizing: border-box;
 }
 
 .filling-bar {
     max-width: inherit;
     height: inherit;
-    background-color: green;
+    background-color: transparentize($color: $greenCommonItem, $amount: 0.45);
 }
