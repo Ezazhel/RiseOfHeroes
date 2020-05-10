@@ -6,14 +6,20 @@
                 [cityId]="cityId"
                 (onSetItem)="inventory.setItem($event)"
             ></app-city-shop-content-shop>
+            <div fxLayout="column" fxLayoutAlign="start">
+                <span> {{ tsl("yourInventory") }} </span>
+                <app-inventory-slot
+                    (sell)="sellItem($event)"
+                    [selling]="true"
+                    #inventory
+                ></app-inventory-slot>
+            </div>
         </ng-container>
-        <div fxLayout="column" fxLayoutAlign="start">
-            <span> {{ tsl("yourInventory") }} </span>
-            <app-inventory-slot
-                (sell)="sellItem($event)"
-                [selling]="true"
-                #inventory
-            ></app-inventory-slot>
-        </div>
+        <ng-container *ngIf="displayedContent === 'upgrade'">
+            <app-city-shop-content-upgrade
+                [shop]="_shop"
+                [cityId]="cityId"
+            ></app-city-shop-content-upgrade>
+        </ng-container>
     </div>
 </ng-container>

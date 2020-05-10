@@ -8,6 +8,7 @@ import {
     ITemplateBaseItem,
 } from "@core/models/game-data/game-data.model";
 import * as CityAction from "./cities.action";
+import * as upgrd from "@core/models/upgrades";
 
 const initialState: CitiesState = {
     cities: Map<string, City>([
@@ -24,6 +25,7 @@ const initialState: CitiesState = {
                         {
                             type: "blacksmith",
                             name: "city.city_shop.blacksmith",
+                            maxItemQuality: 2,
                             items: Map<
                                 string,
                                 ITemplateWeapon | ITemplateArmor
@@ -35,9 +37,9 @@ const initialState: CitiesState = {
                                         name: "Armor",
                                         value: 2,
                                         level: 1,
-                                        icon: "armor",
+                                        icon: "boots b116t",
                                         type: "armor",
-                                        subType: "chest",
+                                        subType: "boots",
                                         armor: 5,
                                         style: "rare",
                                     },
@@ -49,7 +51,7 @@ const initialState: CitiesState = {
                                         name: "Gauntlet",
                                         value: 1,
                                         level: 1,
-                                        icon: "armor",
+                                        icon: "chest c2_t",
                                         type: "armor",
                                         subType: "chest",
                                         armor: 5,
@@ -58,9 +60,57 @@ const initialState: CitiesState = {
                                 ],
                             ]),
                             crafts: [],
+                            upgrades: [
+                                {
+                                    name: "(trad)Restockage",
+                                    description:
+                                        "(trad)Réduit le temps d'attente du restock par 10% pour chaque niveau",
+                                    level: 0,
+                                    levelMax: 5,
+                                    basePrice: 1000,
+                                    price: (
+                                        level: number,
+                                        prixBase: number
+                                    ): number =>
+                                        prixBase * (1 + (level * 10) / 100),
+                                    upgrade: (
+                                        shop: Shop,
+                                        level: number,
+                                        index: number
+                                    ): Shop =>
+                                        upgrd.restockTimeUpgrade(
+                                            shop,
+                                            level,
+                                            index
+                                        ),
+                                },
+                                {
+                                    name: "(trad)Better tools",
+                                    description:
+                                        "(trad)Improve quality of items in shop by 1 each level",
+                                    level: 0,
+                                    levelMax: 2,
+                                    basePrice: 2000,
+                                    price: (
+                                        level: number,
+                                        prixBase: number
+                                    ): number =>
+                                        prixBase * (1 + (level * 300) / 100),
+                                    upgrade: (
+                                        shop: Shop,
+                                        level: number,
+                                        index: number
+                                    ): Shop =>
+                                        upgrd.improveQualityUpgrade(
+                                            shop,
+                                            level,
+                                            index
+                                        ),
+                                },
+                            ],
                             display: false,
                             acceptType: "equipment",
-                            intervalStock: 15,
+                            intervalStock: 5 * 60,
                             lastTick: performance.now(),
                         },
                     ],
@@ -77,7 +127,7 @@ const initialState: CitiesState = {
                                         name: "Health Potion",
                                         value: 150,
                                         level: 0,
-                                        icon: "potionRed",
+                                        icon: "potion t_23",
                                         type: "item",
                                         style: "",
                                     },
@@ -89,7 +139,7 @@ const initialState: CitiesState = {
                                         name: "Mana Potion",
                                         value: 150,
                                         level: 0,
-                                        icon: "potionBlue",
+                                        icon: "potion t_21",
                                         type: "item",
                                         style: "",
                                     },

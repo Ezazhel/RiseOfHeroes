@@ -15,8 +15,8 @@
         </button>
         <button
             *ngIf="shop?.upgrades !== undefined"
-            (click)="selectTab('update')"
-            [ngClass]="{ active: activeTab === 'update' }"
+            (click)="selectTab('upgrade')"
+            [ngClass]="{ active: activeTab === 'upgrade' }"
         >
             {{ tsl("upgrade") }}
         </button>

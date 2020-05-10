@@ -1,9 +1,11 @@
 @import "variables.scss";
-@import "sprite-item.scss";
+@import "sprites.scss";
+:host {
+    width: 100%;
+}
 .content {
     display: flex;
     height: 50px;
-    min-width: 30vw;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 0.2rem 0.15rem lightslategrey;

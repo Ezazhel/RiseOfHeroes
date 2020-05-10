@@ -1,0 +1,131 @@
+.pants {
+    background-image: url(~/assets/armor_pants.png);
+    background-repeat: no-repeat;
+    display: block;
+
+    &.p12t {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -5px;
+    }
+
+    &.p22t {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -5px;
+    }
+
+    &.p23t {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -5px;
+    }
+
+    &.p24t {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -5px;
+    }
+
+    &.p25t {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -63px;
+    }
+
+    &.p30t {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -63px;
+    }
+
+    &.p55t {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -63px;
+    }
+
+    &.p56t {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -63px;
+    }
+
+    &.p57t {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -121px;
+    }
+
+    &.p58t {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -121px;
+    }
+
+    &.p59t {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -121px;
+    }
+
+    &.p60t {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -121px;
+    }
+
+    &.p7b {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -179px;
+    }
+
+    &.pn_c_01_t {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -179px;
+    }
+
+    &.pn_c_02_t {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -179px;
+    }
+
+    &.pn_h_01_t {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -179px;
+    }
+
+    &.ppn_h_02_t {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -5px;
+    }
+
+    &.pn_l_01_t {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -63px;
+    }
+
+    &.pn_l_02_t {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -121px;
+    }
+
+    &.pnc_n2_t {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -179px;
+    }
+
+    &.pt_01 {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -237px;
+    }
+}

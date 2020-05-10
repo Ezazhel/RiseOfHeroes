@@ -1,0 +1,142 @@
+.chest {
+    background-image: url(~/assets/armor_chest.png);
+    background-repeat: no-repeat;
+    display: block;
+    &.c132_t {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -5px;
+    }
+
+    &.c13t {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -5px;
+    }
+
+    &.c140_t {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -5px;
+    }
+
+    &.c1t {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -5px;
+    }
+
+    &.c20t {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -63px;
+    }
+
+    &.c2_t {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -63px;
+    }
+
+    &.c32t {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -63px;
+    }
+
+    &.c33t {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -63px;
+    }
+
+    &.c34t {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -121px;
+    }
+
+    &.c35t {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -121px;
+    }
+
+    &.c36t {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -121px;
+    }
+
+    &.c37t {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -121px;
+    }
+
+    &.c38t {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -179px;
+    }
+
+    &.c39t {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -179px;
+    }
+
+    &.c40t {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -179px;
+    }
+
+    &.c41t {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -179px;
+    }
+
+    &.c42t {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -5px;
+    }
+
+    &.c4_t {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -63px;
+    }
+
+    &.c5t {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -121px;
+    }
+
+    &.carm_n2_t {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -179px;
+    }
+
+    &.carm_n3_t {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -237px;
+    }
+
+    &.ct_06 {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -237px;
+    }
+
+    &.ct_10 {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -237px;
+    }
+}

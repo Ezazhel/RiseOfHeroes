@@ -1,10 +1,10 @@
-@import "sprite-item.scss";
+@import "sprites.scss";
 @import "variables.scss";
 
 .slot-item {
     width: 48px;
     margin: 4px;
-    height: 48px;
+    height: 58px;
     user-select: none;
     box-shadow: 0px 0px 3px 1.5px grey;
     position: relative;
