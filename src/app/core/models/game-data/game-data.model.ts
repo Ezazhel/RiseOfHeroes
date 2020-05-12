@@ -7,11 +7,11 @@ export type ItemSellableType = "equipment" | "consumable";
 
 export type ItemFilter = "all" | "item" | "weapon" | "armor";
 
-export type ItemGroups = "default" | "rare" | "magic";
+export type ItemQuality = "commun" | "uncommon" | "rare" | "epic" | "legendary";
 
 export type ItemElements = "holy" | "water" | "wind" | "heal";
 
-export type ItemArmorType = "chest" | "helm" | "boots" | "shield";
+export type ArmorCategory = "chest" | "helm" | "boots" | "pants" | "gloves";
 
 export type WeaponCategory = "sword" | "hammer" | "spear" | "dagger";
 
@@ -69,7 +69,7 @@ export interface ITemplateBaseItem extends ITemplateId {
     /**
      * Any logical groups of items this object matches, e.g. "rare", "magic"
      */
-    readonly groups?: ItemGroups[];
+    readonly groups?: ItemQuality;
 }
 
 export interface ITemplateItem extends ITemplateBaseItem {
@@ -96,7 +96,7 @@ export interface ITemplateArmor extends ITemplateBaseEquipmennt {
      */
     readonly type: "armor";
 
-    readonly subType: ItemArmorType;
+    readonly subType: ArmorCategory;
     /**
      * The defensive rating of this piece of armor.
      */
