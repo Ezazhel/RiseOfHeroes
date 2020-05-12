@@ -1,3 +1,7 @@
+import {
+    baseGloves,
+    GlovesIcon,
+} from "./../../../../core/models/item-generation";
 import { interval, timer } from "rxjs";
 import { Map } from "immutable";
 import { City, Shop } from "./cities.model";
@@ -6,9 +10,15 @@ import {
     ITemplateWeapon,
     ITemplateArmor,
     ITemplateBaseItem,
+    entityId,
 } from "@core/models/game-data/game-data.model";
 import * as CityAction from "./cities.action";
 import * as upgrd from "@core/models/upgrades";
+import {
+    baseChest,
+    pickRandomIcon,
+    ChestIcon,
+} from "@core/models/item-generation";
 
 const initialState: CitiesState = {
     cities: Map<string, City>([
@@ -33,29 +43,25 @@ const initialState: CitiesState = {
                                 [
                                     "armor1",
                                     {
-                                        id: "armor1",
+                                        ...baseChest,
+                                        id: entityId("armor"),
                                         name: "Armor",
-                                        value: 2,
                                         level: 1,
-                                        icon: "boots b1",
-                                        type: "armor",
-                                        subType: "boots",
-                                        armor: 5,
+                                        icon: pickRandomIcon(ChestIcon),
+                                        subType: "chest",
                                         style: "rare",
                                     },
                                 ],
                                 [
                                     "armor2",
                                     {
-                                        id: "armor2",
-                                        name: "Gauntlet",
-                                        value: 1,
+                                        ...baseGloves,
+                                        id: entityId("glove"),
+                                        name: "Glove",
                                         level: 1,
-                                        icon: "chest c2",
-                                        type: "armor",
-                                        subType: "chest",
-                                        armor: 5,
+                                        icon: pickRandomIcon(GlovesIcon),
                                         style: "common",
+                                        subType: "gloves",
                                     },
                                 ],
                             ]),

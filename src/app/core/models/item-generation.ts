@@ -5,11 +5,13 @@ import {
     WeaponCategory,
     ArmorCategory,
 } from "./game-data/game-data.model";
-export const ChestIcon: Array<String> = generateIconArray("c", 23);
-export const HelmIcon: Array<String> = generateIconArray("h", 25);
-export const GlovesIcon: Array<String> = generateIconArray("g", 21);
-export const PantIcon: Array<String> = generateIconArray("p", 21);
-export const BootsIcon: Array<String> = generateIconArray("b", 17);
+import { Random } from "random-js";
+const random = new Random();
+export const ChestIcon: Array<string> = generateIconArray("c", 23);
+export const HelmIcon: Array<string> = generateIconArray("h", 25);
+export const GlovesIcon: Array<string> = generateIconArray("g", 21);
+export const PantIcon: Array<string> = generateIconArray("p", 21);
+export const BootsIcon: Array<string> = generateIconArray("b", 17);
 
 export const QualityArray: Array<ItemQuality> = [
     "commun",
@@ -33,15 +35,15 @@ export const ArmorTypeArray: Array<ArmorCategory> = [
     "boots",
 ];
 function generateIconArray(icon: string, number: number) {
-    let array: Array<String>;
+    let array: Array<string> = new Array<string>();
     for (let i = 1; i <= number; i++) {
-        array[i] = `${icon}${i}`;
+        array.push(`${icon}${i}`);
     }
     return array;
 }
 
 export function pickRandomIcon(array: Array<string>): string {
-    return "";
+    return array[random.integer(1, array.length - 1)];
 }
 
 export const baseWeapon: ITemplateWeapon = {

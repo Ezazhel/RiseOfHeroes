@@ -9,7 +9,7 @@
             (mouseenter)="setItem(item[1])"
             (mouseleave)="setItem(null)"
         >
-            <i class="{{ item[1].icon }} "></i>
+            <i class="{{ item[1].subType }} {{ item[1].icon }} "></i>
             <span class="item-name">
                 {{ item[1].name }}
             </span>
