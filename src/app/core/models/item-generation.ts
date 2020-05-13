@@ -4,6 +4,8 @@ import {
     ItemQuality,
     WeaponCategory,
     ArmorCategory,
+    ItemCategories,
+    entityId,
 } from "./game-data/game-data.model";
 import { Random } from "random-js";
 const random = new Random();
@@ -34,6 +36,12 @@ export const ArmorTypeArray: Array<ArmorCategory> = [
     "pants",
     "boots",
 ];
+
+export const PossibleReward: Array<ItemCategories> = [
+    "armor",
+    "weapon",
+    "item",
+];
 function generateIconArray(icon: string, number: number) {
     let array: Array<string> = new Array<string>();
     for (let i = 1; i <= number; i++) {
@@ -46,6 +54,79 @@ export function pickRandomIcon(array: Array<string>): string {
     return array[random.integer(1, array.length - 1)];
 }
 
+function pickRandomReward(): ItemCategories {
+    return PossibleReward[random.integer(1, PossibleReward.length - 1)];
+}
+
+function generateReward(level: number) {
+    switch (pickRandomReward()) {
+        case "item":
+            break;
+        case "weapon":
+            switch (
+                WeaponTypeArray[random.integer(1, WeaponTypeArray.length - 1)]
+            ) {
+                case "dagger":
+                    return generateWeapon(baseDagger, "dagger", level, []);
+                case "hammer":
+                    return generateWeapon(baseHammer, "hammer", level, []);
+                case "spear":
+                    return generateWeapon(baseSpear, "spear", level, []);
+                case "sword":
+                    return generateWeapon(baseSword, "sword", level, []);
+            }
+            break;
+        case "armor":
+            return generateRandomArmor(level);
+    }
+}
+export function generateRandomArmor(level: number) {
+    let type = ArmorTypeArray[random.integer(1, ArmorTypeArray.length - 1)];
+    switch (type) {
+        case "boots":
+            return generateArmor(baseBoots, "boots", level, BootsIcon);
+
+        case "chest":
+            return generateArmor(baseChest, "chest", level, ChestIcon);
+
+        case "gloves":
+            return generateArmor(baseGloves, "gloves", level, GlovesIcon);
+        case "helm":
+            return generateArmor(baseGloves, "helm", level, GlovesIcon);
+
+        case "pants":
+            return generateArmor(basePants, "pants", level, PantIcon);
+    }
+}
+
+function generateArmor(
+    baseArmor: ITemplateArmor,
+    id: string,
+    level: number,
+    icons: Array<string>
+) {
+    return {
+        ...baseArmor,
+        id: entityId(id),
+        level: level,
+        icon: pickRandomIcon(icons),
+        name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
+    };
+}
+export function generateWeapon(
+    baseWeapon: ITemplateWeapon,
+    id: string,
+    level: number,
+    icons: Array<string>
+) {
+    return {
+        ...baseWeapon,
+        id: entityId(id),
+        level: level,
+        icon: pickRandomIcon(icons),
+        name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
+    };
+}
 export const baseWeapon: ITemplateWeapon = {
     id: "", //will be set randomly
     name: "", //will be set randomly

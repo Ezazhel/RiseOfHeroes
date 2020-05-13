@@ -1,7 +1,4 @@
-import {
-    baseGloves,
-    GlovesIcon,
-} from "./../../../../core/models/item-generation";
+import { generateRandomArmor } from "@core/models/item-generation";
 import { interval, timer } from "rxjs";
 import { Map } from "immutable";
 import { City, Shop } from "./cities.model";
@@ -43,22 +40,14 @@ const initialState: CitiesState = {
                                 [
                                     "armor1",
                                     {
-                                        ...baseChest,
-                                        id: entityId("armor"),
-                                        name: "Armor",
-                                        level: 1,
-                                        icon: pickRandomIcon(ChestIcon),
+                                        ...generateRandomArmor(1),
                                         style: "rare",
                                     },
                                 ],
                                 [
                                     "armor2",
                                     {
-                                        ...baseGloves,
-                                        id: entityId("glove"),
-                                        name: "Glove",
-                                        level: 1,
-                                        icon: pickRandomIcon(GlovesIcon),
+                                        ...generateRandomArmor(1),
                                         style: "common",
                                     },
                                 ],
@@ -114,7 +103,7 @@ const initialState: CitiesState = {
                             ],
                             display: false,
                             acceptType: "equipment",
-                            intervalStock: 5 * 60,
+                            intervalStock: 15,
                             lastTick: performance.now(),
                         },
                     ],

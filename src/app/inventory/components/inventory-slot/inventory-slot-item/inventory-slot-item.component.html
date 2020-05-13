@@ -4,7 +4,7 @@
     (mouseenter)="onMouseEnter()"
     (mouseleave)="onMouseLeave()"
 >
-    <span class="{{ item.icon }}"> </span>
+    <span class="{{ item.subType }} {{ item.icon }}"> </span>
     <button
         (click)="sellOrThrow()"
         class="throw"
