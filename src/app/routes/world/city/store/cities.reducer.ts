@@ -11,11 +11,6 @@ import {
 } from "@core/models/game-data/game-data.model";
 import * as CityAction from "./cities.action";
 import * as upgrd from "@core/models/upgrades";
-import {
-    baseChest,
-    pickRandomIcon,
-    ChestIcon,
-} from "@core/models/item-generation";
 
 const initialState: CitiesState = {
     cities: Map<string, City>([
@@ -41,14 +36,14 @@ const initialState: CitiesState = {
                                     "armor1",
                                     {
                                         ...generateRandomArmor(1),
-                                        style: "rare",
+                                        quality: "rare",
                                     },
                                 ],
                                 [
                                     "armor2",
                                     {
                                         ...generateRandomArmor(1),
-                                        style: "common",
+                                        quality: "rare",
                                     },
                                 ],
                             ]),
@@ -120,9 +115,10 @@ const initialState: CitiesState = {
                                         name: "Health Potion",
                                         value: 150,
                                         level: 0,
-                                        icon: "potion t_23",
+                                        icon: "t_23",
                                         type: "item",
-                                        style: "",
+                                        quality: "commun",
+                                        subType: "potion",
                                     },
                                 ],
                                 [
@@ -132,9 +128,10 @@ const initialState: CitiesState = {
                                         name: "Mana Potion",
                                         value: 150,
                                         level: 0,
-                                        icon: "potion t_21",
+                                        icon: "t_21",
                                         type: "item",
-                                        style: "",
+                                        quality: "commun",
+                                        subType: "potion",
                                     },
                                 ],
                             ]),

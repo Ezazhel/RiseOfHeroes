@@ -35,7 +35,13 @@
         "InitWelcome": "Bienvenue péon ! (Oui, actuellement vous êtes un péon)",
         "loadWelcome": "Bon retour parmis nous !",
         "InitWelcomeAfterReset": "J'espère que cette fois vous serez prêt...!",
-        "alertHARDRESET": "Certains de repartir de zéro ?"
+        "alertHARDRESET": "Certains de repartir de zéro ?",
+        "stats": {
+            "strength": "Force",
+            "endurance": "Endurance",
+            "intellect": "Intelligence",
+            "agility": "Agilité"
+        }
     },
     "house": {
         "yourHouse": "Ma maison",

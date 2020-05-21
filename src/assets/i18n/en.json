@@ -35,7 +35,13 @@
         "InitWelcome": "Welcome Peasant ! (Yeah, you are actually a peasant)",
         "loadWelcome": "Welcome back !",
         "InitWelcomeAfterReset": "I hope you are ready this time...!",
-        "alertHARDRESET": "Are you sure you want to hard reset your game ?"
+        "alertHARDRESET": "Are you sure you want to hard reset your game ?",
+        "stats": {
+            "strength": "Strength",
+            "endurance": "Endurance",
+            "intellect": "Intellect",
+            "agility": "Agility"
+        }
     },
     "house": {
         "yourHouse": "This is your house",

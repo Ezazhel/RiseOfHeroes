@@ -2,6 +2,7 @@ import {
     ITemplateWeapon,
     ITemplateArmor,
     ITemplateItem,
+    ITemplateBaseItem,
 } from "@core/models/game-data/game-data.model";
 import { Component, OnInit, Input } from "@angular/core";
 
@@ -11,7 +12,20 @@ import { Component, OnInit, Input } from "@angular/core";
     styleUrls: ["./inventory-slot-detail.component.scss"],
 })
 export class InventorySlotDetailComponent implements OnInit {
-    @Input() item: ITemplateWeapon | ITemplateArmor | ITemplateItem;
+    @Input("item") set item(value: ITemplateBaseItem) {
+        if (value.type === "item") {
+            this.consumable = value as ITemplateItem;
+        } else {
+            this.equipment = value as ITemplateWeapon | ITemplateArmor;
+        }
+        this._item = value;
+    }
+    get item(): ITemplateBaseItem {
+        return this._item;
+    }
+    _item: ITemplateBaseItem;
+    consumable: ITemplateItem;
+    equipment: ITemplateWeapon | ITemplateArmor;
     constructor() {}
 
     ngOnInit(): void {}
