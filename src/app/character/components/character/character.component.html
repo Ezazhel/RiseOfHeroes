@@ -1,8 +1,10 @@
 <ng-container *transloco="let t; read: 'hud-modal'">
     <app-modal [cclass]="'stat'" (close)="onClose()" [header]="t('stats')">
-        <div class="character-body">
-            <app-character-equipment></app-character-equipment>
-            <app-character-stats></app-character-stats>
+        <div fxLayout="row nowrap">
+            <app-character-equipment
+                [hero]="_hero$ | async"
+            ></app-character-equipment>
+            <app-character-stats [hero]="_hero$ | async"></app-character-stats>
         </div>
     </app-modal>
 </ng-container>

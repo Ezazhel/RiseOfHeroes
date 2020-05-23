@@ -91,10 +91,10 @@ export function generateRandomArmor(level: number) {
                 level,
                 GlovesIcon
             );
-        case "helm":
+        case "helmet":
             return generateArmor(
                 baseItem.baseGloves,
-                "helm",
+                "helmet",
                 level,
                 GlovesIcon
             );
@@ -168,7 +168,7 @@ export const WeaponTypeArray: Array<WeaponCategory> = [
 ];
 
 export const ArmorTypeArray: Array<ArmorCategory> = [
-    "helm",
+    "helmet",
     "chest",
     "gloves",
     "pants",

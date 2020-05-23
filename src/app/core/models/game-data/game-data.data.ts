@@ -76,7 +76,7 @@ export const baseChest: ITemplateArmor = {
 export const baseHelm: ITemplateArmor = {
     ...baseArmor,
     value: 5,
-    subType: "helm",
+    subType: "helmet",
     armor: 5,
 };
 

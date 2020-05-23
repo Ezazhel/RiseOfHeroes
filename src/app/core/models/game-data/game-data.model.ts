@@ -11,7 +11,7 @@ export type ItemQuality = "commun" | "uncommon" | "rare" | "epic" | "legendary";
 
 export type ItemElements = "holy" | "water" | "wind" | "heal";
 
-export type ArmorCategory = "chest" | "helm" | "boots" | "pants" | "gloves";
+export type ArmorCategory = "chest" | "helmet" | "boots" | "pants" | "gloves";
 
 export type WeaponCategory = "sword" | "hammer" | "spear" | "dagger";
 

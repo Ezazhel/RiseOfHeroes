@@ -1,9 +1,80 @@
-<div>
-    <ul class="equipment-slots">
-        <li class="equipment head"></li>
-        <li class="equipment torso"></li>
-        <li class="equipment gloves"></li>
-        <li class="equipment pants"></li>
-        <li class="equipment boots"></li>
-    </ul>
-</div>
+<ng-container *transloco="let t">
+    <div>
+        <ul class="equipment-slots">
+            <li class="equipment h"></li>
+            <li class="equipment c">
+                <ng-container
+                    *ngTemplateOutlet="
+                        weaponOrArmor;
+                        context: { $implicit: hero.chest }
+                    "
+                ></ng-container>
+            </li>
+            <li class="equipment g">
+                <ng-container
+                    *ngTemplateOutlet="
+                        weaponOrArmor;
+                        context: { $implicit: hero.gloves }
+                    "
+                ></ng-container>
+            </li>
+            <li class="equipment p">
+                <ng-container
+                    *ngTemplateOutlet="
+                        weaponOrArmor;
+                        context: { $implicit: hero.pants }
+                    "
+                ></ng-container>
+            </li>
+            <li class="equipment b">
+                <ng-container
+                    *ngTemplateOutlet="
+                        weaponOrArmor;
+                        context: { $implicit: hero.boots }
+                    "
+                ></ng-container>
+            </li>
+        </ul>
+    </div>
+    <ng-template #weaponOrArmor let-equipment>
+        <div class="stat" fxLayout="row nowrap" *ngIf="equipment !== undefined">
+            <span class="icon {{ equipment.subType }} {{ equipment.icon }}">
+            </span>
+            <div fxLayout="column nowrap">
+                <ng-container *ngIf="equipment?.type === 'weapon'">
+                    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                        <label>
+                            Category
+                        </label>
+                        <label>
+                            Type
+                        </label>
+                    </div>
+                    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                        <label>
+                            Attack
+                        </label>
+                        <label>
+                            Speed
+                        </label>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="equipment?.type === 'armor'">
+                    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                        <label class=" {{ equipment.quality }}">
+                            {{ equipment.name }}
+                        </label>
+                    </div>
+                    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                        <label> {{ equipment.armor }} Armor </label>
+                    </div>
+                </ng-container>
+                <!-- Loop of an array Stats. -->
+                <label *ngFor="let stat of equipment.stats">
+                    +{{ stat.value }} {{ t(stat.name) }}
+                </label>
+                <label> Runes </label>
+            </div>
+        </div>
+    </ng-template>
+</ng-container>

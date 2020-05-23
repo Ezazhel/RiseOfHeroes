@@ -75,7 +75,7 @@ export class GameService {
                 companions: null,
                 inventory: Immutable.OrderedMap<string, ITemplateBaseItem>(),
                 currencies: Immutable.Map<string, Currency>([
-                    ["gold", { name: "gold", quantity: 0 }],
+                    ["gold", { name: "gold", quantity: 50 }],
                 ]),
                 location: "house",
                 combatZone: "",
