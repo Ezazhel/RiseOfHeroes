@@ -7,7 +7,7 @@ export type ItemSellableType = "equipment" | "consumable";
 
 export type ItemFilter = "all" | "item" | "weapon" | "armor";
 
-export type ItemQuality = "commun" | "uncommon" | "rare" | "epic" | "legendary";
+export type ItemQuality = "common" | "uncommon" | "rare" | "epic" | "legendary";
 
 export type ItemElements = "holy" | "water" | "wind" | "heal";
 

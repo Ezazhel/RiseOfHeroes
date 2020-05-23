@@ -5,7 +5,7 @@
         }}</span>
         <div
             *ngFor="let item of _shop.items; trackBy: trackByFn"
-            class="content {{ item[1].style }}"
+            class="content {{ item[1].quality }}"
             (mouseenter)="setItem(item[1])"
             (mouseleave)="setItem(null)"
         >

@@ -1,4 +1,4 @@
-<ng-container>
+<ng-container *transloco="let t">
     <ul>
         <li>
             <span class="stat-label">PV :</span>
@@ -12,15 +12,15 @@
 
         <li>
             <span class="stat-label">Expérience :</span>
-            <span class="stat-value"> 0</span>
+            <span class="stat-value"> {{ hero.exp }}</span>
         </li>
 
         <li>
-            <span class="stat-label"> Attaque : </span>
+            <span class="stat-label"> Strength : </span>
             <span class="stat-value"> {{ hero.attack }}</span>
         </li>
         <li>
-            <span class="stat-label"> Defense :</span>
+            <span class="stat-label"> Endurance :</span>
             <span class="stat-value"> {{ hero.defense }}</span>
         </li>
     </ul>

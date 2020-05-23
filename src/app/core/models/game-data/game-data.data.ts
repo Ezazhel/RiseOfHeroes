@@ -13,7 +13,7 @@ export const baseWeapon: ITemplateWeapon = {
     icon: "", //will be set randomly
     subType: "dagger",
     weaponHandling: "1h",
-    quality: "commun", //will be set randomly
+    quality: "common", //will be set randomly
 };
 export const baseDagger: ITemplateWeapon = {
     ...baseWeapon,
@@ -63,7 +63,7 @@ export const baseArmor: ITemplateArmor = {
     type: "armor",
     subType: "boots",
     armor: 5,
-    quality: "commun",
+    quality: "common",
 };
 
 export const baseChest: ITemplateArmor = {

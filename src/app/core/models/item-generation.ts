@@ -154,7 +154,7 @@ export function generateWeapon(
 }
 
 export const QualityArray: Array<ItemQuality> = [
-    "commun",
+    "common",
     "uncommon",
     "rare",
     "epic",

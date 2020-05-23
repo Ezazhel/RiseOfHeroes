@@ -26,6 +26,13 @@ li {
     outline-offset: -2px;
     background-color: rgba(255, 255, 255, 0.1);
     box-sizing: border-box;
+    color: $carreraWhite;
+    .rare {
+        color: $blueRareItem;
+    }
+    .uncommon {
+        color: $greenCommonItem;
+    }
 }
 $gloves: -39px -5px;
 $head: -39px -39px;
