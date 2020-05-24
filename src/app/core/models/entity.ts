@@ -1,4 +1,8 @@
-import { Currency } from "@core/models/game-data/game-data.model";
+import {
+    Currency,
+    Stat,
+    StatType,
+} from "@core/models/game-data/game-data.model";
 import * as Immutable from "immutable";
 import {
     ITemplateWeapon,
@@ -26,24 +30,24 @@ export interface IHiddenAttributes {
     /**
      * Base attack value
      */
-    readonly baseattack: number;
+    readonly baseAttack: number;
     /**
      * Base defense value
      */
-    readonly basedefense: number;
+    readonly baseDefense: number;
     /**
      * Base magic value
      */
-    readonly basemagic: number;
+    readonly baseMagic: number;
     /**
      * Base speed value
      */
-    readonly basespeed: number;
+    readonly baseSpeed: number;
 }
 
 export interface BaseEntity extends TemplateEntity, IHiddenAttributes {
-    readonly maxressource: number;
-    readonly maxhp: number;
+    readonly maxRessource: number;
+    readonly maxHp: number;
 }
 
 export interface Hero extends BaseEntity {
@@ -56,6 +60,8 @@ export interface Hero extends BaseEntity {
     readonly pants?: ITemplateArmor;
     readonly boots?: ITemplateArmor;
     readonly accesory?: null;
+    readonly armor: number;
+    readonly stats: Immutable.Map<StatType, Stat>;
 }
 
 export interface Companion extends BaseEntity {}

@@ -7,6 +7,7 @@ import {
     ITemplateArmor,
     ITemplateWeapon,
 } from "../game-data/game-data.model";
+import { strenghtStat } from "../game-data/game-data.data";
 
 const initialState: GameState = {
     companions: null,
@@ -88,9 +89,13 @@ export function gameRecuder(
 }
 
 function EquipHero(hero: Hero, item: ITemplateBaseItem): Hero {
+    let stats = hero.stats;
     if (item.type == "weapon") {
         let weapon = item as ITemplateWeapon;
         hero = { ...hero, weapon: weapon };
+        weapon.stats.forEach((stat) => {
+            stats = stats.updateIn([stat.type, "value"], (v) => v + stat.value);
+        });
     } else if (item.type == "armor") {
         let armor = item as ITemplateArmor;
         switch (armor.subType) {
@@ -110,6 +115,10 @@ function EquipHero(hero: Hero, item: ITemplateBaseItem): Hero {
                 hero = { ...hero, pants: armor };
                 break;
         }
+        armor.stats.forEach((stat) => {
+            stats = stats.updateIn([stat.type, "value"], (v) => v + stat.value);
+        });
+        hero = { ...hero, armor: hero.armor + armor.armor };
     }
-    return hero;
+    return { ...hero, stats: stats };
 }

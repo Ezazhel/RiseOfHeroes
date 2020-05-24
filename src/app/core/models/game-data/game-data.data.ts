@@ -1,6 +1,28 @@
 import { Map } from "immutable";
 import { Stat } from "./game-data.model";
 import { ITemplateWeapon, ITemplateArmor } from "./game-data.model";
+//#region Stats
+export const strenghtStat: Stat = {
+    type: "strength",
+    name: "game.stats.strength",
+    value: 3,
+};
+export const enduranceStat: Stat = {
+    type: "endurance",
+    name: "game.stats.endurance",
+    value: 5,
+};
+export const intelligenceStat: Stat = {
+    type: "intellect",
+    name: "game.stats.intellect",
+    value: 0,
+};
+export const agilityStat: Stat = {
+    type: "agility",
+    name: "game.stats.agility",
+    value: 0,
+};
+//#endregion Stats
 
 //#region Weapon
 export const baseWeapon: ITemplateWeapon = {
@@ -101,29 +123,6 @@ export const baseGloves: ITemplateArmor = {
     armor: 5,
 };
 //#endregion Armor
-
-//#region Stats
-export const strenghtStat: Stat = {
-    type: "strength",
-    name: "game.stats.strength",
-    value: 3,
-};
-export const enduranceStat: Stat = {
-    type: "endurance",
-    name: "game.stats.endurance",
-    value: 5,
-};
-export const intelligenceStat: Stat = {
-    type: "intellect",
-    name: "game.stats.intellect",
-    value: 0,
-};
-export const agilityStat: Stat = {
-    type: "agility",
-    name: "game.stats.agility",
-    value: 0,
-};
-//#endregion Stats
 
 // export const cities: Map<string, City> = Map<string, City>([
 //     [

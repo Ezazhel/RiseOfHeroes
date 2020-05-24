@@ -1,27 +1,30 @@
 <ng-container *transloco="let t">
+    <h2>Informations</h2>
     <ul>
         <li>
             <span class="stat-label">PV :</span>
-            <span class="stat-value">{{ hero.maxhp }}</span>
+            <span class="stat-value">{{ hero.maxHp }}</span>
         </li>
 
         <li>
             <span class="stat-label">Mana :</span>
-            <span class="stat-value"> 0</span>
+            <span class="stat-value"> {{ hero.maxRessource }}</span>
         </li>
 
         <li>
             <span class="stat-label">Expérience :</span>
             <span class="stat-value"> {{ hero.exp }}</span>
         </li>
-
         <li>
-            <span class="stat-label"> Strength : </span>
-            <span class="stat-value"> {{ hero.attack }}</span>
+            <span class="stat-label">Armor :</span>
+            <span class="stat-value"> {{ hero.armor }}</span>
         </li>
-        <li>
-            <span class="stat-label"> Endurance :</span>
-            <span class="stat-value"> {{ hero.defense }}</span>
+    </ul>
+    <h2>Statistiques (trad)</h2>
+    <ul>
+        <li *ngFor="let stat of hero.stats">
+            <span class="stat-label"> {{ t(stat[1].name) }} : </span>
+            <span class="stat-value"> {{ stat[1].value }}</span>
         </li>
     </ul>
 </ng-container>

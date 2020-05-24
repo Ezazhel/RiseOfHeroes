@@ -17,7 +17,12 @@ export type WeaponCategory = "sword" | "hammer" | "spear" | "dagger";
 
 export type WeaponHandling = "2h" | "1h";
 
-export type StatType = "strength" | "endurance" | "intellect" | "agility";
+export type StatType =
+    | "armor"
+    | "strength"
+    | "endurance"
+    | "intellect"
+    | "agility";
 
 export interface Currency {
     readonly name: string;

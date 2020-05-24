@@ -37,6 +37,7 @@
         "InitWelcomeAfterReset": "J'espère que cette fois vous serez prêt...!",
         "alertHARDRESET": "Certains de repartir de zéro ?",
         "stats": {
+            "armor": "Armure",
             "strength": "Force",
             "endurance": "Endurance",
             "intellect": "Intelligence",

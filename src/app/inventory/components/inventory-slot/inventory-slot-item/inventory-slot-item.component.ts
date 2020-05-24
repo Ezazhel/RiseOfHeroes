@@ -2,6 +2,7 @@ import {
     GameStateInventoryRemoveItemAction,
     GameStateEquipItemHeroAction,
     GameStateInventoryAddItemAction,
+    GameStateUpdateHeroAction,
 } from "@core/models/game-state/game-state.action";
 import {
     ITemplateBaseItem,
@@ -71,10 +72,24 @@ export class InventorySlotItemComponent implements OnInit {
                 } else if (this.item.type == "weapon") {
                     heroItem = hero.weapon;
                 }
-                console.log(heroItem);
                 if (heroItem !== undefined) {
                     this.store.dispatch(
                         new GameStateInventoryAddItemAction(heroItem)
+                    );
+                    let stats = hero.stats;
+                    heroItem.stats.forEach((stat) => {
+                        stats = stats.updateIn(
+                            [stat.type, "value"],
+                            (v) => v - stat.value
+                        );
+                    });
+                    //Update Hero with removing stat
+                    this.store.dispatch(
+                        new GameStateUpdateHeroAction({
+                            ...hero,
+                            stats: stats,
+                            armor: hero.armor - heroItem.armor,
+                        })
                     );
                 }
             });
