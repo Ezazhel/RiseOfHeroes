@@ -25,6 +25,14 @@
         "tools": "Options",
         "HARDRESET": "HARD RESET /!\\"
     },
+    "hud-stats": {
+        "exp": "Experience",
+        "hp": "Health point",
+        "mana": "Mana",
+        "energy": "Energy",
+        "rage": "Rage",
+        "stats": "Stats"
+    },
     "inventoryFilter": {
         "all": "All",
         "armor": "armor",

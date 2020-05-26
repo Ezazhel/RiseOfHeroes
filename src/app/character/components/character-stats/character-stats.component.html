@@ -1,27 +1,31 @@
 <ng-container *transloco="let t">
-    <h2>Informations</h2>
-    <ul>
+    <h3 (click)="hideOrDisplay(informations, $event)" class="header open">
+        Informations
+    </h3>
+    <ul #informations>
         <li>
-            <span class="stat-label">PV :</span>
+            <span class="stat-label">{{ t("hud-stats.hp") }} :</span>
             <span class="stat-value">{{ hero.maxHp }}</span>
         </li>
 
         <li>
-            <span class="stat-label">Mana :</span>
+            <span class="stat-label">{{ t("hud-stats.mana") }} :</span>
             <span class="stat-value"> {{ hero.maxRessource }}</span>
         </li>
 
         <li>
-            <span class="stat-label">Expérience :</span>
+            <span class="stat-label"> {{ t("hud-stats.exp") }} :</span>
             <span class="stat-value"> {{ hero.exp }}</span>
         </li>
         <li>
-            <span class="stat-label">Armor :</span>
+            <span class="stat-label"> {{ t("game.stats.armor") }} :</span>
             <span class="stat-value"> {{ hero.armor }}</span>
         </li>
     </ul>
-    <h2>Statistiques (trad)</h2>
-    <ul>
+    <h3 (click)="hideOrDisplay(stats, $event)" class="header open">
+        {{ t("hud-stats.stats") }}
+    </h3>
+    <ul #stats>
         <li *ngFor="let stat of hero.stats">
             <span class="stat-label"> {{ t(stat[1].name) }} : </span>
             <span class="stat-value"> {{ stat[1].value }}</span>

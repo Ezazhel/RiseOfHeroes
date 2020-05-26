@@ -1,10 +1,9 @@
 import { Store, select } from "@ngrx/store";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Renderer2, ElementRef } from "@angular/core";
 import { Observable } from "rxjs";
 import { Hero } from "@core/models/entity";
 import { AppState } from "@core/models";
 import { heroSelector } from "@core/models/selector";
-
 @Component({
     selector: "app-character-stats",
     templateUrl: "./character-stats.component.html",
@@ -13,7 +12,18 @@ import { heroSelector } from "@core/models/selector";
 export class CharacterStatsComponent implements OnInit {
     @Input() hero: Hero;
 
-    constructor() {}
+    hideOrDisplay(el: any, event: any) {
+        const emitter = event.target;
+        const hOrD = el.style.display == "" ? "none" : ""; //if block then we hide, else...
+
+        this.renderer.setStyle(el, "display", hOrD);
+        const rClass = emitter.classList.contains("open") ? "open" : "close";
+
+        const aClass = rClass == "open" ? "close" : "open";
+        this.renderer.removeClass(emitter, rClass);
+        this.renderer.addClass(emitter, aClass);
+    }
+    constructor(private renderer: Renderer2) {}
 
     ngOnInit(): void {}
 }

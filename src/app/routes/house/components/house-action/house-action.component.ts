@@ -118,13 +118,19 @@ export class HouseActionComponent implements OnInit, OnDestroy {
                 case "strength":
                     hero = {
                         ...hero,
-                        attack: hero.attack + trainEquipment.reward,
+                        stats: hero.stats.updateIn(
+                            ["strength", "value"],
+                            (value) => value + trainEquipment.reward
+                        ),
                     };
                     break;
                 case "endurance":
                     hero = {
                         ...hero,
-                        defense: hero.defense + trainEquipment.reward,
+                        stats: hero.stats.updateIn(
+                            ["endurance", "value"],
+                            (v) => v + trainEquipment.reward
+                        ),
                     };
                     break;
             }

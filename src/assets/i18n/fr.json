@@ -25,6 +25,15 @@
         "tools": "Options",
         "HARDRESET": "REMISE A ZERO"
     },
+    ,
+    "hud-stats": {
+        "exp": "Experience",
+        "hp": "Santé",
+        "mana": "Mana",
+        "energy": "Energie",
+        "rage": "Rage",
+        "stats": "Statistiques"
+    },
     "inventoryFilter": {
         "all": "Tout",
         "armor": "Armures",
