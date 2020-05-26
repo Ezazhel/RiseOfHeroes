@@ -1,3 +1,4 @@
+@import "variables.scss";
 :host {
     display: inline-block;
     margin: 5px;
@@ -15,8 +16,51 @@ li {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    color: $carreraWhite;
+}
+.header {
+    @mixin after($content, $color) {
+        content: $content;
+        color: $color;
+        font-size: 18px;
+        font-weight: bold;
+        position: absolute;
+        right: 10px;
+        bottom: 0px;
+    }
+    display: block;
+    padding: 0px 5px;
+    width: 100%;
+    box-shadow: 0px 0px 0.5px 0.5px $carreraWhite;
+    border-radius: 5px;
+    position: relative;
+    &:hover {
+        box-shadow: 0px 0px 1px 1px $carreraWhite;
+        color: $maroon;
+        cursor: pointer;
+    }
+
+    &.close::after {
+        @include after("+", $blueTextOnBody);
+    }
+    &.open::after {
+        @include after("-", $red);
+    }
+    + ul {
+        max-height: 25%;
+        transform: scale(1);
+        transform-origin: top;
+        overflow: hidden;
+        transition: all 0.25s ease-in;
+        &.hidden {
+            transform: scale(0);
+            max-height: 0px;
+        }
+    }
 }
 .stat-label {
+    font-style: italic;
 }
 .stat-value {
+    font-size: smaller;
 }

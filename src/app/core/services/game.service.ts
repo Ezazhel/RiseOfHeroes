@@ -1,8 +1,7 @@
 import {
-    ITemplateArmor,
-    entityId,
-    ITemplateItem,
     ITemplateBaseItem,
+    StatType,
+    Stat,
 } from "./../models/game-data/game-data.model";
 import { GameState } from "./../models/game-state/game-state.reducer";
 import { AppState } from "@core/models";
@@ -14,8 +13,13 @@ import * as _ from "lodash";
 import * as Immutable from "immutable";
 import { GameStateNewAction } from "@core/models/game-state/game-state.action";
 import { Currency } from "@core/models/game-data/game-data.model";
-import * as gameStateAction from "@core/models/game-state/game-state.action";
 import { GameStateService } from "./game-state.service";
+import {
+    intelligenceStat,
+    agilityStat,
+    strenghtStat,
+    enduranceStat,
+} from "@core/models/game-data/game-data.data";
 @Injectable({
     providedIn: "root",
 })
@@ -24,38 +28,7 @@ export class GameService {
         public messageService: MessageService,
         private store: Store<AppState>
     ) {}
-    initialize() {
-        let item: ITemplateArmor = {
-            id: entityId("armor"),
-            icon: "armor",
-            name: "armor",
-            type: "armor",
-            subType: "chest",
-            armor: 5,
-            value: 50,
-            level: 1,
-            style: "rare",
-        };
-        this.store.dispatch(
-            new gameStateAction.GameStateInventoryAddItemAction(item)
-        );
-        item = { ...item, id: entityId("armor") };
-        this.store.dispatch(
-            new gameStateAction.GameStateInventoryAddItemAction(item)
-        );
-        let consumable: ITemplateItem = {
-            id: entityId("health potion"),
-            icon: "potionRed",
-            name: "Health Potion",
-            value: 50,
-            type: "item",
-            level: 0,
-            style: "common",
-        };
-        this.store.dispatch(
-            new gameStateAction.GameStateInventoryAddItemAction(consumable)
-        );
-    }
+    initialize() {}
 
     static create(entityClass: EntitySubtype) {
         const HERO_DEFAULTS: Partial<Hero> = {
@@ -64,31 +37,38 @@ export class GameService {
             subType: entityClass,
             level: 1,
             exp: 0,
-            baseattack: 0,
-            basespeed: 0,
-            basemagic: 0,
-            basedefense: 0,
+            baseAttack: 0,
+            baseSpeed: 0,
+            baseMagic: 0,
+            baseDefense: 0,
+            armor: 0,
+            stats: Immutable.Map<StatType, Stat>([
+                ["strength", { ...strenghtStat, value: 0 }],
+                ["endurance", { ...enduranceStat, value: 0 }],
+                ["intellect", { ...intelligenceStat, value: 0 }],
+                ["agility", { ...agilityStat, value: 0 }],
+            ]),
         };
         let character: Partial<Hero> = null;
         switch (entityClass) {
             case "peasant":
                 character = _.assign({}, HERO_DEFAULTS, {
                     baseattack: 25,
-                    maxressource: 0,
+                    maxRessource: 0,
                     basespeed: 1,
                     basedefense: 10,
                     hp: 500,
-                    maxhp: 500,
+                    maxHp: 500,
                 });
                 break;
             default:
                 throw new Error("Unknow character class:" + entityClass);
         }
         character = _.extend(character, {
-            defense: character.basedefense,
-            speed: character.basespeed,
-            attack: character.baseattack,
-            magic: character.basemagic,
+            defense: character.baseDefense,
+            speed: character.baseSpeed,
+            attack: character.baseAttack,
+            magic: character.baseMagic,
         });
         return character as Hero;
     }
@@ -106,7 +86,7 @@ export class GameService {
                 companions: null,
                 inventory: Immutable.OrderedMap<string, ITemplateBaseItem>(),
                 currencies: Immutable.Map<string, Currency>([
-                    ["gold", { name: "gold", quantity: 5 }],
+                    ["gold", { name: "gold", quantity: 50 }],
                 ]),
                 location: "house",
                 combatZone: "",
@@ -114,12 +94,6 @@ export class GameService {
                 hero: character,
             };
             this.store.dispatch(new GameStateNewAction(initialState));
-            this.store.dispatch(
-                new gameStateAction.GameStateCurrenciesAddCurrencyAction({
-                    name: "gold",
-                    quantity: 8,
-                })
-            );
             this.initialize();
             resolve(true);
         });

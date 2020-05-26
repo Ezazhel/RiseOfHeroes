@@ -19,6 +19,7 @@ import {
 } from "@routes/world/city/store/cities.action";
 import { City, Shop } from "@routes/world/city/store/cities.model";
 import { Map } from "immutable";
+import { generateRandomArmor } from "@core/models/item-generation";
 @Injectable({
     providedIn: "root",
 })
@@ -38,129 +39,12 @@ export class ShopService {
     private renewByType(type: string): Map<string, ITemplateBaseItem> {
         switch (type) {
             case "blacksmith":
-                return Map<string, ITemplateWeapon | ITemplateArmor>([
-                    [
-                        "armor1",
-                        {
-                            id: "armor1",
-                            name: "Armor",
-                            value: 2,
-                            level: 1,
-                            icon: "armor",
-                            type: "armor",
-                            subType: "chest",
-                            armor: 5,
-                            style: "rare",
-                        },
-                    ],
-                    [
-                        "armor2",
-                        {
-                            id: "armor2",
-                            name: "Gauntlet",
-                            value: 1,
-                            level: 1,
-                            icon: "armor",
-                            type: "armor",
-                            subType: "chest",
-                            armor: 5,
-                            style: "common",
-                        },
-                    ],
-                    [
-                        "armor3",
-                        {
-                            id: "armor31",
-                            name: "Armor",
-                            value: 2,
-                            level: 1,
-                            icon: "armor",
-                            type: "armor",
-                            subType: "chest",
-                            armor: 5,
-                            style: "rare",
-                        },
-                    ],
-                    [
-                        "armor41",
-                        {
-                            id: "armor41",
-                            name: "Armor",
-                            value: 2,
-                            level: 1,
-                            icon: "armor",
-                            type: "armor",
-                            subType: "chest",
-                            armor: 5,
-                            style: "rare",
-                        },
-                    ],
-                    [
-                        "armor51",
-                        {
-                            id: "armor51",
-                            name: "Armor",
-                            value: 2,
-                            level: 1,
-                            icon: "armor",
-                            type: "armor",
-                            subType: "chest",
-                            armor: 5,
-                            style: "rare",
-                        },
-                    ],
-                ]);
-            case "alchemist":
-                return Map<string, ITemplateItem>([
-                    [
-                        "item1",
-                        {
-                            id: "item1",
-                            name: "Health Potion",
-                            value: 150,
-                            level: 0,
-                            icon: "potionRed",
-                            type: "item",
-                            style: "",
-                        },
-                    ],
-                    [
-                        "item21",
-                        {
-                            id: "item21",
-                            name: "Health Potion",
-                            value: 150,
-                            level: 0,
-                            icon: "potionRed",
-                            type: "item",
-                            style: "",
-                        },
-                    ],
-                    [
-                        "item2",
-                        {
-                            id: "item2",
-                            name: "Mana Potion",
-                            value: 150,
-                            level: 0,
-                            icon: "potionBlue",
-                            type: "item",
-                            style: "",
-                        },
-                    ],
-                    [
-                        "item23",
-                        {
-                            id: "item23",
-                            name: "Mana Potion",
-                            value: 150,
-                            level: 0,
-                            icon: "potionBlue",
-                            type: "item",
-                            style: "",
-                        },
-                    ],
-                ]);
+                let items = Map<string, ITemplateWeapon | ITemplateArmor>([]);
+                for (let i = 0; i < 5; i++) {
+                    let item = generateRandomArmor(1);
+                    items = items.set(item.id, item);
+                }
+                return items;
         }
     }
 

@@ -15,11 +15,23 @@ export interface City {
 export interface Shop {
     type: string; // Use as key in city.shops
     name: string;
+    maxItemQuality?: number;
     items: Map<string, ITemplateBaseItem>;
     display: boolean;
     crafts?: any[];
-    upgrades?: any[];
+    upgrades?: ShopUpgrade[];
     acceptType: ItemSellableType;
     intervalStock?: number; //time for a restock in second
     lastTick?: number; //time of the last displayed counter. Used like : let restock = performance.now() - lastTick >= 0 ? decrement : renewStock,
+}
+type calculPrix = (level: number, prixBase: number) => number;
+type upgradeForShop = (shop: Shop, level: number, index: number) => Shop;
+export interface ShopUpgrade {
+    name: string;
+    description: string;
+    level: number;
+    levelMax: number;
+    basePrice: number;
+    price: calculPrix;
+    upgrade: upgradeForShop;
 }

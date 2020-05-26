@@ -1,3 +1,4 @@
+import { generateRandomArmor } from "@core/models/item-generation";
 import { interval, timer } from "rxjs";
 import { Map } from "immutable";
 import { City, Shop } from "./cities.model";
@@ -6,8 +7,10 @@ import {
     ITemplateWeapon,
     ITemplateArmor,
     ITemplateBaseItem,
+    entityId,
 } from "@core/models/game-data/game-data.model";
 import * as CityAction from "./cities.action";
+import * as upgrd from "@core/models/upgrades";
 
 const initialState: CitiesState = {
     cities: Map<string, City>([
@@ -16,14 +19,15 @@ const initialState: CitiesState = {
             {
                 id: "zulah",
                 name: "Zul'Ah",
-                description: "some description",
+                description: "city.zulah.description",
                 levelRequirement: 0,
                 shops: Map<string, Shop>([
                     [
                         "blacksmith",
                         {
                             type: "blacksmith",
-                            name: "Blacksmith",
+                            name: "city.city_shop.blacksmith",
+                            maxItemQuality: 2,
                             items: Map<
                                 string,
                                 ITemplateWeapon | ITemplateArmor
@@ -31,33 +35,67 @@ const initialState: CitiesState = {
                                 [
                                     "armor1",
                                     {
-                                        id: "armor1",
-                                        name: "Armor",
-                                        value: 2,
-                                        level: 1,
-                                        icon: "armor",
-                                        type: "armor",
-                                        subType: "chest",
-                                        armor: 5,
-                                        style: "rare",
+                                        ...generateRandomArmor(1),
+                                        quality: "rare",
                                     },
                                 ],
                                 [
                                     "armor2",
                                     {
-                                        id: "armor2",
-                                        name: "Gauntlet",
-                                        value: 1,
-                                        level: 1,
-                                        icon: "armor",
-                                        type: "armor",
-                                        subType: "chest",
-                                        armor: 5,
-                                        style: "common",
+                                        ...generateRandomArmor(1),
+                                        quality: "rare",
                                     },
                                 ],
                             ]),
                             crafts: [],
+                            upgrades: [
+                                {
+                                    name: "(trad)Restockage",
+                                    description:
+                                        "(trad)Réduit le temps d'attente du restock par 10% pour chaque niveau",
+                                    level: 0,
+                                    levelMax: 5,
+                                    basePrice: 1000,
+                                    price: (
+                                        level: number,
+                                        prixBase: number
+                                    ): number =>
+                                        prixBase * (1 + (level * 10) / 100),
+                                    upgrade: (
+                                        shop: Shop,
+                                        level: number,
+                                        index: number
+                                    ): Shop =>
+                                        upgrd.restockTimeUpgrade(
+                                            shop,
+                                            level,
+                                            index
+                                        ),
+                                },
+                                {
+                                    name: "(trad)Better tools",
+                                    description:
+                                        "(trad)Improve quality of items in shop by 1 each level",
+                                    level: 0,
+                                    levelMax: 2,
+                                    basePrice: 2000,
+                                    price: (
+                                        level: number,
+                                        prixBase: number
+                                    ): number =>
+                                        prixBase * (1 + (level * 300) / 100),
+                                    upgrade: (
+                                        shop: Shop,
+                                        level: number,
+                                        index: number
+                                    ): Shop =>
+                                        upgrd.improveQualityUpgrade(
+                                            shop,
+                                            level,
+                                            index
+                                        ),
+                                },
+                            ],
                             display: false,
                             acceptType: "equipment",
                             intervalStock: 15,
@@ -68,7 +106,7 @@ const initialState: CitiesState = {
                         "alchemist",
                         {
                             type: "alchemist",
-                            name: "Alchemist",
+                            name: "city.city_shop.alchemist",
                             items: Map<string, ITemplateItem>([
                                 [
                                     "item1",
@@ -77,9 +115,10 @@ const initialState: CitiesState = {
                                         name: "Health Potion",
                                         value: 150,
                                         level: 0,
-                                        icon: "potionRed",
+                                        icon: "t_23",
                                         type: "item",
-                                        style: "",
+                                        quality: "common",
+                                        subType: "potion",
                                     },
                                 ],
                                 [
@@ -89,9 +128,10 @@ const initialState: CitiesState = {
                                         name: "Mana Potion",
                                         value: 150,
                                         level: 0,
-                                        icon: "potionBlue",
+                                        icon: "t_21",
                                         type: "item",
-                                        style: "",
+                                        quality: "common",
+                                        subType: "potion",
                                     },
                                 ],
                             ]),

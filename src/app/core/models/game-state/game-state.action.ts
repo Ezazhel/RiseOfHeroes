@@ -22,6 +22,7 @@ export const GAME_INVENTORY_REMOVE = "[game state] remove item";
 export const GAME_ADD_CURRENCY = "[game state] add currency";
 
 export const GAME_UPDATE_HERO = "[game state] update hero";
+export const GAME_EQUIP_ITEM_HERO = "[game state] equip item hero";
 
 //New game
 export class GameStateNewAction implements Action {
@@ -82,6 +83,11 @@ export class GameStateUpdateHeroAction implements Action {
     constructor(public payload: Hero) {}
 }
 
+export class GameStateEquipItemHeroAction implements Action {
+    readonly type = GAME_EQUIP_ITEM_HERO;
+    constructor(public payload: ITemplateBaseItem) {}
+}
+
 export type GameActionType =
     | GameStateNewSuccessAction
     | GameStateNewAction
@@ -95,4 +101,5 @@ export type GameActionType =
     | GameStateInventoryAddItemAction
     | GameStateInventoryRemoveItemAction
     | GameStateCurrenciesAddCurrencyAction
-    | GameStateUpdateHeroAction;
+    | GameStateUpdateHeroAction
+    | GameStateEquipItemHeroAction;

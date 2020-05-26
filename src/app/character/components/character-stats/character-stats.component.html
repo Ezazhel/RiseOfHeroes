@@ -1,27 +1,34 @@
-<ng-container *ngIf="_hero$ | async as hero">
-    <ul>
+<ng-container *transloco="let t">
+    <h3 (click)="hideOrDisplay(informations, $event)" class="header open">
+        Informations
+    </h3>
+    <ul #informations>
         <li>
-            <span class="stat-label">PV :</span>
-            <span class="stat-value">{{ hero.maxhp }}</span>
+            <span class="stat-label">{{ t("hud-stats.hp") }} :</span>
+            <span class="stat-value">{{ hero.maxHp }}</span>
         </li>
 
         <li>
-            <span class="stat-label">Mana :</span>
-            <span class="stat-value"> 0</span>
+            <span class="stat-label">{{ t("hud-stats.mana") }} :</span>
+            <span class="stat-value"> {{ hero.maxRessource }}</span>
         </li>
 
         <li>
-            <span class="stat-label">Expérience :</span>
-            <span class="stat-value"> 0</span>
-        </li>
-
-        <li>
-            <span class="stat-label"> Attaque : </span>
-            <span class="stat-value"> {{ hero.attack }}</span>
+            <span class="stat-label"> {{ t("hud-stats.exp") }} :</span>
+            <span class="stat-value"> {{ hero.exp }}</span>
         </li>
         <li>
-            <span class="stat-label"> Defense :</span>
-            <span class="stat-value"> {{ hero.defense }}</span>
+            <span class="stat-label"> {{ t("game.stats.armor") }} :</span>
+            <span class="stat-value"> {{ hero.armor }}</span>
+        </li>
+    </ul>
+    <h3 (click)="hideOrDisplay(stats, $event)" class="header open">
+        {{ t("hud-stats.stats") }}
+    </h3>
+    <ul #stats>
+        <li *ngFor="let stat of hero.stats">
+            <span class="stat-label"> {{ t(stat[1].name) }} : </span>
+            <span class="stat-value"> {{ stat[1].value }}</span>
         </li>
     </ul>
 </ng-container>

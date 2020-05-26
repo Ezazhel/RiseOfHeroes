@@ -1,73 +1,85 @@
 <ng-container *ngIf="hero$ | async as hero">
-    <div fxLayout="column nowrap">
-        <div class="tab" fxLayout="row" fxLayoutAlign="center center">
-            <button
-                (click)="dTab = 'training'"
-                [ngClass]="dTab === 'training' ? 'active' : ''"
-            >
-                Training
-            </button>
-            <button
-                (click)="dTab = 'work'"
-                [ngClass]="dTab === 'work' ? 'active' : ''"
-            >
-                Work
-            </button>
+    <ng-container *transloco="let tsl">
+        <div fxLayout="column nowrap">
+            <div class="tab" fxLayout="row" fxLayoutAlign="center center">
+                <button
+                    (click)="dTab = 'training'"
+                    [ngClass]="dTab === 'training' ? 'active' : ''"
+                >
+                    {{ tsl("house.training.buttonText") }}
+                </button>
+                <button
+                    (click)="dTab = 'work'"
+                    [ngClass]="dTab === 'work' ? 'active' : ''"
+                >
+                    {{ tsl("house.work.buttonText") }}
+                </button>
+            </div>
         </div>
-    </div>
 
-    <div class="tab-container">
-        <div [style.display]="dTab === 'training' ? 'block' : 'none'">
-            <app-card
-                *ngFor="let t of _trainingEquipment; trackBy: trackByFn"
-                header="{{ t[0] | titlecase }} ({{
-                    displayStat(hero$ | async, t[0])
-                }}) "
-                (click)="train(hero, t[0])"
-            >
-                <ng-container cardBody>
-                    <span>
-                        {{ t[1].description }}
-                    </span>
-                </ng-container>
-                <ng-container cardFooter>
-                    <div class="training-reward-information">
+        <div class="tab-container">
+            <div [style.display]="dTab === 'training' ? 'block' : 'none'">
+                <app-card
+                    *ngFor="let t of _trainingEquipment; trackBy: trackByFn"
+                    header="{{ tsl(t[1].cardHeader) }} ({{
+                        displayStat(hero$ | async, t[0])
+                    }}) "
+                    (click)="train(hero, t[0])"
+                >
+                    <ng-container cardBody>
                         <span>
-                            reward : +
-                            {{ t[1].reward }} {{ t[0] }}
+                            {{ tsl(t[1].description) }}
                         </span>
-                        <span>
-                            Max training {{ t[1].done }}/{{ t[1].bonus }}
-                        </span>
-                    </div>
-                    <app-progressbar
-                        time="{{ t[1].speed }}ms"
-                        [animate]="training.get(t[0]) ? 'filling' : 'initial'"
-                    ></app-progressbar>
-                </ng-container>
-            </app-card>
+                    </ng-container>
+                    <ng-container cardFooter>
+                        <div class="training-reward-information">
+                            <span>
+                                {{ tsl("house.reward") }} : + {{ t[1].reward }}
+                                {{ t[0] }}
+                            </span>
+                            <span>
+                                {{ tsl("house.maxTraining") }}
+                                {{ t[1].done }}/{{ t[1].bonus }}
+                            </span>
+                        </div>
+                        <app-progressbar
+                            time="{{ t[1].speed }}ms"
+                            [animate]="
+                                training.get(t[0]) ? 'filling' : 'initial'
+                            "
+                        ></app-progressbar>
+                    </ng-container>
+                </app-card>
+            </div>
+            <div [style.display]="dTab === 'work' ? 'block' : 'none'">
+                <app-card
+                    header="{{ tsl('house.work.level1.name') }}"
+                    (click)="goToWork()"
+                >
+                    <ng-container cardBody>
+                        <label>
+                            {{ tsl("house.work.level1.description") }}
+                        </label>
+                    </ng-container>
+                    <ng-container cardFooter>
+                        <div class="training-reward-information">
+                            <span>
+                                {{ tsl("house.reward") }} : +{{ work.reward }}g
+                            </span>
+                            <span>
+                                {{ tsl("house.work.currentGold") }}
+                                {{
+                                    (currencies$ | async)?.get("gold").quantity
+                                }}
+                            </span>
+                        </div>
+                        <app-progressbar
+                            time="{{ work.time }}ms"
+                            [animate]="work.working ? 'filling' : 'initial'"
+                        ></app-progressbar>
+                    </ng-container>
+                </app-card>
+            </div>
         </div>
-        <div [style.display]="dTab === 'work' ? 'block' : 'none'">
-            <app-card header="Work" (click)="goToWork()">
-                <ng-container cardBody>
-                    <label>
-                        You are working as a peasant !
-                    </label>
-                </ng-container>
-                <ng-container cardFooter>
-                    <div class="training-reward-information">
-                        <span> reward : +{{ work.reward }}g </span>
-                        <span>
-                            current gold
-                            {{ (currencies$ | async)?.get("gold").quantity }}
-                        </span>
-                    </div>
-                    <app-progressbar
-                        time="{{ work.time }}ms"
-                        [animate]="work.working ? 'filling' : 'initial'"
-                    ></app-progressbar>
-                </ng-container>
-            </app-card>
-        </div>
-    </div>
+    </ng-container>
 </ng-container>

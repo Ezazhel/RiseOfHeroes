@@ -1,0 +1,131 @@
+.pants {
+    background-image: url(~/assets/armor_pants.png);
+    background-repeat: no-repeat;
+    display: block;
+
+    &.p1 {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -5px;
+    }
+
+    &.p2 {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -5px;
+    }
+
+    &.p3 {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -5px;
+    }
+
+    &.p4 {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -5px;
+    }
+
+    &.p5 {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -63px;
+    }
+
+    &.p6 {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -63px;
+    }
+
+    &.p7 {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -63px;
+    }
+
+    &.p8 {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -63px;
+    }
+
+    &.p9 {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -121px;
+    }
+
+    &.p10 {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -121px;
+    }
+
+    &.p11 {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -121px;
+    }
+
+    &.p12 {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -121px;
+    }
+
+    &.p13 {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -179px;
+    }
+
+    &.p14 {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -179px;
+    }
+
+    &.p15 {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -179px;
+    }
+
+    &.p16 {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -179px;
+    }
+
+    &.p17 {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -5px;
+    }
+
+    &.p18 {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -63px;
+    }
+
+    &.p19 {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -121px;
+    }
+
+    &.p20 {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -179px;
+    }
+
+    &.p21 {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -237px;
+    }
+}

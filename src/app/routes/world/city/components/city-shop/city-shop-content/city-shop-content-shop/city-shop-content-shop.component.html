@@ -1,28 +1,30 @@
-<div fxLayout="column">
-    <span *ngIf="_shop.intervalStock !== undefined"
-        >Shop reset in {{ timer }}</span
-    >
-    <div
-        *ngFor="let item of _shop.items; trackBy: trackByFn"
-        class="content {{ item[1].style }}"
-        (mouseenter)="setItem(item[1])"
-        (mouseleave)="setItem(null)"
-    >
-        <i class="sprite sprite-{{ item[1].icon }} "></i>
-        <span class="item-name">
-            {{ item[1].name }}
-        </span>
-        <div class="action">
-            <span class="item-value"> {{ item[1].value }}g </span>
-            <button
-                *ngIf="
-                    item[1].value <=
-                    (_currencies$ | async)?.get('gold').quantity
-                "
-                (click)="buyItem(item[1])"
-            >
-                Buy
-            </button>
+<ng-container *transloco="let tsl; read: 'city.city_shop.content'">
+    <div fxLayout="column">
+        <span *ngIf="_shop.intervalStock !== undefined">{{
+            tsl("shopReset", { timer: timer })
+        }}</span>
+        <div
+            *ngFor="let item of _shop.items; trackBy: trackByFn"
+            class="content {{ item[1].quality }}"
+            (mouseenter)="setItem(item[1])"
+            (mouseleave)="setItem(null)"
+        >
+            <i class="{{ item[1].subType }} {{ item[1].icon }} "></i>
+            <span class="item-name">
+                {{ item[1].name }}
+            </span>
+            <div class="action">
+                <span class="item-value"> {{ item[1].value }}g </span>
+                <button
+                    *ngIf="
+                        item[1].value <=
+                        (_currencies$ | async)?.get('gold').quantity
+                    "
+                    (click)="buyItem(item[1])"
+                >
+                    {{ tsl("buy") }}
+                </button>
+            </div>
         </div>
     </div>
-</div>
+</ng-container>

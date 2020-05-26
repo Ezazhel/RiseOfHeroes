@@ -104,6 +104,6 @@ export class CityShopContentShopComponent
         }
     }
     ngOnDestroy() {
-        this.minutes.unsubscribe();
+        if (this.minutes !== undefined) this.minutes.unsubscribe();
     }
 }

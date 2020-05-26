@@ -1,14 +1,16 @@
-<div class="container" *ngIf="city$ | async as city">
-    <h1>{{ city.name }}</h1>
-    <p>{{ city?.description }}</p>
-    <div fxLayout="row nowrap" fxLayoutAlign="center center">
-        <button
-            *ngFor="let shop of city.shops; trackBy: trackByFn"
-            (click)="setShop(shop[1])"
-            [ngClass]="{ active: shop[1].type === (shop$ | async)?.type }"
-        >
-            {{ shop[1].name }}
-        </button>
+<ng-container *transloco="let tsl">
+    <div class="container" *ngIf="city$ | async as city">
+        <h1>{{ tsl(city.name) }}</h1>
+        <p>{{ tsl(city?.description) }}</p>
+        <div fxLayout="row nowrap" fxLayoutAlign="center center">
+            <button
+                *ngFor="let shop of city.shops; trackBy: trackByFn"
+                (click)="setShop(shop[1])"
+                [ngClass]="{ active: shop[1].type === (shop$ | async)?.type }"
+            >
+                {{ tsl(shop[1].name) }}
+            </button>
+        </div>
+        <app-city-shop [shop]="shop$" [cityId]="city.id"></app-city-shop>
     </div>
-    <app-city-shop [shop]="shop$" [cityId]="city.id"></app-city-shop>
-</div>
+</ng-container>

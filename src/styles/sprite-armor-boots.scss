@@ -1,0 +1,106 @@
+.boots {
+    background-image: url(~/assets/armor_boots.png);
+    background-repeat: no-repeat;
+    display: block;
+    &.b1 {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -5px;
+    }
+
+    &.b2 {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -5px;
+    }
+
+    &.b3 {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -5px;
+    }
+
+    &.b4 {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -5px;
+    }
+
+    &.b5 {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -63px;
+    }
+
+    &.b6 {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -63px;
+    }
+
+    &.b7 {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -63px;
+    }
+
+    &.b8 {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -63px;
+    }
+
+    &.b9 {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -121px;
+    }
+
+    &.b10 {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -121px;
+    }
+
+    &.b11 {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -121px;
+    }
+
+    &.b12 {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -121px;
+    }
+
+    &.b13 {
+        width: 48px;
+        height: 48px;
+        background-position: -5px -179px;
+    }
+
+    &.b14 {
+        width: 48px;
+        height: 48px;
+        background-position: -63px -179px;
+    }
+
+    &.b15 {
+        width: 48px;
+        height: 48px;
+        background-position: -121px -179px;
+    }
+
+    &.b16 {
+        width: 48px;
+        height: 48px;
+        background-position: -179px -179px;
+    }
+
+    &.b17 {
+        width: 48px;
+        height: 48px;
+        background-position: -237px -5px;
+    }
+}

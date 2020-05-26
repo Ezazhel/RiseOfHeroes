@@ -1,7 +1,13 @@
 import { Companion, Hero } from "./../entity";
 import * as GameStateAction from "./game-state.action";
 import * as Immutable from "immutable";
-import { Currency, ITemplateBaseItem } from "../game-data/game-data.model";
+import {
+    Currency,
+    ITemplateBaseItem,
+    ITemplateArmor,
+    ITemplateWeapon,
+} from "../game-data/game-data.model";
+import { strenghtStat } from "../game-data/game-data.data";
 
 const initialState: GameState = {
     companions: null,
@@ -75,7 +81,44 @@ export function gameRecuder(
                 ...state,
                 hero: action.payload,
             };
+        case GameStateAction.GAME_EQUIP_ITEM_HERO:
+            return { ...state, hero: EquipHero(state.hero, action.payload) };
         default:
             return state;
     }
+}
+
+function EquipHero(hero: Hero, item: ITemplateBaseItem): Hero {
+    let stats = hero.stats;
+    if (item.type == "weapon") {
+        let weapon = item as ITemplateWeapon;
+        hero = { ...hero, weapon: weapon };
+        weapon.stats.forEach((stat) => {
+            stats = stats.updateIn([stat.type, "value"], (v) => v + stat.value);
+        });
+    } else if (item.type == "armor") {
+        let armor = item as ITemplateArmor;
+        switch (armor.subType) {
+            case "chest":
+                hero = { ...hero, chest: armor };
+                break;
+            case "boots":
+                hero = { ...hero, boots: armor };
+                break;
+            case "gloves":
+                hero = { ...hero, gloves: armor };
+                break;
+            case "helmet":
+                hero = { ...hero, helmet: armor };
+                break;
+            case "pants":
+                hero = { ...hero, pants: armor };
+                break;
+        }
+        armor.stats.forEach((stat) => {
+            stats = stats.updateIn([stat.type, "value"], (v) => v + stat.value);
+        });
+        hero = { ...hero, armor: hero.armor + armor.armor };
+    }
+    return { ...hero, stats: stats };
 }

@@ -22,7 +22,7 @@ export class CombatPortraitComponent implements OnInit {
 
     healthPercentage$: Observable<number> = this.entity$.pipe(
         map((entity: BaseEntity) => {
-            return entity ? Math.round((entity.hp / entity.maxhp) * 100) : 0;
+            return entity ? Math.round((entity.hp / entity.maxHp) * 100) : 0;
         })
     );
     experiencePercentage$: Observable<number> = this.entity$.pipe(

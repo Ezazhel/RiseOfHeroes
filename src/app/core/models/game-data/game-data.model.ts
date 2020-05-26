@@ -7,15 +7,22 @@ export type ItemSellableType = "equipment" | "consumable";
 
 export type ItemFilter = "all" | "item" | "weapon" | "armor";
 
-export type ItemGroups = "default" | "rare" | "magic";
+export type ItemQuality = "common" | "uncommon" | "rare" | "epic" | "legendary";
 
 export type ItemElements = "holy" | "water" | "wind" | "heal";
 
-export type ItemArmorType = "chest" | "helm" | "boots" | "shield";
+export type ArmorCategory = "chest" | "helmet" | "boots" | "pants" | "gloves";
 
 export type WeaponCategory = "sword" | "hammer" | "spear" | "dagger";
 
 export type WeaponHandling = "2h" | "1h";
+
+export type StatType =
+    | "armor"
+    | "strength"
+    | "endurance"
+    | "intellect"
+    | "agility";
 
 export interface Currency {
     readonly name: string;
@@ -24,6 +31,7 @@ export interface Currency {
 }
 
 export interface Stat {
+    type: StatType;
     name: string;
     value: number;
 }
@@ -44,7 +52,6 @@ export interface ITemplateBaseItem extends ITemplateId {
      */
     readonly icon: string;
 
-    readonly style: string;
     /**
      * The value of the object. This is used for buying/selling.
      */
@@ -69,11 +76,14 @@ export interface ITemplateBaseItem extends ITemplateId {
     /**
      * Any logical groups of items this object matches, e.g. "rare", "magic"
      */
-    readonly groups?: ItemGroups[];
+    readonly quality: ItemQuality;
+
+    readonly subType: any;
 }
 
 export interface ITemplateItem extends ITemplateBaseItem {
     readonly type: "item";
+    readonly subType: "potion";
 }
 
 export interface ITemplateBaseEquipmennt extends ITemplateBaseItem {
@@ -82,7 +92,7 @@ export interface ITemplateBaseEquipmennt extends ITemplateBaseItem {
 export interface ITemplateWeapon extends ITemplateBaseEquipmennt {
     readonly type: "weapon";
 
-    weaponCategory: WeaponCategory;
+    readonly subType: WeaponCategory;
     weaponHandling: WeaponHandling;
 
     /**
@@ -96,13 +106,12 @@ export interface ITemplateArmor extends ITemplateBaseEquipmennt {
      */
     readonly type: "armor";
 
-    readonly subType: ItemArmorType;
+    readonly subType: ArmorCategory;
     /**
      * The defensive rating of this piece of armor.
      */
     readonly armor: number;
 }
-
 /**
  * Instantiate an item from its template and assign it a unique eid value.
  * @param from The ITemplateId to stamp out a copy of

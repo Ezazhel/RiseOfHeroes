@@ -1,23 +1,24 @@
-<div class="tab" fxLayout="row nowrap">
-    <button
-        (click)="selectTab('shop')"
-        [ngClass]="{ active: activeTab === 'shop' }"
-    >
-        Shop
-    </button>
-    <button
-        *ngIf="shop.crafts !== undefined"
-        (click)="selectTab('craft')"
-        [ngClass]="{ active: activeTab === 'craft' }"
-    >
-        Craft
-    </button>
-    <button
-        *ngIf="shop?.upgrades !== undefined"
-        (click)="selectTab('update')"
-        [ngClass]="{ active: activeTab === 'update' }"
-    >
-        Upgrade
-    </button>
-    <span> {{ shop.name }} </span>
-</div>
+<ng-container *transloco="let tsl; read: 'city.city_shop.tab'">
+    <div class="tab" fxLayout="row nowrap">
+        <button
+            (click)="selectTab('shop')"
+            [ngClass]="{ active: activeTab === 'shop' }"
+        >
+            {{ tsl("shop") }}
+        </button>
+        <button
+            *ngIf="shop.crafts !== undefined"
+            (click)="selectTab('craft')"
+            [ngClass]="{ active: activeTab === 'craft' }"
+        >
+            {{ tsl("craft") }}
+        </button>
+        <button
+            *ngIf="shop?.upgrades !== undefined"
+            (click)="selectTab('upgrade')"
+            [ngClass]="{ active: activeTab === 'upgrade' }"
+        >
+            {{ tsl("upgrade") }}
+        </button>
+    </div>
+</ng-container>

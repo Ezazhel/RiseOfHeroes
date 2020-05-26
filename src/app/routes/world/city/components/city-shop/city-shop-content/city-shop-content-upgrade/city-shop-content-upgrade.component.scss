@@ -1,0 +1,27 @@
+@import "variables.scss";
+@import "sprites.scss";
+:host {
+    width: 100%;
+}
+.upgrade-content {
+    padding: 5px;
+    margin: 5px;
+    box-shadow: 0px 0px 1px 0.5px $lightgreybutton;
+
+    .description {
+        font-size: smaller;
+    }
+    button {
+        background-color: $lightgreybutton;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        height: 25px;
+        transition: 0.3s;
+        font-size: small;
+        border-radius: 10px;
+        &:hover {
+            background-color: $lightgreybutton;
+        }
+    }
+}
