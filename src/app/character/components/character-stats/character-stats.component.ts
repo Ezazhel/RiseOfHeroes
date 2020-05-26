@@ -14,11 +14,14 @@ export class CharacterStatsComponent implements OnInit {
 
     hideOrDisplay(el: any, event: any) {
         const emitter = event.target;
-        const hOrD = el.style.display == "" ? "none" : ""; //if block then we hide, else...
+        let isHidden = el.classList.contains("hidden");
+        if (isHidden) {
+            this.renderer.removeClass(el, "hidden");
+        } else {
+            this.renderer.addClass(el, "hidden");
+        }
 
-        this.renderer.setStyle(el, "display", hOrD);
         const rClass = emitter.classList.contains("open") ? "open" : "close";
-
         const aClass = rClass == "open" ? "close" : "open";
         this.renderer.removeClass(emitter, rClass);
         this.renderer.addClass(emitter, aClass);

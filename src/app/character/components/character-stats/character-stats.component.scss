@@ -46,6 +46,17 @@ li {
     &.open::after {
         @include after("-", $red);
     }
+    + ul {
+        max-height: 25%;
+        transform: scale(1);
+        transform-origin: top;
+        overflow: hidden;
+        transition: all 0.25s ease-in;
+        &.hidden {
+            transform: scale(0);
+            max-height: 0px;
+        }
+    }
 }
 .stat-label {
     font-style: italic;

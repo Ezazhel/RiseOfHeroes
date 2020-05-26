@@ -25,7 +25,6 @@
         "tools": "Options",
         "HARDRESET": "REMISE A ZERO"
     },
-    ,
     "hud-stats": {
         "exp": "Experience",
         "hp": "Santé",
