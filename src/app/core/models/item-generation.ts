@@ -8,9 +8,7 @@ import {
     entityId,
 } from "./game-data/game-data.model";
 import * as baseItem from "./game-data/game-data.data";
-import { Random } from "random-js";
 
-const random = new Random();
 export const ChestIcon: Array<string> = generateIconArray("c", 23);
 export const HelmIcon: Array<string> = generateIconArray("h", 25);
 export const GlovesIcon: Array<string> = generateIconArray("g", 21);
@@ -24,13 +22,15 @@ function generateIconArray(icon: string, number: number) {
     }
     return array;
 }
-
+function randomize(array: Array<any>): number {
+    return Math.floor(Math.random() * array.length);
+}
 export function pickRandomIcon(array: Array<string>): string {
-    return array[random.integer(1, array.length - 1)];
+    return array[randomize(array)];
 }
 
 function pickRandomReward(): ItemCategories {
-    return PossibleReward[random.integer(1, PossibleReward.length - 1)];
+    return PossibleReward[randomize(PossibleReward)];
 }
 
 function generateReward(level: number) {
@@ -38,9 +38,7 @@ function generateReward(level: number) {
         case "item":
             break;
         case "weapon":
-            switch (
-                WeaponTypeArray[random.integer(1, WeaponTypeArray.length - 1)]
-            ) {
+            switch (WeaponTypeArray[randomize(WeaponTypeArray)]) {
                 case "dagger":
                     return generateWeapon(
                         baseItem.baseDagger,
@@ -76,7 +74,7 @@ function generateReward(level: number) {
     }
 }
 export function generateRandomArmor(level: number) {
-    let type = ArmorTypeArray[random.integer(1, ArmorTypeArray.length - 1)];
+    let type = ArmorTypeArray[randomize(ArmorTypeArray)];
     switch (type) {
         case "boots":
             return generateArmor(baseItem.baseBoots, "boots", level, BootsIcon);
