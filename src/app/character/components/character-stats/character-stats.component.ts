@@ -12,20 +12,6 @@ import { heroSelector } from "@core/models/selector";
 export class CharacterStatsComponent implements OnInit {
     @Input() hero: Hero;
 
-    hideOrDisplay(el: any, event: any) {
-        const emitter = event.target;
-        let isHidden = el.classList.contains("hidden");
-        if (isHidden) {
-            this.renderer.removeClass(el, "hidden");
-        } else {
-            this.renderer.addClass(el, "hidden");
-        }
-
-        const rClass = emitter.classList.contains("open") ? "open" : "close";
-        const aClass = rClass == "open" ? "close" : "open";
-        this.renderer.removeClass(emitter, rClass);
-        this.renderer.addClass(emitter, aClass);
-    }
     constructor(private renderer: Renderer2) {}
 
     ngOnInit(): void {}

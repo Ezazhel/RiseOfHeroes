@@ -1,8 +1,8 @@
 <ng-container *transloco="let t">
-    <h3 (click)="hideOrDisplay(informations, $event)" class="header open">
+    <h3>
         Informations
     </h3>
-    <ul #informations>
+    <ul>
         <li>
             <span class="stat-label">{{ t("hud-stats.hp") }} :</span>
             <span class="stat-value">{{ hero.maxHp }}</span>
@@ -22,10 +22,10 @@
             <span class="stat-value"> {{ hero.armor }}</span>
         </li>
     </ul>
-    <h3 (click)="hideOrDisplay(stats, $event)" class="header open">
+    <h3>
         {{ t("hud-stats.stats") }}
     </h3>
-    <ul #stats>
+    <ul>
         <li *ngFor="let stat of hero.stats">
             <span class="stat-label"> {{ t(stat[1].name) }} : </span>
             <span class="stat-value"> {{ stat[1].value }}</span>
