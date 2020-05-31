@@ -12,7 +12,7 @@ import { heroSelector } from "@core/models/selector";
 export class CharacterStatsComponent implements OnInit {
     @Input() hero: Hero;
 
-    constructor(private renderer: Renderer2) {}
+    constructor() {}
 
     ngOnInit(): void {}
 }
