@@ -28,9 +28,7 @@ export class InventorySlotComponent implements OnInit {
     public setItem(item: ITemplateBaseItem) {
         this.item = item;
     }
-    trackBy(index: number, item: ITemplateBaseItem): string {
-        return item.id;
-    }
+
     filterBy(type: string) {
         this.filter = type as ItemFilter;
         this.items$ = this.store.pipe(select(inventoryFiltered(this.filter)));
@@ -44,6 +42,10 @@ export class InventorySlotComponent implements OnInit {
         } else {
             this.sell.emit(item);
         }
+    }
+
+    trackBy(index: number, item: ITemplateBaseItem): string {
+        return item.id;
     }
     constructor(private store: Store<AppState>) {}
 

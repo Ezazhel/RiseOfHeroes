@@ -26,7 +26,7 @@
         {{ t("hud-stats.stats") }}
     </h3>
     <ul>
-        <li *ngFor="let stat of hero.stats">
+        <li *ngFor="let stat of hero.stats; trackBy: trackBy">
             <span class="stat-label"> {{ t(stat[1].name) }} : </span>
             <span class="stat-value"> {{ stat[1].value }}</span>
         </li>
