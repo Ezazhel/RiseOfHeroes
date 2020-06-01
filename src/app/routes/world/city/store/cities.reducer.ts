@@ -1,5 +1,3 @@
-import { generateRandomArmor } from "@core/models/item-generation";
-import { interval, timer } from "rxjs";
 import { Map } from "immutable";
 import { City, Shop } from "./cities.model";
 import {
@@ -7,10 +5,10 @@ import {
     ITemplateWeapon,
     ITemplateArmor,
     ITemplateBaseItem,
-    entityId,
 } from "@core/models/game-data/game-data.model";
 import * as CityAction from "./cities.action";
 import * as upgrd from "@core/models/upgrades";
+import { shopSelector } from "./city.selector";
 
 const initialState: CitiesState = {
     cities: Map<string, City>([
@@ -31,28 +29,20 @@ const initialState: CitiesState = {
                             items: Map<
                                 string,
                                 ITemplateWeapon | ITemplateArmor
-                            >([
-                                [
-                                    "armor1",
-                                    {
-                                        ...generateRandomArmor(1),
-                                        quality: "rare",
-                                    },
-                                ],
-                                [
-                                    "armor2",
-                                    {
-                                        ...generateRandomArmor(1),
-                                        quality: "rare",
-                                    },
-                                ],
-                            ]),
+                            >(),
                             crafts: [],
                             upgrades: [
                                 {
-                                    name: "(trad)Restockage",
+                                    name: "upgrades.blacksmith.faster.name",
                                     description:
-                                        "(trad)Réduit le temps d'attente du restock par 10% pour chaque niveau",
+                                        "upgrades.blacksmith.faster.effect",
+                                    descriptionParameters: (
+                                        shop: Shop
+                                    ): any => {
+                                        return {
+                                            intervalStock: shop.intervalStock,
+                                        };
+                                    },
                                     level: 0,
                                     levelMax: 5,
                                     basePrice: 1000,
@@ -73,9 +63,14 @@ const initialState: CitiesState = {
                                         ),
                                 },
                                 {
-                                    name: "(trad)Better tools",
+                                    name: "upgrades.blacksmith.better.name",
                                     description:
-                                        "(trad)Improve quality of items in shop by 1 each level",
+                                        "upgrades.blacksmith.better.effect",
+                                    descriptionParameters: (
+                                        shop: Shop
+                                    ): any => {
+                                        return { quality: shop.maxItemQuality };
+                                    },
                                     level: 0,
                                     levelMax: 2,
                                     basePrice: 2000,
@@ -197,6 +192,14 @@ export function citiesReducer(
                         false,
                         action.payload.item
                     )
+                ),
+            };
+        case CityAction.CITY_UPGRADE_SHOP:
+            return {
+                ...state,
+                cities: state.cities.setIn(
+                    [action.payload.city, "shops", action.payload.shop.type],
+                    action.payload.shop
                 ),
             };
         default:

@@ -10,7 +10,7 @@ import {
 import * as baseItem from "./game-data/game-data.data";
 
 export const ChestIcon: Array<string> = generateIconArray("c", 23);
-export const HelmIcon: Array<string> = generateIconArray("h", 25);
+export const HelmetIcon: Array<string> = generateIconArray("h", 25);
 export const GlovesIcon: Array<string> = generateIconArray("g", 21);
 export const PantIcon: Array<string> = generateIconArray("p", 21);
 export const BootsIcon: Array<string> = generateIconArray("b", 17);
@@ -25,6 +25,7 @@ function generateIconArray(icon: string, number: number) {
 function randomize(array: Array<any>): number {
     return Math.floor(Math.random() * array.length);
 }
+
 export function pickRandomIcon(array: Array<string>): string {
     return array[randomize(array)];
 }
@@ -33,7 +34,7 @@ function pickRandomReward(): ItemCategories {
     return PossibleReward[randomize(PossibleReward)];
 }
 
-function generateReward(level: number) {
+function generateReward(level: number, maxQuality: number) {
     switch (pickRandomReward()) {
         case "item":
             break;
@@ -68,37 +69,58 @@ function generateReward(level: number) {
                         []
                     );
             }
-            break;
         case "armor":
-            return generateRandomArmor(level);
+            return generateRandomArmor(level, maxQuality);
     }
 }
-export function generateRandomArmor(level: number) {
+export function generateRandomArmor(level: number, maxQuality: number) {
     let type = ArmorTypeArray[randomize(ArmorTypeArray)];
+    const quality = [...QualityArray].splice(0, maxQuality);
+    console.log(quality);
     switch (type) {
         case "boots":
-            return generateArmor(baseItem.baseBoots, "boots", level, BootsIcon);
+            return generateArmor(
+                baseItem.baseBoots,
+                "boots",
+                level,
+                BootsIcon,
+                quality
+            );
 
         case "chest":
-            return generateArmor(baseItem.baseChest, "chest", level, ChestIcon);
+            return generateArmor(
+                baseItem.baseChest,
+                "chest",
+                level,
+                ChestIcon,
+                quality
+            );
 
         case "gloves":
             return generateArmor(
                 baseItem.baseGloves,
                 "gloves",
                 level,
-                GlovesIcon
+                GlovesIcon,
+                quality
             );
         case "helmet":
             return generateArmor(
-                baseItem.baseGloves,
+                baseItem.baseHelmet,
                 "helmet",
                 level,
-                GlovesIcon
+                HelmetIcon,
+                quality
             );
 
         case "pants":
-            return generateArmor(baseItem.basePants, "pants", level, PantIcon);
+            return generateArmor(
+                baseItem.basePants,
+                "pants",
+                level,
+                PantIcon,
+                quality
+            );
     }
 }
 
@@ -106,13 +128,15 @@ function generateArmor(
     baseArmor: ITemplateArmor,
     id: string,
     level: number,
-    icons: Array<string>
+    icons: Array<string>,
+    maxQuality: Array<ItemQuality>
 ) {
     return {
         ...baseArmor,
         id: entityId(id),
         level: level,
         icon: pickRandomIcon(icons),
+        quality: QualityArray[randomize(maxQuality)],
         name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
         stats: [
             {

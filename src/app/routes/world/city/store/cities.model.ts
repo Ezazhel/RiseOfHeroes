@@ -3,7 +3,6 @@ import {
     ItemSellableType,
 } from "@core/models/game-data/game-data.model";
 import { Map } from "immutable";
-import { Subject, Subscription } from "rxjs";
 
 export interface City {
     id: string;
@@ -26,12 +25,14 @@ export interface Shop {
 }
 type calculPrix = (level: number, prixBase: number) => number;
 type upgradeForShop = (shop: Shop, level: number, index: number) => Shop;
+type objectParameters = (shop: Shop) => any;
 export interface ShopUpgrade {
     name: string;
-    description: string;
     level: number;
     levelMax: number;
     basePrice: number;
     price: calculPrix;
     upgrade: upgradeForShop;
+    description: string;
+    descriptionParameters: objectParameters;
 }

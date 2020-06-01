@@ -27,3 +27,15 @@ body {
 .text-left {
     text-align: left;
 }
+.rare {
+    color: $blueRareItem !important;
+}
+.uncommon {
+    color: $greenCommonItem !important;
+}
+.common {
+    color: $carreraWhite !important;
+}
+.epic {
+    color: $purpleEpicItem !important;
+}

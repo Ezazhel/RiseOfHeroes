@@ -5,6 +5,7 @@ import { Map } from "immutable";
 export const CITY_SHOP_RENEW_ITEM = "[city] renew shop item";
 export const CITY_SHOP_BUY = "[city] buy shop item";
 export const CITY_SHOP_SELL = "[city] sell item to shop";
+export const CITY_UPGRADE_SHOP = "[city] upgrade shop";
 
 export class CityShopRenewItem implements Action {
     readonly type: string = CITY_SHOP_RENEW_ITEM;
@@ -20,12 +21,22 @@ export class CityShopSellItem implements Action {
     constructor(public payload: ShopInteraction) {}
 }
 
-export type CityActionType = CityShopRenewItem | CityShopBuy | CityShopSellItem;
+export class CityUpgradeShop implements Action {
+    readonly type: string = CITY_UPGRADE_SHOP;
+    constructor(public payload: ShopInteraction) {}
+}
+
+export type CityActionType =
+    | CityShopRenewItem
+    | CityShopBuy
+    | CityShopSellItem
+    | CityUpgradeShop;
 
 export interface ShopInteraction {
     city: string;
     shopType?: string;
     shops?: Map<string, Shop>;
+    shop?: Shop;
     item?: ITemplateBaseItem;
     items?: Map<string, ITemplateBaseItem>;
 }

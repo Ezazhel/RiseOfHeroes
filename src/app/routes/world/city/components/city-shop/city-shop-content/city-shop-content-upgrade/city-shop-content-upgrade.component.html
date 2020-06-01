@@ -1,27 +1,31 @@
-<div fxLayout="column">
-    <div *ngFor="let u of _shop.upgrades; let i = index; trackBy: trackByFn">
+<ng-container *transloco="let tsl">
+    <div fxLayout="column">
         <div
-            class="upgrade-content"
-            fxLayout="row"
-            fxLayoutAlign="space-between center"
+            *ngFor="let u of _shop.upgrades; let i = index; trackBy: trackByFn"
         >
-            <div fxLayout="column">
-                <label>
-                    {{ u.name }}
-                </label>
-                <span class="description">
-                    {{ u.description }}
-                </span>
-            </div>
-            <div fxLayout="column">
-                <span> Level {{ u.level }}/{{ u.levelMax }} </span>
-                <button
-                    *ngIf="u.level < u.levelMax"
-                    (click)="doSomething(u.upgrade(_shop, u.level + 1, i))"
-                >
-                    {{ u.price(u.level, u.basePrice) }}g
-                </button>
+            <div
+                class="upgrade-content"
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+            >
+                <div fxLayout="column">
+                    <label>
+                        {{ tsl(u.name) }}
+                    </label>
+                    <span class="description">
+                        {{ tsl(u.description, u.descriptionParameters(_shop)) }}
+                    </span>
+                </div>
+                <div fxLayout="column">
+                    <span> Level {{ u.level }}/{{ u.levelMax }} </span>
+                    <button
+                        *ngIf="u.level < u.levelMax"
+                        (click)="doSomething(u, i)"
+                    >
+                        {{ u.price(u.level, u.basePrice) }}g
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</ng-container>

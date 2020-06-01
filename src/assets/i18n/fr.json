@@ -107,5 +107,35 @@
         "zulah": {
             "description": "Zul'ah était autrefois une magnifique cité. Aujourd'hui c'est bourg sans roi, où vit le bas peuple."
         }
+    },
+    "upgrades": {
+        "blacksmith": {
+            "better": {
+                "name": "Meilleur outils",
+                "effect": "Augmente la qualité général des équipements de 1 pour chaque niveau, qualité actuelle : {{quality}}"
+            },
+            "faster": {
+                "name": "Petites mains",
+                "effect": "Réduit le temps nécessaire pour renouveler les équipements de 10% chaque niveau (multiplicative), temps actuel : {{intervalStock}}"
+            },
+            "stronger": {
+                "name": "C'est du solide",
+                "effect": "Les équipements de cette boutique sont 10% plus fort pour chaque niveau"
+            }
+        },
+        "alchemist": {
+            "better": {
+                "name": "Véh Comme c'est plein",
+                "effect": "You can use your potion 1 times more each upgrade"
+            },
+            "faster": {
+                "name": "Descente d'enfer",
+                "effect": "Reduce waiting time to refill your potion"
+            },
+            "stronger": {
+                "name": "Je sais pas où on a trouvé ça",
+                "effect": "Increase effect of potion by 5% each level"
+            }
+        }
     }
 }

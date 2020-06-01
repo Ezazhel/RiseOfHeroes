@@ -3,7 +3,6 @@ import {
     ITemplateBaseItem,
     ITemplateWeapon,
     ITemplateArmor,
-    ITemplateItem,
 } from "@core/models/game-data/game-data.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "@core/models";
@@ -17,7 +16,7 @@ import {
     CityShopBuy,
     CityShopRenewItem,
 } from "@routes/world/city/store/cities.action";
-import { City, Shop } from "@routes/world/city/store/cities.model";
+import { Shop } from "@routes/world/city/store/cities.model";
 import { Map } from "immutable";
 import { generateRandomArmor } from "@core/models/item-generation";
 @Injectable({
@@ -41,7 +40,7 @@ export class ShopService {
             case "blacksmith":
                 let items = Map<string, ITemplateWeapon | ITemplateArmor>([]);
                 for (let i = 0; i < 5; i++) {
-                    let item = generateRandomArmor(1);
+                    let item = generateRandomArmor(1, 4);
                     items = items.set(item.id, item);
                 }
                 return items;
