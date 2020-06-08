@@ -10,4 +10,5 @@ export interface TrainingEquipment {
     reward: number; //Number of stat gain each cycle
     description: string;
     done: number;
+    isTraining: boolean;
 }

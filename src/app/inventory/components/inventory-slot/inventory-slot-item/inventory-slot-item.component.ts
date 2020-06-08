@@ -1,3 +1,4 @@
+import { Stat } from "./../../../../core/models/game-data/game-data.model";
 import {
     GameStateInventoryRemoveItemAction,
     GameStateEquipItemHeroAction,
@@ -76,12 +77,16 @@ export class InventorySlotItemComponent implements OnInit {
                     this.store.dispatch(
                         new GameStateInventoryAddItemAction(heroItem)
                     );
-                    let stats = hero.stats;
-                    heroItem.stats.forEach((stat) => {
-                        stats = stats.updateIn(
-                            [stat.type, "value"],
-                            (v) => v - stat.value
+                    let stats = [...hero.stats];
+                    heroItem.stats.forEach((stat: Stat) => {
+                        let indexStat = stats.findIndex(
+                            (s) => s.type == stat.type
                         );
+                        let hStat = stats[indexStat];
+                        stats[indexStat] = {
+                            ...hStat,
+                            value: hStat.value - stat.value,
+                        };
                     });
                     //Update Hero with removing stat
                     this.store.dispatch(

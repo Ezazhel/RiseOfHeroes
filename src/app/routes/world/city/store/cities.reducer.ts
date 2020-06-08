@@ -1,148 +1,81 @@
-import { Map } from "immutable";
 import { City, Shop } from "./cities.model";
-import {
-    ITemplateItem,
-    ITemplateWeapon,
-    ITemplateArmor,
-    ITemplateBaseItem,
-} from "@core/models/game-data/game-data.model";
+import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
 import * as CityAction from "./cities.action";
-import * as upgrd from "@core/models/upgrades";
-import { shopSelector } from "./city.selector";
+import { update } from "@core/models/utils";
 
 const initialState: CitiesState = {
-    cities: Map<string, City>([
-        [
-            "zulah",
-            {
-                id: "zulah",
-                name: "Zul'Ah",
-                description: "city.zulah.description",
-                levelRequirement: 0,
-                shops: Map<string, Shop>([
-                    [
-                        "blacksmith",
+    cities: [
+        {
+            id: "zulah",
+            name: "Zul'Ah",
+            description: "city.zulah.description",
+            levelRequirement: 0,
+            shops: [
+                {
+                    type: "blacksmith",
+                    name: "city.city_shop.blacksmith",
+                    maxItemQuality: 2,
+                    items: [],
+                    crafts: [],
+                    upgrades: [
                         {
-                            type: "blacksmith",
-                            name: "city.city_shop.blacksmith",
-                            maxItemQuality: 2,
-                            items: Map<
-                                string,
-                                ITemplateWeapon | ITemplateArmor
-                            >(),
-                            crafts: [],
-                            upgrades: [
-                                {
-                                    name: "upgrades.blacksmith.faster.name",
-                                    description:
-                                        "upgrades.blacksmith.faster.effect",
-                                    descriptionParameters: (
-                                        shop: Shop
-                                    ): any => {
-                                        return {
-                                            intervalStock: shop.intervalStock,
-                                        };
-                                    },
-                                    level: 0,
-                                    levelMax: 5,
-                                    basePrice: 1000,
-                                    price: (
-                                        level: number,
-                                        prixBase: number
-                                    ): number =>
-                                        prixBase * (1 + (level * 10) / 100),
-                                    upgrade: (
-                                        shop: Shop,
-                                        level: number,
-                                        index: number
-                                    ): Shop =>
-                                        upgrd.restockTimeUpgrade(
-                                            shop,
-                                            level,
-                                            index
-                                        ),
-                                },
-                                {
-                                    name: "upgrades.blacksmith.better.name",
-                                    description:
-                                        "upgrades.blacksmith.better.effect",
-                                    descriptionParameters: (
-                                        shop: Shop
-                                    ): any => {
-                                        return { quality: shop.maxItemQuality };
-                                    },
-                                    level: 0,
-                                    levelMax: 2,
-                                    basePrice: 2000,
-                                    price: (
-                                        level: number,
-                                        prixBase: number
-                                    ): number =>
-                                        prixBase * (1 + (level * 300) / 100),
-                                    upgrade: (
-                                        shop: Shop,
-                                        level: number,
-                                        index: number
-                                    ): Shop =>
-                                        upgrd.improveQualityUpgrade(
-                                            shop,
-                                            level,
-                                            index
-                                        ),
-                                },
-                            ],
-                            display: false,
-                            acceptType: "equipment",
-                            intervalStock: 15,
-                            lastTick: performance.now(),
+                            name: "upgrades.blacksmith.faster.name",
+                            description: "upgrades.blacksmith.faster.effect",
+                            upgradeType: "faster",
+                            level: 0,
+                            levelMax: 5,
+                            basePrice: 1000,
+                        },
+                        {
+                            name: "upgrades.blacksmith.better.name",
+                            description: "upgrades.blacksmith.better.effect",
+                            upgradeType: "better",
+                            level: 0,
+                            levelMax: 2,
+                            basePrice: 2000,
                         },
                     ],
-                    [
-                        "alchemist",
+                    display: false,
+                    acceptType: "equipment",
+                    intervalStock: 15,
+                    lastTick: performance.now(),
+                },
+                {
+                    type: "alchemist",
+                    name: "city.city_shop.alchemist",
+                    items: [
                         {
-                            type: "alchemist",
-                            name: "city.city_shop.alchemist",
-                            items: Map<string, ITemplateItem>([
-                                [
-                                    "item1",
-                                    {
-                                        id: "item1",
-                                        name: "Health Potion",
-                                        value: 150,
-                                        level: 0,
-                                        icon: "t_23",
-                                        type: "item",
-                                        quality: "common",
-                                        subType: "potion",
-                                    },
-                                ],
-                                [
-                                    "item2",
-                                    {
-                                        id: "item2",
-                                        name: "Mana Potion",
-                                        value: 150,
-                                        level: 0,
-                                        icon: "t_21",
-                                        type: "item",
-                                        quality: "common",
-                                        subType: "potion",
-                                    },
-                                ],
-                            ]),
-                            upgrades: [],
-                            display: false,
-                            acceptType: "consumable",
+                            id: "item1",
+                            name: "Health Potion",
+                            value: 150,
+                            level: 0,
+                            icon: "t_23",
+                            type: "item",
+                            quality: "common",
+                            subType: "potion",
+                        },
+                        {
+                            id: "item2",
+                            name: "Mana Potion",
+                            value: 150,
+                            level: 0,
+                            icon: "t_21",
+                            type: "item",
+                            quality: "common",
+                            subType: "potion",
                         },
                     ],
-                ]),
-            },
-        ],
-    ]),
+                    upgrades: [],
+                    display: false,
+                    acceptType: "consumable",
+                },
+            ],
+        },
+    ],
 };
 
 export interface CitiesState {
-    cities: Map<string, City>;
+    cities: City[];
 }
 
 export function citiesReducer(
@@ -154,52 +87,75 @@ export function citiesReducer(
             //Buying remove item from a shop in a specific city
             return {
                 ...state,
-                cities: state.cities.set(
-                    action.payload.city,
-                    setOrRemoveItem(
-                        state,
-                        action.payload.city,
-                        action.payload.shopType,
-                        true,
-                        action.payload.item
-                    )
+                cities: update(
+                    state.cities,
+                    (c: City) => c.id == action.payload.city,
+                    (c: City) => ({
+                        ...c,
+                        shops: update(
+                            c.shops,
+                            (s: Shop) => s.type == action.payload.shopType,
+                            (s: Shop) => ({
+                                ...s,
+                                items: [...s.items].filter(
+                                    (i: ITemplateBaseItem) =>
+                                        i.id != action.payload.item.id
+                                ),
+                            })
+                        ),
+                    })
                 ),
             };
         case CityAction.CITY_SHOP_RENEW_ITEM:
             //Pass a list of items for a shop, might be call multiple time depending of timer (not every shop have the same timer)
             return {
                 ...state,
-                cities: state.cities.set(
-                    action.payload.city,
-                    renewItem(
-                        state,
-                        action.payload.city,
-                        action.payload.shopType,
-                        action.payload.items
-                    )
+                cities: update(
+                    state.cities,
+                    (c: City) => c.id == action.payload.city,
+                    (c: City) =>
+                        renewItem(
+                            state,
+                            action.payload.city,
+                            action.payload.shopType,
+                            action.payload.items
+                        )
                 ),
             };
         case CityAction.CITY_SHOP_SELL:
             //Add an object to a specific shop in a specific city
             return {
                 ...state,
-                cities: state.cities.set(
-                    action.payload.city,
-                    setOrRemoveItem(
-                        state,
-                        action.payload.city,
-                        action.payload.shopType,
-                        false,
-                        action.payload.item
-                    )
+                cities: update(
+                    state.cities,
+                    (c: City) => c.id == action.payload.city,
+                    (c: City) => ({
+                        ...c,
+                        shops: update(
+                            c.shops,
+                            (s: Shop) => s.type == action.payload.shopType,
+                            (s: Shop) => ({
+                                ...s,
+                                items: [...s.items].concat(action.payload.item),
+                            })
+                        ),
+                    })
                 ),
             };
         case CityAction.CITY_UPGRADE_SHOP:
             return {
                 ...state,
-                cities: state.cities.setIn(
-                    [action.payload.city, "shops", action.payload.shop.type],
-                    action.payload.shop
+                cities: update(
+                    state.cities,
+                    (c: City) => c.id == action.payload.city,
+                    (c: City) => ({
+                        ...c,
+                        shops: update(
+                            c.shops,
+                            (s: Shop) => s.type == action.payload.shop.type,
+                            (s: Shop) => action.payload.shop
+                        ),
+                    })
                 ),
             };
         default:
@@ -214,14 +170,21 @@ function setOrRemoveItem(
     isRemove: boolean,
     item: ITemplateBaseItem
 ) {
-    let city = state.cities.get(cityId);
-    let shop = city.shops.get(shopType);
+    let cityIndex = state.cities.findIndex((c: City) => c.id == cityId);
+    let city = { ...state.cities[cityIndex] };
+    let shopIndex = city.shops.findIndex((s: Shop) => s.type == shopType);
+    let shop = { ...city.shops[shopIndex] };
     if (isRemove) {
-        shop = { ...shop, items: shop.items.remove(item.id) };
+        let items = [
+            ...shop.items.filter((i: ITemplateBaseItem) => i.id != item.id),
+        ];
+        city.shops[shopIndex] = {
+            ...shop,
+            items: [...items],
+        };
     } else {
-        shop = { ...shop, items: shop.items.set(item.id, item) };
+        city.shops[shopIndex] = { ...shop, items: shop.items.concat(item) };
     }
-    city = { ...city, shops: city.shops.set(shopType, shop) };
     return city;
 }
 
@@ -229,15 +192,26 @@ function renewItem(
     state: CitiesState,
     cityId: string,
     shopType: string,
-    items?: Map<string, ITemplateBaseItem>
+    items?: ITemplateBaseItem[]
 ): City {
-    let city = state.cities.get(cityId);
-    return (city = {
-        ...city,
-        shops: city.shops.set(shopType, {
-            ...city.shops.get(shopType),
+    let cityIndex = state.cities.findIndex((c: City) => c.id == cityId);
+    let newCity = { ...state.cities[cityIndex] };
+    function set(
+        shopType: string,
+        shops: Shop[],
+        items: ITemplateBaseItem[]
+    ): Shop[] {
+        let shopIndex = shops.findIndex((s: Shop) => s.type == shopType);
+        shops = [...shops];
+        shops[shopIndex] = {
+            ...shops[shopIndex],
             items: items,
             lastTick: performance.now(),
-        }),
-    });
+        };
+        return shops;
+    }
+    return {
+        ...newCity,
+        shops: set(shopType, [...newCity.shops], items),
+    };
 }

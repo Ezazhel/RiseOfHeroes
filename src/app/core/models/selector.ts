@@ -1,4 +1,8 @@
-import { ITemplateBaseItem, ItemFilter } from "./game-data/game-data.model";
+import {
+    ITemplateBaseItem,
+    ItemFilter,
+    Currency,
+} from "./game-data/game-data.model";
 import { createSelector } from "@ngrx/store";
 import { GameState } from "@core/models/game-state/game-state.reducer";
 import { createFeatureSelector } from "@ngrx/store";
@@ -21,6 +25,12 @@ export const currencySelector = createSelector(
     (gameState: GameState) => gameState.currencies
 );
 
+export const goldSelector = createSelector(
+    currencySelector,
+    (currencies: Currency[]) =>
+        currencies.find((c: Currency) => c.name == "gold")
+);
+
 export const inventorySelector = createSelector(
     gameStateSelector,
     (gameState: GameState) => {
@@ -30,12 +40,8 @@ export const inventorySelector = createSelector(
 
 export const inventoryToArraySelector = createSelector(
     inventorySelector,
-    (inventory: Immutable.Map<string, ITemplateBaseItem>) => {
-        if (inventory.size > 0) {
-            return inventory.valueSeq().toArray();
-        } else {
-            return null;
-        }
+    (inventory: ITemplateBaseItem[]) => {
+        return inventory.length > 0 ? inventory : null;
     }
 );
 

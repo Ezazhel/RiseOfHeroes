@@ -1,7 +1,14 @@
 <ng-container *transloco="let t">
     <div>
         <ul class="equipment-slots">
-            <li class="equipment h"></li>
+            <li class="equipment h">
+                <ng-container
+                    *ngTemplateOutlet="
+                        weaponOrArmor;
+                        context: { $implicit: hero.helmet }
+                    "
+                ></ng-container>
+            </li>
             <li class="equipment c">
                 <ng-container
                     *ngTemplateOutlet="

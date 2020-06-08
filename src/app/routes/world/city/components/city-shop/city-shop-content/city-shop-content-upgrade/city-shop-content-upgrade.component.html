@@ -13,17 +13,24 @@
                         {{ tsl(u.name) }}
                     </label>
                     <span class="description">
-                        {{ tsl(u.description, u.descriptionParameters(_shop)) }}
+                        {{ tsl(u.description, descriptionFor(u, _shop)) }}
                     </span>
                 </div>
                 <div fxLayout="column">
                     <span> Level {{ u.level }}/{{ u.levelMax }} </span>
                     <button
-                        *ngIf="u.level < u.levelMax"
-                        (click)="doSomething(u, i)"
+                        *ngIf="
+                            price(u) < (_gold$ | async).quantity &&
+                                u.level < u.levelMax;
+                            else spanPrice
+                        "
+                        (click)="upgrade(u, i)"
                     >
-                        {{ u.price(u.level, u.basePrice) }}g
+                        {{ price(u) }}g
                     </button>
+                    <ng-template #spanPrice>
+                        <span class="text-right"> {{ price(u) }}g </span>
+                    </ng-template>
                 </div>
             </div>
         </div>

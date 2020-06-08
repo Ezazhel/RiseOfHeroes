@@ -21,7 +21,7 @@ export class CityComponent implements OnInit {
 
     setShop(value: Shop) {
         this.shop$ = this.city$.pipe(
-            map((city: City) => city.shops.get(value.type))
+            map((city: City) => city.shops.find((s) => s.type == value.type))
         );
     }
     public trackByFn(index: number, el: Map<string, Shop>): number {

@@ -22,13 +22,11 @@ import { take, tap, first } from "rxjs/operators";
 export class HouseComponent implements OnInit, OnDestroy {
     private heroSubscription: Subscription;
     public _hero$: Observable<Hero> = this.store.pipe(select(heroSelector));
-    public _currencies$: Observable<Map<string, Currency>> = this.store.pipe(
+    public _currencies$: Observable<Array<Currency>> = this.store.pipe(
         select(currencySelector)
     );
 
-    public _trainingEquipment$: Observable<
-        Map<TrainingType, TrainingEquipment>
-    >;
+    public _trainingEquipment$: Observable<Array<TrainingEquipment>>;
 
     constructor(private store: Store<AppState>) {}
 

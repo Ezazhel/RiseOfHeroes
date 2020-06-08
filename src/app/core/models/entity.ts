@@ -3,7 +3,6 @@ import {
     Stat,
     StatType,
 } from "@core/models/game-data/game-data.model";
-import * as Immutable from "immutable";
 import {
     ITemplateWeapon,
     ITemplateArmor,
@@ -61,7 +60,7 @@ export interface Hero extends BaseEntity {
     readonly boots?: ITemplateArmor;
     readonly accesory?: null;
     readonly armor: number;
-    readonly stats: Immutable.Map<StatType, Stat>;
+    readonly stats: Array<Stat>;
 }
 
 export interface Companion extends BaseEntity {}

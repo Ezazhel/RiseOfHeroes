@@ -5,10 +5,10 @@
         <div fxLayout="row nowrap" fxLayoutAlign="center center">
             <button
                 *ngFor="let shop of city.shops; trackBy: trackByFn"
-                (click)="setShop(shop[1])"
-                [ngClass]="{ active: shop[1].type === (shop$ | async)?.type }"
+                (click)="setShop(shop)"
+                [ngClass]="{ active: shop.type === (shop$ | async)?.type }"
             >
-                {{ tsl(shop[1].name) }}
+                {{ tsl(shop.name) }}
             </button>
         </div>
         <app-city-shop [shop]="shop$" [cityId]="city.id"></app-city-shop>

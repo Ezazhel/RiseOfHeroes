@@ -1,3 +1,4 @@
+import { goldSelector } from "./../../../core/models/selector";
 import { ItemFilter, Currency } from "@core/models/game-data/game-data.model";
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Observable } from "rxjs";
@@ -5,7 +6,6 @@ import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
 import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
 import { inventoryFiltered, currencySelector } from "@core/models/selector";
-import { Map } from "immutable";
 import { GameStateInventoryRemoveItemAction } from "@core/models/game-state/game-state.action";
 @Component({
     selector: "app-inventory-slot",
@@ -21,9 +21,10 @@ export class InventorySlotComponent implements OnInit {
         select(inventoryFiltered(this.filter))
     );
 
-    public _currencies$: Observable<Map<string, Currency>> = this.store.pipe(
+    public _currencies$: Observable<Array<Currency>> = this.store.pipe(
         select(currencySelector)
     );
+    public _gold$: Observable<Currency> = this.store.select(goldSelector);
 
     public setItem(item: ITemplateBaseItem) {
         this.item = item;

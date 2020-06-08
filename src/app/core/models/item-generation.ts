@@ -76,7 +76,6 @@ function generateReward(level: number, maxQuality: number) {
 export function generateRandomArmor(level: number, maxQuality: number) {
     let type = ArmorTypeArray[randomize(ArmorTypeArray)];
     const quality = [...QualityArray].splice(0, maxQuality);
-    console.log(quality);
     switch (type) {
         case "boots":
             return generateArmor(

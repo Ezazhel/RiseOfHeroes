@@ -17,7 +17,6 @@ import {
     CityShopRenewItem,
 } from "@routes/world/city/store/cities.action";
 import { Shop } from "@routes/world/city/store/cities.model";
-import { Map } from "immutable";
 import { generateRandomArmor } from "@core/models/item-generation";
 @Injectable({
     providedIn: "root",
@@ -35,13 +34,12 @@ export class ShopService {
             })
         );
     }
-    private renewByType(type: string): Map<string, ITemplateBaseItem> {
+    private renewByType(type: string): Array<ITemplateWeapon | ITemplateArmor> {
         switch (type) {
             case "blacksmith":
-                let items = Map<string, ITemplateWeapon | ITemplateArmor>([]);
+                let items: Array<ITemplateWeapon | ITemplateArmor> = [];
                 for (let i = 0; i < 5; i++) {
-                    let item = generateRandomArmor(1, 4);
-                    items = items.set(item.id, item);
+                    items.push(generateRandomArmor(1, 4));
                 }
                 return items;
         }

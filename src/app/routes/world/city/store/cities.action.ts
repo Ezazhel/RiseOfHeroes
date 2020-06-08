@@ -38,5 +38,5 @@ export interface ShopInteraction {
     shops?: Map<string, Shop>;
     shop?: Shop;
     item?: ITemplateBaseItem;
-    items?: Map<string, ITemplateBaseItem>;
+    items?: ITemplateBaseItem[];
 }

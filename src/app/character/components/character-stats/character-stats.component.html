@@ -27,8 +27,8 @@
     </h3>
     <ul>
         <li *ngFor="let stat of hero.stats; trackBy: trackBy">
-            <span class="stat-label"> {{ t(stat[1].name) }} : </span>
-            <span class="stat-value"> {{ stat[1].value }}</span>
+            <span class="stat-label"> {{ t(stat.name) }} : </span>
+            <span class="stat-value"> {{ stat.value }}</span>
         </li>
     </ul>
 </ng-container>

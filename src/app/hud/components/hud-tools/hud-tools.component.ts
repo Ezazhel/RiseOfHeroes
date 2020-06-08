@@ -24,15 +24,6 @@ export class HudToolsComponent implements OnInit {
 
     public reset() {
         if (confirm(this.transloco.translate("game.alertHARDRESET"))) {
-            this.gameService
-                .initGame(false)
-                .then(() =>
-                    this.messageService.addGeneralMessage(
-                        this.transloco.selectTranslate(
-                            "game.InitWelcomeAfterReset"
-                        )
-                    )
-                );
         }
     }
     onClose() {

@@ -1,19 +1,10 @@
-import {
-    ITemplateBaseItem,
-    StatType,
-    Stat,
-} from "./../models/game-data/game-data.model";
-import { GameState } from "./../models/game-state/game-state.reducer";
+import { StatType, Stat } from "./../models/game-data/game-data.model";
 import { AppState } from "@core/models";
 import { MessageService } from "./message.service";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { EntitySubtype, Hero } from "@core/models/entity";
 import * as _ from "lodash";
-import * as Immutable from "immutable";
-import { GameStateNewAction } from "@core/models/game-state/game-state.action";
-import { Currency } from "@core/models/game-data/game-data.model";
-import { GameStateService } from "./game-state.service";
 import {
     intelligenceStat,
     agilityStat,
@@ -42,12 +33,12 @@ export class GameService {
             baseMagic: 0,
             baseDefense: 0,
             armor: 0,
-            stats: Immutable.Map<StatType, Stat>([
-                ["strength", { ...strenghtStat, value: 0 }],
-                ["endurance", { ...enduranceStat, value: 0 }],
-                ["intellect", { ...intelligenceStat, value: 0 }],
-                ["agility", { ...agilityStat, value: 0 }],
-            ]),
+            stats: [
+                { ...strenghtStat, value: 0 },
+                { ...enduranceStat, value: 0 },
+                { ...intelligenceStat, value: 0 },
+                { ...agilityStat, value: 0 },
+            ],
         };
         let character: Partial<Hero> = null;
         switch (entityClass) {
@@ -71,31 +62,5 @@ export class GameService {
             magic: character.baseMagic,
         });
         return character as Hero;
-    }
-
-    initGame(
-        load: boolean = !!localStorage.getItem(GameStateService.STATE_KEY)
-    ): Promise<boolean> {
-        return new Promise<boolean>((resolve, reject) => {
-            if (load) {
-                resolve(false);
-                return;
-            }
-            const character = GameService.create("peasant");
-            const initialState: GameState = {
-                companions: null,
-                inventory: Immutable.OrderedMap<string, ITemplateBaseItem>(),
-                currencies: Immutable.Map<string, Currency>([
-                    ["gold", { name: "gold", quantity: 50 }],
-                ]),
-                location: "house",
-                combatZone: "",
-                maxSlots: 16,
-                hero: character,
-            };
-            this.store.dispatch(new GameStateNewAction(initialState));
-            this.initialize();
-            resolve(true);
-        });
     }
 }

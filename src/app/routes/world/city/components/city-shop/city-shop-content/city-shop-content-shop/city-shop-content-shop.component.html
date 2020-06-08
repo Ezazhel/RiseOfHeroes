@@ -5,22 +5,21 @@
         }}</span>
         <div
             *ngFor="let item of _shop.items; trackBy: trackByFn"
-            class="content {{ item[1].quality }}"
-            (mouseenter)="setItem(item[1])"
+            class="content {{ item.quality }}"
+            (mouseenter)="setItem(item)"
             (mouseleave)="setItem(null)"
         >
-            <i class="{{ item[1].subType }} {{ item[1].icon }} "></i>
+            <i class="{{ item.subType }} {{ item.icon }} "></i>
             <span class="item-name">
-                {{ item[1].name }}
+                {{ item.name }}
             </span>
             <div class="action">
-                <span class="item-value"> {{ item[1].value }}g </span>
+                <span class="item-value"> {{ item.value }}g </span>
                 <button
                     *ngIf="
-                        item[1].value <=
-                        (_currencies$ | async)?.get('gold').quantity
+                        item.value <= (getCurrency('gold') | async)?.quantity
                     "
-                    (click)="buyItem(item[1])"
+                    (click)="buyItem(item)"
                 >
                     {{ tsl("buy") }}
                 </button>

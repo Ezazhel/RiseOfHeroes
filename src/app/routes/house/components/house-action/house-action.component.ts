@@ -17,7 +17,6 @@ import { Map } from "immutable";
 import { map } from "rxjs/operators";
 import { _runtimeChecksFactory } from "@ngrx/store/src/runtime_checks";
 import { MessageService } from "@core/services";
-
 @Component({
     selector: "house-action",
     templateUrl: "./house-action.component.html",
@@ -33,25 +32,32 @@ export class HouseActionComponent implements OnInit, OnDestroy {
         this._hero$.next(value);
     }
 
-    private _currencies$: Subject<Map<string, Currency>> = new BehaviorSubject<
-        Map<string, Currency>
+    private _currencies$: Subject<Array<Currency>> = new BehaviorSubject<
+        Array<Currency>
     >(null);
-    currencies$: Observable<Map<string, Currency>> = this._currencies$;
-    @Input("currencies") set _currencies(value: Map<string, Currency>) {
+    currencies$: Observable<Array<Currency>> = this._currencies$;
+    @Input("currencies") set _currencies(value: Array<Currency>) {
         this._currencies$.next(value);
     }
 
-    @Input() _trainingEquipment: Map<TrainingType, TrainingEquipment>;
+    gold$: Observable<Currency> = this._currencies$.pipe(
+        map((currencies: Array<Currency>) =>
+            currencies.find((c) => c.name == "gold")
+        )
+    );
+
+    @Input() _trainingEquipment: Array<TrainingEquipment>;
 
     public _showTravel$: Observable<boolean> = this._currencies$.pipe(
-        map((currencies: Map<string, Currency>) => {
-            if (currencies.get("gold").quantity >= 50) {
+        map((currencies: Array<Currency>) => {
+            if (currencies.find((c) => c.name == "gold").quantity >= 50) {
                 return true;
             }
         })
     );
 
-    public TEqpmt = (type: TrainingType) => this._trainingEquipment.get(type);
+    public TEqpmt = (type: TrainingType) =>
+        this._trainingEquipment.find((equipment) => equipment.id == type);
     public displayStat(hero: Hero, stat: TrainingType) {
         switch (stat) {
             case "strength":
@@ -61,19 +67,17 @@ export class HouseActionComponent implements OnInit, OnDestroy {
         }
     }
 
-    public training: Map<TrainingType, boolean>;
-
     train(hero: Hero, stat: TrainingType) {
-        let _trainEquipment = this._trainingEquipment.get(stat);
-        if (
-            this.training.get(stat) ||
-            _trainEquipment.done === _trainEquipment.bonus
-        ) {
+        let training = this._trainingEquipment.find(
+            (equipment) => equipment.id == stat
+        );
+        if (training.isTraining || training.done === training.bonus) {
             return;
         }
         clearTimeout(this.idlingTimer);
-        this.training = this.training.map((value, key) => false);
-        this.idling(hero, stat, _trainEquipment);
+        // this.training = this.training.map((value, key) => false);
+        this.store.dispatch(new HouseTraining(stat));
+        this.idling(hero, stat, training);
     }
 
     public work = {
@@ -81,6 +85,7 @@ export class HouseActionComponent implements OnInit, OnDestroy {
         time: 1000,
         reward: 1,
     };
+
     goToWork(): void {
         clearTimeout(this.idlingTimer);
 
@@ -90,7 +95,6 @@ export class HouseActionComponent implements OnInit, OnDestroy {
         this.work = { ...this.work, working: true };
 
         this.idlingTimer = window.setTimeout(() => {
-            this.training = this.training.map((value, key) => false);
             this.store.dispatch(
                 new GameStateCurrenciesAddCurrencyAction({
                     name: "gold",
@@ -111,45 +115,52 @@ export class HouseActionComponent implements OnInit, OnDestroy {
         trainingObject: TrainingEquipment
     ) {
         let trainEquipment = trainingObject;
-        this.training = this.training.update(stat, () => true);
+        // this.training = this.training.update(stat, () => true);
 
         this.idlingTimer = window.setTimeout(() => {
+            let iStat: number;
+            let stats = [...hero.stats];
             switch (stat) {
                 case "strength":
+                    iStat = hero.stats.findIndex((s) => s.type == "strength");
+                    let statStrength = hero.stats[iStat];
+                    stats[iStat] = {
+                        ...statStrength,
+                        value: statStrength.value + trainEquipment.reward,
+                    };
                     hero = {
                         ...hero,
-                        stats: hero.stats.updateIn(
-                            ["strength", "value"],
-                            (value) => value + trainEquipment.reward
-                        ),
+                        stats: stats,
                     };
                     break;
                 case "endurance":
+                    iStat = hero.stats.findIndex((s) => s.type == "endurance");
+                    let statEndurance = hero.stats[iStat];
+                    stats[iStat] = {
+                        ...statEndurance,
+                        value: statEndurance.value + trainEquipment.reward,
+                    };
+
                     hero = {
                         ...hero,
-                        stats: hero.stats.updateIn(
-                            ["endurance", "value"],
-                            (v) => v + trainEquipment.reward
-                        ),
+                        stats: stats,
                     };
                     break;
             }
-            console.log(trainEquipment.done);
-
             this.store.dispatch(new GameStateUpdateHeroAction(hero));
             this.store.dispatch(new HouseUpdateTrainingEquipmentDone(stat));
+            this.store.dispatch(new HouseTraining(stat));
             if (trainEquipment.done >= trainEquipment.bonus - 1) {
-                this.training = this.training.update(stat, () => false);
+                this.store.dispatch(new HouseTraining(stat));
                 return;
             }
             this.idling(hero, stat, {
                 ...trainEquipment,
                 done: trainEquipment.done + 1,
             });
-            console.log("Filling");
         }, trainEquipment.speed);
         setTimeout(() => {
-            this.training = this.training.update(stat, () => false);
+            this.store.dispatch(new HouseTraining(stat));
         }, trainEquipment.speed - 1);
     }
 
@@ -164,9 +175,7 @@ export class HouseActionComponent implements OnInit, OnDestroy {
         private messageService: MessageService
     ) {}
 
-    ngOnInit(): void {
-        this.training = this._trainingEquipment?.map((value, key) => false);
-    }
+    ngOnInit(): void {}
 
     ngOnDestroy(): void {
         clearTimeout(this.idlingTimer);

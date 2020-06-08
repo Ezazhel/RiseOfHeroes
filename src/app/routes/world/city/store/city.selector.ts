@@ -7,10 +7,10 @@ export const citiesStateSelector = createFeatureSelector<CitiesState>("cities");
 
 export const citySelector = (cityId: string) =>
     createSelector(citiesStateSelector, (state: CitiesState) =>
-        state.cities.get(cityId)
+        state.cities.find((c) => c.id == cityId)
     );
 
-export const shopSelector = (cityId: string, shopId: string) =>
+export const shopSelector = (cityId: string, shopType: string) =>
     createSelector(citySelector(cityId), (city: City) =>
-        city.shops.get(shopId)
+        city.shops.find((s) => s.type == shopType)
     );

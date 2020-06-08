@@ -21,32 +21,30 @@
             <div [style.display]="dTab === 'training' ? 'block' : 'none'">
                 <app-card
                     *ngFor="let t of _trainingEquipment; trackBy: trackByFn"
-                    header="{{ tsl(t[1].cardHeader) }} ({{
-                        displayStat(hero$ | async, t[0])
+                    header="{{ tsl(t.cardHeader) }} ({{
+                        displayStat(hero$ | async, t.id)
                     }}) "
-                    (click)="train(hero, t[0])"
+                    (click)="train(hero, t.id)"
                 >
                     <ng-container cardBody>
                         <span>
-                            {{ tsl(t[1].description) }}
+                            {{ tsl(t.description) }}
                         </span>
                     </ng-container>
                     <ng-container cardFooter>
                         <div class="training-reward-information">
                             <span>
-                                {{ tsl("house.reward") }} : + {{ t[1].reward }}
-                                {{ t[0] }}
+                                {{ tsl("house.reward") }} : + {{ t.reward }}
+                                {{ t.id }}
                             </span>
                             <span>
                                 {{ tsl("house.maxTraining") }}
-                                {{ t[1].done }}/{{ t[1].bonus }}
+                                {{ t.done }}/{{ t.bonus }}
                             </span>
                         </div>
                         <app-progressbar
-                            time="{{ t[1].speed }}ms"
-                            [animate]="
-                                training.get(t[0]) ? 'filling' : 'initial'
-                            "
+                            time="{{ t.speed }}ms"
+                            [animate]="t.isTraining ? 'filling' : 'initial'"
                         ></app-progressbar>
                     </ng-container>
                 </app-card>
@@ -68,9 +66,7 @@
                             </span>
                             <span>
                                 {{ tsl("house.work.currentGold") }}
-                                {{
-                                    (currencies$ | async)?.get("gold").quantity
-                                }}
+                                {{ (gold$ | async)?.quantity }}
                             </span>
                         </div>
                         <app-progressbar
