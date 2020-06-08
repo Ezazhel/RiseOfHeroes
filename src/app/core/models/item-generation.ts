@@ -15,6 +15,10 @@ export const GlovesIcon: Array<string> = generateIconArray("g", 21);
 export const PantIcon: Array<string> = generateIconArray("p", 21);
 export const BootsIcon: Array<string> = generateIconArray("b", 17);
 
+const uncommonFormula = (stat: number) => stat * 1.3;
+const rareFormula = (stat: number) => (uncommonFormula(stat) + 5) * 1.2;
+const epicFormula = (stat: number) => (rareFormula(stat) + 10) * 1.2;
+
 function generateIconArray(icon: string, number: number) {
     let array: Array<string> = new Array<string>();
     for (let i = 1; i <= number; i++) {
@@ -129,22 +133,28 @@ function generateArmor(
     level: number,
     icons: Array<string>,
     maxQuality: Array<ItemQuality>
-) {
+): ITemplateArmor {
+    let quality = QualityArray[randomize(maxQuality)];
     return {
         ...baseArmor,
         id: entityId(id),
         level: level,
         icon: pickRandomIcon(icons),
-        quality: QualityArray[randomize(maxQuality)],
+        quality: quality,
         name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
+        armor: modifyStat(quality, baseArmor.armor * level),
+        value: modifyPrice(quality, baseArmor.value * level),
         stats: [
             {
                 ...baseItem.strenghtStat,
-                value: baseItem.strenghtStat.value * level,
+                value: modifyStat(quality, baseItem.strenghtStat.value * level),
             },
             {
                 ...baseItem.enduranceStat,
-                value: baseItem.enduranceStat.value * level,
+                value: modifyStat(
+                    quality,
+                    baseItem.enduranceStat.value * level
+                ),
             },
         ],
     };
@@ -172,6 +182,39 @@ export function generateWeapon(
             },
         ],
     };
+}
+function modifyPrice(quality: ItemQuality, price: number) {
+    const uPrice = (price) => price * 3;
+    const rPrice = (price) => uPrice(price) * 3;
+    const ePrice = (price) => rPrice(price) * 2.5;
+    switch (quality) {
+        case "uncommon":
+            price = uPrice(price);
+            break;
+        case "rare":
+            price = rPrice(price);
+            break;
+        case "epic":
+            price = ePrice(price);
+            break;
+    }
+    return Math.floor(price);
+}
+function modifyStat(quality: ItemQuality, statValue: number) {
+    switch (quality) {
+        case "uncommon":
+            statValue = uncommonFormula(statValue);
+            break;
+        case "rare":
+            statValue = rareFormula(statValue);
+            break;
+        case "epic":
+            statValue = epicFormula(statValue);
+            break;
+        case "legendary":
+            break; //Actualy Legendary stat will be set manually.
+    }
+    return Math.floor(statValue);
 }
 
 export const QualityArray: Array<ItemQuality> = [

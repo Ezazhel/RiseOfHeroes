@@ -14,7 +14,7 @@ const initialState: CitiesState = {
                 {
                     type: "blacksmith",
                     name: "city.city_shop.blacksmith",
-                    maxItemQuality: 2,
+                    maxItemQuality: 1,
                     items: [],
                     crafts: [],
                     upgrades: [

@@ -1,3 +1,4 @@
+import { QualityArray } from "./item-generation";
 import { Shop, ShopUpgrade } from "@routes/world/city/store/cities.model";
 export type UpgradeType = "faster" | "better";
 
@@ -6,7 +7,7 @@ export function descriptionFor(upgrade: ShopUpgrade, shop: Shop) {
         case "faster":
             return { intervalStock: shop.intervalStock };
         case "better":
-            return { quality: shop.maxItemQuality };
+            return { quality: QualityArray[shop.maxItemQuality - 1] };
     }
 }
 

@@ -30,16 +30,19 @@ export class ShopService {
             new CityShopRenewItem({
                 city: cityId,
                 shopType: shop.type,
-                items: this.renewByType(shop.type),
+                items: this.renewByType(shop.type, shop.maxItemQuality),
             })
         );
     }
-    private renewByType(type: string): Array<ITemplateWeapon | ITemplateArmor> {
+    private renewByType(
+        type: string,
+        maxQuality: number
+    ): Array<ITemplateWeapon | ITemplateArmor> {
         switch (type) {
             case "blacksmith":
                 let items: Array<ITemplateWeapon | ITemplateArmor> = [];
                 for (let i = 0; i < 5; i++) {
-                    items.push(generateRandomArmor(1, 4));
+                    items.push(generateRandomArmor(1, maxQuality));
                 }
                 return items;
         }

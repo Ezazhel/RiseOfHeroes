@@ -29,7 +29,9 @@
                         {{ price(u) }}g
                     </button>
                     <ng-template #spanPrice>
-                        <span class="text-right"> {{ price(u) }}g </span>
+                        <span class="text-right" *ngIf="u.level < u.levelMax">
+                            {{ price(u) }}g
+                        </span>
                     </ng-template>
                 </div>
             </div>
