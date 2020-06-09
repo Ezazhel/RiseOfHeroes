@@ -48,16 +48,9 @@ export class HouseActionComponent implements OnInit, OnDestroy {
 
     @Input() _trainingEquipment: Array<TrainingEquipment>;
 
-    public _showTravel$: Observable<boolean> = this._currencies$.pipe(
-        map((currencies: Array<Currency>) => {
-            if (currencies.find((c) => c.name == "gold").quantity >= 50) {
-                return true;
-            }
-        })
-    );
-
     public TEqpmt = (type: TrainingType) =>
         this._trainingEquipment.find((equipment) => equipment.id == type);
+
     public displayStat(hero: Hero, stat: TrainingType) {
         switch (stat) {
             case "strength":

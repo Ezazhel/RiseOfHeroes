@@ -4,7 +4,7 @@
     height: 145px;
     background: #f2f2f2;
     color: $body;
-    box-shadow: 0 0.2rem 0.15rem grey;
+    box-shadow: 0 0.2rem 0.15rem $carreraWhite;
     box-sizing: border-box;
     margin: 1em;
     display: inline-block;
@@ -15,21 +15,34 @@
     -ms-user-select: none; /* IE10+ */
     cursor: pointer;
     &:hover {
-        box-shadow: 0 0.5rem 0.75rem grey;
+        box-shadow: 0 0.5rem 0.75rem $carreraWhite;
         transform: translateY(-2px);
     }
+    &.combat {
+        width: 350px;
+        height: 250px;
+        cursor: default !important;
+        background-color: $body;
+        box-shadow: 0 0 1px 1px $carreraWhite;
+        color: $carreraWhite;
+        &:hover {
+            box-shadow: 0 0 1px 1px $carreraWhite;
+            transform: none;
+        }
+    }
 }
+
 .card {
     display: flex;
     flex-direction: column;
     width: inherit;
-    cursor: pointer;
+    cursor: inherit;
     height: inherit;
     box-sizing: border-box;
     .card-header {
         text-align: center;
         padding: 5px;
-        border-bottom: 1px solid hsla(0, 0%, 73%, 1);
+        border-bottom: 1px solid $carreraWhite;
     }
     .card-body {
         display: flex;

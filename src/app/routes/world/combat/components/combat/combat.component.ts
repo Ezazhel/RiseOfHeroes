@@ -1,9 +1,13 @@
+import { GameStateUpdateHeroAction } from "./../../../../../core/models/game-state/game-state.action";
+import { fighters } from "@core/models/game-data/game-data.data";
 import { heroSelector } from "@core/models/selector";
 import { Observable } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import { Component, OnInit } from "@angular/core";
 import { AppState } from "@core/models";
-import { Combatant, Hero } from "@core/models/entity";
+import { Fighter, Hero } from "@core/models/entity";
+import { Router, ActivatedRoute } from "@angular/router";
+import { toNumber } from "@ngneat/transloco";
 
 @Component({
     selector: "app-combat",
@@ -12,11 +16,14 @@ import { Combatant, Hero } from "@core/models/entity";
 })
 export class CombatComponent implements OnInit {
     public hero$: Observable<Hero> = this.store.pipe(select(heroSelector));
-    public monster$: Observable<Combatant> = null;
+    public fighter: Fighter =
+        fighters[toNumber(this.route.snapshot.paramMap.get("monster"))];
 
-    constructor(private store: Store<AppState>) {}
+    constructor(
+        private store: Store<AppState>,
+        private route: ActivatedRoute,
+        private router: Router
+    ) {}
 
-    ngOnInit(): void {
-        console.log("test");
-    }
+    ngOnInit(): void {}
 }

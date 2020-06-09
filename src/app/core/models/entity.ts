@@ -65,8 +65,16 @@ export interface Hero extends BaseEntity {
 
 export interface Companion extends BaseEntity {}
 
-export interface Combatant extends BaseEntity {
+export interface Fighter extends EntityObject {
+    name: string;
+    icon?: string;
     exp: number;
+    attack: number;
+    attackSpeed: number;
+    defense: number;
+    hp: number;
+    level: number;
+    maxHp: number;
     items?: ITemplateBaseItem;
     ressources?: Currency;
 }

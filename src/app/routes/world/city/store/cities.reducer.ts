@@ -70,6 +70,22 @@ const initialState: CitiesState = {
                     acceptType: "consumable",
                 },
             ],
+            building: [
+                {
+                    type: "huntingPost",
+                    name: "city.city_building.huntingPost.name",
+                    actions: [
+                        {
+                            type: "hunt",
+                            targetId: 0, //Combatant
+                            effectId: 0, //Function to hunt, redirect to route with the monster as parameters.
+                            name: "",
+                            description:
+                                "city.city_building.huntingPost.action.description",
+                        },
+                    ],
+                },
+            ],
         },
     ],
 };

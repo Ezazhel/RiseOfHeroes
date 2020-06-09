@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
-import { City, Shop } from "../../store/cities.model";
+import { City, Shop, Building } from "../../store/cities.model";
 import { Observable } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
@@ -18,13 +18,27 @@ export class CityComponent implements OnInit {
         select(citySelector(this.route.snapshot.paramMap.get("cityId")))
     );
     shop$: Observable<Shop>;
+    building$: Observable<Building>;
 
+    tab: string;
     setShop(value: Shop) {
         this.shop$ = this.city$.pipe(
             map((city: City) => city.shops.find((s) => s.type == value.type))
         );
     }
-    public trackByFn(index: number, el: Map<string, Shop>): number {
+
+    setBuilding(value: Building) {
+        this.building$ = this.city$.pipe(
+            map((city: City) => city.building.find((b) => b.type == value.type))
+        );
+    }
+    setTab(value: string) {
+        this.tab = value;
+    }
+    public trackByFn(index: number, el: Array<Shop>): number {
+        return index;
+    }
+    public trackByFnBuilding(index: number, el: Array<Building>): number {
         return index;
     }
 

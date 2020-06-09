@@ -21,11 +21,15 @@
             <div [style.display]="dTab === 'training' ? 'block' : 'none'">
                 <app-card
                     *ngFor="let t of _trainingEquipment; trackBy: trackByFn"
-                    header="{{ tsl(t.cardHeader) }} ({{
-                        displayStat(hero$ | async, t.id)
-                    }}) "
                     (click)="train(hero, t.id)"
                 >
+                    <ng-container cardHeader>
+                        <span>
+                            {{ tsl(t.cardHeader) }} ({{
+                                displayStat(hero$ | async, t.id)
+                            }})
+                        </span>
+                    </ng-container>
                     <ng-container cardBody>
                         <span>
                             {{ tsl(t.description) }}
@@ -50,10 +54,12 @@
                 </app-card>
             </div>
             <div [style.display]="dTab === 'work' ? 'block' : 'none'">
-                <app-card
-                    header="{{ tsl('house.work.level1.name') }}"
-                    (click)="goToWork()"
-                >
+                <app-card header="" (click)="goToWork()">
+                    <ng-container cardHeader>
+                        <span>
+                            {{ tsl("house.work.level1.name") }}
+                        </span>
+                    </ng-container>
                     <ng-container cardBody>
                         <label>
                             {{ tsl("house.work.level1.description") }}

@@ -1,0 +1,32 @@
+<div class="ui-container" fxLayout="row" fxLayoutAlign="center center">
+    <app-card class="combat">
+        <ng-container cardHeader>
+            You / lvl {{ (hero$ | async).level }}
+        </ng-container>
+        <ng-container cardBody>
+            <!-- Bar Hp / Exp-->
+            <div>
+                <div class="myProgress hp">
+                    <span>
+                        {{ (hero$ | async).hp }} /
+                        {{ (hero$ | async).maxHp }}</span
+                    >
+                    <div
+                        class="fillingBar"
+                        [style.width.%]="healthPercentage$ | async"
+                    ></div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container cardFooter>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <!-- Skills and consummables-->
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+            </div>
+        </ng-container>
+    </app-card>
+</div>

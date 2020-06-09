@@ -1,0 +1,10 @@
+<ng-container *transloco="let t">
+    <div *ngIf="building$ | async as building" class="ui">
+        <button
+            *ngFor="let action of building.actions"
+            (click)="effect(action)"
+        >
+            {{ t(action.description, descriptionFor(action)) }}
+        </button>
+    </div>
+</ng-container>

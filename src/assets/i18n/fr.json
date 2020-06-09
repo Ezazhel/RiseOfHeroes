@@ -90,6 +90,20 @@
         "house": "Maison"
     },
     "city": {
+        "city_building": {
+            "huntingPost": {
+                "name": "Poste de chasse",
+                "action": {
+                    "description": "Chasser : {{fighters}}"
+                }
+            },
+            "Mayor": "Maire",
+            "Tavern": "Taverne"
+        },
+        "tab": {
+            "building": "Bâtiments",
+            "shops": "Boutiques"
+        },
         "city_shop": {
             "blacksmith": "Forgeron",
             "alchemist": "Alchimiste",

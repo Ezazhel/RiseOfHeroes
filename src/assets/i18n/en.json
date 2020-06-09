@@ -89,6 +89,20 @@
         "house": "House"
     },
     "city": {
+        "city_building": {
+            "huntingPost": {
+                "name": "Hunting Post",
+                "action": {
+                    "description": "Hunt : {{fighters}}"
+                }
+            },
+            "Mayor": "Mayor",
+            "Tavern": "Tavern"
+        },
+        "tab": {
+            "building": "Building",
+            "shops": "Shops"
+        },
         "city_shop": {
             "blacksmith": "Blacksmith",
             "alchemist": "Alchemist",

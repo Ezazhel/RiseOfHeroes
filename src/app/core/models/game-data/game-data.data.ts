@@ -1,4 +1,4 @@
-import { Map } from "immutable";
+import { Fighter } from "./../entity";
 import { Stat } from "./game-data.model";
 import { ITemplateWeapon, ITemplateArmor } from "./game-data.model";
 //#region Stats
@@ -124,6 +124,23 @@ export const baseGloves: ITemplateArmor = {
 };
 //#endregion Armor
 
+//#region Monster
+export const fighters: Fighter[] = [
+    {
+        eid: "0",
+        name: "Dummy",
+        attack: 35,
+        attackSpeed: 1 * 1000,
+        exp: 5,
+        hp: 500,
+        level: 1,
+        maxHp: 500,
+        defense: 0,
+    },
+];
+//#endregion Monster
+
+//#region City
 // export const cities: Map<string, City> = Map<string, City>([
 //     [
 //         "zulah",
@@ -174,3 +191,4 @@ export const baseGloves: ITemplateArmor = {
 //         },
 //     ],
 // ]);
+//#endregion City
