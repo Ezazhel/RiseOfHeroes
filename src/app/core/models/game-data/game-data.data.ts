@@ -128,7 +128,8 @@ export const baseGloves: ITemplateArmor = {
 export const fighters: Fighter[] = [
     {
         eid: "0",
-        name: "Dummy",
+        name: "Dummy Moore",
+        icon: "dummy_01",
         attack: 35,
         attackSpeed: 1 * 1000,
         exp: 5,
@@ -136,6 +137,30 @@ export const fighters: Fighter[] = [
         level: 1,
         maxHp: 500,
         defense: 0,
+    },
+    {
+        eid: "1",
+        name: "Sheepy",
+        icon: "sheep_01",
+        attack: 65,
+        attackSpeed: 1.4 * 1000,
+        exp: 10,
+        hp: 750,
+        level: 1,
+        maxHp: 750,
+        defense: 25,
+    },
+    {
+        eid: "2",
+        name: "Piggy",
+        icon: "pig_01",
+        attack: 100,
+        attackSpeed: 1.5 * 1000,
+        exp: 15,
+        hp: 1000,
+        level: 1,
+        maxHp: 1000,
+        defense: 75,
     },
 ];
 //#endregion Monster

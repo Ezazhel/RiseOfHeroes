@@ -30,6 +30,20 @@
             transform: none;
         }
     }
+    &.hunting {
+        width: 128px;
+        height: 250px;
+        font-size: small;
+        cursor: default !important;
+        box-shadow: 0 0 1px 1px $carreraWhite;
+        &:hover {
+            box-shadow: 0 0 1px 1px $carreraWhite;
+            transform: none;
+        }
+        .card-header {
+            padding: 0px !important;
+        }
+    }
 }
 
 .card {
@@ -43,19 +57,23 @@
         text-align: center;
         padding: 5px;
         border-bottom: 1px solid $carreraWhite;
+        box-sizing: inherit;
     }
     .card-body {
         display: flex;
         font-size: small;
         flex-direction: column;
+        box-sizing: inherit;
         margin: 5px;
     }
     .card-footer {
         display: flex;
         flex-direction: column;
         margin-top: auto;
+        box-sizing: inherit;
     }
     label {
         align-self: flex-end;
+        box-sizing: inherit;
     }
 }

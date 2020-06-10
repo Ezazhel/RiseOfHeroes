@@ -83,6 +83,22 @@ const initialState: CitiesState = {
                             description:
                                 "city.city_building.huntingPost.action.description",
                         },
+                        {
+                            type: "hunt",
+                            targetId: 1, //Combatant
+                            effectId: 0, //Function to hunt, redirect to route with the monster as parameters.
+                            name: "",
+                            description:
+                                "city.city_building.huntingPost.action.description",
+                        },
+                        {
+                            type: "hunt",
+                            targetId: 2, //Combatant
+                            effectId: 0, //Function to hunt, redirect to route with the monster as parameters.
+                            name: "",
+                            description:
+                                "city.city_building.huntingPost.action.description",
+                        },
                     ],
                 },
             ],

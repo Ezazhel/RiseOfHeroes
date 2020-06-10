@@ -5,6 +5,9 @@ import { CityShopContentComponent } from "./city-shop/city-shop-content/city-sho
 import { CityShopContentShopComponent } from "./city-shop/city-shop-content/city-shop-content-shop/city-shop-content-shop.component";
 import { CityShopContentUpgradeComponent } from "./city-shop/city-shop-content/city-shop-content-upgrade/city-shop-content-upgrade.component";
 import { CityBuildingComponent } from "./city-building/city-building.component";
+import { HuntingPost } from "./city-building/hunt/city-building-huntingPost";
+import { HuntPostPost } from "./city-building/hunt/city-building-hunt-post-post.component";
+
 export const components: any[] = [
     CityComponent,
     CityShopComponent,
@@ -13,6 +16,8 @@ export const components: any[] = [
     CityShopContentShopComponent,
     CityShopContentUpgradeComponent,
     CityBuildingComponent,
+    HuntingPost,
+    HuntPostPost,
 ];
 
 export * from "./city/city.component";

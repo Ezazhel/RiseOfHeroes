@@ -1,0 +1,20 @@
+<app-card class="hunting" *transloco="let t">
+    <ng-container cardHeader>
+        <!-- Icon -->
+        <i class="mob {{ fighter.icon }}"></i>
+    </ng-container>
+    <ng-container cardBody>
+        <!-- Stat -->
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+            <label> Attack : {{ fighter.attack }}</label>
+            <label> Defense : {{ fighter.defense }}</label>
+            <label> Attack speed : {{ fighter.attackSpeed / 1000 }}/s</label>
+            <label> Exp : {{ fighter.exp }}</label>
+        </div>
+    </ng-container>
+    <ng-container cardFooter>
+        <button (click)="effect(action)">
+            {{ t(action.description, descriptionFor(action)) }}
+        </button>
+    </ng-container>
+</app-card>

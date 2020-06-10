@@ -5,6 +5,30 @@
         </ng-container>
         <ng-container cardBody>
             <!-- Bar Hp / Exp-->
+            <div fxLayout="row nowrap">
+                <div>
+                    <i class="{{ fighter.icon }} mob"></i>
+                </div>
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="space-evenly"
+                    class="stat"
+                    fxFlex="grow"
+                >
+                    <div fxLayout="row" fxLayoutAlign="space-around center">
+                        <label> Attack : {{ fighter.attack }}</label>
+                        <label> Defense : {{ fighter.defense }}</label>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="space-around center">
+                        <label>
+                            Attack speed :
+                            {{ fighter.attackSpeed / 1000 }}/s</label
+                        >
+                        <label> Exp : {{ fighter.exp }}</label>
+                    </div>
+                </div>
+            </div>
             <div>
                 <div class="myProgress hp">
                     <span> {{ fighter.hp }}</span>
@@ -12,19 +36,6 @@
                         class="fillingBar"
                         [style.width.%]="healthPercentage(fighter)"
                     ></div>
-                </div>
-            </div>
-            <div fxLayout="column" fxLayoutAlign="space-evenly" class="stat">
-                <div fxLayout="row" fxLayoutAlign="space-around center">
-                    <label> Attack : {{ fighter.attack }}</label>
-                    <label> Defense : {{ fighter.defense }}</label>
-                </div>
-
-                <div fxLayout="row" fxLayoutAlign="space-around center">
-                    <label>
-                        Attack speed : {{ fighter.attackSpeed / 1000 }}/s</label
-                    >
-                    <label> Exp : {{ fighter.exp }}</label>
                 </div>
             </div>
         </ng-container>
