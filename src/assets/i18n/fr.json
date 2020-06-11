@@ -50,6 +50,11 @@
             "endurance": "Endurance",
             "intellect": "Intelligence",
             "agility": "Agilité"
+        },
+        "weapon": {
+            "damage": "{{attack}} dégâts",
+            "speed": "Vitesse {{speed}}",
+            "dps": "({{dps}} dégâts par seconde)"
         }
     },
     "house": {

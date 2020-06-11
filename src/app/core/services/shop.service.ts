@@ -17,7 +17,10 @@ import {
     CityShopRenewItem,
 } from "@routes/world/city/store/cities.action";
 import { Shop } from "@routes/world/city/store/cities.model";
-import { generateRandomArmor } from "@core/models/item-generation";
+import {
+    generateRandomArmor,
+    generateReward,
+} from "@core/models/item-generation";
 @Injectable({
     providedIn: "root",
 })
@@ -41,8 +44,10 @@ export class ShopService {
         switch (type) {
             case "blacksmith":
                 let items: Array<ITemplateWeapon | ITemplateArmor> = [];
-                for (let i = 0; i < 5; i++) {
-                    items.push(generateRandomArmor(1, maxQuality));
+                for (let i = 0; i < 10; i++) {
+                    let item = generateReward(1, maxQuality);
+                    console.log(item);
+                    items.push(item);
                 }
                 return items;
         }

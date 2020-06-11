@@ -1,0 +1,83 @@
+@mixin stitches-dagger($x, $y) {
+    background-position: $x $y;
+    width: 48px;
+    height: 48px;
+}
+
+.dagger {
+    background-image: url(~/assets/daggers.png);
+    background-repeat: no-repeat;
+    display: block;
+
+    &.d1 {
+        @include stitches-dagger(-5px, -5px);
+    }
+
+    &.d10 {
+        @include stitches-dagger(-63px, -5px);
+    }
+
+    &.d11 {
+        @include stitches-dagger(-121px, -5px);
+    }
+
+    &.d12 {
+        @include stitches-dagger(-179px, -5px);
+    }
+
+    &.d13 {
+        @include stitches-dagger(-5px, -63px);
+    }
+
+    &.d14 {
+        @include stitches-dagger(-63px, -63px);
+    }
+
+    &.d15 {
+        @include stitches-dagger(-121px, -63px);
+    }
+
+    &.d16 {
+        @include stitches-dagger(-179px, -63px);
+    }
+
+    &.d17 {
+        @include stitches-dagger(-5px, -121px);
+    }
+
+    &.d18 {
+        @include stitches-dagger(-63px, -121px);
+    }
+
+    &.d2 {
+        @include stitches-dagger(-121px, -121px);
+    }
+
+    &.d3 {
+        @include stitches-dagger(-179px, -121px);
+    }
+
+    &.d4 {
+        @include stitches-dagger(-5px, -179px);
+    }
+
+    &.d5 {
+        @include stitches-dagger(-63px, -179px);
+    }
+
+    &.d6 {
+        @include stitches-dagger(-121px, -179px);
+    }
+
+    &.d7 {
+        @include stitches-dagger(-179px, -179px);
+    }
+
+    &.d8 {
+        @include stitches-dagger(-237px, -5px);
+    }
+
+    &.d9 {
+        @include stitches-dagger(-237px, -63px);
+    }
+}

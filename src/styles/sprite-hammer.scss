@@ -1,0 +1,67 @@
+@mixin stitches-hammer($x: 0, $y: 0, $width: 0, $height: 0) {
+    background-position: $x $y;
+    width: $width;
+    height: $height;
+}
+
+.hammer {
+    background-image: url(~/assets/hammers.png);
+    background-repeat: no-repeat;
+    display: block;
+
+    &.h1 {
+        @include stitches-hammer(-5px, -5px, 48px, 48px);
+    }
+
+    &.h10 {
+        @include stitches-hammer(-63px, -5px, 48px, 48px);
+    }
+
+    &.h11 {
+        @include stitches-hammer(-121px, -5px, 48px, 48px);
+    }
+
+    &.h12 {
+        @include stitches-hammer(-5px, -63px, 48px, 48px);
+    }
+
+    &.h13 {
+        @include stitches-hammer(-63px, -63px, 48px, 48px);
+    }
+
+    &.h14 {
+        @include stitches-hammer(-121px, -63px, 48px, 48px);
+    }
+
+    &.h2 {
+        @include stitches-hammer(-5px, -121px, 48px, 48px);
+    }
+
+    &.h3 {
+        @include stitches-hammer(-63px, -121px, 48px, 48px);
+    }
+
+    &.h4 {
+        @include stitches-hammer(-121px, -121px, 48px, 48px);
+    }
+
+    &.h5 {
+        @include stitches-hammer(-179px, -5px, 48px, 48px);
+    }
+
+    &.h6 {
+        @include stitches-hammer(-179px, -63px, 48px, 48px);
+    }
+
+    &.h7 {
+        @include stitches-hammer(-179px, -121px, 48px, 48px);
+    }
+
+    &.h8 {
+        @include stitches-hammer(-5px, -179px, 48px, 48px);
+    }
+
+    &.h9 {
+        @include stitches-hammer(-63px, -179px, 48px, 48px);
+    }
+}

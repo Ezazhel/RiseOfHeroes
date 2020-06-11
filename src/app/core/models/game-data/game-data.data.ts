@@ -35,6 +35,7 @@ export const baseWeapon: ITemplateWeapon = {
     icon: "", //will be set randomly
     subType: "dagger",
     weaponHandling: "1h",
+    speed: 1 * 1000,
     quality: "common", //will be set randomly
 };
 export const baseDagger: ITemplateWeapon = {
@@ -42,14 +43,16 @@ export const baseDagger: ITemplateWeapon = {
     attack: 5, //will change accordigng to level of weapon and bonuses of hero
     value: 20, //will change according to level of weapon and bonuses of hero
     subType: "dagger",
+    speed: 1.6 * 1000,
     weaponHandling: "1h",
 };
 
-export const baseSpear: ITemplateWeapon = {
+export const baseAxe: ITemplateWeapon = {
     ...baseWeapon,
     attack: 9, //will change accordigng to level of weapon and bonuses of hero
     value: 35, //will change according to level of weapon and bonuses of hero
-    subType: "spear",
+    subType: "axe",
+    speed: 3.2 * 1000,
     weaponHandling: "2h",
 };
 export const baseHammer: ITemplateWeapon = {
@@ -57,6 +60,7 @@ export const baseHammer: ITemplateWeapon = {
     attack: 12, //will change accordigng to level of weapon and bonuses of hero
     value: 45, //will change according to level of weapon and bonuses of hero
     subType: "hammer",
+    speed: 3.4 * 1000,
     weaponHandling: "2h",
 };
 
@@ -65,6 +69,7 @@ export const baseSword: ITemplateWeapon = {
     attack: 7, //will change accordigng to level of weapon and bonuses of hero
     value: 25, //will change according to level of weapon and bonuses of hero
     subType: "sword",
+    speed: 2.6 * 1000,
     weaponHandling: "1h",
 };
 export const baseTwoHandedSword: ITemplateWeapon = {
@@ -72,6 +77,7 @@ export const baseTwoHandedSword: ITemplateWeapon = {
     attack: 11, //will change accordigng to level of weapon and bonuses of hero
     value: 45, //will change according to level of weapon and bonuses of hero
     subType: "sword",
+    speed: 3.6 * 1000,
     weaponHandling: "2h",
 };
 //#endregion Weapon

@@ -13,7 +13,7 @@ export type ItemElements = "holy" | "water" | "wind" | "heal";
 
 export type ArmorCategory = "chest" | "helmet" | "boots" | "pants" | "gloves";
 
-export type WeaponCategory = "sword" | "hammer" | "spear" | "dagger";
+export type WeaponCategory = "sword" | "hammer" | "dagger" | "axe";
 
 export type WeaponHandling = "2h" | "1h";
 
@@ -99,6 +99,7 @@ export interface ITemplateWeapon extends ITemplateBaseEquipmennt {
      * The attack value for this weapon.
      */
     attack: number;
+    speed: number;
 }
 export interface ITemplateArmor extends ITemplateBaseEquipmennt {
     /**
