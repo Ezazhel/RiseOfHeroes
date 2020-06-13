@@ -15,6 +15,7 @@ import { GameStateInventoryRemoveItemAction } from "@core/models/game-state/game
 export class InventorySlotComponent implements OnInit {
     @Input() selling: boolean = false;
     @Output() sell = new EventEmitter<ITemplateBaseItem>();
+    @Output() itemNull = new EventEmitter<boolean>();
     public filter: ItemFilter = "all";
     public item: ITemplateBaseItem;
     public items$: Observable<ITemplateBaseItem[]> = this.store.pipe(
@@ -28,6 +29,7 @@ export class InventorySlotComponent implements OnInit {
 
     public setItem(item: ITemplateBaseItem) {
         this.item = item;
+        this.itemNull.emit(item == null);
     }
 
     filterBy(type: string) {

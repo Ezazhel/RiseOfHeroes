@@ -1,13 +1,12 @@
 <ng-container *transloco="let t">
     <div>
         <ul class="equipment-slots">
-            <li class="equipment w">
-                <ng-container
-                    *ngTemplateOutlet="
-                        weaponOrArmor;
-                        context: { $implicit: hero.weapon }
-                    "
-                ></ng-container>
+            <li class="equipment w" [tooltip]="hero.weapon">
+                <span
+                    class="icon {{ hero.weapon.subType }} {{
+                        hero.weapon.icon
+                    }}"
+                ></span>
             </li>
             <li class="equipment h">
                 <ng-container
@@ -58,21 +57,32 @@
             <div fxLayout="column nowrap">
                 <ng-container *ngIf="equipment?.type === 'weapon'">
                     <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                        <label> {{ equipment.weaponHandling }} </label>
                         <label>
-                            Category
-                        </label>
-                        <label>
-                            Type
+                            {{ equipment.subType }}
                         </label>
                     </div>
                     <div fxLayout="row nowrap" fxLayoutAlign="space-between">
                         <label>
-                            Attack
+                            {{
+                                t("game.weapon.damage", {
+                                    attack: equipment.attack
+                                })
+                            }}
                         </label>
                         <label>
-                            Speed
+                            {{
+                                t("game.weapon.speed", {
+                                    speed: equipment.speed / 1000
+                                })
+                            }}
                         </label>
                     </div>
+                    {{
+                        t("game.weapon.dps", {
+                            dps: equipment.dps
+                        })
+                    }}
                 </ng-container>
                 <ng-container *ngIf="equipment?.type === 'armor'">
                     <div fxLayout="row nowrap" fxLayoutAlign="space-between">
@@ -81,7 +91,9 @@
                         </label>
                     </div>
                     <div fxLayout="row nowrap" fxLayoutAlign="space-between">
-                        <label> {{ equipment.armor }} Armor </label>
+                        <label>
+                            {{ equipment.armor }} {{ t("game.stats.armor") }}
+                        </label>
                     </div>
                 </ng-container>
                 <!-- Loop of an array Stats. -->

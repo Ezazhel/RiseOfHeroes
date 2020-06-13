@@ -1,0 +1,10 @@
+@import "sprite-peasantSkills.scss";
+@import "variables.scss";
+.spells-container {
+    width: 450px;
+    .spell-container {
+        width: inherit;
+        height: 75px;
+        border: 1px solid white;
+    }
+}

@@ -8,6 +8,7 @@ import { GameState } from "@core/models/game-state/game-state.reducer";
 import { createFeatureSelector } from "@ngrx/store";
 import * as Immutable from "immutable";
 import { AppState } from ".";
+import { Hero } from "./entity";
 
 export const gameStateSelector = createFeatureSelector<GameState>("gameState");
 
@@ -15,6 +16,7 @@ export const sliceGameStateMaxSlots = createSelector(
     gameStateSelector,
     (game) => game.maxSlots
 );
+
 export const heroSelector = createSelector(
     gameStateSelector,
     (gameState: GameState) => gameState.hero
@@ -66,3 +68,7 @@ export const totalInventory = createSelector(
         }
     }
 );
+
+export const spellsSelector = createSelector(heroSelector, (hero: Hero) => {
+    return hero.spells;
+});

@@ -8,6 +8,7 @@ import {
     ITemplateArmor,
     ITemplateBaseItem,
 } from "./game-data/game-data.model";
+import { Spells, OvertimeSpells, HealSpells } from "./spells/spells.model";
 
 export type EntityType = "hero" | "monster";
 export type EntitySubtype = "warrior" | "mage" | "ranger" | "peasant";
@@ -61,6 +62,7 @@ export interface Hero extends BaseEntity {
     readonly accesory?: null;
     readonly armor: number;
     readonly stats: Array<Stat>;
+    readonly spells: Array<Spells | OvertimeSpells | HealSpells>;
 }
 
 export interface Companion extends BaseEntity {}

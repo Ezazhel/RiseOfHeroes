@@ -28,6 +28,7 @@ import { currencySelector } from "@core/models/selector";
 export class CityShopContentShopComponent
     implements OnInit, OnDestroy, OnChanges {
     @Output() onSetItem = new EventEmitter<ITemplateBaseItem>();
+    @Output() itemNull = new EventEmitter<boolean>();
     @Input() cityId: string;
 
     @Input("shop") set shop(value: Shop) {
@@ -49,6 +50,7 @@ export class CityShopContentShopComponent
     }
     public buyItem(item: ITemplateBaseItem): void {
         this.shopService.buyItem(item, this._shop.type, this.cityId);
+        this.itemNull.emit(true);
     }
 
     private renew(value: Shop) {
@@ -87,6 +89,7 @@ export class CityShopContentShopComponent
 
     public setItem(item: ITemplateBaseItem) {
         this.onSetItem.emit(item);
+        this.itemNull.emit(item == null);
     }
 
     trackByFn(index: number, item: ITemplateBaseItem): number {

@@ -4,6 +4,7 @@ https://www.colortools.io/color-palette/wild-heaven/
 
 */
 @import "variables.scss";
+@import "~@angular/cdk/overlay-prebuilt.css";
 html,
 body {
     height: 99%;
@@ -38,4 +39,8 @@ body {
 }
 .epic {
     color: $purpleEpicItem !important;
+}
+
+.cdk-overlay-container {
+    z-index: 1100 !important;
 }

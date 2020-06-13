@@ -9,6 +9,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { TranslocoRootModule } from "./transloco-root.module";
 import { HudModule } from "./hud/hud.module";
+import { OverlayModule } from "@angular/cdk/overlay";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { StoreModule, MetaReducer } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";

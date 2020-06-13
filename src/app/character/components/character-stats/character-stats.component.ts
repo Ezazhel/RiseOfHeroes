@@ -1,10 +1,13 @@
-import { Store, select } from "@ngrx/store";
-import { Component, OnInit, Input, Renderer2, ElementRef } from "@angular/core";
-import { Observable } from "rxjs";
+import { Component, OnInit, Input } from "@angular/core";
 import { Hero } from "@core/models/entity";
-import { AppState } from "@core/models";
-import { heroSelector } from "@core/models/selector";
+
 import { Stat } from "@core/models/game-data/game-data.model";
+import { toNumber } from "@ngneat/transloco";
+import {
+    getHeroDps,
+    getHeroOffensivePower,
+    getHeroDamage,
+} from "@core/models/utils";
 @Component({
     selector: "app-character-stats",
     templateUrl: "./character-stats.component.html",
@@ -13,6 +16,16 @@ import { Stat } from "@core/models/game-data/game-data.model";
 export class CharacterStatsComponent implements OnInit {
     @Input() hero: Hero;
 
+    getDps(): number {
+        return getHeroDps(this.hero);
+    }
+
+    getOffensivePower(): number {
+        return getHeroOffensivePower(this.hero);
+    }
+    getDamage(): number {
+        return getHeroDamage(this.hero);
+    }
     trackBy(index: number, stat: Stat): string {
         return stat.type;
     }

@@ -1,3 +1,4 @@
+import { SpellbookModule } from "./../spellbook/spellbook.module";
 import { InventoryModule } from "app/inventory/inventory.module";
 import { CharacterModule } from "app/character/character.module";
 import { NgModule } from "@angular/core";
@@ -14,6 +15,7 @@ import { MapModule } from "app/map/map.module";
         InventoryModule,
         CharacterModule,
         MapModule,
+        SpellbookModule,
     ],
     exports: [fromComponents.HudComponent],
 })

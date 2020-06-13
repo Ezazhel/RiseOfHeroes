@@ -29,10 +29,7 @@
         [index]="index"
         [selling]="selling"
         [item]="item"
+        [tooltip]="item"
+        [tooltip-detach]="itemNull"
     ></app-inventory-slot-item>
 </div>
-
-<app-inventory-slot-detail
-    *ngIf="item"
-    [item]="item"
-></app-inventory-slot-detail>

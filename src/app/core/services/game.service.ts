@@ -11,6 +11,7 @@ import {
     strenghtStat,
     enduranceStat,
 } from "@core/models/game-data/game-data.data";
+import { PeasantSpells } from "@core/models/spells/spells.data";
 @Injectable({
     providedIn: "root",
 })
@@ -50,6 +51,7 @@ export class GameService {
                     basedefense: 10,
                     hp: 500,
                     maxHp: 500,
+                    spells: PeasantSpells,
                 });
                 break;
             default:

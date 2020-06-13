@@ -18,7 +18,12 @@
     "hud-modal": {
         "stats": "Stats",
         "talents": "Talents",
-        "bag": "Inventaire"
+        "bag": "Inventaire",
+        "spellbook": {
+            "name": "Livre des sorts",
+            "activeTab": "Actif",
+            "passiveTab": "Passif"
+        }
     },
     "hud-tools": {
         "language": "Langue",
@@ -31,7 +36,11 @@
         "mana": "Mana",
         "energy": "Energie",
         "rage": "Rage",
-        "stats": "Statistiques"
+        "stats": "Statistiques",
+        "dps": "DPS",
+        "damage": "Dégâts",
+        "offensivePower": "Puissance Attaque",
+        "offensiveStats": "Stats offensive"
     },
     "inventoryFilter": {
         "all": "Tout",
@@ -155,6 +164,14 @@
                 "name": "Je sais pas où on a trouvé ça",
                 "effect": "Increase effect of potion by 5% each level"
             }
+        }
+    },
+    "spells": {
+        "peasant": {
+            "powerAttack": "Attaque puissante",
+            "peasantHearth": "Coeur du paysan",
+            "peasantLabor": "Travail du paysan",
+            "peasantTorch": "Torche du paysan"
         }
     }
 }

@@ -10,8 +10,15 @@ import {
     ArmorCategory,
 } from "@core/models/game-data/game-data.model";
 import { AppState } from "@core/models";
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { Store, select } from "@ngrx/store";
+import {
+    Component,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    ViewChild,
+} from "@angular/core";
+import { Store } from "@ngrx/store";
 import { heroSelector } from "@core/models/selector";
 import { first } from "rxjs/operators";
 @Component({

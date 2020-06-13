@@ -1,0 +1,27 @@
+@mixin stitches-peasant($x: 0, $y: 0, $width: 0, $height: 0) {
+    background-position: $x $y;
+    width: $width;
+    height: $height;
+}
+
+.peasant {
+    background-image: url(~/assets/peasantSkills.png);
+    background-repeat: no-repeat;
+    display: block;
+
+    &.peasantHearth {
+        @include stitches-peasant(-5px, -5px, 48px, 48px);
+    }
+
+    &.peasantLabor {
+        @include stitches-peasant(-63px, -5px, 48px, 48px);
+    }
+
+    &.peasantTorch {
+        @include stitches-peasant(-5px, -63px, 48px, 48px);
+    }
+
+    &.powerAttack {
+        @include stitches-peasant(-63px, -63px, 48px, 48px);
+    }
+}

@@ -46,7 +46,6 @@ export class ShopService {
                 let items: Array<ITemplateWeapon | ITemplateArmor> = [];
                 for (let i = 0; i < 10; i++) {
                     let item = generateReward(1, maxQuality);
-                    console.log(item);
                     items.push(item);
                 }
                 return items;

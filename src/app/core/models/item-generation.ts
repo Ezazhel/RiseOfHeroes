@@ -8,6 +8,8 @@ import {
     entityId,
 } from "./game-data/game-data.model";
 import * as baseItem from "./game-data/game-data.data";
+import { toInteger } from "lodash";
+import { toNumber } from "@ngneat/transloco";
 
 export const Icons: Map<WeaponCategory | ArmorCategory, string[]> = new Map([
     ["axe", generateIconArray("a", 24)],
@@ -190,6 +192,9 @@ export function generateWeapon(
         icon: pickRandomIcon(icons),
         name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
         value: modifyPrice(quality, baseWeapon.value * level),
+        dps: toNumber(
+            (baseWeapon.attack / (baseWeapon.speed / 1000)).toFixed(2)
+        ),
         stats: [
             {
                 ...baseItem.strenghtStat,

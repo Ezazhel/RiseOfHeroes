@@ -8,7 +8,8 @@ import { AppState } from "@core/models";
 import { Fighter, Hero } from "@core/models/entity";
 import { Router, ActivatedRoute } from "@angular/router";
 import { toNumber } from "@ngneat/transloco";
-
+import { CombatService } from "@core/services/combat.service";
+import { first, takeUntil } from "rxjs/operators";
 @Component({
     selector: "app-combat",
     templateUrl: "./combat.component.html",
@@ -22,8 +23,13 @@ export class CombatComponent implements OnInit {
     constructor(
         private store: Store<AppState>,
         private route: ActivatedRoute,
+        private combatService: CombatService,
         private router: Router
     ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.hero$.subscribe((h: Hero) =>
+            this.combatService.initialize(h, this.fighter)
+        );
+    }
 }

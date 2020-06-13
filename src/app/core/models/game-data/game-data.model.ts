@@ -99,6 +99,7 @@ export interface ITemplateWeapon extends ITemplateBaseEquipmennt {
      * The attack value for this weapon.
      */
     attack: number;
+    dps: number;
     speed: number;
 }
 export interface ITemplateArmor extends ITemplateBaseEquipmennt {

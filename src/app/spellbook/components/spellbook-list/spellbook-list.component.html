@@ -1,0 +1,50 @@
+<ng-container *transloco="let t">
+    <div
+        fxLayout="column"
+        fxLayoutAlign="space-evenly center"
+        fxFlew="grow"
+        class="spells-container"
+    >
+        <div
+            tooltip="test"
+            *ngFor="let spell of spells; trackBy: trackByFn"
+            class="spell-container"
+            fxLayout="row nowrap"
+            fxFlex="grow"
+        >
+            <i class="peasant {{ spell.icon }}"></i>
+            <div fxLayout="column" fxFlex="grow">
+                <label>
+                    {{ t(spell.name) }}
+                </label>
+                <div>
+                    <p>
+                        Description...
+                    </p>
+                    <div fxLayout="row" *ngIf="spell.isActive">
+                        <span>
+                            {{ spell.cooldown }} sec cooldown (add trad)</span
+                        >
+                        <select>
+                            <option>
+                                Equip in slot
+                            </option>
+                            <option>
+                                1
+                            </option>
+                            <option>
+                                2
+                            </option>
+                            <option>
+                                3
+                            </option>
+                            <option>
+                                4
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

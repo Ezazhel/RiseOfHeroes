@@ -18,7 +18,12 @@
     "hud-modal": {
         "stats": "Stats",
         "talents": "Talents",
-        "bag": "Inventory"
+        "bag": "Inventory",
+        "spellbook": {
+            "name": "Spell book",
+            "activeTab": "Active",
+            "passiveTab": "Passive"
+        }
     },
     "hud-tools": {
         "language": "Language",
@@ -31,7 +36,11 @@
         "mana": "Mana",
         "energy": "Energy",
         "rage": "Rage",
-        "stats": "Stats"
+        "stats": "Stats",
+        "dps": "DPS",
+        "damage": "Damage",
+        "offensivePower": "Offensive Power",
+        "offensiveStats": "Offensive Stats"
     },
     "inventoryFilter": {
         "all": "All",
@@ -154,6 +163,14 @@
                 "name": "Stronger plants",
                 "effect": "Increase effect of potion by 5% each level"
             }
+        }
+    },
+    "spells": {
+        "peasant": {
+            "powerAttack": "Power attack",
+            "peasantHearth": "Peasant's Hearth",
+            "peasantLabor": "Peasant's Labor",
+            "peasantTorch": "Peasant's Torch"
         }
     }
 }
