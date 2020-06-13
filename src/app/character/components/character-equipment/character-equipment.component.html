@@ -3,105 +3,46 @@
         <ul class="equipment-slots">
             <li class="equipment w" [tooltip]="hero.weapon">
                 <span
-                    class="icon {{ hero.weapon.subType }} {{
-                        hero.weapon.icon
+                    class="icon {{ hero?.weapon?.subType }} {{
+                        hero?.weapon?.icon
                     }}"
                 ></span>
             </li>
-            <li class="equipment h">
-                <ng-container
-                    *ngTemplateOutlet="
-                        weaponOrArmor;
-                        context: { $implicit: hero.helmet }
-                    "
-                ></ng-container>
+            <li class="equipment h" [tooltip]="hero.helmet">
+                <span
+                    class="icon {{ hero?.helmet?.subType }} {{
+                        hero?.helmet?.icon
+                    }}"
+                ></span>
             </li>
-            <li class="equipment c">
-                <ng-container
-                    *ngTemplateOutlet="
-                        weaponOrArmor;
-                        context: { $implicit: hero.chest }
-                    "
-                ></ng-container>
+            <li class="equipment c" [tooltip]="hero.chest">
+                <span
+                    class="icon {{ hero?.chest?.subType }} {{
+                        hero?.chest?.icon
+                    }}"
+                ></span>
             </li>
-            <li class="equipment g">
-                <ng-container
-                    *ngTemplateOutlet="
-                        weaponOrArmor;
-                        context: { $implicit: hero.gloves }
-                    "
-                ></ng-container>
+            <li class="equipment g" [tooltip]="hero.gloves">
+                <span
+                    class="icon {{ hero?.gloves?.subType }} {{
+                        hero?.gloves?.icon
+                    }}"
+                ></span>
             </li>
-            <li class="equipment p">
-                <ng-container
-                    *ngTemplateOutlet="
-                        weaponOrArmor;
-                        context: { $implicit: hero.pants }
-                    "
-                ></ng-container>
+            <li class="equipment p" [tooltip]="hero.pants">
+                <span
+                    class="icon {{ hero?.pants?.subType }} {{
+                        hero?.pants?.icon
+                    }}"
+                ></span>
             </li>
-            <li class="equipment b">
-                <ng-container
-                    *ngTemplateOutlet="
-                        weaponOrArmor;
-                        context: { $implicit: hero.boots }
-                    "
-                ></ng-container>
+            <li class="equipment b" [tooltip]="hero.boots">
+                <span
+                    class="icon {{ hero?.boots?.subType }} {{
+                        hero?.boots?.icon
+                    }}"
+                ></span>
             </li>
         </ul>
     </div>
-    <ng-template #weaponOrArmor let-equipment>
-        <div class="stat" fxLayout="row nowrap" *ngIf="equipment !== undefined">
-            <span class="icon {{ equipment.subType }} {{ equipment.icon }}">
-            </span>
-            <div fxLayout="column nowrap">
-                <ng-container *ngIf="equipment?.type === 'weapon'">
-                    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
-                        <label> {{ equipment.weaponHandling }} </label>
-                        <label>
-                            {{ equipment.subType }}
-                        </label>
-                    </div>
-                    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
-                        <label>
-                            {{
-                                t("game.weapon.damage", {
-                                    attack: equipment.attack
-                                })
-                            }}
-                        </label>
-                        <label>
-                            {{
-                                t("game.weapon.speed", {
-                                    speed: equipment.speed / 1000
-                                })
-                            }}
-                        </label>
-                    </div>
-                    {{
-                        t("game.weapon.dps", {
-                            dps: equipment.dps
-                        })
-                    }}
-                </ng-container>
-                <ng-container *ngIf="equipment?.type === 'armor'">
-                    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
-                        <label class=" {{ equipment.quality }}">
-                            {{ equipment.name }}
-                        </label>
-                    </div>
-                    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
-                        <label>
-                            {{ equipment.armor }} {{ t("game.stats.armor") }}
-                        </label>
-                    </div>
-                </ng-container>
-                <!-- Loop of an array Stats. -->
-                <label *ngFor="let stat of equipment.stats">
-                    +{{ stat.value }} {{ t(stat.name) }}
-                </label>
-                <label> Runes </label>
-            </div>
-        </div>
-    </ng-template>
 </ng-container>

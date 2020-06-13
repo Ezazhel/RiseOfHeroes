@@ -1,0 +1,13 @@
+<ng-container *transloco="let t">
+    <div>
+        <span class="spell-name">
+            {{ t(item.name) }}
+        </span>
+        <p class="spell-description">
+            {{ t(item.description, descriptionFor(item, hero$ | async)) }}
+        </p>
+        <span class="spell-cooldown" *ngIf="item.isActive">
+            {{ item.cooldown }} sec cooldown (add trad)
+        </span>
+    </div>
+</ng-container>

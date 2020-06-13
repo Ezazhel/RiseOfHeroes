@@ -1,5 +1,6 @@
 @import "variables.scss";
 :host {
+    width: 250px;
     .description {
         background: hsl(228, 60%, 8%);
         border: 2px solid white;

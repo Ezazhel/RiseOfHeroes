@@ -1,49 +1,46 @@
 <ng-container *transloco="let t">
     <div
-        fxLayout="column"
+        fxLayout="row wrap"
         fxLayoutAlign="space-evenly center"
         fxFlew="grow"
         class="spells-container"
     >
         <div
-            tooltip="test"
             *ngFor="let spell of spells; trackBy: trackByFn"
             class="spell-container"
-            fxLayout="row nowrap"
-            fxFlex="grow"
+            fxLayout="row"
+            fxLayoutAlign="space-evenly center"
+            [tooltip]="spell"
+            [tooltip-type]="'spell'"
+            [ngClass]="{ unlocked: spell.levelRequired <= hero.level }"
         >
             <i class="peasant {{ spell.icon }}"></i>
-            <div fxLayout="column" fxFlex="grow">
+            <div fxLayout="column">
                 <label>
                     {{ t(spell.name) }}
                 </label>
-                <div>
-                    <p>
-                        Description...
-                    </p>
-                    <div fxLayout="row" *ngIf="spell.isActive">
-                        <span>
-                            {{ spell.cooldown }} sec cooldown (add trad)</span
-                        >
-                        <select>
-                            <option>
-                                Equip in slot
-                            </option>
-                            <option>
-                                1
-                            </option>
-                            <option>
-                                2
-                            </option>
-                            <option>
-                                3
-                            </option>
-                            <option>
-                                4
-                            </option>
-                        </select>
-                    </div>
-                </div>
+                <select
+                    *ngIf="spell.isActive && spell.levelRequired <= hero.level"
+                >
+                    <option>
+                        Equip in slot
+                    </option>
+                    <option>
+                        1
+                    </option>
+                    <option>
+                        2
+                    </option>
+                    <option>
+                        3
+                    </option>
+                    <option>
+                        4
+                    </option>
+                </select>
+                <span *ngIf="spell.levelRequired > hero.level">
+                    required lvl {{ spell.levelRequired }}
+                </span>
             </div>
         </div>
     </div>

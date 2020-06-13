@@ -1,13 +1,14 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AppState } from "@core/models";
-import { spellsSelector } from "@core/models/selector";
+import { spellsSelector, heroSelector } from "@core/models/selector";
 import {
     Spells,
     OvertimeSpells,
     HealSpells,
 } from "@core/models/spells/spells.model";
 import { Observable } from "rxjs";
+import { Hero } from "@core/models/entity";
 
 type tabsType = "active" | "passive";
 @Component({
@@ -21,7 +22,8 @@ export class SpellbookComponent implements OnInit {
         Array<Spells | OvertimeSpells | HealSpells>
     > = this.store.select(spellsSelector);
 
-    tabs: tabsType;
+    hero$: Observable<Hero> = this.store.select(heroSelector);
+    tabs: tabsType = "active";
 
     getActiveSpells(
         spells: (Spells | OvertimeSpells | HealSpells)[],

@@ -168,10 +168,22 @@
     },
     "spells": {
         "peasant": {
-            "powerAttack": "Attaque puissante",
-            "peasantHearth": "Coeur du paysan",
-            "peasantLabor": "Travail du paysan",
-            "peasantTorch": "Torche du paysan"
+            "powerAttack": {
+                "name": "Attaque puissante",
+                "description": "Attaque puissante inflige {{ param }} dégâts à votre cible"
+            },
+            "peasantHearth": {
+                "name": "Coeur du paysan",
+                "description": "Votre travail à la ferme vous donne un bonus d'endurance de {{ param }}%"
+            },
+            "peasantLabor": {
+                "name": "Travail du paysan",
+                "description": "Votre fierté vous octroie {{ param }} fois plus de récompenses"
+            },
+            "peasantTorch": {
+                "name": "Torche du paysan",
+                "description": "Votre torche inflige {{ param }} dégâts sur {{ param2 }} secondes"
+            }
         }
     }
 }

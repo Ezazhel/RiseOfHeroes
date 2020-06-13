@@ -52,6 +52,7 @@ export class GameService {
                     hp: 500,
                     maxHp: 500,
                     spells: PeasantSpells,
+                    equippedSpell: [PeasantSpells[0]],
                 });
                 break;
             default:

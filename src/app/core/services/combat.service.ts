@@ -1,3 +1,4 @@
+import { descriptionFor } from "@core/models/spells/spells.utils";
 import { GameStateUpdateHeroAction } from "./../models/game-state/game-state.action";
 import { Hero, Fighter } from "./../models/entity";
 import { Store } from "@ngrx/store";
@@ -6,6 +7,12 @@ import { AppState } from "@core/models";
 
 import { getHeroDamage } from "@core/models/utils";
 import { interval, Subscription } from "rxjs";
+import {
+    Spells,
+    OvertimeSpells,
+    HealSpells,
+} from "@core/models/spells/spells.model";
+import { fighters } from "@core/models/game-data/game-data.data";
 
 @Injectable({
     providedIn: "root",
@@ -62,13 +69,23 @@ export class CombatService {
         this.fightIntervals.add(heroInterval);
         this.fightIntervals.add(fighterInterval);
     }
-
-    death() {
+    stop() {
         this.fightIntervals.forEach((subscription: Subscription) => {
             subscription.unsubscribe();
         });
         this.fightIntervals.clear();
         this.isFigthing = false;
+    }
+    death() {
+        this.stop();
         this.initialize(this.hero, this.fighter);
+    }
+
+    activateSpell(spell: Spells | OvertimeSpells | HealSpells) {
+        this.fighter.hp =
+            this.fighter.hp - descriptionFor(spell, this.hero).param;
+        if (this.fighter.hp <= 0) {
+            this.death();
+        }
     }
 }

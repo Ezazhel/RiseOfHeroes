@@ -1,5 +1,6 @@
 @import "variables.scss";
 @import "progressBar.scss";
+@import "sprite-peasantSkills.scss";
 :host {
     position: absolute;
     display: flex;
@@ -14,7 +15,6 @@
         margin: 5px;
         width: 48px;
         height: 48px;
-        background: transparent;
         box-shadow: 0px 0px 1px 0.5px white;
     }
 }

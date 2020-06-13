@@ -1,3 +1,5 @@
+import { SpellDetailComponent } from "./../../spellbook/components/spellbook-detail/spell-detail.component";
+SpellDetailComponent;
 import { Subscription } from "rxjs";
 import {
     Directive,
@@ -16,13 +18,22 @@ import {
 import { ComponentPortal } from "@angular/cdk/portal";
 import { InventorySlotDetailComponent } from "app/inventory/components";
 import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
+import {
+    OvertimeSpells,
+    Spells,
+    HealSpells,
+} from "@core/models/spells/spells.model";
 
+type TooltipType = "equipment" | "spell";
 @Directive({ selector: "[tooltip]" })
 export class ToolTipDirective implements OnInit {
-    @Input("tooltip") item: ITemplateBaseItem;
+    @Input("tooltip") item:
+        | ITemplateBaseItem
+        | (Spells | OvertimeSpells | HealSpells);
     @Input("tooltip-detach") detach: EventEmitter<boolean> = new EventEmitter<
         boolean
     >();
+    @Input("tooltip-type") type: TooltipType = "equipment";
     private overlayRef: OverlayRef;
     private subscription: Subscription;
 
@@ -53,9 +64,22 @@ export class ToolTipDirective implements OnInit {
                 this.subscription.unsubscribe();
             }
         });
-        const tooltipRef: ComponentRef<InventorySlotDetailComponent> = this.overlayRef.attach(
-            new ComponentPortal(InventorySlotDetailComponent)
-        );
+        let tooltipRef: ComponentRef<
+            InventorySlotDetailComponent | SpellDetailComponent
+        >;
+        switch (this.type) {
+            case "spell":
+                tooltipRef = this.overlayRef.attach(
+                    new ComponentPortal(SpellDetailComponent)
+                );
+                break;
+            default:
+                // case "equipment":
+                tooltipRef = this.overlayRef.attach(
+                    new ComponentPortal(InventorySlotDetailComponent)
+                );
+                break;
+        }
         tooltipRef.instance.item = this.item;
     }
 

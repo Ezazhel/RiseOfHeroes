@@ -20,10 +20,12 @@
             </button>
         </div>
         <app-spellbook-list
+            [hero]="hero$ | async"
             [spells]="getActiveSpells(_spells$ | async, true)"
             *ngIf="tabs == 'active'"
         ></app-spellbook-list>
         <app-spellbook-list
+            [hero]="hero$ | async"
             [spells]="getActiveSpells(_spells$ | async, false)"
             *ngIf="tabs == 'passive'"
         ></app-spellbook-list>

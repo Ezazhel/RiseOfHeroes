@@ -4,6 +4,7 @@ import {
     OvertimeSpells,
     HealSpells,
 } from "@core/models/spells/spells.model";
+import { Hero } from "@core/models/entity";
 
 @Component({
     selector: "app-spellbook-list",
@@ -11,6 +12,7 @@ import {
     styleUrls: ["./spellbook-list.component.scss"],
 })
 export class SpellbookListComponent implements OnInit {
+    @Input() hero: Hero;
     @Input() spells: (Spells | OvertimeSpells | HealSpells)[];
     @Input("active") activeSpell: boolean;
 

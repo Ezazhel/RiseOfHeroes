@@ -2,4 +2,5 @@
     <!-- If multiFighter -->
     <app-combat-monster-hud [fighter]="fighter"> </app-combat-monster-hud>
 </div>
-<app-combat-hero-hud [hero]="hero$ | async"> </app-combat-hero-hud>
+<app-combat-hero-hud [hero]="hero$ | async" (castSpell)="activateSpell($event)">
+</app-combat-hero-hud>

@@ -21,11 +21,13 @@
         <ng-container cardFooter>
             <div fxLayout="row" fxLayoutAlign="center center">
                 <!-- Skills and consummables-->
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
+                <button
+                    *ngFor="let spell of (hero$ | async).equippedSpell"
+                    [tooltip]="spell"
+                    [tooltip-type]="'spell'"
+                    class="peasant {{ spell.icon }}"
+                    (click)="cast(spell)"
+                ></button>
             </div>
         </ng-container>
     </app-card>

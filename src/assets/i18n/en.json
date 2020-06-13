@@ -167,10 +167,22 @@
     },
     "spells": {
         "peasant": {
-            "powerAttack": "Power attack",
-            "peasantHearth": "Peasant's Hearth",
-            "peasantLabor": "Peasant's Labor",
-            "peasantTorch": "Peasant's Torch"
+            "powerAttack": {
+                "name": "Power attack",
+                "description": "Power attack dealing {{ param }} damage to target"
+            },
+            "peasantHearth": {
+                "name": "Peasant's Hearth",
+                "description": "Peasant's Hearth give {{ param }}% endurance bonus"
+            },
+            "peasantLabor": {
+                "name": "Peasant's Labor",
+                "description": "Peasant's labor give {{ param }} times more reward"
+            },
+            "peasantTorch": {
+                "name": "Peasant's Torch",
+                "description": "Peasant's Torch deal {{ param }} damage over {{ param2 }} seconds"
+            }
         }
     }
 }

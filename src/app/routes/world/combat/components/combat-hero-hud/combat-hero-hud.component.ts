@@ -1,5 +1,10 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { Hero, BaseEntity } from "@core/models/entity";
+import {
+    Spells,
+    OvertimeSpells,
+    HealSpells,
+} from "@core/models/spells/spells.model";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Hero } from "@core/models/entity";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { map } from "rxjs/operators";
 
@@ -11,7 +16,9 @@ import { map } from "rxjs/operators";
 export class CombatHeroHudComponent implements OnInit {
     private _hero$: Subject<Hero> = new BehaviorSubject<Hero>(null);
     hero$: Observable<Hero> = this._hero$;
-
+    @Output() castSpell = new EventEmitter<
+        Spells | OvertimeSpells | HealSpells
+    >();
     @Input() set hero(value: Hero) {
         this._hero$.next(value);
     }
@@ -21,6 +28,10 @@ export class CombatHeroHudComponent implements OnInit {
             return hero ? Math.round((hero.hp / hero.maxHp) * 100) : 0;
         })
     );
+
+    cast(spell: Spells | OvertimeSpells | HealSpells) {
+        this.castSpell.emit(spell);
+    }
     constructor() {}
 
     ngOnInit(): void {}

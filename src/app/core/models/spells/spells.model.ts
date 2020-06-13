@@ -7,6 +7,7 @@ export interface Spells extends ITemplateId {
     castingTime: number;
     type: SpellsType;
     name: string;
+    description: string;
     cooldown: number; //seconds until spells available
     isInCooldown: boolean; //for css
     power: number; //can be a percent or a flat bonus.
