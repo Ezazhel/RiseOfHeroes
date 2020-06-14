@@ -1,4 +1,5 @@
 //Inspiration : https://codepen.io/botmirp/pen/KKwqXMv?editors=0110
+//https://medium.com/angular-in-depth/how-to-get-started-with-canvas-animations-in-angular-2f797257e5b4
 import {
     Component,
     OnInit,
