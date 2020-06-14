@@ -1,3 +1,4 @@
+//Inspiration : https://codepen.io/botmirp/pen/KKwqXMv?editors=0110
 import {
     Component,
     OnInit,
