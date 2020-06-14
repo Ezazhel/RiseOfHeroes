@@ -21,13 +21,20 @@
         <ng-container cardFooter>
             <div fxLayout="row" fxLayoutAlign="center center">
                 <!-- Skills and consummables-->
-                <button
-                    *ngFor="let spell of (hero$ | async).equippedSpell"
+                <combat-spell-cooldown
+                    *ngFor="
+                        let spell of (hero$ | async).equippedSpell;
+                        let index = index;
+                        trackBy: trackByFn
+                    "
                     [tooltip]="spell"
+                    [tooltip-detach]="spellCasted"
                     [tooltip-type]="'spell'"
-                    class="peasant {{ spell.icon }}"
-                    (click)="cast(spell)"
-                ></button>
+                    [spell]="spell"
+                    [index]="index"
+                    (click)="!spell.isInCooldown && cast(spell)"
+                >
+                </combat-spell-cooldown>
             </div>
         </ng-container>
     </app-card>

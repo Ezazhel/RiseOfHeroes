@@ -6,13 +6,12 @@ import { Injectable } from "@angular/core";
 import { AppState } from "@core/models";
 
 import { getHeroDamage } from "@core/models/utils";
-import { interval, Subscription } from "rxjs";
+import { interval, Subscription, timer } from "rxjs";
 import {
     Spells,
     OvertimeSpells,
     HealSpells,
 } from "@core/models/spells/spells.model";
-import { fighters } from "@core/models/game-data/game-data.data";
 
 @Injectable({
     providedIn: "root",
@@ -31,10 +30,14 @@ export class CombatService {
         if (!this.isFigthing) {
             this.isFigthing = true;
             this.fighter.hp = this.fighter.maxHp;
+            let equipped = [
+                ...this.hero.equippedSpell,
+            ].map((spell: Spells) => ({ ...spell, isInCooldown: false }));
             this.store.dispatch(
                 new GameStateUpdateHeroAction({
                     ...this.hero,
                     hp: this.hero.maxHp,
+                    equippedSpell: equipped,
                 })
             );
             this.startFight();
@@ -84,6 +87,28 @@ export class CombatService {
     activateSpell(spell: Spells | OvertimeSpells | HealSpells) {
         this.fighter.hp =
             this.fighter.hp - descriptionFor(spell, this.hero).param;
+        let equipped = [...this.hero.equippedSpell];
+        let index = equipped.findIndex((s: Spells) => s.id == spell.id);
+        equipped[index] = { ...equipped[index], isInCooldown: true };
+        this.store.dispatch(
+            new GameStateUpdateHeroAction({
+                ...this.hero,
+                equippedSpell: equipped,
+            })
+        );
+        this.fightIntervals.add(
+            timer(equipped[index].cooldown * 1000).subscribe(() => {
+                console.log("refresh cd");
+                equipped = [...equipped];
+                equipped[index] = { ...equipped[index], isInCooldown: false };
+                this.store.dispatch(
+                    new GameStateUpdateHeroAction({
+                        ...this.hero,
+                        equippedSpell: equipped,
+                    })
+                );
+            })
+        );
         if (this.fighter.hp <= 0) {
             this.death();
         }
