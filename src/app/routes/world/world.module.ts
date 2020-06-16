@@ -15,7 +15,7 @@ import { CommonModule } from "@angular/common";
                     import("./city/city.module").then((m) => m.CityModule),
             },
             {
-                path: "combat",
+                path: "combat/:monster",
                 loadChildren: () =>
                     import("./combat/combat.module").then(
                         (m) => m.CombatModule

@@ -1,6 +1,6 @@
 import { HttpClientModule } from "@angular/common/http";
 import { HouseModule } from "./routes/house/house.module";
-import { reducers } from "@core/models/";
+import { reducers, localStorageSyncReducer } from "@core/models/";
 import { MessageModule } from "./message/message.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -9,12 +9,14 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { TranslocoRootModule } from "./transloco-root.module";
 import { HudModule } from "./hud/hud.module";
+import { OverlayModule } from "@angular/cdk/overlay";
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { StoreModule } from "@ngrx/store";
+import { StoreModule, MetaReducer } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { StoreRouterConnectingModule } from "@ngrx/router-store";
-// factory meta-reducer configuration function
+
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 @NgModule({
     declarations: [AppComponent],
     imports: [
@@ -27,7 +29,7 @@ import { StoreRouterConnectingModule } from "@ngrx/router-store";
         DragDropModule,
         MessageModule,
         HouseModule,
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot(reducers, { metaReducers }),
         StoreRouterConnectingModule.forRoot({
             stateKey: "router",
         }),

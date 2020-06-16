@@ -1,0 +1,42 @@
+<div class="ui-container" fxLayout="row" fxLayoutAlign="center center">
+    <app-card class="combat">
+        <ng-container cardHeader>
+            You / lvl {{ (hero$ | async).level }}
+        </ng-container>
+        <ng-container cardBody>
+            <!-- Bar Hp / Exp-->
+            <div>
+                <div class="myProgress hp">
+                    <span>
+                        {{ (hero$ | async).hp }} /
+                        {{ (hero$ | async).maxHp }}</span
+                    >
+                    <div
+                        class="fillingBar"
+                        [style.width.%]="healthPercentage$ | async"
+                    ></div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container cardFooter>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <!-- Skills and consummables-->
+                <combat-spell-cooldown
+                    *ngFor="
+                        let spell of (hero$ | async).equippedSpell;
+                        let index = index;
+                        trackBy: trackByFn
+                    "
+                    [tooltip]="spell"
+                    [tooltip-detach]="spellCasted"
+                    [tooltip-type]="'spell'"
+                    [spell]="spell"
+                    [index]="index"
+                    (rdy)="casted($event)"
+                    (click)="!spell.isInCooldown && cast(spell)"
+                >
+                </combat-spell-cooldown>
+            </div>
+        </ng-container>
+    </app-card>
+</div>

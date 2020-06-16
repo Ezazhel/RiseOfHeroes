@@ -1,0 +1,8 @@
+<ng-container *transloco="let t">
+    <ng-container *ngIf="building$ | async as building">
+        <huntingPost
+            *ngIf="building.type == 'huntingPost'"
+            [building]="building"
+        ></huntingPost>
+    </ng-container>
+</ng-container>

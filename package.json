@@ -29,6 +29,7 @@
         "immutable": "^4.0.0-rc.12",
         "lodash": "^4.17.15",
         "moment": "^2.26.0",
+        "ngrx-store-localstorage": "^9.0.0",
         "random-js": "^2.1.0",
         "rxjs": "^6.5.5",
         "tslib": "^1.13.0",

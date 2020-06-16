@@ -1,0 +1,107 @@
+@mixin stitches-sword($x, $y, $width, $height) {
+    background-position: $x $y;
+    width: $width;
+    height: $height;
+}
+
+.sword {
+    background-image: url(~/assets/swords.png);
+    background-repeat: no-repeat;
+    display: block;
+
+    &.s1 {
+        @include stitches-sword(-5px, -5px, 48px, 48px);
+    }
+
+    &.s10 {
+        @include stitches-sword(-63px, -5px, 48px, 48px);
+    }
+
+    &.s11 {
+        @include stitches-sword(-121px, -5px, 48px, 48px);
+    }
+
+    &.s12 {
+        @include stitches-sword(-179px, -5px, 48px, 48px);
+    }
+
+    &.s13 {
+        @include stitches-sword(-5px, -63px, 48px, 48px);
+    }
+
+    &.s14 {
+        @include stitches-sword(-63px, -63px, 48px, 48px);
+    }
+
+    &.s15 {
+        @include stitches-sword(-121px, -63px, 48px, 48px);
+    }
+
+    &.s16 {
+        @include stitches-sword(-179px, -63px, 48px, 48px);
+    }
+
+    &.s17 {
+        @include stitches-sword(-5px, -121px, 48px, 48px);
+    }
+
+    &.s18 {
+        @include stitches-sword(-63px, -121px, 48px, 48px);
+    }
+
+    &.s19 {
+        @include stitches-sword(-121px, -121px, 48px, 48px);
+    }
+
+    &.s2 {
+        @include stitches-sword(-179px, -121px, 48px, 48px);
+    }
+
+    &.s20 {
+        @include stitches-sword(-5px, -179px, 48px, 48px);
+    }
+
+    &.s21 {
+        @include stitches-sword(-63px, -179px, 48px, 48px);
+    }
+
+    &.s22 {
+        @include stitches-sword(-121px, -179px, 48px, 48px);
+    }
+
+    &.s23 {
+        @include stitches-sword(-179px, -179px, 48px, 48px);
+    }
+
+    &.s24 {
+        @include stitches-sword(-237px, -5px, 48px, 48px);
+    }
+
+    &.s3 {
+        @include stitches-sword(-237px, -63px, 48px, 48px);
+    }
+
+    &.s4 {
+        @include stitches-sword(-237px, -121px, 48px, 48px);
+    }
+
+    &.s5 {
+        @include stitches-sword(-237px, -179px, 48px, 48px);
+    }
+
+    &.s6 {
+        @include stitches-sword(-5px, -237px, 48px, 48px);
+    }
+
+    &.s7 {
+        @include stitches-sword(-63px, -237px, 48px, 48px);
+    }
+
+    &.s8 {
+        @include stitches-sword(-121px, -237px, 48px, 48px);
+    }
+
+    &.s9 {
+        @include stitches-sword(-179px, -237px, 48px, 48px);
+    }
+}

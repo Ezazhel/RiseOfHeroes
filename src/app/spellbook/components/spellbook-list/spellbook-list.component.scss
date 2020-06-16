@@ -1,0 +1,47 @@
+@import "sprite-peasantSkills.scss";
+@import "variables.scss";
+.spells-container {
+    width: 450px;
+    .spell-container {
+        width: 180px;
+        height: 85px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 4px -0.5px;
+        margin: 10px;
+        color: $lightgreybutton;
+        &.unlocked {
+            color: $greenTextOnBody;
+        }
+        i {
+            margin-left: 2px;
+            box-shadow: 0px 0px 1px 0.5px $carreraWhite;
+            border-radius: inherit;
+        }
+        .equipSlotSpan {
+            font-size: xx-small;
+            text-align: center;
+        }
+    }
+
+    button {
+        background: $blueTextOnBody;
+        flex: 1;
+        color: #f2f2f2;
+
+        border: none;
+        outline: none;
+        cursor: pointer;
+        margin: 5px;
+        transition: 0.3s;
+        &:hover {
+            background: transparentize($color: $blueTextOnBody, $amount: 0.35);
+        }
+        &.active {
+            background: transparentize($color: $greenTextOnBody, $amount: 0.25);
+
+            &:hover {
+                background: $greenTextOnBody;
+            }
+        }
+    }
+}

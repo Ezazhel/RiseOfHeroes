@@ -4,6 +4,7 @@ https://www.colortools.io/color-palette/wild-heaven/
 
 */
 @import "variables.scss";
+@import "~@angular/cdk/overlay-prebuilt.css";
 html,
 body {
     height: 99%;
@@ -26,4 +27,20 @@ body {
 }
 .text-left {
     text-align: left;
+}
+.rare {
+    color: $blueRareItem !important;
+}
+.uncommon {
+    color: $greenCommonItem !important;
+}
+.common {
+    color: $carreraWhite !important;
+}
+.epic {
+    color: $purpleEpicItem !important;
+}
+
+.cdk-overlay-container {
+    z-index: 1100 !important;
 }

@@ -1,32 +1,9 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    OnDestroy,
-    OnChanges,
-    SimpleChange,
-    SimpleChanges,
-    AfterContentInit,
-} from "@angular/core";
-import {
-    ITemplateBaseItem,
-    Currency,
-} from "@core/models/game-data/game-data.model";
-import { Store, select } from "@ngrx/store";
+import { Component, OnInit, Input } from "@angular/core";
+import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
+import { Store } from "@ngrx/store";
 import { AppState } from "@core/models";
-import {
-    Observable,
-    Subscription,
-    timer,
-    Subject,
-    BehaviorSubject,
-    asyncScheduler,
-} from "rxjs";
-import { currencySelector } from "@core/models/selector";
-import { Map } from "immutable";
 import { Shop } from "@routes/world/city/store/cities.model";
 import { ShopService } from "@core/services/shop.service";
-import { first } from "rxjs/operators";
 import { TranslocoService } from "@ngneat/transloco";
 
 @Component({

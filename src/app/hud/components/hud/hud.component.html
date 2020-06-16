@@ -7,6 +7,10 @@
         (closing)="showStat = !showStat"
         *ngIf="showStat"
     ></app-character>
+    <app-spellbook
+        (closing)="showSpells = !showSpells"
+        *ngIf="showSpells"
+    ></app-spellbook>
     <app-hud-tools (closing)="showOptions = !showOptions" *ngIf="showOptions">
     </app-hud-tools>
     <app-map (closing)="showMap = !showMap" *ngIf="showMap"></app-map>
@@ -37,7 +41,10 @@
                     ></i>
                 </li>
                 <li>
-                    <i class="sprite sprite-tome"></i>
+                    <i
+                        (click)="showSpells = !showSpells"
+                        class="sprite sprite-tome"
+                    ></i>
                 </li>
                 <li>
                     <i

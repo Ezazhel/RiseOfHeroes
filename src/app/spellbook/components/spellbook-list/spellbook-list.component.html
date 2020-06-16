@@ -1,0 +1,70 @@
+<ng-container *transloco="let t">
+    <div
+        fxLayout="row wrap"
+        fxLayoutAlign="space-evenly center"
+        fxFlew="grow"
+        class="spells-container"
+    >
+        <div
+            *ngFor="let spell of spells; trackBy: trackByFn"
+            class="spell-container"
+            fxLayout="row"
+            fxLayoutAlign="space-evenly center"
+            [tooltip]="spell"
+            [tooltip-type]="'spell'"
+            [ngClass]="{ unlocked: spell.levelRequired <= hero.level }"
+        >
+            <i class="peasant {{ spell.icon }}"></i>
+            <div fxLayout="column">
+                <label>
+                    {{ t(spell.name) }}
+                </label>
+
+                <div
+                    *ngIf="
+                        spell.isActive &&
+                        spell.levelRequired <= hero.level &&
+                        hero.hp === hero.maxHp
+                    "
+                >
+                    <span class="equipSlotSpan">{{
+                        t("hud-modal.spellbook.equipInSlot")
+                    }}</span>
+                    <div fxLayout="row">
+                        <button
+                            [ngClass]="isActiveSpell(spell, 0)"
+                            (click)="equipSpell(spell, 0)"
+                        >
+                            1
+                        </button>
+                        <button
+                            [ngClass]="isActiveSpell(spell, 1)"
+                            (click)="equipSpell(spell, 1)"
+                        >
+                            2
+                        </button>
+                        <button
+                            [ngClass]="isActiveSpell(spell, 2)"
+                            (click)="equipSpell(spell, 2)"
+                        >
+                            3
+                        </button>
+                        <button
+                            [ngClass]="isActiveSpell(spell, 3)"
+                            (click)="equipSpell(spell, 3)"
+                        >
+                            4
+                        </button>
+                    </div>
+                </div>
+                <span *ngIf="spell.levelRequired > hero.level">
+                    {{
+                        t("hud-modal.spellbook.requiredLevel", {
+                            lvl: spell.levelRequired
+                        })
+                    }}
+                </span>
+            </div>
+        </div>
+    </div>
+</ng-container>

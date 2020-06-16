@@ -1,3 +1,4 @@
+import { goldSelector } from "./../../../../../../../core/models/selector";
 import {
     Component,
     OnInit,
@@ -5,7 +6,6 @@ import {
     OnDestroy,
     Output,
     EventEmitter,
-    AfterContentInit,
     OnChanges,
     SimpleChanges,
 } from "@angular/core";
@@ -20,7 +20,6 @@ import { Subscription, timer, Observable } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
 import { currencySelector } from "@core/models/selector";
-import { Map } from "immutable";
 @Component({
     selector: "app-city-shop-content-shop",
     templateUrl: "./city-shop-content-shop.component.html",
@@ -29,6 +28,7 @@ import { Map } from "immutable";
 export class CityShopContentShopComponent
     implements OnInit, OnDestroy, OnChanges {
     @Output() onSetItem = new EventEmitter<ITemplateBaseItem>();
+    @Output() itemNull = new EventEmitter<boolean>();
     @Input() cityId: string;
 
     @Input("shop") set shop(value: Shop) {
@@ -40,12 +40,19 @@ export class CityShopContentShopComponent
     timer: string;
     _previousSecond: number = 0;
 
-    public _currencies$: Observable<Map<string, Currency>> = this.store.pipe(
+    public _currencies$: Observable<Array<Currency>> = this.store.pipe(
         select(currencySelector)
     );
+
+    getCurrency(type: string): Observable<Currency> {
+        //param if one day i create a generic selector for currencies
+        return this.store.select(goldSelector);
+    }
     public buyItem(item: ITemplateBaseItem): void {
         this.shopService.buyItem(item, this._shop.type, this.cityId);
+        this.itemNull.emit(true);
     }
+
     private renew(value: Shop) {
         if (this.minutes != undefined) this.minutes.unsubscribe();
         const nf = new Intl.NumberFormat(this.transloco.getActiveLang(), {
@@ -66,7 +73,11 @@ export class CityShopContentShopComponent
                 Math.floor(t % 60)
             )}`;
             --t;
-            if (t < 0 || renewTimerMinute >= 1) {
+            if (
+                t < 0 ||
+                renewTimerMinute >= 1 ||
+                this._shop.items.length == 0
+            ) {
                 renewTimerMinute >= 1
                     ? (this._previousSecond = renewTimerSecond)
                     : (this._previousSecond = 0);
@@ -78,6 +89,7 @@ export class CityShopContentShopComponent
 
     public setItem(item: ITemplateBaseItem) {
         this.onSetItem.emit(item);
+        this.itemNull.emit(item == null);
     }
 
     trackByFn(index: number, item: ITemplateBaseItem): number {

@@ -1,0 +1,38 @@
+@import "variables.scss";
+:host {
+    width: 250px;
+    background: hsl(228, 60%, 8%);
+    border: 2px solid white;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    .stat {
+        margin-top: 5px;
+        font-size: smaller;
+    }
+    .rare {
+        color: $blueRareItem;
+    }
+    .uncommon {
+        color: $greenCommonItem;
+    }
+    .epic {
+        color: $purpleEpicItem;
+    }
+    .common {
+        color: $lavenderTextOnBody;
+    }
+    .price {
+        margin-left: auto;
+    }
+    .spell-name {
+        font-style: italic;
+    }
+    .spell-description {
+        font-size: small;
+    }
+    .spell-cooldown {
+        float: right;
+        font-size: x-small;
+    }
+}

@@ -18,7 +18,15 @@
     "hud-modal": {
         "stats": "Stats",
         "talents": "Talents",
-        "bag": "Inventory"
+        "bag": "Inventory",
+        "spellbook": {
+            "name": "Spell book",
+            "activeTab": "Active",
+            "passiveTab": "Passive",
+            "heroSpell": "Your spell",
+            "equipInSlot": "Equip in slot",
+            "requiredLevel": "required lvl {{ lvl }}"
+        }
     },
     "hud-tools": {
         "language": "Language",
@@ -31,7 +39,11 @@
         "mana": "Mana",
         "energy": "Energy",
         "rage": "Rage",
-        "stats": "Stats"
+        "stats": "Stats",
+        "dps": "DPS",
+        "damage": "Damage",
+        "offensivePower": "Offensive Power",
+        "offensiveStats": "Offensive Stats"
     },
     "inventoryFilter": {
         "all": "All",
@@ -50,6 +62,11 @@
             "endurance": "Endurance",
             "intellect": "Intellect",
             "agility": "Agility"
+        },
+        "weapon": {
+            "damage": "{{attack}} damage",
+            "speed": "Speed {{speed}}",
+            "dps": "({{dps}} damage per second)"
         }
     },
     "house": {
@@ -89,6 +106,20 @@
         "house": "House"
     },
     "city": {
+        "city_building": {
+            "huntingPost": {
+                "name": "Hunting Post",
+                "action": {
+                    "description": "Hunt : {{fighters}}"
+                }
+            },
+            "Mayor": "Mayor",
+            "Tavern": "Tavern"
+        },
+        "tab": {
+            "building": "Building",
+            "shops": "Shops"
+        },
         "city_shop": {
             "blacksmith": "Blacksmith",
             "alchemist": "Alchemist",
@@ -105,6 +136,56 @@
         },
         "zulah": {
             "description": "Zul'ah was once a beautiful city. Nowaday it's only a place without a king, where peasant live."
+        }
+    },
+    "upgrades": {
+        "blacksmith": {
+            "better": {
+                "name": "Better tools",
+                "effect": "Improve maximum quality of item by 1 each level, current : {{quality}}"
+            },
+            "faster": {
+                "name": "Faster hands",
+                "effect": "Reduce time before new items by 10% each level (multiplicative), current timer : {{intervalStock}}"
+            },
+            "stronger": {
+                "name": "Stronger materials",
+                "effect": "Improve all stat by 10% each level (cumulative)"
+            }
+        },
+        "alchemist": {
+            "better": {
+                "name": "Better flask",
+                "effect": "You can use your potion 1 times more each upgrade"
+            },
+            "faster": {
+                "name": "Faster rest",
+                "effect": "Reduce waiting time to refill your potion"
+            },
+            "stronger": {
+                "name": "Stronger plants",
+                "effect": "Increase effect of potion by 5% each level"
+            }
+        }
+    },
+    "spells": {
+        "peasant": {
+            "powerAttack": {
+                "name": "Power attack",
+                "description": "Power attack dealing {{ param }} damage to target"
+            },
+            "peasantHearth": {
+                "name": "Peasant's Hearth",
+                "description": "Peasant's Hearth give {{ param }}% endurance bonus"
+            },
+            "peasantLabor": {
+                "name": "Peasant's Labor",
+                "description": "Peasant's labor give {{ param }} times more reward"
+            },
+            "peasantTorch": {
+                "name": "Peasant's Torch",
+                "description": "Peasant's Torch deal {{ param }} damage over {{ param2 }} seconds"
+            }
         }
     }
 }

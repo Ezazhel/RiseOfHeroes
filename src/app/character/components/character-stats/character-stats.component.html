@@ -27,8 +27,27 @@
     </h3>
     <ul>
         <li *ngFor="let stat of hero.stats; trackBy: trackBy">
-            <span class="stat-label"> {{ t(stat[1].name) }} : </span>
-            <span class="stat-value"> {{ stat[1].value }}</span>
+            <span class="stat-label"> {{ t(stat.name) }} : </span>
+            <span class="stat-value"> {{ stat.value }}</span>
+        </li>
+    </ul>
+    <h3>
+        {{ t("hud-stats.offensiveStats") }}
+    </h3>
+    <ul>
+        <li>
+            <span class="stat-label">
+                {{ t("hud-stats.offensivePower") }} :
+            </span>
+            <span class="stat-value"> {{ getOffensivePower() }}</span>
+        </li>
+        <li>
+            <span class="stat-label"> {{ t("hud-stats.damage") }} : </span>
+            <span class="stat-value"> {{ getDamage() }}</span>
+        </li>
+        <li>
+            <span class="stat-label"> {{ t("hud-stats.dps") }} : </span>
+            <span class="stat-value"> {{ getDps() }}</span>
         </li>
     </ul>
 </ng-container>

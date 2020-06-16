@@ -1,0 +1,49 @@
+<ng-container *transloco="let t; read: 'hud-modal'">
+    <app-modal
+        [cclass]="'spellbook'"
+        (close)="onClose()"
+        [header]="t('spellbook.name')"
+    >
+        <!-- Button Active / Passive; Display right component -->
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button
+                (click)="switchTabs('active')"
+                [ngClass]="{ active: tabs == 'active' }"
+            >
+                {{ t("spellbook.activeTab") }}
+            </button>
+            <button
+                (click)="switchTabs('passive')"
+                [ngClass]="{ active: tabs == 'passive' }"
+            >
+                {{ t("spellbook.passiveTab") }}
+            </button>
+        </div>
+        <app-spellbook-list
+            [hero]="hero$ | async"
+            [spells]="getActiveSpells(_spells$ | async, true)"
+            *ngIf="tabs == 'active'"
+        ></app-spellbook-list>
+        <app-spellbook-list
+            [hero]="hero$ | async"
+            [spells]="getActiveSpells(_spells$ | async, false)"
+            *ngIf="tabs == 'passive'"
+        ></app-spellbook-list>
+        <div fxLayout="column" fxLayoutAlign="center center" class="heroSpell">
+            <h5>{{ t("spellbook.heroSpell") }}</h5>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <hero-spell
+                    [spell]="spell"
+                    [index]="index"
+                    [tooltip]="spell"
+                    [tooltip-type]="'spell'"
+                    *ngFor="
+                        let spell of (hero$ | async).equippedSpell;
+                        let index = index;
+                        trackBy: trackByEquipped
+                    "
+                ></hero-spell>
+            </div>
+        </div>
+    </app-modal>
+</ng-container>

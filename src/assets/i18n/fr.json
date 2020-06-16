@@ -18,7 +18,15 @@
     "hud-modal": {
         "stats": "Stats",
         "talents": "Talents",
-        "bag": "Inventaire"
+        "bag": "Inventaire",
+        "spellbook": {
+            "name": "Livre des sorts",
+            "activeTab": "Actif",
+            "passiveTab": "Passif",
+            "heroSpell": "Vos sorts",
+            "equipInSlot": "Equiper en : ",
+            "requiredLevel": "requiert lvl {{ lvl }}"
+        }
     },
     "hud-tools": {
         "language": "Langue",
@@ -31,7 +39,11 @@
         "mana": "Mana",
         "energy": "Energie",
         "rage": "Rage",
-        "stats": "Statistiques"
+        "stats": "Statistiques",
+        "dps": "DPS",
+        "damage": "Dégâts",
+        "offensivePower": "Puissance Attaque",
+        "offensiveStats": "Stats offensive"
     },
     "inventoryFilter": {
         "all": "Tout",
@@ -50,6 +62,11 @@
             "endurance": "Endurance",
             "intellect": "Intelligence",
             "agility": "Agilité"
+        },
+        "weapon": {
+            "damage": "{{attack}} dégâts",
+            "speed": "Vitesse {{speed}}",
+            "dps": "({{dps}} dégâts par seconde)"
         }
     },
     "house": {
@@ -90,6 +107,20 @@
         "house": "Maison"
     },
     "city": {
+        "city_building": {
+            "huntingPost": {
+                "name": "Poste de chasse",
+                "action": {
+                    "description": "Chasser : {{fighters}}"
+                }
+            },
+            "Mayor": "Maire",
+            "Tavern": "Taverne"
+        },
+        "tab": {
+            "building": "Bâtiments",
+            "shops": "Boutiques"
+        },
         "city_shop": {
             "blacksmith": "Forgeron",
             "alchemist": "Alchimiste",
@@ -106,6 +137,56 @@
         },
         "zulah": {
             "description": "Zul'ah était autrefois une magnifique cité. Aujourd'hui c'est bourg sans roi, où vit le bas peuple."
+        }
+    },
+    "upgrades": {
+        "blacksmith": {
+            "better": {
+                "name": "Meilleur outils",
+                "effect": "Augmente la qualité général des équipements de 1 pour chaque niveau, qualité actuelle : {{quality}}"
+            },
+            "faster": {
+                "name": "Petites mains",
+                "effect": "Réduit le temps nécessaire pour renouveler les équipements de 10% chaque niveau (multiplicative), temps actuel : {{intervalStock}}"
+            },
+            "stronger": {
+                "name": "C'est du solide",
+                "effect": "Les équipements de cette boutique sont 10% plus fort pour chaque niveau"
+            }
+        },
+        "alchemist": {
+            "better": {
+                "name": "Véh Comme c'est plein",
+                "effect": "You can use your potion 1 times more each upgrade"
+            },
+            "faster": {
+                "name": "Descente d'enfer",
+                "effect": "Reduce waiting time to refill your potion"
+            },
+            "stronger": {
+                "name": "Je sais pas où on a trouvé ça",
+                "effect": "Increase effect of potion by 5% each level"
+            }
+        }
+    },
+    "spells": {
+        "peasant": {
+            "powerAttack": {
+                "name": "Attaque puissante",
+                "description": "Attaque puissante inflige {{ param }} dégâts à votre cible"
+            },
+            "peasantHearth": {
+                "name": "Coeur du paysan",
+                "description": "Votre travail à la ferme vous donne un bonus d'endurance de {{ param }}%"
+            },
+            "peasantLabor": {
+                "name": "Travail du paysan",
+                "description": "Votre fierté vous octroie {{ param }} fois plus de récompenses"
+            },
+            "peasantTorch": {
+                "name": "Torche du paysan",
+                "description": "Votre torche inflige {{ param }} dégâts sur {{ param2 }} secondes"
+            }
         }
     }
 }

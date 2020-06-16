@@ -3,12 +3,12 @@ import {
     Stat,
     StatType,
 } from "@core/models/game-data/game-data.model";
-import * as Immutable from "immutable";
 import {
     ITemplateWeapon,
     ITemplateArmor,
     ITemplateBaseItem,
 } from "./game-data/game-data.model";
+import { Spells, OvertimeSpells, HealSpells } from "./spells/spells.model";
 
 export type EntityType = "hero" | "monster";
 export type EntitySubtype = "warrior" | "mage" | "ranger" | "peasant";
@@ -61,13 +61,23 @@ export interface Hero extends BaseEntity {
     readonly boots?: ITemplateArmor;
     readonly accesory?: null;
     readonly armor: number;
-    readonly stats: Immutable.Map<StatType, Stat>;
+    readonly stats: Array<Stat>;
+    readonly spells: Array<Spells | OvertimeSpells | HealSpells>;
+    readonly equippedSpell: Array<Spells | OvertimeSpells | HealSpells>;
 }
 
 export interface Companion extends BaseEntity {}
 
-export interface Combatant extends BaseEntity {
+export interface Fighter extends EntityObject {
+    name: string;
+    icon?: string;
     exp: number;
-    items?: ITemplateBaseItem;
-    ressources?: Currency;
+    attack: number;
+    attackSpeed: number;
+    defense: number;
+    hp: number;
+    maxHp: number;
+    level: number;
+    items?: ITemplateBaseItem[];
+    ressources?: Currency[];
 }

@@ -1,5 +1,5 @@
 <ng-container *transloco="let t">
-    <div class="description" fxLayout="column nowrap">
+    <div *ngIf="item" class="description" fxLayout="column nowrap">
         <span class="{{ item.quality }}">{{ item.name }} </span>
         <div *ngIf="consumable; else weaponOrArmor">
             Template item
@@ -8,21 +8,32 @@
             <div class="stat" fxLayout="column nowrap">
                 <ng-container *ngIf="equipment.type === 'weapon'">
                     <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                        <label> {{ equipment.weaponHandling }} </label>
                         <label>
-                            Category
-                        </label>
-                        <label>
-                            Type
+                            {{ equipment.subType }}
                         </label>
                     </div>
                     <div fxLayout="row nowrap" fxLayoutAlign="space-between">
                         <label>
-                            Attack
+                            {{
+                                t("game.weapon.damage", {
+                                    attack: equipment.attack
+                                })
+                            }}
                         </label>
                         <label>
-                            Speed
+                            {{
+                                t("game.weapon.speed", {
+                                    speed: equipment.speed / 1000
+                                })
+                            }}
                         </label>
                     </div>
+                    {{
+                        t("game.weapon.dps", {
+                            dps: equipment.dps
+                        })
+                    }}
                 </ng-container>
                 <ng-container *ngIf="equipment.type === 'armor'">
                     <div fxLayout="row nowrap" fxLayoutAlign="space-between">

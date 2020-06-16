@@ -1,4 +1,4 @@
-import { Map } from "immutable";
+import { Fighter } from "./../entity";
 import { Stat } from "./game-data.model";
 import { ITemplateWeapon, ITemplateArmor } from "./game-data.model";
 //#region Stats
@@ -35,6 +35,8 @@ export const baseWeapon: ITemplateWeapon = {
     icon: "", //will be set randomly
     subType: "dagger",
     weaponHandling: "1h",
+    dps: 5,
+    speed: 1 * 1000,
     quality: "common", //will be set randomly
 };
 export const baseDagger: ITemplateWeapon = {
@@ -42,14 +44,16 @@ export const baseDagger: ITemplateWeapon = {
     attack: 5, //will change accordigng to level of weapon and bonuses of hero
     value: 20, //will change according to level of weapon and bonuses of hero
     subType: "dagger",
+    speed: 1.6 * 1000,
     weaponHandling: "1h",
 };
 
-export const baseSpear: ITemplateWeapon = {
+export const baseAxe: ITemplateWeapon = {
     ...baseWeapon,
     attack: 9, //will change accordigng to level of weapon and bonuses of hero
     value: 35, //will change according to level of weapon and bonuses of hero
-    subType: "spear",
+    subType: "axe",
+    speed: 3.2 * 1000,
     weaponHandling: "2h",
 };
 export const baseHammer: ITemplateWeapon = {
@@ -57,6 +61,7 @@ export const baseHammer: ITemplateWeapon = {
     attack: 12, //will change accordigng to level of weapon and bonuses of hero
     value: 45, //will change according to level of weapon and bonuses of hero
     subType: "hammer",
+    speed: 3.4 * 1000,
     weaponHandling: "2h",
 };
 
@@ -65,6 +70,7 @@ export const baseSword: ITemplateWeapon = {
     attack: 7, //will change accordigng to level of weapon and bonuses of hero
     value: 25, //will change according to level of weapon and bonuses of hero
     subType: "sword",
+    speed: 2.6 * 1000,
     weaponHandling: "1h",
 };
 export const baseTwoHandedSword: ITemplateWeapon = {
@@ -72,6 +78,7 @@ export const baseTwoHandedSword: ITemplateWeapon = {
     attack: 11, //will change accordigng to level of weapon and bonuses of hero
     value: 45, //will change according to level of weapon and bonuses of hero
     subType: "sword",
+    speed: 3.6 * 1000,
     weaponHandling: "2h",
 };
 //#endregion Weapon
@@ -95,7 +102,7 @@ export const baseChest: ITemplateArmor = {
     armor: 15,
 };
 
-export const baseHelm: ITemplateArmor = {
+export const baseHelmet: ITemplateArmor = {
     ...baseArmor,
     value: 5,
     subType: "helmet",
@@ -124,6 +131,48 @@ export const baseGloves: ITemplateArmor = {
 };
 //#endregion Armor
 
+//#region Monster
+export const fighters: Fighter[] = [
+    {
+        eid: "0",
+        name: "Dummy Moore",
+        icon: "dummy_01",
+        attack: 15,
+        attackSpeed: 1 * 1000,
+        exp: 5,
+        hp: 350,
+        level: 1,
+        maxHp: 350,
+        defense: 0,
+    },
+    {
+        eid: "1",
+        name: "Sheepy",
+        icon: "sheep_01",
+        attack: 35,
+        attackSpeed: 1.4 * 1000,
+        exp: 10,
+        hp: 750,
+        level: 1,
+        maxHp: 750,
+        defense: 25,
+    },
+    {
+        eid: "2",
+        name: "Piggy",
+        icon: "pig_01",
+        attack: 65,
+        attackSpeed: 1.5 * 1000,
+        exp: 15,
+        hp: 1000,
+        level: 1,
+        maxHp: 1000,
+        defense: 75,
+    },
+];
+//#endregion Monster
+
+//#region City
 // export const cities: Map<string, City> = Map<string, City>([
 //     [
 //         "zulah",
@@ -174,3 +223,4 @@ export const baseGloves: ITemplateArmor = {
 //         },
 //     ],
 // ]);
+//#endregion City

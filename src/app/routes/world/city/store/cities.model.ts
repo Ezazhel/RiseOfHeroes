@@ -2,21 +2,24 @@ import {
     ITemplateBaseItem,
     ItemSellableType,
 } from "@core/models/game-data/game-data.model";
-import { Map } from "immutable";
-import { Subject, Subscription } from "rxjs";
+import { UpgradeType } from "@core/models/upgrades";
+import { ActionType } from "@core/models/actions";
 
+export type ShopType = "blacksmith" | "alchemist" | "merchant";
+export type BuildingType = "huntingPost" | "mayor" | "tavern";
 export interface City {
     id: string;
     name: string;
     description: string;
-    shops: Map<string, Shop>;
+    shops?: Shop[];
+    building?: Building[];
     levelRequirement: number;
 }
 export interface Shop {
-    type: string; // Use as key in city.shops
+    type: ShopType; // Use as key in city.shops
     name: string;
     maxItemQuality?: number;
-    items: Map<string, ITemplateBaseItem>;
+    items: ITemplateBaseItem[];
     display: boolean;
     crafts?: any[];
     upgrades?: ShopUpgrade[];
@@ -24,14 +27,26 @@ export interface Shop {
     intervalStock?: number; //time for a restock in second
     lastTick?: number; //time of the last displayed counter. Used like : let restock = performance.now() - lastTick >= 0 ? decrement : renewStock,
 }
-type calculPrix = (level: number, prixBase: number) => number;
-type upgradeForShop = (shop: Shop, level: number, index: number) => Shop;
+
+export interface Building {
+    type: BuildingType;
+    name: string;
+    actions: BuildingAction[];
+}
+
 export interface ShopUpgrade {
     name: string;
-    description: string;
     level: number;
     levelMax: number;
     basePrice: number;
-    price: calculPrix;
-    upgrade: upgradeForShop;
+    upgradeType: UpgradeType;
+    description: string;
+}
+
+export interface BuildingAction {
+    type: ActionType;
+    targetId?: number;
+    name: string;
+    effectId: number;
+    description: string;
 }

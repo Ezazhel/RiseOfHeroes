@@ -1,11 +1,6 @@
-<app-combat-portrait
-    *ngIf="hero$ | async"
-    [entity]="hero$ | async"
-    class="combat-portrait player"
-></app-combat-portrait>
-
-<app-combat-portrait
-    *ngIf="monster$ | async"
-    [entity]="monster$ | async"
-    class="combat-portrait monster"
-></app-combat-portrait>
+<div fxLayout="row nowrap" fxLayoutAlign="center center">
+    <!-- If multiFighter -->
+    <app-combat-monster-hud [fighter]="fighter"> </app-combat-monster-hud>
+</div>
+<app-combat-hero-hud [hero]="hero$ | async" (castSpell)="activateSpell($event)">
+</app-combat-hero-hud>

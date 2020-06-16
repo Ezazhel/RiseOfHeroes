@@ -3,7 +3,6 @@ import {
     ITemplateBaseItem,
     ITemplateWeapon,
     ITemplateArmor,
-    ITemplateItem,
 } from "@core/models/game-data/game-data.model";
 import { Store } from "@ngrx/store";
 import { AppState } from "@core/models";
@@ -17,9 +16,11 @@ import {
     CityShopBuy,
     CityShopRenewItem,
 } from "@routes/world/city/store/cities.action";
-import { City, Shop } from "@routes/world/city/store/cities.model";
-import { Map } from "immutable";
-import { generateRandomArmor } from "@core/models/item-generation";
+import { Shop } from "@routes/world/city/store/cities.model";
+import {
+    generateRandomArmor,
+    generateReward,
+} from "@core/models/item-generation";
 @Injectable({
     providedIn: "root",
 })
@@ -32,17 +33,20 @@ export class ShopService {
             new CityShopRenewItem({
                 city: cityId,
                 shopType: shop.type,
-                items: this.renewByType(shop.type),
+                items: this.renewByType(shop.type, shop.maxItemQuality),
             })
         );
     }
-    private renewByType(type: string): Map<string, ITemplateBaseItem> {
+    private renewByType(
+        type: string,
+        maxQuality: number
+    ): Array<ITemplateWeapon | ITemplateArmor> {
         switch (type) {
             case "blacksmith":
-                let items = Map<string, ITemplateWeapon | ITemplateArmor>([]);
-                for (let i = 0; i < 5; i++) {
-                    let item = generateRandomArmor(1);
-                    items = items.set(item.id, item);
+                let items: Array<ITemplateWeapon | ITemplateArmor> = [];
+                for (let i = 0; i < 10; i++) {
+                    let item = generateReward(1, maxQuality);
+                    items.push(item);
                 }
                 return items;
         }

@@ -13,6 +13,7 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class InventorySlotDetailComponent implements OnInit {
     @Input("item") set item(value: ITemplateBaseItem) {
+        if (value === undefined) return;
         if (value.type === "item") {
             this.consumable = value as ITemplateItem;
         } else {

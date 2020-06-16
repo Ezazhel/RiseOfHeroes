@@ -1,7 +1,6 @@
 import { CardComponent } from "./card/card.component";
 import { ModalComponent } from "./modal/modal.component";
 import { ProgressbarComponent } from "./progressbar/progressbar.component";
-
 export const components: any[] = [
     ModalComponent,
     CardComponent,

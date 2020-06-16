@@ -18,11 +18,16 @@
     font-weight: bold;
     &.rare {
         box-shadow: 0 0.2rem 0.15rem $blueRareItem;
-        color: $blueRareItem;
     }
     &.uncommon {
         box-shadow: 0 0.2rem 0.15rem $greenCommonItem;
-        color: $greenCommonItem;
+    }
+    &.epic {
+        box-shadow: 0 0.2rem 0.15rem $purpleEpicItem;
+    }
+    &.common {
+        box-shadow: 0 0.2rem 0.15rem $carreraWhite;
+        color: $body !important;
     }
     span.item-name {
         vertical-align: middle;
