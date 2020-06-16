@@ -1,6 +1,12 @@
-import { Spells, OvertimeSpells, HealSpells } from "./spells.model";
+import {
+    Spells,
+    OvertimeSpells,
+    HealSpells,
+    PassiveBuff,
+} from "./spells.model";
 import { Hero, EntitySubtype, Fighter } from "../entity";
 import { getHeroOffensivePower } from "../utils";
+import { toNumber } from "@ngneat/transloco";
 
 type setType = "name" | "description";
 
@@ -116,4 +122,26 @@ const effects: Map<string, EffectMethod> = new Map([
 ]);
 export function setSpell(subtype: EntitySubtype, id: string, setType: setType) {
     return `spells.${subtype}.${id}.${setType}`;
+}
+
+export function GetPassives(buff: PassiveBuff, hero: Hero): Spells[] {
+    return hero.spells.filter((s: Spells) => {
+        if (
+            s.levelRequired <= hero.level &&
+            !s.isActive &&
+            s?.buffStat == buff
+        ) {
+            return s;
+        }
+    });
+}
+
+export function AddPassivesToStat(stat: number, buff: PassiveBuff, hero: Hero) {
+    let multiplier: number = 0;
+    GetPassives(buff, hero).forEach((p) => {
+        multiplier += p.power;
+    });
+    let rtn =
+        multiplier != 0 ? toNumber((stat * (1 + multiplier)).toFixed(2)) : stat;
+    return rtn;
 }
