@@ -3,6 +3,7 @@ import * as _ from "lodash";
 import { Predicate } from "@angular/core";
 import { toNumber } from "@ngneat/transloco";
 import { Stat } from "./game-data/game-data.model";
+import { AddPassivesToStat } from "./spells/spells.utils";
 /**
  * Generate probably unique IDs. See: http://stackoverflow.com/questions/26501688/a-typescript-guid-class
  * @returns {string}
@@ -64,4 +65,9 @@ export function getHeroOffensivePower(hero: Hero): number {
             hero.stats.find((s: Stat) => s.type == "strength").value * 2
         ).toFixed(2)
     );
+}
+
+export function getHeroMaxHp(endurance: number) {
+    console.log((endurance * 10).toFixed(2));
+    return toNumber((endurance * 10).toFixed(2));
 }

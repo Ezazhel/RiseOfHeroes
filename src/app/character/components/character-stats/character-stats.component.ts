@@ -8,6 +8,8 @@ import {
     getHeroOffensivePower,
     getHeroDamage,
 } from "@core/models/utils";
+import { AddPassivesToStat } from "@core/models/spells/spells.utils";
+import { PassiveBuff } from "@core/models/spells/spells.model";
 @Component({
     selector: "app-character-stats",
     templateUrl: "./character-stats.component.html",

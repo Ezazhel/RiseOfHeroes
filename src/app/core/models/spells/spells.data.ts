@@ -27,6 +27,7 @@ export const PeasantSpells: Array<Spells | OvertimeSpells | HealSpells> = [
         levelRequired: 1,
         power: 0.1,
         type: "buff",
+        buffStat: "endurance",
     },
     {
         id: "peasantLabor", //give more reward when you work : multiply by 2 the working reward
@@ -40,6 +41,7 @@ export const PeasantSpells: Array<Spells | OvertimeSpells | HealSpells> = [
         levelRequired: 2,
         power: 2,
         type: "buff",
+        buffStat: "reward",
     },
     {
         id: "peasantTorch", //Dot inflicting 5 * level + 5% attack power each second during 12 second.
@@ -50,7 +52,7 @@ export const PeasantSpells: Array<Spells | OvertimeSpells | HealSpells> = [
         cooldown: 4,
         isActive: true,
         isInCooldown: false,
-        levelRequired: 1,
+        levelRequired: 2,
         duration: 12,
         power: 0.15,
         type: "debuff",

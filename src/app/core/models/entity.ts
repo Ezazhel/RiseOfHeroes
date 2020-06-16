@@ -27,22 +27,7 @@ export interface TemplateEntity extends EntityObject {
     readonly type: EntityType;
 }
 export interface IHiddenAttributes {
-    /**
-     * Base attack value
-     */
-    readonly baseAttack: number;
-    /**
-     * Base defense value
-     */
-    readonly baseDefense: number;
-    /**
-     * Base magic value
-     */
-    readonly baseMagic: number;
-    /**
-     * Base speed value
-     */
-    readonly baseSpeed: number;
+    baseStats: Stat[];
 }
 
 export interface BaseEntity extends TemplateEntity, IHiddenAttributes {

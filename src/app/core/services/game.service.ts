@@ -12,6 +12,8 @@ import {
     enduranceStat,
 } from "@core/models/game-data/game-data.data";
 import { PeasantSpells } from "@core/models/spells/spells.data";
+import { getHeroMaxHp } from "@core/models/utils";
+import { AddPassivesToStat } from "@core/models/spells/spells.utils";
 @Injectable({
     providedIn: "root",
 })
@@ -29,14 +31,10 @@ export class GameService {
             subType: entityClass,
             level: 1,
             exp: 0,
-            baseAttack: 0,
-            baseSpeed: 0,
-            baseMagic: 0,
-            baseDefense: 0,
             armor: 0,
-            stats: [
-                { ...strenghtStat, value: 0 },
-                { ...enduranceStat, value: 0 },
+            baseStats: [
+                { ...strenghtStat, value: 5 },
+                { ...enduranceStat, value: 15 },
                 { ...intelligenceStat, value: 0 },
                 { ...agilityStat, value: 0 },
             ],
@@ -49,8 +47,6 @@ export class GameService {
                     maxRessource: 0,
                     basespeed: 1,
                     basedefense: 10,
-                    hp: 500,
-                    maxHp: 500,
                     spells: PeasantSpells,
                     equippedSpell: [],
                 });
@@ -59,10 +55,18 @@ export class GameService {
                 throw new Error("Unknow character class:" + entityClass);
         }
         character = _.extend(character, {
-            defense: character.baseDefense,
-            speed: character.baseSpeed,
-            attack: character.baseAttack,
-            magic: character.baseMagic,
+            stats: character.baseStats.map((s) => ({
+                ...s,
+                value: AddPassivesToStat(s.value, s.type, character as Hero),
+            })),
+            maxHp: getHeroMaxHp(
+                AddPassivesToStat(
+                    character.baseStats.find((s) => s.type == "endurance")
+                        .value,
+                    "endurance",
+                    character as Hero
+                )
+            ),
         });
         return character as Hero;
     }

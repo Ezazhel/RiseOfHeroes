@@ -9,8 +9,9 @@ import {
     ITemplateWeapon,
 } from "../game-data/game-data.model";
 import { GameService } from "@core/services";
-import { update, updateInsert } from "../utils";
+import { update, updateInsert, getHeroMaxHp } from "../utils";
 import { Spells } from "../spells/spells.model";
+import { AddPassivesToStat } from "../spells/spells.utils";
 
 const initialState: GameState = {
     companions: null,
@@ -90,13 +91,13 @@ export function gameRecuder(
 }
 
 function EquipHero(hero: Hero, item: ITemplateBaseItem): Hero {
-    let stats = [...hero.stats];
+    let baseStats = [...hero.baseStats];
     if (item.type == "weapon") {
         let weapon = item as ITemplateWeapon;
         hero = { ...hero, weapon: weapon };
         weapon.stats.forEach((stat) => {
-            stats = update<Stat>(
-                stats,
+            baseStats = update<Stat>(
+                baseStats,
                 (s: Stat) => s.type == stat.type,
                 (s: Stat) => {
                     return { ...s, value: s.value + stat.value };
@@ -123,8 +124,8 @@ function EquipHero(hero: Hero, item: ITemplateBaseItem): Hero {
                 break;
         }
         armor.stats.forEach((stat) => {
-            stats = update<Stat>(
-                stats,
+            baseStats = update<Stat>(
+                baseStats,
                 (s: Stat) => s.type == stat.type,
                 (s: Stat) => {
                     return { ...s, value: s.value + stat.value };
@@ -133,5 +134,15 @@ function EquipHero(hero: Hero, item: ITemplateBaseItem): Hero {
         });
         hero = { ...hero, armor: hero.armor + armor.armor };
     }
-    return { ...hero, stats: stats };
+    let stats = baseStats.map((s) => ({
+        ...s,
+        value: AddPassivesToStat(s.value, s.type, hero),
+    }));
+    let maxHp = getHeroMaxHp(stats.find((s) => s.type == "endurance").value);
+    return {
+        ...hero,
+        baseStats,
+        stats,
+        maxHp,
+    };
 }

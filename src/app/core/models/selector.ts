@@ -6,8 +6,6 @@ import {
 import { createSelector } from "@ngrx/store";
 import { GameState } from "@core/models/game-state/game-state.reducer";
 import { createFeatureSelector } from "@ngrx/store";
-import * as Immutable from "immutable";
-import { AppState } from ".";
 import { Hero } from "./entity";
 
 export const gameStateSelector = createFeatureSelector<GameState>("gameState");
