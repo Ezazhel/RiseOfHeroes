@@ -1,3 +1,4 @@
+import { update } from "@core/models/utils";
 import {
     HouseUpdateTrainingEquipmentDone,
     HouseTraining,
@@ -17,6 +18,7 @@ import { Map } from "immutable";
 import { map } from "rxjs/operators";
 import { _runtimeChecksFactory } from "@ngrx/store/src/runtime_checks";
 import { MessageService } from "@core/services";
+import { AddPassivesToStat } from "@core/models/spells/spells.utils";
 @Component({
     selector: "house-action",
     templateUrl: "./house-action.component.html",
@@ -55,9 +57,9 @@ export class HouseActionComponent implements OnInit, OnDestroy {
     public displayStat(hero: Hero, stat: TrainingType) {
         switch (stat) {
             case "strength":
-                return hero.attack;
+                return hero.baseStats.find((s) => s.type == "strength").value;
             case "endurance":
-                return hero.defense;
+                return hero.baseStats.find((s) => s.type == "endurance").value;
         }
     }
 
@@ -84,35 +86,21 @@ export class HouseActionComponent implements OnInit, OnDestroy {
         // this.training = this.training.update(stat, () => true);
 
         this.idlingTimer = window.setTimeout(() => {
-            let iStat: number;
-            let stats = [...hero.stats];
-            switch (stat) {
-                case "strength":
-                    iStat = hero.stats.findIndex((s) => s.type == "strength");
-                    let statStrength = hero.stats[iStat];
-                    stats[iStat] = {
-                        ...statStrength,
-                        value: statStrength.value + trainEquipment.reward,
-                    };
-                    hero = {
-                        ...hero,
-                        stats: stats,
-                    };
-                    break;
-                case "endurance":
-                    iStat = hero.stats.findIndex((s) => s.type == "endurance");
-                    let statEndurance = hero.stats[iStat];
-                    stats[iStat] = {
-                        ...statEndurance,
-                        value: statEndurance.value + trainEquipment.reward,
-                    };
-
-                    hero = {
-                        ...hero,
-                        stats: stats,
-                    };
-                    break;
-            }
+            hero = {
+                ...hero,
+                baseStats: update(
+                    hero.baseStats,
+                    (s) => s.type === stat,
+                    (s) => ({ ...s, value: s.value + trainEquipment.reward })
+                ),
+            };
+            hero = {
+                ...hero,
+                stats: hero.baseStats.map((s) => ({
+                    ...s,
+                    value: AddPassivesToStat(s.value, s.type, hero),
+                })),
+            };
             this.store.dispatch(new GameStateUpdateHeroAction(hero));
             this.store.dispatch(new HouseUpdateTrainingEquipmentDone(stat));
             this.store.dispatch(new HouseTraining(stat));
