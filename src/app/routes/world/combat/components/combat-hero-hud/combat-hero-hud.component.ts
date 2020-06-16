@@ -37,6 +37,9 @@ export class CombatHeroHudComponent implements OnInit {
         })
     );
 
+    casted(b: boolean) {
+        this.spellCasted.emit(b);
+    }
     @HostListener("document:keydown")
     cast(spell: Spells | OvertimeSpells | HealSpells) {
         if (event.type == "keydown") {
@@ -51,7 +54,7 @@ export class CombatHeroHudComponent implements OnInit {
                 if (hotKey === (index + 1).toString()) {
                     if (!spell.isInCooldown) {
                         this.castSpell.emit(spell);
-                        this.spellCasted.emit(true);
+                        this.casted(true);
                     }
                     return; //once we find the right one we return (in order to not fetch all array)
                 }
@@ -59,7 +62,7 @@ export class CombatHeroHudComponent implements OnInit {
             return;
         }
         this.castSpell.emit(spell);
-        this.spellCasted.emit(true);
+        this.casted(true);
     }
 
     trackByFn(index: number, el: Spells | OvertimeSpells | HealSpells) {

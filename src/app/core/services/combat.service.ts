@@ -1,5 +1,8 @@
-import { descriptionFor } from "@core/models/spells/spells.utils";
-import { GameStateUpdateHeroAction } from "./../models/game-state/game-state.action";
+import { descriptionFor, effectFor } from "@core/models/spells/spells.utils";
+import {
+    GameStateUpdateHeroAction,
+    CombatStateHeroSpell,
+} from "./../models/game-state/game-state.action";
 import { Hero, Fighter } from "./../models/entity";
 import { Store } from "@ngrx/store";
 import { Injectable } from "@angular/core";
@@ -12,6 +15,7 @@ import {
     OvertimeSpells,
     HealSpells,
 } from "@core/models/spells/spells.model";
+import { take } from "rxjs/operators";
 
 @Injectable({
     providedIn: "root",
@@ -79,33 +83,21 @@ export class CombatService {
         this.fightIntervals.clear();
         this.isFigthing = false;
     }
+
     death() {
         this.stop();
         this.initialize(this.hero, this.fighter);
     }
 
     activateSpell(spell: Spells | OvertimeSpells | HealSpells) {
-        this.fighter.hp =
-            this.fighter.hp - descriptionFor(spell, this.hero).param;
-        let equipped = [...this.hero.equippedSpell];
-        let index = equipped.findIndex((s: Spells) => s.id == spell.id);
-        equipped[index] = { ...equipped[index], isInCooldown: true };
+        effectFor(spell, this.fighter, this.hero);
         this.store.dispatch(
-            new GameStateUpdateHeroAction({
-                ...this.hero,
-                equippedSpell: equipped,
-            })
+            new CombatStateHeroSpell({ ...spell, isInCooldown: true })
         );
         this.fightIntervals.add(
-            timer(equipped[index].cooldown * 1000).subscribe(() => {
-                console.log("refresh cd");
-                equipped = [...equipped];
-                equipped[index] = { ...equipped[index], isInCooldown: false };
+            timer(spell.cooldown * 1000).subscribe(() => {
                 this.store.dispatch(
-                    new GameStateUpdateHeroAction({
-                        ...this.hero,
-                        equippedSpell: equipped,
-                    })
+                    new CombatStateHeroSpell({ ...spell, isInCooldown: false })
                 );
             })
         );

@@ -73,7 +73,11 @@ export function houseReducer(
             return {
                 ...state,
                 trainingEquipment: update(
-                    state.trainingEquipment,
+                    [...state.trainingEquipment].map((t) => {
+                        return t.id != action.payload
+                            ? { ...t, isTraining: false }
+                            : t;
+                    }),
                     (t: TrainingEquipment) => t.id == action.payload,
                     (t: TrainingEquipment) => ({
                         ...t,

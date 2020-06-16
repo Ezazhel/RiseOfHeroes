@@ -5,6 +5,7 @@ import {
     style,
     animate,
     transition,
+    AnimationEvent,
 } from "@angular/animations";
 @Component({
     selector: "app-progressbar",

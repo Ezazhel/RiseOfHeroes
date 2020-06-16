@@ -22,7 +22,10 @@
         "spellbook": {
             "name": "Livre des sorts",
             "activeTab": "Actif",
-            "passiveTab": "Passif"
+            "passiveTab": "Passif",
+            "heroSpell": "Vos sorts",
+            "equipInSlot": "Equiper en : ",
+            "requiredLevel": "requiert lvl {{ lvl }}"
         }
     },
     "hud-tools": {

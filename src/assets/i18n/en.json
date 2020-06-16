@@ -22,7 +22,10 @@
         "spellbook": {
             "name": "Spell book",
             "activeTab": "Active",
-            "passiveTab": "Passive"
+            "passiveTab": "Passive",
+            "heroSpell": "Your spell",
+            "equipInSlot": "Equip in slot",
+            "requiredLevel": "required lvl {{ lvl }}"
         }
     },
     "hud-tools": {

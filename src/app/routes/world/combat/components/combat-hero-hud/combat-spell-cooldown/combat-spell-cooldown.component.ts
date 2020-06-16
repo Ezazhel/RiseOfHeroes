@@ -9,6 +9,8 @@ import {
     NgZone,
     AfterViewInit,
     OnDestroy,
+    Output,
+    EventEmitter,
 } from "@angular/core";
 import {
     Spells,
@@ -26,8 +28,8 @@ export class CombatSpellCooldownComponent
     implements OnInit, AfterViewInit, OnDestroy {
     @Input() index: number;
     @Input() spell: Spells | OvertimeSpells | HealSpells;
-
-    @ViewChild("mycanvas", { static: false }) canvas: ElementRef<
+    @Output("rdy") spellReady = new EventEmitter<boolean>();
+    @ViewChild("cooldown", { static: false }) canvas: ElementRef<
         HTMLCanvasElement
     >;
     private ctx: CanvasRenderingContext2D;
@@ -42,7 +44,7 @@ export class CombatSpellCooldownComponent
     ngAfterViewInit(): void {
         this.ctx = this.canvas.nativeElement.getContext("2d");
         this.subscription = of(this.spell).subscribe((s) => {
-            if (s.isInCooldown) {
+            if (s?.isInCooldown) {
                 const cooldown: Cooldown = new Cooldown(
                     this.ctx,
                     this.canvas.nativeElement,
@@ -51,6 +53,7 @@ export class CombatSpellCooldownComponent
                 );
                 this.ngZone.runOutsideAngular(() => cooldown.gaugeCooldown());
             } else {
+                this.spellReady.emit(true);
                 if (this.subscription != undefined)
                     this.subscription.unsubscribe();
             }

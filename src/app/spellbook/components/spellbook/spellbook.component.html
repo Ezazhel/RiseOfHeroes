@@ -29,5 +29,21 @@
             [spells]="getActiveSpells(_spells$ | async, false)"
             *ngIf="tabs == 'passive'"
         ></app-spellbook-list>
+        <div fxLayout="column" fxLayoutAlign="center center" class="heroSpell">
+            <h5>{{ t("spellbook.heroSpell") }}</h5>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <hero-spell
+                    [spell]="spell"
+                    [index]="index"
+                    [tooltip]="spell"
+                    [tooltip-type]="'spell'"
+                    *ngFor="
+                        let spell of (hero$ | async).equippedSpell;
+                        let index = index;
+                        trackBy: trackByEquipped
+                    "
+                ></hero-spell>
+            </div>
+        </div>
     </app-modal>
 </ng-container>

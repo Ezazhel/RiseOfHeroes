@@ -39,6 +39,10 @@ export class SpellbookComponent implements OnInit {
     switchTabs(tabs: tabsType) {
         this.tabs = tabs;
     }
+
+    trackByEquipped(index: number, el: Spells) {
+        return index;
+    }
     constructor(private store: Store<AppState>) {}
 
     ngOnInit(): void {}

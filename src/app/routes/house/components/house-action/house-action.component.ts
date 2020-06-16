@@ -25,6 +25,7 @@ import { MessageService } from "@core/services";
 export class HouseActionComponent implements OnInit, OnDestroy {
     public dTab: string = "training";
     idlingTimer: number; //Timer general allowing only one training or working.
+    timeOutFilling: number;
 
     private _hero$: Subject<Hero> = new BehaviorSubject<Hero>(null);
     hero$: Observable<Hero> = this._hero$;
@@ -68,40 +69,12 @@ export class HouseActionComponent implements OnInit, OnDestroy {
             return;
         }
         clearTimeout(this.idlingTimer);
+        clearTimeout(this.timeOutFilling);
+
         // this.training = this.training.map((value, key) => false);
         this.store.dispatch(new HouseTraining(stat));
         this.idling(hero, stat, training);
     }
-
-    public work = {
-        working: false,
-        time: 1000,
-        reward: 1,
-    };
-
-    goToWork(): void {
-        clearTimeout(this.idlingTimer);
-
-        this.working();
-    }
-    private working() {
-        this.work = { ...this.work, working: true };
-
-        this.idlingTimer = window.setTimeout(() => {
-            this.store.dispatch(
-                new GameStateCurrenciesAddCurrencyAction({
-                    name: "gold",
-                    quantity: this.work.reward,
-                })
-            );
-            this.working();
-        }, this.work.time);
-        setTimeout(
-            () => (this.work = { ...this.work, working: false }),
-            this.work.time - 1
-        );
-    }
-
     private idling(
         hero: Hero,
         stat: TrainingType,
@@ -152,21 +125,43 @@ export class HouseActionComponent implements OnInit, OnDestroy {
                 done: trainEquipment.done + 1,
             });
         }, trainEquipment.speed);
-        setTimeout(() => {
+        this.timeOutFilling = window.setTimeout(() => {
             this.store.dispatch(new HouseTraining(stat));
         }, trainEquipment.speed - 1);
     }
+    public work = {
+        working: false,
+        time: 1000,
+        reward: 1,
+    };
 
-    public trackByFn(
-        index: number,
-        el: Map<TrainingType, TrainingEquipment>
-    ): number {
+    goToWork(): void {
+        clearTimeout(this.idlingTimer);
+
+        this.working();
+    }
+    private working() {
+        this.work = { ...this.work, working: true };
+
+        this.idlingTimer = window.setTimeout(() => {
+            this.store.dispatch(
+                new GameStateCurrenciesAddCurrencyAction({
+                    name: "gold",
+                    quantity: this.work.reward,
+                })
+            );
+            this.working();
+        }, this.work.time);
+        setTimeout(
+            () => (this.work = { ...this.work, working: false }),
+            this.work.time - 1
+        );
+    }
+
+    public trackByFn(index: number, el: TrainingEquipment) {
         return index;
     }
-    constructor(
-        private store: Store<AppState>,
-        private messageService: MessageService
-    ) {}
+    constructor(private store: Store<AppState>) {}
 
     ngOnInit(): void {}
 

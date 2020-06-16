@@ -19,27 +19,50 @@
                 <label>
                     {{ t(spell.name) }}
                 </label>
-                <select
-                    *ngIf="spell.isActive && spell.levelRequired <= hero.level"
+
+                <div
+                    *ngIf="
+                        spell.isActive &&
+                        spell.levelRequired <= hero.level &&
+                        hero.hp === hero.maxHp
+                    "
                 >
-                    <option>
-                        Equip in slot
-                    </option>
-                    <option>
-                        1
-                    </option>
-                    <option>
-                        2
-                    </option>
-                    <option>
-                        3
-                    </option>
-                    <option>
-                        4
-                    </option>
-                </select>
+                    <span class="equipSlotSpan">{{
+                        t("hud-modal.spellbook.equipInSlot")
+                    }}</span>
+                    <div fxLayout="row">
+                        <button
+                            [ngClass]="isActiveSpell(spell, 0)"
+                            (click)="equipSpell(spell, 0)"
+                        >
+                            1
+                        </button>
+                        <button
+                            [ngClass]="isActiveSpell(spell, 1)"
+                            (click)="equipSpell(spell, 1)"
+                        >
+                            2
+                        </button>
+                        <button
+                            [ngClass]="isActiveSpell(spell, 2)"
+                            (click)="equipSpell(spell, 2)"
+                        >
+                            3
+                        </button>
+                        <button
+                            [ngClass]="isActiveSpell(spell, 3)"
+                            (click)="equipSpell(spell, 3)"
+                        >
+                            4
+                        </button>
+                    </div>
+                </div>
                 <span *ngIf="spell.levelRequired > hero.level">
-                    required lvl {{ spell.levelRequired }}
+                    {{
+                        t("hud-modal.spellbook.requiredLevel", {
+                            lvl: spell.levelRequired
+                        })
+                    }}
                 </span>
             </div>
         </div>

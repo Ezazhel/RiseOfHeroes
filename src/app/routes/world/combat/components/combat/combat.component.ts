@@ -1,6 +1,6 @@
 import { fighters } from "@core/models/game-data/game-data.data";
 import { heroSelector } from "@core/models/selector";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AppState } from "@core/models";
@@ -13,6 +13,8 @@ import {
     OvertimeSpells,
     HealSpells,
 } from "@core/models/spells/spells.model";
+import { GameStateUpdateHeroAction } from "@core/models/game-state/game-state.action";
+import { first } from "rxjs/operators";
 @Component({
     selector: "app-combat",
     templateUrl: "./combat.component.html",
@@ -22,7 +24,7 @@ export class CombatComponent implements OnInit, OnDestroy {
     public hero$: Observable<Hero> = this.store.pipe(select(heroSelector));
     public fighter: Fighter =
         fighters[toNumber(this.route.snapshot.paramMap.get("monster"))];
-
+    subscription: Subscription;
     activateSpell(spell: Spells | OvertimeSpells | HealSpells) {
         this.combatService.activateSpell(spell);
     }
@@ -34,11 +36,20 @@ export class CombatComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
-        this.hero$.subscribe((h: Hero) =>
+        this.subscription = this.hero$.subscribe((h: Hero) =>
             this.combatService.initialize(h, this.fighter)
         );
     }
     ngOnDestroy(): void {
+        this.hero$.pipe(first()).subscribe((h: Hero) =>
+            this.store.dispatch(
+                new GameStateUpdateHeroAction({
+                    ...h,
+                    hp: h.maxHp,
+                })
+            )
+        );
+        this.subscription.unsubscribe();
         this.combatService.stop();
     }
 }

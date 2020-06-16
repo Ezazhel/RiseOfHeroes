@@ -10,6 +10,7 @@ import {
 } from "../game-data/game-data.model";
 import { GameService } from "@core/services";
 import { update, updateInsert } from "../utils";
+import { Spells } from "../spells/spells.model";
 
 const initialState: GameState = {
     companions: null,
@@ -68,6 +69,21 @@ export function gameRecuder(
             };
         case GameStateAction.GAME_EQUIP_ITEM_HERO:
             return { ...state, hero: EquipHero(state.hero, action.payload) };
+        case GameStateAction.COMBAT_HERO_SPELL:
+            return {
+                ...state,
+                hero: {
+                    ...state.hero,
+                    equippedSpell: update(
+                        state.hero.equippedSpell,
+                        (s: Spells) => s.id === action.payload.id,
+                        (s: Spells) => ({
+                            ...s,
+                            isInCooldown: action.payload.isInCooldown,
+                        })
+                    ),
+                },
+            };
         default:
             return state;
     }

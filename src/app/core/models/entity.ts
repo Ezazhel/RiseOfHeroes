@@ -76,8 +76,8 @@ export interface Fighter extends EntityObject {
     attackSpeed: number;
     defense: number;
     hp: number;
-    level: number;
     maxHp: number;
-    items?: ITemplateBaseItem;
-    ressources?: Currency;
+    level: number;
+    items?: ITemplateBaseItem[];
+    ressources?: Currency[];
 }
