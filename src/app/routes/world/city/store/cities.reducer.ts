@@ -2,7 +2,8 @@ import { City, Shop, baseHuntingAction, Building } from "./cities.model";
 import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
 import * as CityAction from "./cities.action";
 import { update } from "@core/models/utils";
-import { createUpgrade, upgrade } from "@core/models/upgrades";
+import { createUpgrade } from "@core/models/upgrades";
+import { dummyCraft } from "@core/models/game-data/game-data.data";
 
 const initialState: CitiesState = {
     cities: [
@@ -19,7 +20,7 @@ const initialState: CitiesState = {
                     maxItemQuality: 1,
                     maxItem: 5,
                     items: [],
-                    crafts: [],
+                    crafts: [{ ...dummyCraft }],
                     upgrades: [
                         {
                             ...createUpgrade("faster", 2, 500, "faster"),

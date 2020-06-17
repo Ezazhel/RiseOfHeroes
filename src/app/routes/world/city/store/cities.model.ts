@@ -1,6 +1,9 @@
 import {
     ITemplateBaseItem,
     ItemSellableType,
+    Currency,
+    ITemplateArmor,
+    ITemplateWeapon,
 } from "@core/models/game-data/game-data.model";
 import { UpgradeType } from "@core/models/upgrades";
 import { ActionType } from "@core/models/actions";
@@ -23,7 +26,7 @@ export interface Shop {
     maxItem?: number;
     items: ITemplateBaseItem[];
     display: boolean;
-    crafts?: any[];
+    crafts?: Craft[];
     upgrades?: ShopUpgrade[];
     acceptType: ItemSellableType;
     intervalStock?: number; //time for a restock in second
@@ -60,3 +63,12 @@ export const baseHuntingAction: BuildingAction = {
     effectId: 0, //Function to hunt, redirect to route with the monster as parameters.
     description: "city.city_building.huntingPost.action.description",
 };
+
+export interface Craft {
+    name: string;
+    weaponArmor: CraftSet[];
+}
+export interface CraftSet {
+    equipment: ITemplateWeapon | ITemplateArmor;
+    materials: Currency[];
+}

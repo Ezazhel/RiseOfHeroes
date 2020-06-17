@@ -10,6 +10,15 @@ import {
 } from "./game-data/game-data.model";
 import * as baseItem from "./game-data/game-data.data";
 import { toNumber } from "@ngneat/transloco";
+import {
+    commonFormula,
+    uncommonFormula,
+    rareFormula,
+    epicFormula,
+    uPrice,
+    rPrice,
+    ePrice,
+} from "./utils";
 
 export const Icons: Map<WeaponCategory | ArmorCategory, string[]> = new Map([
     ["axe", generateIconArray("a", 24)],
@@ -22,11 +31,6 @@ export const Icons: Map<WeaponCategory | ArmorCategory, string[]> = new Map([
     ["pants", generateIconArray("p", 21)],
     ["boots", generateIconArray("b", 17)],
 ]);
-
-const commonFormula = (stat: number) => stat * 1.3;
-const uncommonFormula = (stat: number) => stat * 1.3 + 1;
-const rareFormula = (stat: number) => (uncommonFormula(stat) + 4) * 1.2;
-const epicFormula = (stat: number) => (rareFormula(stat) + 8) * 1.2;
 
 function generateIconArray(icon: string, number: number) {
     let array: Array<string> = new Array<string>();
@@ -250,9 +254,6 @@ function generateWeapon(
 }
 
 function modifyPrice(quality: ItemQuality, price: number) {
-    const uPrice = (price) => price * 3;
-    const rPrice = (price) => uPrice(price) * 3;
-    const ePrice = (price) => rPrice(price) * 2.5;
     switch (quality) {
         case "uncommon":
             price = uPrice(price);

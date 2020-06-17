@@ -81,3 +81,15 @@ export function fighterColor(diflvl: number): FighterColor {
 
     return "normal";
 }
+
+//#region Stat
+export const commonFormula = (stat: number) => stat * 1.3;
+export const uncommonFormula = (stat: number) => stat * 1.3 + 1;
+export const rareFormula = (stat: number) => (uncommonFormula(stat) + 4) * 1.2;
+export const epicFormula = (stat: number) => (rareFormula(stat) + 8) * 1.2;
+//#endregion Stat
+//#region  Price
+export const uPrice = (price) => price * 3;
+export const rPrice = (price) => uPrice(price) * 3;
+export const ePrice = (price) => rPrice(price) * 2.5;
+//#endregion Price

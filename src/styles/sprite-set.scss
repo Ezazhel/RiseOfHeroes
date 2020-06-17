@@ -1,0 +1,31 @@
+@mixin stitches-dummy($x: 0, $y: 0, $width: 0, $height: 0) {
+    background-position: $x $y;
+    width: $width;
+    height: $height;
+}
+
+.dummy {
+    background-image: url(~/assets/dummy_set.png);
+    background-repeat: no-repeat;
+    display: block;
+
+    &.-dummy_arm {
+        @include stitches-dummy(-5px, -5px, 48px, 48px);
+    }
+
+    &.-dummy_bt {
+        @include stitches-dummy(-63px, -5px, 48px, 48px);
+    }
+
+    &.-dummy_gls {
+        @include stitches-dummy(-5px, -63px, 48px, 48px);
+    }
+
+    &.-dummy_hlm {
+        @include stitches-dummy(-63px, -63px, 48px, 48px);
+    }
+
+    &.-dummy_pn {
+        @include stitches-dummy(-121px, -5px, 48px, 48px);
+    }
+}

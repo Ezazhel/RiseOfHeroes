@@ -7,6 +7,7 @@ import { CityShopContentUpgradeComponent } from "./city-shop/city-shop-content/c
 import { CityBuildingComponent } from "./city-building/city-building.component";
 import { HuntingPost } from "./city-building/hunt/city-building-huntingPost";
 import { HuntPostPost } from "./city-building/hunt/city-building-hunt-post-post.component";
+import { CityShopCraftComponent } from "./city-shop/city-shop-content/city-shop-craft/city-shop-craft.component";
 
 export const components: any[] = [
     CityComponent,
@@ -18,6 +19,7 @@ export const components: any[] = [
     CityBuildingComponent,
     HuntingPost,
     HuntPostPost,
+    CityShopCraftComponent,
 ];
 
 export * from "./city/city.component";

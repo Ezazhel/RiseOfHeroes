@@ -220,12 +220,7 @@ export const baseGloves: ITemplateArmor = {
     ],
 };
 //#endregion Armor
-
-import {
-    generateReward,
-    generateRandomArmor,
-    generateRandomWeapon,
-} from "@core/models/item-generation";
+import { Craft } from "@routes/world/city/store/cities.model";
 //#region Monster
 export const fighters: Fighter[] = [
     {
@@ -269,6 +264,36 @@ export const fighters: Fighter[] = [
         defense: 75,
     },
 ];
+
+export const dummyCraft: Craft = {
+    name: "Dummy",
+    weaponArmor: [
+        {
+            equipment: { ...baseChest },
+            materials: [{ name: "gold", quantity: 300 }],
+        },
+        {
+            equipment: { ...baseHelmet },
+            materials: [{ name: "gold", quantity: 300 }],
+        },
+        {
+            equipment: { ...basePants },
+            materials: [{ name: "gold", quantity: 300 }],
+        },
+        {
+            equipment: { ...baseGloves },
+            materials: [{ name: "gold", quantity: 300 }],
+        },
+        {
+            equipment: { ...baseBoots },
+            materials: [{ name: "gold", quantity: 300 }],
+        },
+        {
+            equipment: { ...basePants },
+            materials: [{ name: "gold", quantity: 300 }],
+        },
+    ],
+};
 //#endregion Monster
 
 //#region City
