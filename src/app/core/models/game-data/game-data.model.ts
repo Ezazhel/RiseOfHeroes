@@ -1,3 +1,4 @@
+import { PossibleReward } from "./../item-generation";
 import { newGuid } from "../utils";
 import { EntityType } from "../entity";
 
@@ -135,4 +136,12 @@ export function instantiateEntity<T extends ITemplateId>(
 /** Generate a UUID for a given input template ID that is unique across all instances of the same template base */
 export function entityId(id: string): string {
     return `${id}-${newGuid()}`;
+}
+export type LootBagPossibleReward = "weapon" | "armor" | "currency" | "none";
+export interface LootbagItem {
+    item: LootBagPossibleReward;
+    itemQuality?: ItemQuality;
+    weigth: number;
+    rangeFrom?: number;
+    rangeTo?: number;
 }

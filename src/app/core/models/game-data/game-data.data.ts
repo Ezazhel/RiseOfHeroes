@@ -1,5 +1,5 @@
 import { Fighter } from "./../entity";
-import { Stat } from "./game-data.model";
+import { Stat, LootbagItem } from "./game-data.model";
 import { ITemplateWeapon, ITemplateArmor } from "./game-data.model";
 //#region Stats
 export const strenghtStat: Stat = {
@@ -221,6 +221,11 @@ export const baseGloves: ITemplateArmor = {
 };
 //#endregion Armor
 
+import {
+    generateReward,
+    generateRandomArmor,
+    generateRandomWeapon,
+} from "@core/models/item-generation";
 //#region Monster
 export const fighters: Fighter[] = [
     {
@@ -233,6 +238,13 @@ export const fighters: Fighter[] = [
         level: 1,
         maxHp: 350,
         defense: 0,
+        lootbag: [
+            { item: "none", weigth: 60 },
+            { item: "weapon", itemQuality: "common", weigth: 30 },
+            { item: "armor", itemQuality: "common", weigth: 30 },
+            { item: "weapon", itemQuality: "rare", weigth: 15 },
+            { item: "armor", itemQuality: "rare", weigth: 15 },
+        ],
     },
     {
         eid: "1",

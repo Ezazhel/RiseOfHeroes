@@ -1,3 +1,4 @@
+import { DetailComponent } from "./inventory-slot/inventory-slot-detail/detail/detail.component";
 import { InventorySlotDetailComponent } from "./inventory-slot/inventory-slot-detail/inventory-slot-detail.component";
 import { InventorySlotItemComponent } from "./inventory-slot/inventory-slot-item/inventory-slot-item.component";
 import { InventorySlotComponent } from "./inventory-slot/inventory-slot.component";
@@ -7,6 +8,7 @@ export const components: any[] = [
     InventorySlotComponent,
     InventorySlotItemComponent,
     InventorySlotDetailComponent,
+    DetailComponent,
 ];
 
 export * from "./inventory-slot/inventory-slot-item/inventory-slot-item.component";

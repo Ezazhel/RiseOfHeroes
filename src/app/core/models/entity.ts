@@ -2,6 +2,7 @@ import {
     Currency,
     Stat,
     StatType,
+    LootbagItem,
 } from "@core/models/game-data/game-data.model";
 import {
     ITemplateWeapon,
@@ -61,6 +62,7 @@ export type FighterColor =
     | "harder"
     | "impossible";
 
+type LootBagMethod = (level) => ITemplateBaseItem | Currency[];
 export interface Fighter extends EntityObject {
     name: string;
     icon?: string;
@@ -70,8 +72,7 @@ export interface Fighter extends EntityObject {
     hp: number;
     maxHp: number;
     level: number;
-    items?: ITemplateBaseItem[];
-    ressources?: Currency[];
+    lootbag?: LootbagItem[];
     buffs?: OvertimeSpells[];
     debuffs?: OvertimeSpells[];
 }

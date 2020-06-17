@@ -18,7 +18,8 @@ import {
 } from "@core/models/spells/spells.model";
 import { take } from "rxjs/operators";
 import { rewardXp, getXPForLevel, levelUp } from "@core/models/level";
-import { generateReward } from "@core/models/item-generation";
+import { generateReward, getFromLootbag } from "@core/models/item-generation";
+import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
 
 @Injectable({
     providedIn: "root",
@@ -120,10 +121,12 @@ export class CombatService {
             new GameStateUpdateHeroAction(levelUp(this.hero, this.fighter))
         );
         //random loot from monster dropbag
-        this.store.dispatch(
-            new GameStateInventoryAddItemAction(
-                generateReward(this.fighter.level, 2)
-            )
-        );
+        let rwd = getFromLootbag(
+            this.fighter.level,
+            this.fighter.lootbag
+        ) as ITemplateBaseItem;
+        if (rwd != undefined) {
+            this.store.dispatch(new GameStateInventoryAddItemAction(rwd));
+        }
     }
 }

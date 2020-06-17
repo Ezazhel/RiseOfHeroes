@@ -1,0 +1,72 @@
+<ng-container *transloco="let t">
+    <div *ngIf="item" class="description" fxLayout="column nowrap">
+        <span *ngIf="equipped" class="equipped">
+            {{ t("game.equipped") }}
+        </span>
+        <span class="{{ item.quality }}">{{ item.name }} </span>
+        <div *ngIf="consumable; else weaponOrArmor">
+            Template item
+        </div>
+        <ng-template #weaponOrArmor>
+            <div class="stat" fxLayout="column nowrap">
+                <ng-container *ngIf="equipment.type === 'weapon'">
+                    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                        <label> {{ equipment.weaponHandling }} </label>
+                        <label>
+                            {{ equipment.subType }}
+                        </label>
+                    </div>
+                    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                        <label>
+                            {{
+                                t("game.weapon.damage", {
+                                    attack: equipment.attack
+                                })
+                            }}
+                        </label>
+                        <label>
+                            {{
+                                t("game.weapon.speed", {
+                                    speed: equipment.speed / 1000
+                                })
+                            }}
+                        </label>
+                    </div>
+                    {{
+                        t("game.weapon.dps", {
+                            dps: equipment.dps
+                        })
+                    }}
+                </ng-container>
+                <ng-container *ngIf="equipment.type === 'armor'">
+                    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                        <label>
+                            {{ equipment.subType }}
+                        </label>
+                    </div>
+                    <div fxLayout="row nowrap" fxLayoutAlign="space-between">
+                        <label>
+                            {{ equipment.armor }}
+                            {{ t("game.stats.armor") }}
+                        </label>
+                    </div>
+                </ng-container>
+                <!-- Loop of an array Stats. -->
+                <label *ngFor="let stat of equipment.stats">
+                    +{{ stat.value }} {{ t(stat.name) }}
+                </label>
+                <label> Runes </label>
+            </div>
+        </ng-template>
+        <div
+            fxLayout="row"
+            class="goldLevel"
+            fxLayoutAlign="space-between center"
+        >
+            <span>{{
+                t("game.requiredLevel", { level: equipment.level })
+            }}</span>
+            <span>{{ equipment.value }}g</span>
+        </div>
+    </div>
+</ng-container>

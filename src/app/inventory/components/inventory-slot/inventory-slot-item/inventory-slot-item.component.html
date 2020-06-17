@@ -1,12 +1,13 @@
 <!-- Need to refactor that one -->
-<div class="slot-item {{ item.quality }}">
+<div
+    class="slot-item {{ item.quality }}"
+    (click)="equipItem()"
+    [ngClass]="{ disabled: (hero$ | async).hp != (hero$ | async).maxHp }"
+>
     <span class="{{ item.subType }} {{ item.icon }}"> </span>
     <button
         (click)="sellOrThrow()"
         class="throw"
         [ngClass]="{ throw: !selling, sell: selling }"
     ></button>
-    <button (click)="equipItem()" class="equip">
-        {{ item.type === "item" ? "U" : "E" }}
-    </button>
 </div>

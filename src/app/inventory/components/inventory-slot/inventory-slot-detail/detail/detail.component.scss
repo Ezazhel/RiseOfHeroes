@@ -1,0 +1,33 @@
+@import "variables.scss";
+:host {
+    width: 250px;
+    .description {
+        background: hsl(228, 60%, 8%);
+        border: 2px solid white;
+        border-radius: 5px;
+        color: white;
+        padding: 5px;
+        .equipped {
+            font-size: xx-small;
+        }
+        .stat {
+            margin-top: 5px;
+            font-size: smaller;
+        }
+        .rare {
+            color: $blueRareItem;
+        }
+        .uncommon {
+            color: $greenCommonItem;
+        }
+        .epic {
+            color: $purpleEpicItem;
+        }
+        .common {
+            color: $lavenderTextOnBody;
+        }
+        .goldLevel {
+            font-size: smaller;
+        }
+    }
+}

@@ -46,7 +46,10 @@ export function levelUp(hero: Hero, fighter: Fighter): Hero {
         });
         stats = [...baseStats].map((s) => ({
             ...s,
-            value: AddPassivesToStat(s.value, s.type, hero),
+            value: AddPassivesToStat(s.value, s.type, {
+                ...hero,
+                level: level,
+            }),
         }));
         maxHp = getHeroMaxHp(stats.find((s) => s.type == "endurance").value);
     }

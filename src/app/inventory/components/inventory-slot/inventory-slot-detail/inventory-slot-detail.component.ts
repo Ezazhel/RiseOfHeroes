@@ -4,7 +4,7 @@ import {
     ITemplateItem,
     ITemplateBaseItem,
 } from "@core/models/game-data/game-data.model";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
 
 @Component({
     selector: "app-inventory-slot-detail",
@@ -14,19 +14,20 @@ import { Component, OnInit, Input } from "@angular/core";
 export class InventorySlotDetailComponent implements OnInit {
     @Input("item") set item(value: ITemplateBaseItem) {
         if (value === undefined) return;
-        if (value.type === "item") {
-            this.consumable = value as ITemplateItem;
-        } else {
-            this.equipment = value as ITemplateWeapon | ITemplateArmor;
-        }
         this._item = value;
     }
     get item(): ITemplateBaseItem {
         return this._item;
     }
+    @Input("itemEquipped") set itemEquipped(value: ITemplateBaseItem) {
+        if (value === undefined || value === null) return;
+        this._itemEquipped = value;
+    }
+    get itemEquipped(): ITemplateBaseItem {
+        return this._itemEquipped;
+    }
     _item: ITemplateBaseItem;
-    consumable: ITemplateItem;
-    equipment: ITemplateWeapon | ITemplateArmor;
+    _itemEquipped: ITemplateBaseItem;
     constructor() {}
 
     ngOnInit(): void {}

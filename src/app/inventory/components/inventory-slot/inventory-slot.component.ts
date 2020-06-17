@@ -1,12 +1,22 @@
 import { goldSelector } from "./../../../core/models/selector";
-import { ItemFilter, Currency } from "@core/models/game-data/game-data.model";
+import {
+    ItemFilter,
+    Currency,
+    ITemplateWeapon,
+    ITemplateArmor,
+} from "@core/models/game-data/game-data.model";
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Observable } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
 import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
-import { inventoryFiltered, currencySelector } from "@core/models/selector";
+import {
+    inventoryFiltered,
+    currencySelector,
+    equippedSelector,
+} from "@core/models/selector";
 import { GameStateInventoryRemoveItemAction } from "@core/models/game-state/game-state.action";
+import { take } from "rxjs/operators";
 @Component({
     selector: "app-inventory-slot",
     templateUrl: "./inventory-slot.component.html",
@@ -21,7 +31,6 @@ export class InventorySlotComponent implements OnInit {
     public items$: Observable<ITemplateBaseItem[]> = this.store.pipe(
         select(inventoryFiltered(this.filter))
     );
-
     public _currencies$: Observable<Array<Currency>> = this.store.pipe(
         select(currencySelector)
     );
@@ -30,6 +39,15 @@ export class InventorySlotComponent implements OnInit {
     public setItem(item: ITemplateBaseItem) {
         this.item = item;
         this.itemNull.emit(item == null);
+    }
+
+    public equipped(item: ITemplateBaseItem) {
+        let equipped: ITemplateBaseItem;
+        this.store
+            .select(equippedSelector(item?.type == "weapon", item?.subType))
+            .pipe(take(1))
+            .subscribe((i) => (equipped = i));
+        return equipped;
     }
 
     filterBy(type: string) {

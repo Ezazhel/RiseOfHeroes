@@ -1,4 +1,3 @@
-import { goldSelector } from "./../../../../../../../core/models/selector";
 import {
     Component,
     OnInit,
@@ -19,7 +18,12 @@ import { ShopService } from "@core/services/shop.service";
 import { Subscription, timer, Observable } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
-import { currencySelector } from "@core/models/selector";
+import {
+    currencySelector,
+    goldSelector,
+    equippedSelector,
+} from "@core/models/selector";
+import { take } from "rxjs/operators";
 @Component({
     selector: "app-city-shop-content-shop",
     templateUrl: "./city-shop-content-shop.component.html",
@@ -92,6 +96,14 @@ export class CityShopContentShopComponent
         this.itemNull.emit(item == null);
     }
 
+    public equipped(item: ITemplateBaseItem) {
+        let equipped: ITemplateBaseItem;
+        this.store
+            .select(equippedSelector(item?.type == "weapon", item?.subType))
+            .pipe(take(1))
+            .subscribe((i) => (equipped = i));
+        return equipped;
+    }
     trackByFn(index: number, item: ITemplateBaseItem): number {
         return index;
     }

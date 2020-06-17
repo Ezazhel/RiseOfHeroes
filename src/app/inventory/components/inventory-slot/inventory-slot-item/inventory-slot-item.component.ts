@@ -36,7 +36,7 @@ export class InventorySlotItemComponent implements OnInit {
     @Input() selling: boolean;
     @Output() itemHover = new EventEmitter<ITemplateBaseItem>();
     @Output() sellThrow = new EventEmitter<ITemplateBaseItem>();
-
+    hero$ = this.store.select(heroSelector);
     style: string;
     descriptionDisplay: string;
     delayedAction: number;
@@ -56,6 +56,7 @@ export class InventorySlotItemComponent implements OnInit {
             .select(heroSelector)
             .pipe(first())
             .subscribe((hero) => {
+                if (hero.hp != hero.maxHp) return;
                 let heroItem = null;
                 if (this.item.type == "armor") {
                     switch (this.item.subType as ArmorCategory) {
@@ -105,12 +106,13 @@ export class InventorySlotItemComponent implements OnInit {
                         })
                     );
                 }
+                this.store.dispatch(
+                    new GameStateEquipItemHeroAction(this.item)
+                );
+                this.store.dispatch(
+                    new GameStateInventoryRemoveItemAction(this.item.id)
+                );
+                this.itemHover.emit(null);
             });
-        this.store.dispatch(new GameStateEquipItemHeroAction(this.item));
-        this.store.dispatch(
-            new GameStateInventoryRemoveItemAction(this.item.id)
-        );
-        this.itemHover.emit(null);
-        //if hero have an item in slot, add item to inventory
     }
 }

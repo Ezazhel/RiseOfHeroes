@@ -30,6 +30,7 @@ export class ToolTipDirective implements OnInit {
     @Input("tooltip") item:
         | ITemplateBaseItem
         | (Spells | OvertimeSpells | HealSpells);
+    @Input("tooltip-equipped") itemEquipped: ITemplateBaseItem;
     @Input("tooltip-detach") detach: EventEmitter<boolean> = new EventEmitter<
         boolean
     >();
@@ -78,6 +79,7 @@ export class ToolTipDirective implements OnInit {
                 tooltipRef = this.overlayRef.attach(
                     new ComponentPortal(InventorySlotDetailComponent)
                 );
+                (tooltipRef.instance as InventorySlotDetailComponent).itemEquipped = this.itemEquipped;
                 break;
         }
         tooltipRef.instance.item = this.item;

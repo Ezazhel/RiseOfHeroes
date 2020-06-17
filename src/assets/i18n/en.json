@@ -68,7 +68,8 @@
             "speed": "Speed {{speed}}",
             "dps": "({{dps}} damage per second)"
         },
-        "requiredLevel": "level {{level}}"
+        "requiredLevel": "level {{level}}",
+        "equipped": "Equipped"
     },
     "house": {
         "yourHouse": "This is your house",

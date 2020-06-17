@@ -2,6 +2,9 @@ import {
     ITemplateBaseItem,
     ItemFilter,
     Currency,
+    ItemCategories,
+    WeaponCategory,
+    ArmorCategory,
 } from "./game-data/game-data.model";
 import { createSelector } from "@ngrx/store";
 import { GameState } from "@core/models/game-state/game-state.reducer";
@@ -20,6 +23,27 @@ export const heroSelector = createSelector(
     (gameState: GameState) => gameState.hero
 );
 
+export const equippedSelector = (
+    isWeapon: boolean,
+    armorCategory?: ArmorCategory
+) =>
+    createSelector(heroSelector, (h: Hero) => {
+        if (isWeapon) return h?.weapon;
+        else {
+            switch (armorCategory) {
+                case "chest":
+                    return h?.chest;
+                case "boots":
+                    return h?.boots;
+                case "gloves":
+                    return h?.gloves;
+                case "helmet":
+                    return h?.helmet;
+                case "pants":
+                    return h?.pants;
+            }
+        }
+    });
 export const levelSelector = createSelector(
     gameStateSelector,
     (gameState: GameState) => gameState.hero.level

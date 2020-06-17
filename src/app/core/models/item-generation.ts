@@ -6,9 +6,9 @@ import {
     ArmorCategory,
     ItemCategories,
     entityId,
+    LootbagItem,
 } from "./game-data/game-data.model";
 import * as baseItem from "./game-data/game-data.data";
-import { toInteger } from "lodash";
 import { toNumber } from "@ngneat/transloco";
 
 export const Icons: Map<WeaponCategory | ArmorCategory, string[]> = new Map([
@@ -35,6 +35,31 @@ function generateIconArray(icon: string, number: number) {
     }
     return array;
 }
+
+export const QualityArray: Array<ItemQuality> = [
+    "common",
+    "uncommon",
+    "rare",
+    "epic",
+    "legendary",
+];
+export const WeaponTypeArray: Array<WeaponCategory> = [
+    "dagger",
+    "hammer",
+    "axe",
+    "sword",
+];
+
+export const ArmorTypeArray: Array<ArmorCategory> = [
+    "helmet",
+    "chest",
+    "gloves",
+    "pants",
+    "boots",
+];
+
+export const PossibleReward: Array<ItemCategories> = ["armor", "weapon"];
+
 function randomize(array: Array<any>): number {
     return Math.floor(Math.random() * array.length);
 }
@@ -47,16 +72,24 @@ function pickRandomReward(): ItemCategories {
     return PossibleReward[randomize(PossibleReward)];
 }
 
-export function generateReward(level: number, maxQuality: number) {
+export function generateReward(
+    level: number,
+    maxQuality: number,
+    setQuality?: ItemQuality
+) {
     switch (pickRandomReward()) {
         case "weapon":
-            return generateRandomWeapon(level, maxQuality);
+            return generateRandomWeapon(level, maxQuality, setQuality);
         case "armor":
-            return generateRandomArmor(level, maxQuality);
+            return generateRandomArmor(level, maxQuality, setQuality);
     }
 }
 
-export function generateRandomWeapon(level: number, maxQuality: number) {
+export function generateRandomWeapon(
+    level: number,
+    maxQuality: number,
+    setQuality?: ItemQuality
+) {
     let type = WeaponTypeArray[randomize(WeaponTypeArray)];
     const quality = [...QualityArray].splice(0, maxQuality);
     switch (type) {
@@ -66,7 +99,8 @@ export function generateRandomWeapon(level: number, maxQuality: number) {
                 "dagger",
                 level,
                 Icons.get("dagger"),
-                quality
+                quality,
+                setQuality
             );
         case "hammer":
             return generateWeapon(
@@ -74,7 +108,8 @@ export function generateRandomWeapon(level: number, maxQuality: number) {
                 "hammer",
                 level,
                 Icons.get("hammer"),
-                quality
+                quality,
+                setQuality
             );
         case "sword":
             return generateWeapon(
@@ -82,7 +117,8 @@ export function generateRandomWeapon(level: number, maxQuality: number) {
                 "sword",
                 level,
                 Icons.get("sword"),
-                quality
+                quality,
+                setQuality
             );
         case "axe":
             return generateWeapon(
@@ -90,12 +126,17 @@ export function generateRandomWeapon(level: number, maxQuality: number) {
                 "axe",
                 level,
                 Icons.get("axe"),
-                quality
+                quality,
+                setQuality
             );
     }
 }
 
-export function generateRandomArmor(level: number, maxQuality: number) {
+export function generateRandomArmor(
+    level: number,
+    maxQuality: number,
+    setQuality?: ItemQuality
+) {
     let type = ArmorTypeArray[randomize(ArmorTypeArray)];
     const quality = [...QualityArray].splice(0, maxQuality);
     switch (type) {
@@ -105,7 +146,8 @@ export function generateRandomArmor(level: number, maxQuality: number) {
                 "boots",
                 level,
                 Icons.get("boots"),
-                quality
+                quality,
+                setQuality
             );
 
         case "chest":
@@ -114,7 +156,8 @@ export function generateRandomArmor(level: number, maxQuality: number) {
                 "chest",
                 level,
                 Icons.get("chest"),
-                quality
+                quality,
+                setQuality
             );
 
         case "gloves":
@@ -123,7 +166,8 @@ export function generateRandomArmor(level: number, maxQuality: number) {
                 "gloves",
                 level,
                 Icons.get("gloves"),
-                quality
+                quality,
+                setQuality
             );
         case "helmet":
             return generateArmor(
@@ -131,7 +175,8 @@ export function generateRandomArmor(level: number, maxQuality: number) {
                 "helmet",
                 level,
                 Icons.get("helmet"),
-                quality
+                quality,
+                setQuality
             );
 
         case "pants":
@@ -140,7 +185,8 @@ export function generateRandomArmor(level: number, maxQuality: number) {
                 "pants",
                 level,
                 Icons.get("pants"),
-                quality
+                quality,
+                setQuality
             );
     }
 }
@@ -150,9 +196,13 @@ function generateArmor(
     id: string,
     level: number,
     icons: Array<string>,
-    maxQuality: Array<ItemQuality>
+    maxQuality: Array<ItemQuality>,
+    setQuality?: ItemQuality
 ): ITemplateArmor {
-    let quality = QualityArray[randomize(maxQuality)];
+    let quality =
+        setQuality != undefined
+            ? setQuality
+            : QualityArray[randomize(maxQuality)];
     return {
         ...baseArmor,
         id: entityId(id),
@@ -168,14 +218,18 @@ function generateArmor(
         })),
     };
 }
-export function generateWeapon(
+function generateWeapon(
     baseWeapon: ITemplateWeapon,
     id: string,
     level: number,
     icons: Array<string>,
-    maxQuality: Array<ItemQuality>
+    maxQuality: Array<ItemQuality>,
+    setQuality?: ItemQuality
 ) {
-    let quality = QualityArray[randomize(maxQuality)];
+    let quality =
+        setQuality != undefined
+            ? setQuality
+            : QualityArray[randomize(maxQuality)];
 
     return {
         ...baseWeapon,
@@ -229,27 +283,23 @@ function modifyStat(quality: ItemQuality, statValue: number) {
     }
     return Math.floor(statValue);
 }
-
-export const QualityArray: Array<ItemQuality> = [
-    "common",
-    "uncommon",
-    "rare",
-    "epic",
-    "legendary",
-];
-export const WeaponTypeArray: Array<WeaponCategory> = [
-    "dagger",
-    "hammer",
-    "axe",
-    "sword",
-];
-
-export const ArmorTypeArray: Array<ArmorCategory> = [
-    "helmet",
-    "chest",
-    "gloves",
-    "pants",
-    "boots",
-];
-
-export const PossibleReward: Array<ItemCategories> = ["armor", "weapon"];
+export function getFromLootbag(level: number, bag: LootbagItem[]) {
+    let totalWeigth: number = 1;
+    bag = [...bag].map((el) => {
+        el = { ...el, rangeFrom: totalWeigth };
+        totalWeigth = totalWeigth + el.weigth;
+        return { ...el, rangeTo: totalWeigth - 1 };
+    });
+    let rndNumber = Math.floor(Math.random() * totalWeigth);
+    let rwd = bag.find(
+        (l) => rndNumber >= l.rangeFrom && rndNumber <= l.rangeTo
+    );
+    switch (rwd.item) {
+        case "armor":
+            return generateRandomArmor(level, 0, rwd.itemQuality);
+            break;
+        case "weapon":
+            return generateRandomWeapon(level, 0, rwd.itemQuality);
+            break;
+    }
+}

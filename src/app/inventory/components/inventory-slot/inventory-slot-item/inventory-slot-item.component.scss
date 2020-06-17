@@ -4,13 +4,11 @@
 .slot-item {
     width: 48px;
     margin: 4px;
-    height: 58px;
+    height: 48px;
     user-select: none;
     box-shadow: 0px 0px 3px 1.5px grey;
     position: relative;
-    &.slot-item:not(.empty) {
-        cursor: pointer;
-    }
+    cursor: pointer;
     &.rare {
         box-shadow: 0px 0px 5px 2px $blueRareItem;
     }
@@ -22,6 +20,9 @@
     }
     &.epic {
         box-shadow: 0px 0px 5px 2px $purpleEpicItem;
+    }
+    &.disabled {
+        cursor: default;
     }
 }
 
