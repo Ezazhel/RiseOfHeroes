@@ -55,6 +55,15 @@
                 <label> Runes </label>
             </div>
         </ng-template>
-        <span class="price">{{ equipment.value }}g</span>
+        <div
+            fxLayout="row"
+            class="goldLevel"
+            fxLayoutAlign="space-between center"
+        >
+            <span>{{
+                t("game.requiredLevel", { level: equipment.level })
+            }}</span>
+            <span>{{ equipment.value }}g</span>
+        </div>
     </div>
 </ng-container>

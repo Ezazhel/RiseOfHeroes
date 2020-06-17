@@ -67,6 +67,14 @@ export class GameService {
                     character as Hero
                 )
             ),
+            hp: getHeroMaxHp(
+                AddPassivesToStat(
+                    character.baseStats.find((s) => s.type == "endurance")
+                        .value,
+                    "endurance",
+                    character as Hero
+                )
+            ),
         });
         return character as Hero;
     }

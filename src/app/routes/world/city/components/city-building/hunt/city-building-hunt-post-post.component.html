@@ -1,4 +1,4 @@
-<app-card class="hunting" *transloco="let t">
+<app-card class="hunting" *transloco="let t" class="{{ getColor() }}">
     <ng-container cardHeader>
         <!-- Icon -->
         <i class="mob {{ fighter.icon }}"></i>
@@ -6,13 +6,27 @@
     <ng-container cardBody>
         <!-- Stat -->
         <div fxLayout="column" fxLayoutAlign="space-around center">
+            <label> Level : {{ fighter.level }}</label>
+            <label> Hp : {{ fighter.maxHp }}</label>
             <label> Attack : {{ fighter.attack }}</label>
             <label> Defense : {{ fighter.defense }}</label>
             <label> Attack speed : {{ fighter.attackSpeed / 1000 }}/s</label>
-            <label> Exp : {{ fighter.exp }}</label>
+            <label> Exp : {{ rewardExp() }}</label>
         </div>
     </ng-container>
     <ng-container cardFooter>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="grow">
+            <button *ngIf="fighter.level > 1" (click)="upgrade(false)">
+                <
+            </button>
+            <button
+                *ngIf="fighter.level < city.maxLevel"
+                (click)="upgrade(true)"
+                style="margin-left: auto;"
+            >
+                >
+            </button>
+        </div>
         <button (click)="effect(action)">
             {{ t(action.description, descriptionFor(action)) }}
         </button>

@@ -14,6 +14,7 @@ import {
 import { Hero } from "@core/models/entity";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { map, first } from "rxjs/operators";
+import { getXPForLevel } from "@core/models/level";
 
 @Component({
     selector: "app-combat-hero-hud",
@@ -34,6 +35,13 @@ export class CombatHeroHudComponent implements OnInit {
     healthPercentage$: Observable<number> = this.hero$.pipe(
         map((hero: Hero) => {
             return hero ? Math.round((hero.hp / hero.maxHp) * 100) : 0;
+        })
+    );
+    expPercentage$: Observable<number> = this.hero$.pipe(
+        map((hero: Hero) => {
+            return hero
+                ? Math.round((hero.exp / this.getXPForLevel(hero.level)) * 100)
+                : 0;
         })
     );
 
@@ -65,6 +73,9 @@ export class CombatHeroHudComponent implements OnInit {
         this.casted(true);
     }
 
+    getXPForLevel(level: number): number {
+        return getXPForLevel(level);
+    }
     trackByFn(index: number, el: Spells | OvertimeSpells | HealSpells) {
         return el;
     }

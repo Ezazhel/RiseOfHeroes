@@ -1,4 +1,4 @@
-export type TrainingType = "strength" | "endurance";
+export type TrainingType = "none" | "strength" | "endurance";
 export type IdleType = "strength" | "endurance" | "gold";
 export interface TrainingEquipment {
     id: TrainingType;

@@ -67,7 +67,8 @@
             "damage": "{{attack}} damage",
             "speed": "Speed {{speed}}",
             "dps": "({{dps}} damage per second)"
-        }
+        },
+        "requiredLevel": "level {{level}}"
     },
     "house": {
         "yourHouse": "This is your house",
@@ -110,7 +111,9 @@
             "huntingPost": {
                 "name": "Hunting Post",
                 "action": {
-                    "description": "Hunt : {{fighters}}"
+                    "description": "Hunt : {{fighters}}",
+                    "upgrade": "Buff {{fighter}}",
+                    "decrease": "Nerf {{fighter}}"
                 }
             },
             "Mayor": "Mayor",
@@ -151,6 +154,10 @@
             "stronger": {
                 "name": "Stronger materials",
                 "effect": "Improve all stat by 10% each level (cumulative)"
+            },
+            "more": {
+                "name": "I love crafting said the blacksmith",
+                "effect": "Blacksmith will create one more item per level, currently : {{maxItem}}"
             }
         },
         "alchemist": {
@@ -169,6 +176,7 @@
         }
     },
     "spells": {
+        "cooldown": "{{cooldown}} sec cooldown",
         "peasant": {
             "powerAttack": {
                 "name": "Power attack",
@@ -184,7 +192,7 @@
             },
             "peasantTorch": {
                 "name": "Peasant's Torch",
-                "description": "Peasant's Torch deal {{ param }} damage over {{ param2 }} seconds"
+                "description": "Peasant's Torch deal {{ param }} damage over {{ param2 }} seconds (only one active, doesn't stack)"
             }
         }
     }

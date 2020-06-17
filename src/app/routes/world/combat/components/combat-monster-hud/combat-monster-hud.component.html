@@ -25,7 +25,7 @@
                             Attack speed :
                             {{ fighter.attackSpeed / 1000 }}/s</label
                         >
-                        <label> Exp : {{ fighter.exp }}</label>
+                        <label> Exp : {{ rewardExp() }}</label>
                     </div>
                 </div>
             </div>
@@ -36,6 +36,20 @@
                         class="fillingBar"
                         [style.width.%]="healthPercentage(fighter)"
                     ></div>
+                </div>
+                <div fxLayout="row">
+                    <combat-spell-cooldown
+                        *ngFor="
+                            let spell of fighter?.debuffs;
+                            let index = index;
+                            trackBy: trackByFn
+                        "
+                        [spell]="spell"
+                        [index]="index"
+                        [isSkill]="false"
+                        style="transform: scale(0.5);"
+                    >
+                    </combat-spell-cooldown>
                 </div>
             </div>
         </ng-container>

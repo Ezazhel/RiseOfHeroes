@@ -10,6 +10,7 @@ import {
 } from "@core/models/utils";
 import { AddPassivesToStat } from "@core/models/spells/spells.utils";
 import { PassiveBuff } from "@core/models/spells/spells.model";
+import { getXPForLevel } from "@core/models/level";
 @Component({
     selector: "app-character-stats",
     templateUrl: "./character-stats.component.html",
@@ -27,6 +28,10 @@ export class CharacterStatsComponent implements OnInit {
     }
     getDamage(): number {
         return getHeroDamage(this.hero);
+    }
+
+    expNextLevel(level: number) {
+        return getXPForLevel(level);
     }
     trackBy(index: number, stat: Stat): string {
         return stat.type;

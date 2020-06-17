@@ -1,6 +1,19 @@
-<div class="action" #action>
-    <div class="action-internal">
-        <i class="peasant {{ spell?.icon }}" [attr.data-key]="index + 1"></i>
-        <canvas #cooldown width="48" height="48"></canvas>
+<ng-container *ngIf="isSkill; else dot">
+    <div class="action" #action>
+        <div class="action-internal">
+            <i
+                class="peasant {{ spell?.icon }}"
+                [attr.data-key]="index + 1"
+            ></i>
+            <canvas #cooldown width="48" height="48"></canvas>
+        </div>
     </div>
-</div>
+</ng-container>
+<ng-template #dot>
+    <div class="action" #action>
+        <div class="action-internal">
+            <i class="peasant {{ spell?.icon }}"></i>
+            <canvas #cooldown width="48" height="48"></canvas>
+        </div>
+    </div>
+</ng-template>

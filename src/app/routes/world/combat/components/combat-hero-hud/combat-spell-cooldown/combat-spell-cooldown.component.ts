@@ -28,6 +28,7 @@ export class CombatSpellCooldownComponent
     implements OnInit, AfterViewInit, OnDestroy {
     @Input() index: number;
     @Input() spell: Spells | OvertimeSpells | HealSpells;
+    @Input() isSkill = true;
     @Output("rdy") spellReady = new EventEmitter<boolean>();
     @ViewChild("cooldown", { static: false }) canvas: ElementRef<
         HTMLCanvasElement
@@ -44,18 +45,31 @@ export class CombatSpellCooldownComponent
     ngAfterViewInit(): void {
         this.ctx = this.canvas.nativeElement.getContext("2d");
         this.subscription = of(this.spell).subscribe((s) => {
-            if (s?.isInCooldown) {
+            if (this.isSkill) {
+                if (s?.isInCooldown) {
+                    const cooldown: Cooldown = new Cooldown(
+                        this.ctx,
+                        this.canvas.nativeElement,
+                        this.spell,
+                        this.action.nativeElement
+                    );
+                    this.ngZone.runOutsideAngular(() =>
+                        cooldown.gaugeCooldown()
+                    );
+                } else {
+                    this.spellReady.emit(true);
+                    if (this.subscription != undefined)
+                        this.subscription.unsubscribe();
+                }
+            } else {
                 const cooldown: Cooldown = new Cooldown(
                     this.ctx,
                     this.canvas.nativeElement,
                     this.spell,
-                    this.action.nativeElement
+                    this.action.nativeElement,
+                    this.isSkill
                 );
                 this.ngZone.runOutsideAngular(() => cooldown.gaugeCooldown());
-            } else {
-                this.spellReady.emit(true);
-                if (this.subscription != undefined)
-                    this.subscription.unsubscribe();
             }
         });
     }
@@ -72,7 +86,8 @@ export class Cooldown {
         private ctx: CanvasRenderingContext2D,
         private canvas: HTMLCanvasElement,
         private spell: Spells | OvertimeSpells | HealSpells,
-        private element: HTMLElement
+        private element: HTMLElement,
+        private isSkill = true
     ) {}
 
     clearCanvas() {
@@ -98,7 +113,9 @@ export class Cooldown {
         }
     }
     initiateCooldown() {
-        this.cd = this.spell.cooldown * 1000;
+        this.cd = this.isSkill
+            ? this.spell.cooldown * 1000
+            : (this.spell as OvertimeSpells).duration * 1000;
         if (!this.timer) {
             this.timer = window.setTimeout(
                 this.endCooldown.bind(this),

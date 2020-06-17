@@ -1,5 +1,10 @@
 <ng-container *transloco="let tsl; read: 'city.city_shop.content'">
-    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="_shop">
+    <div
+        fxLayout="row"
+        class="container"
+        fxLayoutAlign="space-between"
+        *ngIf="_shop"
+    >
         <ng-container *ngIf="displayedContent === 'shop'">
             <app-city-shop-content-shop
                 [shop]="_shop"

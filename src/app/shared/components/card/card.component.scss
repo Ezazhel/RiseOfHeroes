@@ -32,13 +32,29 @@
     }
     &.hunting {
         width: 128px;
-        height: 250px;
+        height: 300px;
         font-size: small;
         cursor: default !important;
-        box-shadow: 0 0 1px 1px $carreraWhite;
-        &:hover {
-            box-shadow: 0 0 1px 1px $carreraWhite;
-            transform: none;
+        @mixin shadowFColor($color) {
+            box-shadow: 0 0 10px 5px $color;
+        }
+        &.useless {
+            @include shadowFColor($lightgreybutton);
+        }
+        &.easy {
+            @include shadowFColor($eucalyptus);
+        }
+        &.normal {
+            @include shadowFColor($carreraWhite);
+        }
+        &.hard {
+            @include shadowFColor($orange);
+        }
+        &.harder {
+            @include shadowFColor($red);
+        }
+        &.impossible {
+            @include shadowFColor(black);
         }
         .card-header {
             padding: 0px !important;

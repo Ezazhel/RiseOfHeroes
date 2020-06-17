@@ -1,7 +1,8 @@
-import { City, Shop } from "./cities.model";
+import { City, Shop, baseHuntingAction, Building } from "./cities.model";
 import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
 import * as CityAction from "./cities.action";
 import { update } from "@core/models/utils";
+import { createUpgrade, upgrade } from "@core/models/upgrades";
 
 const initialState: CitiesState = {
     cities: [
@@ -10,29 +11,24 @@ const initialState: CitiesState = {
             name: "Zul'Ah",
             description: "city.zulah.description",
             levelRequirement: 0,
+            maxLevel: 5,
             shops: [
                 {
                     type: "blacksmith",
                     name: "city.city_shop.blacksmith",
                     maxItemQuality: 1,
+                    maxItem: 5,
                     items: [],
                     crafts: [],
                     upgrades: [
                         {
-                            name: "upgrades.blacksmith.faster.name",
-                            description: "upgrades.blacksmith.faster.effect",
-                            upgradeType: "faster",
-                            level: 0,
-                            levelMax: 5,
-                            basePrice: 1000,
+                            ...createUpgrade("faster", 2, 500, "faster"),
                         },
                         {
-                            name: "upgrades.blacksmith.better.name",
-                            description: "upgrades.blacksmith.better.effect",
-                            upgradeType: "better",
-                            level: 0,
-                            levelMax: 2,
-                            basePrice: 2000,
+                            ...createUpgrade("better", 2, 2000, "better"),
+                        },
+                        {
+                            ...createUpgrade("more", 5, 250, "more"),
                         },
                     ],
                     display: false,
@@ -76,28 +72,22 @@ const initialState: CitiesState = {
                     name: "city.city_building.huntingPost.name",
                     actions: [
                         {
-                            type: "hunt",
+                            ...baseHuntingAction,
                             targetId: 0, //Combatant
-                            effectId: 0, //Function to hunt, redirect to route with the monster as parameters.
-                            name: "",
-                            description:
-                                "city.city_building.huntingPost.action.description",
+                            currentLevel: 1,
+                            maxLevel: 5,
                         },
                         {
-                            type: "hunt",
+                            ...baseHuntingAction,
                             targetId: 1, //Combatant
-                            effectId: 0, //Function to hunt, redirect to route with the monster as parameters.
-                            name: "",
-                            description:
-                                "city.city_building.huntingPost.action.description",
+                            currentLevel: 1,
+                            maxLevel: 5,
                         },
                         {
-                            type: "hunt",
+                            ...baseHuntingAction,
                             targetId: 2, //Combatant
-                            effectId: 0, //Function to hunt, redirect to route with the monster as parameters.
-                            name: "",
-                            description:
-                                "city.city_building.huntingPost.action.description",
+                            currentLevel: 1,
+                            maxLevel: 5,
                         },
                     ],
                 },
@@ -186,6 +176,22 @@ export function citiesReducer(
                             c.shops,
                             (s: Shop) => s.type == action.payload.shop.type,
                             (s: Shop) => action.payload.shop
+                        ),
+                    })
+                ),
+            };
+        case CityAction.CITY_BUILDING_UPGRADE_FIGHTER:
+            return {
+                ...state,
+                cities: update(
+                    state.cities,
+                    (c: City) => c.id == action.payload.city,
+                    (c: City) => ({
+                        ...c,
+                        building: update(
+                            c.building,
+                            (b: Building) => b.type == "huntingPost",
+                            (b: Building) => action.payload.building
                         ),
                     })
                 ),

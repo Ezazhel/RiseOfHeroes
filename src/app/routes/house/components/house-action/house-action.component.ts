@@ -1,4 +1,4 @@
-import { update } from "@core/models/utils";
+import { update, getHeroMaxHp } from "@core/models/utils";
 import {
     HouseUpdateTrainingEquipmentDone,
     HouseTraining,
@@ -86,21 +86,7 @@ export class HouseActionComponent implements OnInit, OnDestroy {
         // this.training = this.training.update(stat, () => true);
 
         this.idlingTimer = window.setTimeout(() => {
-            hero = {
-                ...hero,
-                baseStats: update(
-                    hero.baseStats,
-                    (s) => s.type === stat,
-                    (s) => ({ ...s, value: s.value + trainEquipment.reward })
-                ),
-            };
-            hero = {
-                ...hero,
-                stats: hero.baseStats.map((s) => ({
-                    ...s,
-                    value: AddPassivesToStat(s.value, s.type, hero),
-                })),
-            };
+            hero = this.heroAfterTraining(hero, trainEquipment, stat);
             this.store.dispatch(new GameStateUpdateHeroAction(hero));
             this.store.dispatch(new HouseUpdateTrainingEquipmentDone(stat));
             this.store.dispatch(new HouseTraining(stat));
@@ -117,6 +103,37 @@ export class HouseActionComponent implements OnInit, OnDestroy {
             this.store.dispatch(new HouseTraining(stat));
         }, trainEquipment.speed - 1);
     }
+
+    private heroAfterTraining(
+        hero: Hero,
+        trainEquipment: TrainingEquipment,
+        stat: TrainingType
+    ) {
+        let baseStats = update(
+            hero.baseStats,
+            (s) => s.type === stat,
+            (s) => ({ ...s, value: s.value + trainEquipment.reward })
+        );
+        let stats = update(
+            baseStats,
+            (s) => s.type === stat,
+            (s) => ({
+                ...s,
+                value: AddPassivesToStat(s.value, s.type, hero),
+            })
+        );
+        let maxHp = getHeroMaxHp(
+            stats.find((s) => s.type == "endurance").value
+        );
+        return {
+            ...hero,
+            baseStats,
+            stats,
+            maxHp,
+            hp: maxHp,
+        };
+    }
+
     public work = {
         working: false,
         time: 1000,
@@ -125,7 +142,8 @@ export class HouseActionComponent implements OnInit, OnDestroy {
 
     goToWork(): void {
         clearTimeout(this.idlingTimer);
-
+        clearTimeout(this.timeOutFilling);
+        this.store.dispatch(new HouseTraining("none"));
         this.working();
     }
     private working() {

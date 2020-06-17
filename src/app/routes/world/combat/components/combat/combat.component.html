@@ -1,6 +1,10 @@
 <div fxLayout="row nowrap" fxLayoutAlign="center center">
     <!-- If multiFighter -->
-    <app-combat-monster-hud [fighter]="fighter"> </app-combat-monster-hud>
+    <app-combat-monster-hud
+        [fighter]="fighter"
+        [heroLevel]="(hero$ | async).level"
+    >
+    </app-combat-monster-hud>
 </div>
 <app-combat-hero-hud [hero]="hero$ | async" (castSpell)="activateSpell($event)">
 </app-combat-hero-hud>

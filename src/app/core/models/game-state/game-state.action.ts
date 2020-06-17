@@ -1,6 +1,4 @@
-import { GameState } from "./game-state.reducer";
 import { Action } from "@ngrx/store";
-import { AppState } from "..";
 import { Currency, ITemplateBaseItem } from "../game-data/game-data.model";
 import { Hero } from "../entity";
 import { Spells } from "../spells/spells.model";

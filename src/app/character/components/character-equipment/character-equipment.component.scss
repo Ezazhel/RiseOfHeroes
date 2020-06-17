@@ -27,6 +27,22 @@ li {
     background-color: rgba(255, 255, 255, 0.1);
     box-sizing: border-box;
     color: $carreraWhite;
+    @mixin shadow($color) {
+        box-shadow: 0px 0px 0.15rem 0.2rem $color;
+    }
+    &.rare {
+        @include shadow($blueRareItem);
+    }
+    &.uncommon {
+        @include shadow($greenCommonItem);
+    }
+    &.epic {
+        @include shadow($purpleEpicItem);
+    }
+    &.common {
+        @include shadow($carreraWhite);
+        color: $body !important;
+    }
 }
 $gloves: -39px -5px;
 $head: -39px -39px;

@@ -53,10 +53,17 @@ export interface Hero extends BaseEntity {
 
 export interface Companion extends BaseEntity {}
 
+export type FighterColor =
+    | "useless"
+    | "easy"
+    | "normal"
+    | "hard"
+    | "harder"
+    | "impossible";
+
 export interface Fighter extends EntityObject {
     name: string;
     icon?: string;
-    exp: number;
     attack: number;
     attackSpeed: number;
     defense: number;
@@ -65,4 +72,6 @@ export interface Fighter extends EntityObject {
     level: number;
     items?: ITemplateBaseItem[];
     ressources?: Currency[];
+    buffs?: OvertimeSpells[];
+    debuffs?: OvertimeSpells[];
 }

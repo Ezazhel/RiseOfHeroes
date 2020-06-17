@@ -20,6 +20,11 @@ export const heroSelector = createSelector(
     (gameState: GameState) => gameState.hero
 );
 
+export const levelSelector = createSelector(
+    gameStateSelector,
+    (gameState: GameState) => gameState.hero.level
+);
+
 export const currencySelector = createSelector(
     gameStateSelector,
     (gameState: GameState) => gameState.currencies

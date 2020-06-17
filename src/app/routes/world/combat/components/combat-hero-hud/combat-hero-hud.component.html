@@ -16,6 +16,16 @@
                         [style.width.%]="healthPercentage$ | async"
                     ></div>
                 </div>
+                <div class="myProgress exp">
+                    <span>
+                        {{ (hero$ | async).exp }} /
+                        {{ getXPForLevel((hero$ | async).level) }}</span
+                    >
+                    <div
+                        class="fillingBar"
+                        [style.width.%]="expPercentage$ | async"
+                    ></div>
+                </div>
             </div>
         </ng-container>
         <ng-container cardFooter>

@@ -7,7 +7,7 @@
             {{ t(item.description, descriptionFor(item, hero$ | async)) }}
         </p>
         <span class="spell-cooldown" *ngIf="item.isActive">
-            {{ item.cooldown }} sec cooldown (add trad)
+            {{ t("spells.cooldown", { cooldown: item.cooldown }) }}
         </span>
     </div>
 </ng-container>

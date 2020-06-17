@@ -23,9 +23,10 @@ export const Icons: Map<WeaponCategory | ArmorCategory, string[]> = new Map([
     ["boots", generateIconArray("b", 17)],
 ]);
 
-const uncommonFormula = (stat: number) => stat * 1.3;
-const rareFormula = (stat: number) => (uncommonFormula(stat) + 5) * 1.2;
-const epicFormula = (stat: number) => (rareFormula(stat) + 10) * 1.2;
+const commonFormula = (stat: number) => stat * 1.3;
+const uncommonFormula = (stat: number) => stat * 1.3 + 1;
+const rareFormula = (stat: number) => (uncommonFormula(stat) + 4) * 1.2;
+const epicFormula = (stat: number) => (rareFormula(stat) + 8) * 1.2;
 
 function generateIconArray(icon: string, number: number) {
     let array: Array<string> = new Array<string>();
@@ -161,19 +162,10 @@ function generateArmor(
         name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
         armor: modifyStat(quality, baseArmor.armor * level),
         value: modifyPrice(quality, baseArmor.value * level),
-        stats: [
-            {
-                ...baseItem.strenghtStat,
-                value: modifyStat(quality, baseItem.strenghtStat.value * level),
-            },
-            {
-                ...baseItem.enduranceStat,
-                value: modifyStat(
-                    quality,
-                    baseItem.enduranceStat.value * level
-                ),
-            },
-        ],
+        stats: [...baseArmor.stats].map((s) => ({
+            ...s,
+            value: modifyStat(quality, commonFormula(s.value) * level),
+        })),
     };
 }
 export function generateWeapon(
@@ -191,23 +183,15 @@ export function generateWeapon(
         level: level,
         icon: pickRandomIcon(icons),
         name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
+        attack: baseWeapon.attack * level,
         value: modifyPrice(quality, baseWeapon.value * level),
         dps: toNumber(
-            (baseWeapon.attack / (baseWeapon.speed / 1000)).toFixed(2)
+            ((baseWeapon.attack * level) / (baseWeapon.speed / 1000)).toFixed(2)
         ),
-        stats: [
-            {
-                ...baseItem.strenghtStat,
-                value: modifyStat(quality, baseItem.strenghtStat.value * level),
-            },
-            {
-                ...baseItem.enduranceStat,
-                value: modifyStat(
-                    quality,
-                    baseItem.enduranceStat.value * level
-                ),
-            },
-        ],
+        stats: [...baseWeapon.stats].map((s) => ({
+            ...s,
+            value: modifyStat(quality, commonFormula(s.value) * level),
+        })),
     };
 }
 

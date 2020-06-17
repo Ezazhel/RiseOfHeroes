@@ -21,31 +21,37 @@ import {
     generateRandomArmor,
     generateReward,
 } from "@core/models/item-generation";
+import { Observable } from "rxjs";
+import { levelSelector } from "@core/models/selector";
+import { first } from "rxjs/operators";
 @Injectable({
     providedIn: "root",
 })
 export class ShopService {
     cityId: string;
+    level$: Observable<number> = this.store.select(levelSelector);
     constructor(private store: Store<AppState>) {}
 
     renewShopItem(cityId: string = this.cityId, shop: Shop) {
+        let level: number;
+        this.level$.pipe(first()).subscribe((l) => (level = l));
         this.store.dispatch(
             new CityShopRenewItem({
                 city: cityId,
                 shopType: shop.type,
-                items: this.renewByType(shop.type, shop.maxItemQuality),
+                items: this.renewByType(level, shop),
             })
         );
     }
     private renewByType(
-        type: string,
-        maxQuality: number
+        level: number,
+        shop: Shop
     ): Array<ITemplateWeapon | ITemplateArmor> {
-        switch (type) {
+        switch (shop.type) {
             case "blacksmith":
                 let items: Array<ITemplateWeapon | ITemplateArmor> = [];
-                for (let i = 0; i < 10; i++) {
-                    let item = generateReward(1, maxQuality);
+                for (let i = 0; i < shop.maxItem; i++) {
+                    let item = generateReward(level, shop.maxItemQuality);
                     items.push(item);
                 }
                 return items;

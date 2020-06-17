@@ -1,4 +1,4 @@
-import { Hero } from "./entity";
+import { Hero, FighterColor } from "./entity";
 import * as _ from "lodash";
 import { Predicate } from "@angular/core";
 import { toNumber } from "@ngneat/transloco";
@@ -33,9 +33,10 @@ export function updateInsert<T>(
     updateFunc: (t?: T) => T,
     insertValue: T
 ): T[] {
+    if (arr === undefined) arr = [];
     let index = arr.findIndex(findIndexFunc);
     arr = [...arr];
-    return index != 1 && (arr[index] = updateFunc(arr[index]))
+    return index != -1 && (arr[index] = updateFunc(arr[index]))
         ? arr
         : [...arr].concat(insertValue);
 }
@@ -68,6 +69,15 @@ export function getHeroOffensivePower(hero: Hero): number {
 }
 
 export function getHeroMaxHp(endurance: number) {
-    console.log((endurance * 10).toFixed(2));
     return toNumber((endurance * 10).toFixed(2));
+}
+
+export function fighterColor(diflvl: number): FighterColor {
+    if (diflvl > 5) return "useless";
+    if (diflvl >= 2) return "easy";
+    if (diflvl <= -1 && diflvl >= -2) return "hard";
+    if (diflvl <= -3 && diflvl >= -4) return "harder";
+    if (diflvl <= -5) return "impossible";
+
+    return "normal";
 }

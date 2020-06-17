@@ -66,13 +66,7 @@ export function gameRecuder(
         case GameStateAction.GAME_UPDATE_HERO:
             return {
                 ...state,
-                hero: {
-                    ...action.payload,
-                    maxHp: getHeroMaxHp(
-                        action.payload.stats.find((s) => s.type === "endurance")
-                            .value
-                    ),
-                },
+                hero: action.payload,
             };
         case GameStateAction.GAME_EQUIP_ITEM_HERO:
             return { ...state, hero: EquipHero(state.hero, action.payload) };
@@ -150,5 +144,6 @@ function EquipHero(hero: Hero, item: ITemplateBaseItem): Hero {
         baseStats,
         stats,
         maxHp,
+        hp: maxHp,
     };
 }

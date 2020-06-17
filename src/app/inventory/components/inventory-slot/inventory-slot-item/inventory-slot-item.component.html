@@ -1,9 +1,5 @@
 <!-- Need to refactor that one -->
-<div
-    class="slot-item {{ item.quality }}"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseLeave()"
->
+<div class="slot-item {{ item.quality }}">
     <span class="{{ item.subType }} {{ item.icon }}"> </span>
     <button
         (click)="sellOrThrow()"

@@ -13,12 +13,14 @@ export interface City {
     description: string;
     shops?: Shop[];
     building?: Building[];
+    maxLevel: number;
     levelRequirement: number;
 }
 export interface Shop {
     type: ShopType; // Use as key in city.shops
     name: string;
     maxItemQuality?: number;
+    maxItem?: number;
     items: ITemplateBaseItem[];
     display: boolean;
     crafts?: any[];
@@ -46,7 +48,15 @@ export interface ShopUpgrade {
 export interface BuildingAction {
     type: ActionType;
     targetId?: number;
-    name: string;
+    maxLevel?: number;
+    currentLevel?: number;
+    name?: string;
     effectId: number;
     description: string;
 }
+
+export const baseHuntingAction: BuildingAction = {
+    type: "hunt",
+    effectId: 0, //Function to hunt, redirect to route with the monster as parameters.
+    description: "city.city_building.huntingPost.action.description",
+};

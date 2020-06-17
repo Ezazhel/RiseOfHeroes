@@ -67,7 +67,8 @@
             "damage": "{{attack}} dégâts",
             "speed": "Vitesse {{speed}}",
             "dps": "({{dps}} dégâts par seconde)"
-        }
+        },
+        "requiredLevel": "niveau {level}"
     },
     "house": {
         "yourHouse": "Ma maison",
@@ -111,7 +112,9 @@
             "huntingPost": {
                 "name": "Poste de chasse",
                 "action": {
-                    "description": "Chasser : {{fighters}}"
+                    "description": "Chasser : {{fighters}}",
+                    "upgrade": "Buff {{fighter}}",
+                    "decrease": "Nerf {{fighter}}"
                 }
             },
             "Mayor": "Maire",
@@ -152,6 +155,10 @@
             "stronger": {
                 "name": "C'est du solide",
                 "effect": "Les équipements de cette boutique sont 10% plus fort pour chaque niveau"
+            },
+            "more": {
+                "name": "Passion... forge",
+                "effect": "Le forgeron adore son métier. Il fabriquera un item en plus par niveau, actuellement : {{maxItem}}"
             }
         },
         "alchemist": {
@@ -170,6 +177,7 @@
         }
     },
     "spells": {
+        "cooldown": "{{cooldown}} sec rechargement",
         "peasant": {
             "powerAttack": {
                 "name": "Attaque puissante",
@@ -185,7 +193,7 @@
             },
             "peasantTorch": {
                 "name": "Torche du paysan",
-                "description": "Votre torche inflige {{ param }} dégâts sur {{ param2 }} secondes"
+                "description": "Votre torche inflige {{ param }} dégâts sur {{ param2 }} secondes, (un seul actif, ne se stack pas)"
             }
         }
     }

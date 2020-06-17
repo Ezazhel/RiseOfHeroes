@@ -26,6 +26,8 @@ export interface OvertimeSpells extends Spells {
     type: "debuff" | "buff";
     duration: number; //duraction of debuff
     curable: boolean; //can be cured ?
+    timeOut: number; /// id setTimeout;
+    interval: number; // id setInterval;
 }
 
 export interface HealSpells extends Spells {

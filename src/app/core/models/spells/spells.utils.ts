@@ -1,3 +1,4 @@
+import { updateInsert } from "@core/models/utils";
 import {
     Spells,
     OvertimeSpells,
@@ -7,6 +8,7 @@ import {
 import { Hero, EntitySubtype, Fighter } from "../entity";
 import { getHeroOffensivePower } from "../utils";
 import { toNumber } from "@ngneat/transloco";
+import { Observable } from "rxjs";
 
 type setType = "name" | "description";
 
@@ -107,7 +109,20 @@ const effects: Map<string, EffectMethod> = new Map([
     [
         "peasantTorch",
         (spells: OvertimeSpells, target: Fighter, launcher: Hero) => {
-            let dot = setInterval(() => {
+            if (
+                target.debuffs != undefined &&
+                target.debuffs.findIndex((d) => d.id == spells.id) != -1
+            ) {
+                //if already exist do not apply
+                return;
+            }
+            let timeOutDot = window.setTimeout(() => {
+                clearInterval(dot);
+                target.debuffs = target.debuffs.filter(
+                    (s) => s.id != spells.id
+                );
+            }, spells.duration * 1000);
+            let dot = window.setInterval(() => {
                 target.hp =
                     target.hp -
                     Math.floor(
@@ -116,7 +131,20 @@ const effects: Map<string, EffectMethod> = new Map([
                                 spells.power
                     );
             }, 1000);
-            setTimeout(() => clearInterval(dot), spells.duration * 1000);
+            target.debuffs = updateInsert(
+                target.debuffs,
+                (d) => d.id === spells.id,
+                (d: OvertimeSpells) => ({
+                    ...d,
+                    timeOut: timeOutDot,
+                    interval: dot,
+                }),
+                {
+                    ...spells,
+                    timeOut: timeOutDot,
+                    interval: dot,
+                }
+            );
         },
     ],
 ]);

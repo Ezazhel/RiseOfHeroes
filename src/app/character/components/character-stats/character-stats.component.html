@@ -15,7 +15,9 @@
 
         <li>
             <span class="stat-label"> {{ t("hud-stats.exp") }} :</span>
-            <span class="stat-value"> {{ hero.exp }}</span>
+            <span class="stat-value">
+                {{ hero.exp }}/{{ expNextLevel(hero.level) }}</span
+            >
         </li>
         <li>
             <span class="stat-label"> {{ t("game.stats.armor") }} :</span>

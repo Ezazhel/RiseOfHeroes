@@ -42,41 +42,81 @@ export const baseWeapon: ITemplateWeapon = {
 export const baseDagger: ITemplateWeapon = {
     ...baseWeapon,
     attack: 5, //will change accordigng to level of weapon and bonuses of hero
-    value: 20, //will change according to level of weapon and bonuses of hero
+    value: 50, //will change according to level of weapon and bonuses of hero
     subType: "dagger",
     speed: 1.6 * 1000,
     weaponHandling: "1h",
+    stats: [
+        {
+            ...strenghtStat,
+            value: 2,
+        },
+        {
+            ...enduranceStat,
+            value: 3,
+        },
+    ],
 };
 
 export const baseAxe: ITemplateWeapon = {
     ...baseWeapon,
     attack: 9, //will change accordigng to level of weapon and bonuses of hero
-    value: 35, //will change according to level of weapon and bonuses of hero
+    value: 65, //will change according to level of weapon and bonuses of hero
     subType: "axe",
     speed: 3.2 * 1000,
     weaponHandling: "2h",
+    stats: [
+        {
+            ...strenghtStat,
+            value: 4,
+        },
+        {
+            ...enduranceStat,
+            value: 5,
+        },
+    ],
 };
 export const baseHammer: ITemplateWeapon = {
     ...baseWeapon,
     attack: 12, //will change accordigng to level of weapon and bonuses of hero
-    value: 45, //will change according to level of weapon and bonuses of hero
+    value: 80, //will change according to level of weapon and bonuses of hero
     subType: "hammer",
     speed: 3.4 * 1000,
     weaponHandling: "2h",
+    stats: [
+        {
+            ...strenghtStat,
+            value: 4,
+        },
+        {
+            ...enduranceStat,
+            value: 5,
+        },
+    ],
 };
 
 export const baseSword: ITemplateWeapon = {
     ...baseWeapon,
     attack: 7, //will change accordigng to level of weapon and bonuses of hero
-    value: 25, //will change according to level of weapon and bonuses of hero
+    value: 55, //will change according to level of weapon and bonuses of hero
     subType: "sword",
     speed: 2.6 * 1000,
     weaponHandling: "1h",
+    stats: [
+        {
+            ...strenghtStat,
+            value: 3,
+        },
+        {
+            ...enduranceStat,
+            value: 4,
+        },
+    ],
 };
 export const baseTwoHandedSword: ITemplateWeapon = {
     ...baseWeapon,
     attack: 11, //will change accordigng to level of weapon and bonuses of hero
-    value: 45, //will change according to level of weapon and bonuses of hero
+    value: 75, //will change according to level of weapon and bonuses of hero
     subType: "sword",
     speed: 3.6 * 1000,
     weaponHandling: "2h",
@@ -97,37 +137,87 @@ export const baseArmor: ITemplateArmor = {
 
 export const baseChest: ITemplateArmor = {
     ...baseArmor,
-    value: 15,
+    value: 35,
     subType: "chest",
     armor: 15,
+    stats: [
+        {
+            ...strenghtStat,
+            value: 2,
+        },
+        {
+            ...enduranceStat,
+            value: 4,
+        },
+    ],
 };
 
 export const baseHelmet: ITemplateArmor = {
     ...baseArmor,
-    value: 5,
+    value: 15,
     subType: "helmet",
     armor: 5,
+    stats: [
+        {
+            ...strenghtStat,
+            value: 1,
+        },
+        {
+            ...enduranceStat,
+            value: 2,
+        },
+    ],
 };
 
 export const baseBoots: ITemplateArmor = {
     ...baseArmor,
-    value: 5,
+    value: 15,
     subType: "boots",
     armor: 5,
+    stats: [
+        {
+            ...strenghtStat,
+            value: 1,
+        },
+        {
+            ...enduranceStat,
+            value: 2,
+        },
+    ],
 };
 
 export const basePants: ITemplateArmor = {
     ...baseArmor,
-    value: 10,
+    value: 25,
     subType: "pants",
     armor: 10,
+    stats: [
+        {
+            ...strenghtStat,
+            value: 2,
+        },
+        {
+            ...enduranceStat,
+            value: 3,
+        },
+    ],
 };
 
 export const baseGloves: ITemplateArmor = {
     ...baseArmor,
-    value: 5,
+    value: 15,
     subType: "gloves",
     armor: 5,
+    stats: [
+        {
+            ...strenghtStat,
+            value: 1,
+        },
+        {
+            ...enduranceStat,
+            value: 2,
+        },
+    ],
 };
 //#endregion Armor
 
@@ -139,7 +229,6 @@ export const fighters: Fighter[] = [
         icon: "dummy_01",
         attack: 15,
         attackSpeed: 1 * 1000,
-        exp: 5,
         hp: 350,
         level: 1,
         maxHp: 350,
@@ -151,7 +240,6 @@ export const fighters: Fighter[] = [
         icon: "sheep_01",
         attack: 35,
         attackSpeed: 1.4 * 1000,
-        exp: 10,
         hp: 750,
         level: 1,
         maxHp: 750,
@@ -163,7 +251,6 @@ export const fighters: Fighter[] = [
         icon: "pig_01",
         attack: 65,
         attackSpeed: 1.5 * 1000,
-        exp: 15,
         hp: 1000,
         level: 1,
         maxHp: 1000,

@@ -1,7 +1,6 @@
 import { CitiesState } from "./cities.reducer";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { City } from "./cities.model";
-import { Map } from "immutable";
 
 export const citiesStateSelector = createFeatureSelector<CitiesState>("cities");
 

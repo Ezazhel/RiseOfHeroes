@@ -1,3 +1,4 @@
+import { City } from "./../../store/cities.model";
 import { descriptionFor } from "@core/models/actions";
 import { Observable } from "rxjs";
 import { Component, OnInit, Input } from "@angular/core";
@@ -11,7 +12,7 @@ import { Router } from "@angular/router";
 })
 export class CityBuildingComponent implements OnInit {
     @Input("building") building$: Observable<Building>;
-    @Input() cityId: number;
+    @Input() city: City;
 
     descriptionFor(a: BuildingAction) {
         return descriptionFor(a);
