@@ -52,4 +52,13 @@
             <span class="stat-value"> {{ getDps() }}</span>
         </li>
     </ul>
+    <h3>
+        {{ t("hud-stats.runes") }}
+    </h3>
+    <ul>
+        <li *ngFor="let rune of getRunes()">
+            <span class="stat-label"> {{ rune.type }} : </span>
+            <span class="stat-value"> {{ rune.currentLvl }}</span>
+        </li>
+    </ul>
 </ng-container>

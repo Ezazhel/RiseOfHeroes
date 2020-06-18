@@ -60,7 +60,11 @@
                 <label *ngFor="let stat of equipment.stats">
                     +{{ stat.value }} {{ t(stat.name) }}
                 </label>
-                <label> Runes </label>
+                <div fxLayout="column" class="runes">
+                    <label *ngFor="let rune of equipment.runes">
+                        +{{ rune.currentLvl }} {{ rune.type }}
+                    </label>
+                </div>
             </div>
         </ng-template>
         <div
@@ -71,7 +75,7 @@
             <span *ngIf="equipment.level > 0">{{
                 t("game.requiredLevel", { level: equipment.level })
             }}</span>
-            <span>{{ equipment.value }}g</span>
+            <span class="gold">{{ equipment.value }}g</span>
         </div>
     </div>
 </ng-container>

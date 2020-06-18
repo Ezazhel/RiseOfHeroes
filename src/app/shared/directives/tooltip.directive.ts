@@ -82,6 +82,7 @@ export class ToolTipDirective implements OnInit {
 
                 break;
             case "craft":
+                this.overlayRef.detach();
                 tooltipRef = this.overlayRef.attach(
                     new ComponentPortal(CraftDetailComponent)
                 );

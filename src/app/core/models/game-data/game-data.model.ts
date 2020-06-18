@@ -2,6 +2,7 @@ import { PossibleReward } from "./../item-generation";
 import { newGuid } from "../utils";
 import { EntityType } from "../entity";
 import { CurrencyType } from "./game-data.data";
+import { Rune } from "../runes/runes.model";
 
 export type ItemCategories = "item" | "weapon" | "armor";
 
@@ -90,6 +91,7 @@ export interface ITemplateItem extends ITemplateBaseItem {
 
 export interface ITemplateBaseEquipmennt extends ITemplateBaseItem {
     stats?: Stat[];
+    runes?: Rune[];
 }
 export interface ITemplateWeapon extends ITemplateBaseEquipmennt {
     readonly type: "weapon";

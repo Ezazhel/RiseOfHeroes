@@ -3,6 +3,7 @@
 @import "sprite-currencies.scss";
 :host {
     width: 250px;
+    height: fit-content;
     .description {
         background: hsl(228, 60%, 8%);
         border: 2px solid white;
@@ -33,6 +34,12 @@
         }
         .goldLevel {
             font-size: smaller;
+            .gold {
+                margin-left: auto;
+            }
+        }
+        .runes {
+            color: $eucalyptus;
         }
     }
 }

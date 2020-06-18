@@ -225,6 +225,8 @@ export const baseGloves: ITemplateArmor = {
 //#endregion Armor
 import { Craft } from "@routes/world/city/store/cities.model";
 import { setGear, setMaterial } from "../craft/craft.utils";
+import { swiftnessRune, powerRune, precisionRune } from "../runes/runes.data";
+
 //#region Monster
 export const fighters: Fighter[] = [
     {
@@ -288,55 +290,56 @@ export const dummyCraft: Craft = {
     name: "Dummy",
     weaponArmor: [
         {
-            equipment: setGear(
-                "dummy",
-                "Dummy Torso",
-                baseChest
-            ) as ITemplateArmor,
+            equipment: setGear("dummy", "Dummy Torso", {
+                ...baseChest,
+                runes: [
+                    { ...swiftnessRune, currentLvl: 1 },
+                    { ...powerRune, currentLvl: 1 },
+                ],
+            }) as ITemplateArmor,
             materials: setMaterial(
                 ["dummy-row", "dummy-screw", "dummy-wood"],
                 [2, 4, 6]
             ),
         },
         {
-            equipment: setGear(
-                "dummy",
-                "Dummy Head",
-                baseHelmet
-            ) as ITemplateArmor,
+            equipment: setGear("dummy", "Dummy Head", {
+                ...baseHelmet,
+                runes: [{ ...swiftnessRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
             materials: setMaterial(
                 ["dummy-row", "dummy-screw", "dummy-wood"],
                 [3, 2, 2]
             ),
         },
         {
-            equipment: setGear(
-                "dummy",
-                "Dummy Panties",
-                basePants
-            ) as ITemplateArmor,
+            equipment: setGear("dummy", "Dummy Panties", {
+                ...basePants,
+                runes: [
+                    { ...precisionRune, currentLvl: 1 },
+                    { ...swiftnessRune, currentLvl: 1 },
+                ],
+            }) as ITemplateArmor,
             materials: setMaterial(
                 ["dummy-row", "dummy-screw", "dummy-wood"],
                 [3, 3, 4]
             ),
         },
         {
-            equipment: setGear(
-                "dummy",
-                "Dummy Hands",
-                baseGloves
-            ) as ITemplateArmor,
+            equipment: setGear("dummy", "Dummy Hands", {
+                ...baseGloves,
+                runes: [{ ...precisionRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
             materials: setMaterial(
                 ["dummy-row", "dummy-screw", "dummy-wood"],
                 [3, 2, 2]
             ),
         },
         {
-            equipment: setGear(
-                "dummy",
-                "Dummy Boots",
-                baseBoots
-            ) as ITemplateArmor,
+            equipment: setGear("dummy", "Dummy Boots", {
+                ...baseBoots,
+                runes: [{ ...swiftnessRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
             materials: setMaterial(
                 ["dummy-row", "dummy-screw", "dummy-wood"],
                 [3, 2, 2]

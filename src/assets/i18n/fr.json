@@ -206,5 +206,19 @@
                 "description": "Votre torche inflige {{ param }} dégâts sur {{ param2 }} secondes, (un seul actif, ne se stack pas)"
             }
         }
+    },
+    "runes": {
+        "swiftness": {
+            "name": "Hâte",
+            "description": "Accélere tout ce que vous faîtes de {{param}}%"
+        },
+        "power": {
+            "name": "Power",
+            "description": ""
+        },
+        "precision": {
+            "name": "Precision",
+            "description": "Vous donne {{param}}% chance de critique"
+        }
     }
 }

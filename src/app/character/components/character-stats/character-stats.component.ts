@@ -11,6 +11,7 @@ import {
 import { AddPassivesToStat } from "@core/models/spells/spells.utils";
 import { PassiveBuff } from "@core/models/spells/spells.model";
 import { getXPForLevel } from "@core/models/level";
+import { Rune } from "@core/models/runes/runes.model";
 @Component({
     selector: "app-character-stats",
     templateUrl: "./character-stats.component.html",
@@ -29,7 +30,9 @@ export class CharacterStatsComponent implements OnInit {
     getDamage(): number {
         return getHeroDamage(this.hero);
     }
-
+    getRunes(): Rune[] {
+        return this.hero.pants.runes;
+    }
     expNextLevel(level: number) {
         return getXPForLevel(level);
     }

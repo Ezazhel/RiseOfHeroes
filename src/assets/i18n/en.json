@@ -205,5 +205,19 @@
                 "description": "Peasant's Torch deal {{ param }} damage over {{ param2 }} seconds (only one active, doesn't stack)"
             }
         }
+    },
+    "runes": {
+        "swiftness": {
+            "name": "Swiftness",
+            "description": "Increase everything you do by {{param}}%"
+        },
+        "power": {
+            "name": "Power",
+            "description": ""
+        },
+        "precision": {
+            "name": "Precision",
+            "description": "Give you {{param}}% critical chance"
+        }
     }
 }
