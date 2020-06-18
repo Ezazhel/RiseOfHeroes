@@ -1,1 +1,42 @@
-<p>city-shop-craft works!</p>
+<ng-container>
+    <div fxLayout="row">
+        <div
+            class="crafts"
+            fxLayout="column"
+            fxFlex="75"
+            fxLayoutAlign="center center"
+        >
+            <div
+                *ngFor="let craft of _shop.crafts; trackBy: trackByCraft"
+                fxLayout="column"
+                style="width: 100%;"
+            >
+                <h2>{{ craft.name }}</h2>
+                <div fxLayout="row wrap">
+                    <slot-detail
+                        *ngFor="
+                            let item of craft.weaponArmor;
+                            trackBy: trackByItem
+                        "
+                        (click)="craft(item)"
+                        [item]="item.equipment"
+                        style="transform: scale(0.85);"
+                        tooltip
+                        [tooltip-material]="item.materials"
+                        [tooltip-equipped]="equipped(item.equipment)"
+                        [tooltip-type]="'craft'"
+                    ></slot-detail>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="column" fxFlex="25">
+            <h2>Currencies</h2>
+            <div *ngFor="let currency of currency$ | async">
+                <i
+                    class="currency {{ currency.name }}"
+                    [attr.data-qty]="currency.quantity"
+                ></i>
+            </div>
+        </div>
+    </div>
+</ng-container>

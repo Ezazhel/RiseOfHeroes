@@ -69,7 +69,8 @@
             "dps": "({{dps}} dégâts par seconde)"
         },
         "requiredLevel": "niveau {level}",
-        "equipped": "Equipé"
+        "equipped": "Equipé",
+        "craftMaterial": "Matériaux requis"
     },
     "house": {
         "yourHouse": "Ma maison",

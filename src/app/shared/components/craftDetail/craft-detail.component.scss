@@ -1,0 +1,16 @@
+@import "sprite-set.scss";
+@import "sprite-currencies.scss";
+@import "variables.scss";
+:host {
+    width: auto;
+    .craftDetail {
+        background: hsl(228, 60%, 8%);
+        border: 2px solid white;
+        border-radius: 5px;
+        color: white;
+        padding: 5px;
+        span {
+            margin: auto;
+        }
+    }
+}

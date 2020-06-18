@@ -1,17 +1,20 @@
-import {
-    ITemplateWeapon,
-    ITemplateArmor,
-    ITemplateItem,
-    ITemplateBaseItem,
-} from "@core/models/game-data/game-data.model";
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
-    selector: "app-inventory-slot-detail",
-    templateUrl: "./inventory-slot-detail.component.html",
-    styleUrls: ["./inventory-slot-detail.component.scss"],
+    selector: "slot-detail",
+    template: ` <ng-container *transloco="let t">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <detail [item]="item"></detail>
+            <detail
+                *ngIf="itemEquipped"
+                [item]="itemEquipped"
+                [equipped]="true"
+            ></detail>
+        </div>
+    </ng-container>`,
 })
-export class InventorySlotDetailComponent implements OnInit {
+export class SlotDetailComponent implements OnInit {
     @Input("item") set item(value: ITemplateBaseItem) {
         if (value === undefined) return;
         this._item = value;

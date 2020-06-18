@@ -4,7 +4,7 @@ import {
     ITemplateItem,
     ITemplateBaseItem,
 } from "@core/models/game-data/game-data.model";
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
     selector: "detail",

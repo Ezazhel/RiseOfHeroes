@@ -1,6 +1,7 @@
 import { PossibleReward } from "./../item-generation";
 import { newGuid } from "../utils";
 import { EntityType } from "../entity";
+import { CurrencyType } from "./game-data.data";
 
 export type ItemCategories = "item" | "weapon" | "armor";
 
@@ -26,7 +27,7 @@ export type StatType =
     | "agility";
 
 export interface Currency {
-    readonly name: string;
+    readonly name: CurrencyType;
     readonly quantity: number;
     readonly icon?: string; //sprite image
 }

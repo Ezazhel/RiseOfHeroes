@@ -63,7 +63,7 @@
             class="goldLevel"
             fxLayoutAlign="space-between center"
         >
-            <span>{{
+            <span *ngIf="equipment.level > 0">{{
                 t("game.requiredLevel", { level: equipment.level })
             }}</span>
             <span>{{ equipment.value }}g</span>

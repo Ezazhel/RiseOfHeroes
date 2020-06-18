@@ -69,7 +69,8 @@
             "dps": "({{dps}} damage per second)"
         },
         "requiredLevel": "level {{level}}",
-        "equipped": "Equipped"
+        "equipped": "Equipped",
+        "craftMaterial": "Craft materials needed"
     },
     "house": {
         "yourHouse": "This is your house",

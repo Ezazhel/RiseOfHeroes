@@ -1,0 +1,51 @@
+@import "sprite-set.scss";
+@import "sprite-currencies.scss";
+@import "variables.scss";
+:host {
+    width: 100%;
+    max-height: inherit;
+    overflow: auto;
+}
+.crafts {
+    margin-right: 15px;
+}
+
+.content {
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0.2rem 0.15rem $orange;
+    box-sizing: border-box;
+    margin: 5px 0px;
+    border: 1px solid lightslategrey;
+    background: white;
+    padding-right: 5px;
+    color: $orange;
+    font-weight: bold;
+    span.item-name {
+        vertical-align: middle;
+    }
+    .action {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        span.item-value {
+            font-size: x-small;
+            color: $body;
+        }
+        button {
+            background-color: $lightgreybutton;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            height: 25px;
+            transition: 0.3s;
+            font-size: small;
+            border-radius: 10px;
+            &:hover {
+                background-color: $lightgreybutton;
+            }
+        }
+    }
+}

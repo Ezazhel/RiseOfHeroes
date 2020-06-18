@@ -1,6 +1,9 @@
 import { Fighter } from "./../entity";
 import { Stat, LootbagItem } from "./game-data.model";
 import { ITemplateWeapon, ITemplateArmor } from "./game-data.model";
+
+export type CurrencyType = "gold" | "dummy-wood" | "dummy-screw" | "dummy-row";
+
 //#region Stats
 export const strenghtStat: Stat = {
     type: "strength",
@@ -269,28 +272,64 @@ export const dummyCraft: Craft = {
     name: "Dummy",
     weaponArmor: [
         {
-            equipment: { ...baseChest },
-            materials: [{ name: "gold", quantity: 300 }],
+            equipment: {
+                ...baseChest,
+                name: "Dummy Torso",
+                quality: "legendary",
+            },
+            materials: [
+                { name: "dummy-row", quantity: 1 },
+                { name: "dummy-screw", quantity: 2 },
+                { name: "dummy-wood", quantity: 4 },
+            ],
         },
         {
-            equipment: { ...baseHelmet },
-            materials: [{ name: "gold", quantity: 300 }],
+            equipment: {
+                ...baseHelmet,
+                name: "Dummy Head",
+                quality: "legendary",
+            },
+            materials: [
+                { name: "dummy-row", quantity: 2 },
+                { name: "dummy-screw", quantity: 1 },
+                { name: "dummy-wood", quantity: 1 },
+            ],
         },
         {
-            equipment: { ...basePants },
-            materials: [{ name: "gold", quantity: 300 }],
+            equipment: {
+                ...basePants,
+                name: "Dummy Panties",
+                quality: "legendary",
+            },
+            materials: [
+                { name: "dummy-row", quantity: 2 },
+                { name: "dummy-screw", quantity: 2 },
+                { name: "dummy-wood", quantity: 3 },
+            ],
         },
         {
-            equipment: { ...baseGloves },
-            materials: [{ name: "gold", quantity: 300 }],
+            equipment: {
+                ...baseGloves,
+                name: "Dummy Hands",
+                quality: "legendary",
+            },
+            materials: [
+                { name: "dummy-row", quantity: 1 },
+                { name: "dummy-screw", quantity: 2 },
+                { name: "dummy-wood", quantity: 2 },
+            ],
         },
         {
-            equipment: { ...baseBoots },
-            materials: [{ name: "gold", quantity: 300 }],
-        },
-        {
-            equipment: { ...basePants },
-            materials: [{ name: "gold", quantity: 300 }],
+            equipment: {
+                ...baseBoots,
+                name: "Dummy Boots",
+                quality: "legendary",
+            },
+            materials: [
+                { name: "dummy-row", quantity: 1 },
+                { name: "dummy-screw", quantity: 2 },
+                { name: "dummy-wood", quantity: 2 },
+            ],
         },
     ],
 };

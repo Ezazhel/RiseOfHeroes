@@ -1,0 +1,21 @@
+<ng-container *transloco="let t">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="column" class="craftDetail">
+            <span>{{ t("game.craftMaterial") }}</span>
+            <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                <i
+                    *ngFor="let material of materials"
+                    class=" currency {{ material.name }}"
+                    [attr.data-qty]="material.quantity"
+                    style="transform: scale(0.85);"
+                ></i>
+            </div>
+        </div>
+
+        <detail
+            *ngIf="itemEquipped"
+            [item]="itemEquipped"
+            [equipped]="true"
+        ></detail>
+    </div>
+</ng-container>

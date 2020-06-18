@@ -1,5 +1,4 @@
 import { SpellDetailComponent } from "./../../spellbook/components/spellbook-detail/spell-detail.component";
-SpellDetailComponent;
 import { Subscription } from "rxjs";
 import {
     Directive,
@@ -16,20 +15,25 @@ import {
     OverlayPositionBuilder,
 } from "@angular/cdk/overlay";
 import { ComponentPortal } from "@angular/cdk/portal";
-import { InventorySlotDetailComponent } from "app/inventory/components";
-import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
+import {
+    ITemplateBaseItem,
+    Currency,
+} from "@core/models/game-data/game-data.model";
 import {
     OvertimeSpells,
     Spells,
     HealSpells,
 } from "@core/models/spells/spells.model";
+import { CraftDetailComponent } from "@shared/components/craftDetail/craft-detail.component";
+import { SlotDetailComponent } from "@shared/components";
 
-type TooltipType = "equipment" | "spell";
+type TooltipType = "equipment" | "spell" | "craft";
 @Directive({ selector: "[tooltip]" })
 export class ToolTipDirective implements OnInit {
     @Input("tooltip") item:
         | ITemplateBaseItem
         | (Spells | OvertimeSpells | HealSpells);
+    @Input("tooltip-material") material: Currency[];
     @Input("tooltip-equipped") itemEquipped: ITemplateBaseItem;
     @Input("tooltip-detach") detach: EventEmitter<boolean> = new EventEmitter<
         boolean
@@ -66,23 +70,34 @@ export class ToolTipDirective implements OnInit {
             }
         });
         let tooltipRef: ComponentRef<
-            InventorySlotDetailComponent | SpellDetailComponent
+            SlotDetailComponent | SpellDetailComponent | CraftDetailComponent
         >;
         switch (this.type) {
             case "spell":
                 tooltipRef = this.overlayRef.attach(
                     new ComponentPortal(SpellDetailComponent)
                 );
+                (tooltipRef.instance as SpellDetailComponent).item = this
+                    .item as Spells;
+
+                break;
+            case "craft":
+                tooltipRef = this.overlayRef.attach(
+                    new ComponentPortal(CraftDetailComponent)
+                );
+                (tooltipRef.instance as CraftDetailComponent).materials = this.material;
+                (tooltipRef.instance as CraftDetailComponent).itemEquipped = this.itemEquipped;
                 break;
             default:
                 // case "equipment":
                 tooltipRef = this.overlayRef.attach(
-                    new ComponentPortal(InventorySlotDetailComponent)
+                    new ComponentPortal(SlotDetailComponent)
                 );
-                (tooltipRef.instance as InventorySlotDetailComponent).itemEquipped = this.itemEquipped;
+                (tooltipRef.instance as SlotDetailComponent).itemEquipped = this.itemEquipped;
+                (tooltipRef.instance as SlotDetailComponent).item = this
+                    .item as ITemplateBaseItem;
                 break;
         }
-        tooltipRef.instance.item = this.item;
     }
 
     @HostListener("mouseleave")

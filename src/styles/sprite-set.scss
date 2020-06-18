@@ -9,23 +9,23 @@
     background-repeat: no-repeat;
     display: block;
 
-    &.-dummy_arm {
+    &.chest {
         @include stitches-dummy(-5px, -5px, 48px, 48px);
     }
 
-    &.-dummy_bt {
+    &.boots {
         @include stitches-dummy(-63px, -5px, 48px, 48px);
     }
 
-    &.-dummy_gls {
+    &.gloves {
         @include stitches-dummy(-5px, -63px, 48px, 48px);
     }
 
-    &.-dummy_hlm {
+    &.helmet {
         @include stitches-dummy(-63px, -63px, 48px, 48px);
     }
 
-    &.-dummy_pn {
+    &.pants {
         @include stitches-dummy(-121px, -5px, 48px, 48px);
     }
 }

@@ -20,6 +20,12 @@
                 ></app-inventory-slot>
             </div>
         </ng-container>
+        <ng-container *ngIf="displayedContent === 'craft'">
+            <app-city-shop-craft
+                [shop]="_shop"
+                [cityId]="cityId"
+            ></app-city-shop-craft>
+        </ng-container>
         <ng-container *ngIf="displayedContent === 'upgrade'">
             <app-city-shop-content-upgrade
                 [shop]="_shop"
