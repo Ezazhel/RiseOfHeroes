@@ -87,6 +87,7 @@ export class ToolTipDirective implements OnInit {
                 );
                 (tooltipRef.instance as CraftDetailComponent).materials = this.material;
                 (tooltipRef.instance as CraftDetailComponent).itemEquipped = this.itemEquipped;
+
                 break;
             default:
                 // case "equipment":

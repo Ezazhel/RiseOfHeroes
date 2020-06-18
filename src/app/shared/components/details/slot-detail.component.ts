@@ -1,5 +1,5 @@
 import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 
 @Component({
     selector: "slot-detail",
@@ -15,6 +15,7 @@ import { Component, OnInit, Input } from "@angular/core";
     </ng-container>`,
 })
 export class SlotDetailComponent implements OnInit {
+    @Output() clickEvent = new EventEmitter();
     @Input("item") set item(value: ITemplateBaseItem) {
         if (value === undefined) return;
         this._item = value;

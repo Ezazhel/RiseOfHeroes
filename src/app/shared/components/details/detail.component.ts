@@ -24,6 +24,7 @@ export class DetailComponent implements OnInit {
     get item(): ITemplateBaseItem {
         return this._item;
     }
+    @Input() iconClass: string;
     @Input() equipped: boolean;
     _item: ITemplateBaseItem;
     consumable: ITemplateItem;

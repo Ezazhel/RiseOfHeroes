@@ -1,8 +1,14 @@
-import { descriptionFor, effectFor } from "@core/models/spells/spells.utils";
+import {
+    Currency,
+    ITemplateArmor,
+    ITemplateBaseItem,
+} from "@core/models/game-data/game-data.model";
+import { effectFor } from "@core/models/spells/spells.utils";
 import {
     GameStateUpdateHeroAction,
     CombatStateHeroSpell,
     GameStateInventoryAddItemAction,
+    GameStateCurrenciesAddCurrencyAction,
 } from "./../models/game-state/game-state.action";
 import { Hero, Fighter } from "./../models/entity";
 import { Store } from "@ngrx/store";
@@ -10,16 +16,15 @@ import { Injectable } from "@angular/core";
 import { AppState } from "@core/models";
 
 import { getHeroDamage } from "@core/models/utils";
-import { interval, Subscription, timer, BehaviorSubject, of } from "rxjs";
+import { interval, Subscription, timer } from "rxjs";
 import {
     Spells,
     OvertimeSpells,
     HealSpells,
 } from "@core/models/spells/spells.model";
-import { take } from "rxjs/operators";
-import { rewardXp, getXPForLevel, levelUp } from "@core/models/level";
-import { generateReward, getFromLootbag } from "@core/models/item-generation";
-import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
+import { getFromLootbag } from "@core/models/item-generation";
+import { levelUp } from "@core/models/level";
+import { NotifierService } from "./notifier.service";
 
 @Injectable({
     providedIn: "root",
@@ -30,7 +35,10 @@ export class CombatService {
     isFigthing: boolean;
     fightIntervals = new Set();
 
-    constructor(private store: Store<AppState>) {}
+    constructor(
+        private store: Store<AppState>,
+        private _notifier: NotifierService
+    ) {}
 
     initialize(hero: Hero) {
         this.hero = hero;
@@ -121,12 +129,39 @@ export class CombatService {
             new GameStateUpdateHeroAction(levelUp(this.hero, this.fighter))
         );
         //random loot from monster dropbag
-        let rwd = getFromLootbag(
-            this.fighter.level,
-            this.fighter.lootbag
-        ) as ITemplateBaseItem;
+        let rwd = getFromLootbag(this.fighter.level, this.fighter.lootbag);
         if (rwd != undefined) {
-            this.store.dispatch(new GameStateInventoryAddItemAction(rwd));
+            switch (rwd.rewardType) {
+                case "currency":
+                    this.store.dispatch(
+                        new GameStateCurrenciesAddCurrencyAction(
+                            rwd.reward as Currency
+                        )
+                    );
+                    this._notifier.notify(
+                        (rwd.reward as Currency).name,
+                        `currency ${(rwd.reward as Currency).name}`,
+                        "reward",
+                        (rwd.reward as Currency).quantity
+                    );
+                    break;
+                case "armor":
+                case "weapon":
+                    this.store.dispatch(
+                        new GameStateInventoryAddItemAction(
+                            rwd.reward as ITemplateBaseItem
+                        )
+                    );
+                    this._notifier.notify(
+                        (rwd.reward as ITemplateBaseItem).name,
+                        `   
+                            ${(rwd.reward as ITemplateBaseItem).subType} 
+                            ${(rwd.reward as ITemplateBaseItem).icon}
+                        `,
+                        "reward"
+                    );
+                    break;
+            }
         }
     }
 }

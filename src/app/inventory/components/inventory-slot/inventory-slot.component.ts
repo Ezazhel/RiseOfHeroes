@@ -1,10 +1,4 @@
-import { goldSelector } from "./../../../core/models/selector";
-import {
-    ItemFilter,
-    Currency,
-    ITemplateWeapon,
-    ITemplateArmor,
-} from "@core/models/game-data/game-data.model";
+import { ItemFilter, Currency } from "@core/models/game-data/game-data.model";
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Observable } from "rxjs";
 import { Store, select } from "@ngrx/store";
@@ -12,8 +6,9 @@ import { AppState } from "@core/models";
 import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
 import {
     inventoryFiltered,
-    currencySelector,
+    currenciesSelector,
     equippedSelector,
+    currencySelector,
 } from "@core/models/selector";
 import { GameStateInventoryRemoveItemAction } from "@core/models/game-state/game-state.action";
 import { take } from "rxjs/operators";
@@ -32,9 +27,11 @@ export class InventorySlotComponent implements OnInit {
         select(inventoryFiltered(this.filter))
     );
     public _currencies$: Observable<Array<Currency>> = this.store.pipe(
-        select(currencySelector)
+        select(currenciesSelector)
     );
-    public _gold$: Observable<Currency> = this.store.select(goldSelector);
+    public _gold$: Observable<Currency> = this.store.select(
+        currencySelector("gold")
+    );
 
     public setItem(item: ITemplateBaseItem) {
         this.item = item;

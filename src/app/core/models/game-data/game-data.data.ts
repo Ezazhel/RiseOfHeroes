@@ -224,6 +224,7 @@ export const baseGloves: ITemplateArmor = {
 };
 //#endregion Armor
 import { Craft } from "@routes/world/city/store/cities.model";
+import { setGear, setMaterial } from "../craft/craft.utils";
 //#region Monster
 export const fighters: Fighter[] = [
     {
@@ -242,6 +243,21 @@ export const fighters: Fighter[] = [
             { item: "armor", itemQuality: "common", weigth: 30 },
             { item: "weapon", itemQuality: "rare", weigth: 15 },
             { item: "armor", itemQuality: "rare", weigth: 15 },
+            {
+                item: "currency",
+                currency: { name: "dummy-row", quantity: 1 },
+                weigth: 5,
+            },
+            {
+                item: "currency",
+                currency: { name: "dummy-screw", quantity: 1 },
+                weigth: 5,
+            },
+            {
+                item: "currency",
+                currency: { name: "dummy-wood", quantity: 1 },
+                weigth: 10,
+            },
         ],
     },
     {
@@ -272,64 +288,59 @@ export const dummyCraft: Craft = {
     name: "Dummy",
     weaponArmor: [
         {
-            equipment: {
-                ...baseChest,
-                name: "Dummy Torso",
-                quality: "legendary",
-            },
-            materials: [
-                { name: "dummy-row", quantity: 1 },
-                { name: "dummy-screw", quantity: 2 },
-                { name: "dummy-wood", quantity: 4 },
-            ],
+            equipment: setGear(
+                "dummy",
+                "Dummy Torso",
+                baseChest
+            ) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [2, 4, 6]
+            ),
         },
         {
-            equipment: {
-                ...baseHelmet,
-                name: "Dummy Head",
-                quality: "legendary",
-            },
-            materials: [
-                { name: "dummy-row", quantity: 2 },
-                { name: "dummy-screw", quantity: 1 },
-                { name: "dummy-wood", quantity: 1 },
-            ],
+            equipment: setGear(
+                "dummy",
+                "Dummy Head",
+                baseHelmet
+            ) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
         },
         {
-            equipment: {
-                ...basePants,
-                name: "Dummy Panties",
-                quality: "legendary",
-            },
-            materials: [
-                { name: "dummy-row", quantity: 2 },
-                { name: "dummy-screw", quantity: 2 },
-                { name: "dummy-wood", quantity: 3 },
-            ],
+            equipment: setGear(
+                "dummy",
+                "Dummy Panties",
+                basePants
+            ) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 3, 4]
+            ),
         },
         {
-            equipment: {
-                ...baseGloves,
-                name: "Dummy Hands",
-                quality: "legendary",
-            },
-            materials: [
-                { name: "dummy-row", quantity: 1 },
-                { name: "dummy-screw", quantity: 2 },
-                { name: "dummy-wood", quantity: 2 },
-            ],
+            equipment: setGear(
+                "dummy",
+                "Dummy Hands",
+                baseGloves
+            ) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
         },
         {
-            equipment: {
-                ...baseBoots,
-                name: "Dummy Boots",
-                quality: "legendary",
-            },
-            materials: [
-                { name: "dummy-row", quantity: 1 },
-                { name: "dummy-screw", quantity: 2 },
-                { name: "dummy-wood", quantity: 2 },
-            ],
+            equipment: setGear(
+                "dummy",
+                "Dummy Boots",
+                baseBoots
+            ) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
         },
     ],
 };

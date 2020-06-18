@@ -1,8 +1,12 @@
+import { currencySelector } from "./../../../core/models/selector";
 import {
     ITemplateBaseItem,
     Currency,
 } from "@core/models/game-data/game-data.model";
 import { Component, OnInit, Input } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { AppState } from "@core/models";
+import { first } from "rxjs/operators";
 
 @Component({
     selector: "craft-detail",
@@ -18,8 +22,22 @@ export class CraftDetailComponent implements OnInit {
         return this._itemEquipped;
     }
     @Input() materials: Currency[];
+
+    canCraft(material: Currency): string {
+        let currency: Currency;
+        this.store
+            .select(currencySelector(material.name))
+            .pipe(first())
+            .subscribe((c) => (currency = c));
+        if (currency === undefined) {
+            return "cantCraft";
+        }
+        return currency.quantity >= material.quantity
+            ? "canCraft"
+            : "cantCraft";
+    }
     _itemEquipped: ITemplateBaseItem;
-    constructor() {}
+    constructor(private store: Store<AppState>) {}
 
     ngOnInit(): void {}
 }

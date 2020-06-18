@@ -141,8 +141,13 @@ export function entityId(id: string): string {
 export type LootBagPossibleReward = "weapon" | "armor" | "currency" | "none";
 export interface LootbagItem {
     item: LootBagPossibleReward;
+    currency?: Currency;
     itemQuality?: ItemQuality;
     weigth: number;
     rangeFrom?: number;
     rangeTo?: number;
+}
+export interface Reward {
+    rewardType: LootBagPossibleReward;
+    reward: ITemplateBaseItem | Currency;
 }

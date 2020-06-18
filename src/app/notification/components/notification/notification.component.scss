@@ -1,0 +1,10 @@
+@import "sprite-peasantSkills.scss";
+@import "sprite-set.scss";
+@import "sprite-currencies.scss";
+@import "sprites.scss";
+
+:host {
+    position: absolute;
+    bottom: 10%;
+    left: 2%;
+}

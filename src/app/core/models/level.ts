@@ -33,6 +33,7 @@ export function levelUp(hero: Hero, fighter: Fighter): Hero {
     } else {
         exp = hero.exp + xpReward;
     }
+    exp = toNumber(exp.toFixed(2));
     let baseStats = [...hero.baseStats];
     let stats = [...hero.stats];
     let maxHp = hero.maxHp;

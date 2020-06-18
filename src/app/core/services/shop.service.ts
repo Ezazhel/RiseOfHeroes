@@ -24,13 +24,17 @@ import {
 import { Observable } from "rxjs";
 import { levelSelector } from "@core/models/selector";
 import { first } from "rxjs/operators";
+import { NotifierService } from "./notifier.service";
 @Injectable({
     providedIn: "root",
 })
 export class ShopService {
     cityId: string;
     level$: Observable<number> = this.store.select(levelSelector);
-    constructor(private store: Store<AppState>) {}
+    constructor(
+        private store: Store<AppState>,
+        private _notifier: NotifierService
+    ) {}
 
     renewShopItem(cityId: string = this.cityId, shop: Shop) {
         let level: number;
@@ -69,6 +73,11 @@ export class ShopService {
             })
         );
         this.store.dispatch(new GameStateInventoryAddItemAction(item));
+        this._notifier.notify(
+            item.name,
+            `${item.subType} ${item.icon}`,
+            "bougth"
+        );
     }
 
     sellItem(item: ITemplateBaseItem, shopType: string, cityId: string) {
@@ -86,5 +95,11 @@ export class ShopService {
             })
         );
         this.store.dispatch(new GameStateInventoryRemoveItemAction(item.id));
+        this._notifier.notify(
+            item.name,
+            `${item.subType} ${item.icon}`,
+            "selled",
+            item.value
+        );
     }
 }

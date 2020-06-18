@@ -16,7 +16,12 @@ import { AddPassivesToStat } from "../spells/spells.utils";
 const initialState: GameState = {
     companions: null,
     inventory: [],
-    currencies: [{ name: "gold", quantity: 50 }],
+    currencies: [
+        { name: "gold", quantity: 50 },
+        { name: "dummy-row", quantity: 5 },
+        { name: "dummy-screw", quantity: 5 },
+        { name: "dummy-wood", quantity: 5 },
+    ],
     location: "house",
     combatZone: "",
     maxSlots: 16,

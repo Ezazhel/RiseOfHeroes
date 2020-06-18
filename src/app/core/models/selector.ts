@@ -10,6 +10,7 @@ import { createSelector } from "@ngrx/store";
 import { GameState } from "@core/models/game-state/game-state.reducer";
 import { createFeatureSelector } from "@ngrx/store";
 import { Hero } from "./entity";
+import { CurrencyType } from "./game-data/game-data.data";
 
 export const gameStateSelector = createFeatureSelector<GameState>("gameState");
 
@@ -49,13 +50,18 @@ export const levelSelector = createSelector(
     (gameState: GameState) => gameState.hero.level
 );
 
-export const currencySelector = createSelector(
+export const currenciesSelector = createSelector(
     gameStateSelector,
     (gameState: GameState) => gameState.currencies
 );
 
+export const currencySelector = (type: CurrencyType) =>
+    createSelector(gameStateSelector, (gameState: GameState) =>
+        gameState.currencies.find((c) => c.name === type)
+    );
+
 export const goldSelector = createSelector(
-    currencySelector,
+    currenciesSelector,
     (currencies: Currency[]) =>
         currencies.find((c: Currency) => c.name == "gold")
 );

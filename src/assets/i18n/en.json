@@ -1,4 +1,12 @@
 {
+    "notification": {
+        "text": "{{param}}",
+        "unlock": "You just unlocked : {{param}}",
+        "levelUp": "You leveled up, Gg ! ",
+        "selled": "You selled {{param}} for {{value}}",
+        "bougth": "You bougth {{param}}",
+        "reward": "You earn {{param}}"
+    },
     "messageButton": {
         "all": "All",
         "general": "General",

@@ -9,12 +9,12 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { TranslocoRootModule } from "./transloco-root.module";
 import { HudModule } from "./hud/hud.module";
-import { OverlayModule } from "@angular/cdk/overlay";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { StoreModule, MetaReducer } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { StoreRouterConnectingModule } from "@ngrx/router-store";
+import { NotificationModule } from "./notification/notification.module";
 
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 @NgModule({
@@ -27,7 +27,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
         TranslocoRootModule,
         HudModule,
         DragDropModule,
-        MessageModule,
+        NotificationModule,
         HouseModule,
         StoreModule.forRoot(reducers, { metaReducers }),
         StoreRouterConnectingModule.forRoot({

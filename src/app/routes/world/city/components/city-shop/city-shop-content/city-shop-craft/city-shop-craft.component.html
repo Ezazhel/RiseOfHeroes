@@ -13,29 +13,37 @@
             >
                 <h2>{{ craft.name }}</h2>
                 <div fxLayout="row wrap">
-                    <slot-detail
+                    <detail
                         *ngFor="
                             let item of craft.weaponArmor;
                             trackBy: trackByItem
                         "
-                        (click)="craft(item)"
-                        [item]="item.equipment"
+                        (click)="craftItem(item)"
+                        class="detail-craft"
+                        [ngClass]="{ canCraft: canCraft(item.materials) }"
+                        [item]="setWithStat(item.equipment)"
+                        iconClass="{{ item.equipment.subType }} {{
+                            item.equipment.icon
+                        }}"
                         style="transform: scale(0.85);"
                         tooltip
                         [tooltip-material]="item.materials"
                         [tooltip-equipped]="equipped(item.equipment)"
                         [tooltip-type]="'craft'"
-                    ></slot-detail>
+                    >
+                    </detail>
                 </div>
             </div>
         </div>
         <div fxLayout="column" fxFlex="25">
             <h2>Currencies</h2>
-            <div *ngFor="let currency of currency$ | async">
-                <i
-                    class="currency {{ currency.name }}"
-                    [attr.data-qty]="currency.quantity"
-                ></i>
+            <div fxLayout="row">
+                <div *ngFor="let currency of currency$ | async">
+                    <i
+                        class="currency {{ currency.name }}"
+                        [attr.data-qty]="currency.quantity"
+                    ></i>
+                </div>
             </div>
         </div>
     </div>

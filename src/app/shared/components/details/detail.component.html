@@ -3,7 +3,12 @@
         <span *ngIf="equipped" class="equipped">
             {{ t("game.equipped") }}
         </span>
-        <span class="{{ item.quality }}">{{ item.name }} </span>
+        <div fxLayout="row">
+            <i *ngIf="iconClass != ''" class="{{ iconClass }}"></i>
+            <span class="{{ item.quality }}">
+                {{ item.name }}
+            </span>
+        </div>
         <div *ngIf="consumable; else weaponOrArmor">
             Template item
         </div>

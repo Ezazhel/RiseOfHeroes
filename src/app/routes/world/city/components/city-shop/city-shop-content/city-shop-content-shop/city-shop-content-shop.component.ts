@@ -19,7 +19,7 @@ import { Subscription, timer, Observable } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
 import {
-    currencySelector,
+    currenciesSelector,
     goldSelector,
     equippedSelector,
 } from "@core/models/selector";
@@ -45,7 +45,7 @@ export class CityShopContentShopComponent
     _previousSecond: number = 0;
 
     public _currencies$: Observable<Array<Currency>> = this.store.pipe(
-        select(currencySelector)
+        select(currenciesSelector)
     );
 
     getCurrency(type: string): Observable<Currency> {

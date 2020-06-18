@@ -7,18 +7,12 @@ import {
     ItemCategories,
     entityId,
     LootbagItem,
+    Reward,
 } from "./game-data/game-data.model";
 import * as baseItem from "./game-data/game-data.data";
 import { toNumber } from "@ngneat/transloco";
-import {
-    commonFormula,
-    uncommonFormula,
-    rareFormula,
-    epicFormula,
-    uPrice,
-    rPrice,
-    ePrice,
-} from "./utils";
+import { commonFormula } from "./utils";
+import { modifyPrice, modifyStat } from "./craft/craft.utils";
 
 export const Icons: Map<WeaponCategory | ArmorCategory, string[]> = new Map([
     ["axe", generateIconArray("a", 24)],
@@ -214,11 +208,11 @@ function generateArmor(
         icon: pickRandomIcon(icons),
         quality: quality,
         name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
-        armor: modifyStat(quality, baseArmor.armor * level),
+        armor: modifyStat(quality, baseArmor.armor, level),
         value: modifyPrice(quality, baseArmor.value * level),
         stats: [...baseArmor.stats].map((s) => ({
             ...s,
-            value: modifyStat(quality, commonFormula(s.value) * level),
+            value: modifyStat(quality, s.value, level),
         })),
     };
 }
@@ -248,43 +242,12 @@ function generateWeapon(
         ),
         stats: [...baseWeapon.stats].map((s) => ({
             ...s,
-            value: modifyStat(quality, commonFormula(s.value) * level),
+            value: modifyStat(quality, s.value, level),
         })),
     };
 }
 
-function modifyPrice(quality: ItemQuality, price: number) {
-    switch (quality) {
-        case "uncommon":
-            price = uPrice(price);
-            break;
-        case "rare":
-            price = rPrice(price);
-            break;
-        case "epic":
-            price = ePrice(price);
-            break;
-    }
-    return Math.floor(price);
-}
-
-function modifyStat(quality: ItemQuality, statValue: number) {
-    switch (quality) {
-        case "uncommon":
-            statValue = uncommonFormula(statValue);
-            break;
-        case "rare":
-            statValue = rareFormula(statValue);
-            break;
-        case "epic":
-            statValue = epicFormula(statValue);
-            break;
-        case "legendary":
-            break; //Actualy Legendary stat will be set manually.
-    }
-    return Math.floor(statValue);
-}
-export function getFromLootbag(level: number, bag: LootbagItem[]) {
+export function getFromLootbag(level: number, bag: LootbagItem[]): Reward {
     let totalWeigth: number = 1;
     bag = [...bag].map((el) => {
         el = { ...el, rangeFrom: totalWeigth };
@@ -297,10 +260,16 @@ export function getFromLootbag(level: number, bag: LootbagItem[]) {
     );
     switch (rwd.item) {
         case "armor":
-            return generateRandomArmor(level, 0, rwd.itemQuality);
-            break;
+            return {
+                reward: generateRandomArmor(level, 0, rwd.itemQuality),
+                rewardType: "armor",
+            };
         case "weapon":
-            return generateRandomWeapon(level, 0, rwd.itemQuality);
-            break;
+            return {
+                reward: generateRandomWeapon(level, 0, rwd.itemQuality),
+                rewardType: "weapon",
+            };
+        case "currency":
+            return { reward: rwd.currency, rewardType: "currency" };
     }
 }

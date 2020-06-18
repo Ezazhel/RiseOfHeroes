@@ -1,0 +1,25 @@
+<ng-container *transloco="let t; read: 'notification'">
+    <div *ngIf="src">
+        <ng-container *ngFor="let notification of src.notifications.reverse()">
+            <div [@notify]="'show'">
+                <div
+                    (click)="src.destroy(notification)"
+                    fxLayout="row"
+                    fxLayoutAlign="flex-start center"
+                >
+                    <i
+                        *ngIf="notification.icon != ''"
+                        class="{{ notification.icon }}"
+                        [attr.data-qty]="notification?.qty"
+                    ></i>
+                    <span>{{
+                        t(notification.type, {
+                            param: notification.param,
+                            value: notification.qty
+                        })
+                    }}</span>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ng-container>

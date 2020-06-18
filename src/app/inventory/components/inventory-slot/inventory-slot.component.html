@@ -18,7 +18,11 @@
     </div>
 </ng-container>
 <div fxLayout="row nowrap" fxLayoutAlign="end center">
-    <label> {{ (_gold$ | async)?.quantity }}g </label>
+    <i
+        class="currency {{ (_gold$ | async)?.name }}"
+        [attr.data-qty]="(_gold$ | async)?.quantity"
+        style="transform: scale(0.75);"
+    ></i>
 </div>
 
 <div class="slots">
