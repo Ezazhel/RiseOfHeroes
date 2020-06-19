@@ -61,7 +61,11 @@
                     +{{ stat.value }} {{ t(stat.name) }}
                 </label>
                 <div fxLayout="column" class="runes">
-                    <label *ngFor="let rune of equipment.runes">
+                    <label
+                        *ngFor="let rune of equipment.runes"
+                        [tooltip]="rune"
+                        [tooltip-type]="'rune'"
+                    >
                         +{{ rune.currentLvl }} {{ rune.type }}
                     </label>
                 </div>

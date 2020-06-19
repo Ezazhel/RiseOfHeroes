@@ -209,15 +209,15 @@
     "runes": {
         "swiftness": {
             "name": "Swiftness",
-            "description": "Increase everything you do by {{param}}%"
+            "description": "Increase speed of everything you do by {{param}}%"
         },
         "power": {
             "name": "Power",
-            "description": ""
+            "description": "+{{param}}% Offensive Power"
         },
         "precision": {
             "name": "Precision",
-            "description": "Give you {{param}}% critical chance"
+            "description": "+{{param}}% critical hit chance"
         }
     }
 }

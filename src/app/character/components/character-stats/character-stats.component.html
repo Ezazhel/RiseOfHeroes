@@ -56,7 +56,11 @@
         {{ t("hud-stats.runes") }}
     </h3>
     <ul>
-        <li *ngFor="let rune of getRunes()">
+        <li
+            *ngFor="let rune of getRunes()"
+            [tooltip]="rune"
+            [tooltip-type]="'rune'"
+        >
             <span class="stat-label"> {{ rune.type }} : </span>
             <span class="stat-value"> {{ rune.currentLvl }}</span>
         </li>

@@ -1,4 +1,5 @@
-import { Rune } from "./runes.model";
+import { Rune, RuneType, RuneAdvance } from "./runes.model";
+import { getLimitLevel } from "./runes.utils";
 
 export const swiftnessRune: Rune = {
     type: "swiftness",
@@ -17,3 +18,47 @@ export const precisionRune: Rune = {
     currentLvl: 0,
     maxEffectiveLvl: 5,
 };
+
+export const runeAdvance: Map<RuneType, RuneAdvance> = new Map<
+    RuneType,
+    RuneAdvance
+>([
+    [
+        "power",
+        {
+            effect: (rune: Rune, statToUpdate) => {
+                return statToUpdate * (1 + 0.1 * rune.currentLvl);
+            },
+            description: (rune) => {
+                return {
+                    param: 10 * rune.currentLvl,
+                    jsonField: `${rune.type}.description`,
+                };
+            },
+        },
+    ],
+    [
+        "swiftness",
+        {
+            effect: (rune: Rune = swiftnessRune, statToUpdate) => {
+                return statToUpdate + 5 * rune.currentLvl;
+            },
+            description: (rune) => ({
+                param: 5 * rune.currentLvl,
+                jsonField: `${rune.type}.description`,
+            }),
+        },
+    ],
+    [
+        "precision",
+        {
+            effect: (rune: Rune = precisionRune, statToUpdate) => {
+                return statToUpdate + 5 * rune.currentLvl;
+            },
+            description: (rune) => ({
+                param: 5 * rune.currentLvl,
+                jsonField: `${rune.type}.description`,
+            }),
+        },
+    ],
+]);

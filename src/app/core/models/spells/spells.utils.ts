@@ -8,19 +8,14 @@ import {
 import { Hero, EntitySubtype, Fighter } from "../entity";
 import { getHeroOffensivePower } from "../utils";
 import { toNumber } from "@ngneat/transloco";
-import { Observable } from "rxjs";
+import { Description } from "../game-data/game-data.model";
 
 type setType = "name" | "description";
-
-export interface DescriptionParamSpell {
-    param?: any;
-    param2?: any;
-}
 
 export function descriptionFor(
     spells: Spells | OvertimeSpells | HealSpells,
     hero: Hero
-): DescriptionParamSpell {
+): Description {
     const spellDescription = descriptions.get(spells.id);
 
     if (spellDescription == undefined) {
@@ -39,7 +34,7 @@ export function effectFor(
 type DescriptionMethod = (
     spells: Spells | OvertimeSpells | HealSpells,
     hero: Hero
-) => DescriptionParamSpell;
+) => Description;
 type EffectMethod = (
     spells: Spells | OvertimeSpells | HealSpells,
     target: Hero | Fighter,
@@ -75,6 +70,7 @@ const descriptions: Map<string, DescriptionMethod> = new Map([
         }),
     ],
 ]);
+
 const effects: Map<string, EffectMethod> = new Map([
     [
         "powerAttack",
@@ -148,6 +144,7 @@ const effects: Map<string, EffectMethod> = new Map([
         },
     ],
 ]);
+
 export function setSpell(subtype: EntitySubtype, id: string, setType: setType) {
     return `spells.${subtype}.${id}.${setType}`;
 }

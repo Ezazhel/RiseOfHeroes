@@ -140,6 +140,13 @@ export function instantiateEntity<T extends ITemplateId>(
 export function entityId(id: string): string {
     return `${id}-${newGuid()}`;
 }
+
+export interface Description {
+    param?: any;
+    param2?: any;
+    jsonField?: string;
+}
+
 export type LootBagPossibleReward = "weapon" | "armor" | "currency" | "none";
 export interface LootbagItem {
     item: LootBagPossibleReward;

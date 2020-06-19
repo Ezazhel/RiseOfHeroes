@@ -26,13 +26,16 @@ import {
 } from "@core/models/spells/spells.model";
 import { CraftDetailComponent } from "@shared/components/craftDetail/craft-detail.component";
 import { SlotDetailComponent } from "@shared/components";
+import { Rune } from "@core/models/runes/runes.model";
+import { RunesComponent } from "@shared/components/runes/runes.component";
 
-type TooltipType = "equipment" | "spell" | "craft";
+type TooltipType = "equipment" | "spell" | "craft" | "rune";
 @Directive({ selector: "[tooltip]" })
 export class ToolTipDirective implements OnInit {
     @Input("tooltip") item:
         | ITemplateBaseItem
-        | (Spells | OvertimeSpells | HealSpells);
+        | (Spells | OvertimeSpells | HealSpells)
+        | Rune;
     @Input("tooltip-material") material: Currency[];
     @Input("tooltip-equipped") itemEquipped: ITemplateBaseItem;
     @Input("tooltip-detach") detach: EventEmitter<boolean> = new EventEmitter<
@@ -70,7 +73,10 @@ export class ToolTipDirective implements OnInit {
             }
         });
         let tooltipRef: ComponentRef<
-            SlotDetailComponent | SpellDetailComponent | CraftDetailComponent
+            | SlotDetailComponent
+            | SpellDetailComponent
+            | CraftDetailComponent
+            | RunesComponent
         >;
         switch (this.type) {
             case "spell":
@@ -90,6 +96,14 @@ export class ToolTipDirective implements OnInit {
                 (tooltipRef.instance as CraftDetailComponent).itemEquipped = this.itemEquipped;
 
                 break;
+            case "rune":
+                this.overlayRef.detach();
+                tooltipRef = this.overlayRef.attach(
+                    new ComponentPortal(RunesComponent)
+                );
+                (tooltipRef.instance as RunesComponent).item = this
+                    .item as Rune;
+
             default:
                 // case "equipment":
                 tooltipRef = this.overlayRef.attach(

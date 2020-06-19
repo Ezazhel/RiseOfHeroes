@@ -1,0 +1,22 @@
+@import "variables.scss";
+:host {
+    width: fit-content;
+    height: fit-content;
+    .description {
+        background: hsl(228, 60%, 8%);
+        border: 2px solid white;
+        border-radius: 5px;
+        color: white;
+        padding: 10px;
+        .title {
+            margin: auto;
+        }
+        label {
+            font-size: x-small;
+            margin: 2px;
+            &.current {
+                color: $greenTextOnBody;
+            }
+        }
+    }
+}

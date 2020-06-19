@@ -6,9 +6,10 @@ import * as fromComponents from "./components/";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { OverlayModule } from "@angular/cdk/overlay";
 import { ToolTipDirective } from "./directives/tooltip.directive";
+import { RunesComponent } from './components/runes/runes.component';
 
 @NgModule({
-    declarations: [fromComponents.components, ToolTipDirective],
+    declarations: [fromComponents.components, ToolTipDirective, RunesComponent],
 
     imports: [
         CommonModule,

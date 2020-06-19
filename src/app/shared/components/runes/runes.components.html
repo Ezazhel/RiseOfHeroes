@@ -1,0 +1,14 @@
+<ng-container *transloco="let t; read: 'runes'">
+    <div fxLayout="column" class="description">
+        <span class="title">
+            {{ item.type | titlecase}}
+        </span>
+        <label
+            *ngFor="let rune of getDescriptionForRune()"
+            [ngClass]="{'current': item.currentLvl === rune.currentLvl}"
+        >
+            {{ rune.currentLvl}} : {{ t(description(rune).jsonField,
+            description(rune))}}
+        </label>
+    </div>
+</ng-container>
