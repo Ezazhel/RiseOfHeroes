@@ -62,7 +62,6 @@ export type FighterColor =
     | "harder"
     | "impossible";
 
-type LootBagMethod = (level) => ITemplateBaseItem | Currency[];
 export interface Fighter extends EntityObject {
     name: string;
     icon?: string;

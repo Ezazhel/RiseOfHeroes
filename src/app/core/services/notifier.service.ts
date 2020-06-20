@@ -15,7 +15,7 @@ export class NotifierService {
         icon?: string,
         type: NotificationType = "text",
         qty?: number,
-        duration: number = 10 * 1000
+        duration: number = 3 * 1000
     ): void {
         const notification: Notification = new Notification(
             param,
@@ -30,7 +30,6 @@ export class NotifierService {
                 }
             );
         };
-        console.log(notification);
         this.notifier.add(notification);
 
         dismissWait();

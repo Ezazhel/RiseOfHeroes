@@ -1,4 +1,4 @@
-import { TrainingEquipment, TrainingType } from "./house.model";
+import { TrainingEquipment, TrainingType, Work } from "./house.model";
 import * as HouseAction from "./house.action";
 import { updateInsert, update } from "@core/models/utils";
 
@@ -14,7 +14,7 @@ const initialState: HouseState = {
             speed: 10 * 1000,
             reward: 1,
             done: 0,
-            isTraining: false,
+            isActive: false,
         },
         {
             id: "endurance",
@@ -26,13 +26,24 @@ const initialState: HouseState = {
             speed: 10 * 1000,
             reward: 1,
             done: 0,
-            isTraining: false,
+            isActive: false,
         },
     ],
+    work: {
+        id: "peasant",
+        cardHeader: "house.work.peasant.name",
+        name: "house.work.peasant.name",
+        description: "house.work.peasant.description",
+        reward: 1,
+        speed: 1 * 1000,
+        isActive: false,
+        done: 0,
+    },
 };
 
 export interface HouseState {
     trainingEquipment: Array<TrainingEquipment>;
+    work: Work;
 }
 
 export function houseReducer(
@@ -66,7 +77,13 @@ export function houseReducer(
                 trainingEquipment: update(
                     state.trainingEquipment,
                     (t: TrainingEquipment) => t.id == action.payload,
-                    (t: TrainingEquipment) => ({ ...t, done: t.done + 1 })
+                    (t: TrainingEquipment) => {
+                        return {
+                            ...t,
+                            done: t.done + 1,
+                            isActive: false,
+                        };
+                    }
                 ),
             };
         case HouseAction.HOUSE_TRAINING:
@@ -75,14 +92,13 @@ export function houseReducer(
                 trainingEquipment: update(
                     [...state.trainingEquipment].map((t) => {
                         return t.id != action.payload
-                            ? { ...t, isTraining: false }
+                            ? { ...t, isActive: false }
                             : t;
                     }),
                     (t: TrainingEquipment) => t.id == action.payload,
-                    (t: TrainingEquipment) => ({
-                        ...t,
-                        isTraining: !t.isTraining,
-                    })
+                    (t: TrainingEquipment) => {
+                        return { ...t, isActive: !t.isActive };
+                    }
                 ),
             };
         default:

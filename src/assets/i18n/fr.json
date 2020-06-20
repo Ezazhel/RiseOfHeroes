@@ -51,7 +51,8 @@
         "dps": "DPS",
         "damage": "Dégâts",
         "offensivePower": "Puissance Attaque",
-        "offensiveStats": "Stats offensive"
+        "offensiveStats": "Stats offensive",
+        "runes": "Runes"
     },
     "inventoryFilter": {
         "all": "Tout",

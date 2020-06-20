@@ -51,7 +51,8 @@
         "dps": "DPS",
         "damage": "Damage",
         "offensivePower": "Offensive Power",
-        "offensiveStats": "Offensive Stats"
+        "offensiveStats": "Offensive Stats",
+        "runes": "Runes"
     },
     "inventoryFilter": {
         "all": "All",
@@ -103,7 +104,7 @@
         "work": {
             "buttonText": "Work",
             "currentGold": "own gold",
-            "level1": {
+            "peasant": {
                 "name": "Peasant",
                 "description": "You are working as a peasant !"
             }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Rune } from "@core/models/runes/runes.model";
-import { getDescription } from "@core/models/runes/runes.utils";
+import { getDescription, getLimitLevel } from "@core/models/runes/runes.utils";
 
 @Component({
     selector: "app-runes",
@@ -16,6 +16,9 @@ export class RunesComponent implements OnInit {
             runes.push({ ...this.item, currentLvl: i + 1 });
         }
         return runes;
+    }
+    getLimitLevel(rune: Rune) {
+        return getLimitLevel(rune);
     }
     description(rune: Rune) {
         return getDescription(rune);

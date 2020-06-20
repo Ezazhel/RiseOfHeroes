@@ -1,4 +1,4 @@
-import { updateInsert } from "@core/models/utils";
+import { updateInsert, getHeroDamage, getHeroDps } from "@core/models/utils";
 import {
     Spells,
     OvertimeSpells,
@@ -44,7 +44,7 @@ const descriptions: Map<string, DescriptionMethod> = new Map([
     [
         "powerAttack",
         (spells: Spells, hero: Hero) => ({
-            param: getHeroOffensivePower(hero) * spells.power,
+            param: getHeroDps(hero) * spells.power,
         }),
     ],
     [
@@ -75,9 +75,7 @@ const effects: Map<string, EffectMethod> = new Map([
     [
         "powerAttack",
         (spells: Spells, target: Fighter, launcher: Hero) => {
-            target.hp =
-                target.hp -
-                getHeroOffensivePower(launcher as Hero) * spells.power;
+            target.hp = target.hp - getHeroDps(launcher as Hero) * spells.power;
         },
     ],
     [

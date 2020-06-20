@@ -41,7 +41,7 @@ export const runeAdvance: Map<RuneType, RuneAdvance> = new Map<
         "swiftness",
         {
             effect: (rune: Rune = swiftnessRune, statToUpdate) => {
-                return statToUpdate + 5 * rune.currentLvl;
+                return statToUpdate * (1 - 0.05 * rune.currentLvl);
             },
             description: (rune) => ({
                 param: 5 * rune.currentLvl,
@@ -53,7 +53,7 @@ export const runeAdvance: Map<RuneType, RuneAdvance> = new Map<
         "precision",
         {
             effect: (rune: Rune = precisionRune, statToUpdate) => {
-                return statToUpdate + 5 * rune.currentLvl;
+                return 5 * rune.currentLvl;
             },
             description: (rune) => ({
                 param: 5 * rune.currentLvl,

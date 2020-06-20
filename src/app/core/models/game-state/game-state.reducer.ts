@@ -18,9 +18,9 @@ const initialState: GameState = {
     inventory: [],
     currencies: [
         { name: "gold", quantity: 50 },
-        { name: "dummy-row", quantity: 5 },
-        { name: "dummy-screw", quantity: 5 },
-        { name: "dummy-wood", quantity: 5 },
+        { name: "dummy-row", quantity: 50 },
+        { name: "dummy-screw", quantity: 50 },
+        { name: "dummy-wood", quantity: 50 },
     ],
     location: "house",
     combatZone: "",

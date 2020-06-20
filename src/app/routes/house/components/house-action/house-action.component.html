@@ -1,4 +1,4 @@
-<ng-container *ngIf="hero$ | async as hero">
+<ng-container *ngIf="_hero$ | async as hero">
     <ng-container *transloco="let tsl">
         <div fxLayout="column nowrap">
             <div class="tab" fxLayout="row" fxLayoutAlign="center center">
@@ -20,14 +20,17 @@
         <div class="tab-container">
             <div [style.display]="dTab === 'training' ? 'block' : 'none'">
                 <app-card
-                    *ngFor="let t of _trainingEquipment; trackBy: trackByFn"
-                    (click)="train(hero, t.id)"
+                    *ngFor="
+                        let t of _trainingEquipment$ | async;
+                        trackBy: trackByFn
+                    "
+                    (click)="doTraining$.next(t)"
                 >
                     <ng-container cardHeader>
                         <span>
                             {{ tsl(t.cardHeader) }} ({{
-                                displayStat(hero$ | async, t.id)
-                            }})
+                                displayStat(hero, t.id)
+                            }}) {{ t.isActive }}
                         </span>
                     </ng-container>
                     <ng-container cardBody>
@@ -47,28 +50,28 @@
                             </span>
                         </div>
                         <app-progressbar
-                            time="{{ t.speed }}ms"
-                            [animate]="t.isTraining ? 'filling' : 'initial'"
+                            time="{{ getTime(t) }}ms"
+                            [animate]="t.isActive ? 'filling' : 'initial'"
                         ></app-progressbar>
                     </ng-container>
                 </app-card>
             </div>
             <div [style.display]="dTab === 'work' ? 'block' : 'none'">
-                <app-card header="" (click)="goToWork()">
+                <app-card (click)="doWorking$.next(_work)">
                     <ng-container cardHeader>
                         <span>
-                            {{ tsl("house.work.level1.name") }}
+                            {{ tsl(_work.name) }}
                         </span>
                     </ng-container>
                     <ng-container cardBody>
                         <label>
-                            {{ tsl("house.work.level1.description") }}
+                            {{ tsl(_work.description) }}
                         </label>
                     </ng-container>
                     <ng-container cardFooter>
                         <div class="training-reward-information">
                             <span>
-                                {{ tsl("house.reward") }} : +{{ work.reward }}g
+                                {{ tsl("house.reward") }} : +{{ _work.reward }}g
                             </span>
                             <span>
                                 {{ tsl("house.work.currentGold") }}
@@ -76,8 +79,8 @@
                             </span>
                         </div>
                         <app-progressbar
-                            time="{{ work.time }}ms"
-                            [animate]="work.working ? 'filling' : 'initial'"
+                            time="{{ getTime(_work) }}ms"
+                            [animate]="_work.isActive ? 'filling' : 'initial'"
                         ></app-progressbar>
                     </ng-container>
                 </app-card>

@@ -5,7 +5,7 @@
         </span>
         <label
             *ngFor="let rune of getDescriptionForRune()"
-            [ngClass]="{'current': item.currentLvl === rune.currentLvl}"
+            [ngClass]="{'current': getLimitLevel(item) ===rune.currentLvl }"
         >
             {{ rune.currentLvl}} : {{ t(description(rune).jsonField,
             description(rune))}}

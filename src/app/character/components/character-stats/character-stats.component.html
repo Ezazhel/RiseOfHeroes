@@ -57,7 +57,7 @@
     </h3>
     <ul>
         <li
-            *ngFor="let rune of getRunes()"
+            *ngFor="let rune of runes; trackBy: trackByRune"
             [tooltip]="rune"
             [tooltip-type]="'rune'"
         >

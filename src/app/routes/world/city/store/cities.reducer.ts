@@ -23,7 +23,7 @@ const initialState: CitiesState = {
                     crafts: [{ ...dummyCraft }],
                     upgrades: [
                         {
-                            ...createUpgrade("faster", 2, 500, "faster"),
+                            ...createUpgrade("faster", 5, 500, "faster"),
                         },
                         {
                             ...createUpgrade("better", 2, 2000, "better"),

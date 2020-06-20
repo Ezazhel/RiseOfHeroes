@@ -1,9 +1,14 @@
-import { update, getHeroMaxHp } from "@core/models/utils";
+import { update, getHeroMaxHp, getMultiplier } from "@core/models/utils";
 import {
     HouseUpdateTrainingEquipmentDone,
     HouseTraining,
 } from "./../../store/house.action";
-import { TrainingEquipment, TrainingType } from "./../../store/house.model";
+import {
+    TrainingEquipment,
+    TrainingType,
+    Work,
+    IdlingHouse,
+} from "./../../store/house.model";
 import {
     GameStateUpdateHeroAction,
     GameStateCurrenciesAddCurrencyAction,
@@ -12,13 +17,13 @@ import { Hero } from "@core/models/entity";
 import { Store, select } from "@ngrx/store";
 import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { AppState } from "@core/models";
-import { Observable, Subject, BehaviorSubject } from "rxjs";
+import { Observable, Subject, BehaviorSubject, Subscription } from "rxjs";
 import { Currency } from "@core/models/game-data/game-data.model";
-import { Map } from "immutable";
-import { map } from "rxjs/operators";
+import { withLatestFrom, take } from "rxjs/operators";
 import { _runtimeChecksFactory } from "@ngrx/store/src/runtime_checks";
-import { MessageService } from "@core/services";
 import { AddPassivesToStat } from "@core/models/spells/spells.utils";
+import { NotifierService } from "@core/services/notifier.service";
+import { currencySelector, heroSelector } from "@core/models/selector";
 @Component({
     selector: "house-action",
     templateUrl: "./house-action.component.html",
@@ -27,83 +32,115 @@ import { AddPassivesToStat } from "@core/models/spells/spells.utils";
 export class HouseActionComponent implements OnInit, OnDestroy {
     public dTab: string = "training";
     idlingTimer: number; //Timer general allowing only one training or working.
-    timeOutFilling: number;
 
-    private _hero$: Subject<Hero> = new BehaviorSubject<Hero>(null);
-    hero$: Observable<Hero> = this._hero$;
-    @Input("hero") set _hero(value: Hero) {
-        this._hero$.next(value);
-    }
+    public _hero$: Observable<Hero> = this.store.pipe(select(heroSelector));
 
-    private _currencies$: Subject<Array<Currency>> = new BehaviorSubject<
-        Array<Currency>
-    >(null);
-    currencies$: Observable<Array<Currency>> = this._currencies$;
-    @Input("currencies") set _currencies(value: Array<Currency>) {
-        this._currencies$.next(value);
-    }
+    gold$: Observable<Currency> = this.store.select(currencySelector("gold"));
 
-    gold$: Observable<Currency> = this._currencies$.pipe(
-        map((currencies: Array<Currency>) =>
-            currencies.find((c) => c.name == "gold")
+    @Input("trainings") _trainingEquipment$: Observable<TrainingEquipment>;
+    @Input("work") _work: Work;
+
+    public doTraining$: Subject<TrainingEquipment> = new Subject<
+        TrainingEquipment
+    >();
+    public doWorking$: Subject<Work> = new Subject<Work>();
+
+    private _trainingSubscription: Subscription = this.doTraining$
+        .pipe(
+            withLatestFrom(
+                this._hero$,
+                (event: TrainingEquipment, hero: Hero) => {
+                    let time = getMultiplier("swiftness", hero, event.speed);
+                    if (event.done <= event.bonus - 1) {
+                        this.store.dispatch(new HouseTraining("none")); // reset every fillbar
+                        window.setTimeout(
+                            () =>
+                                this.store.dispatch(
+                                    new HouseTraining(event.id)
+                                ),
+                            10
+                        );
+                        clearTimeout(this.idlingTimer);
+                        this.idlingTimer = window.setTimeout(() => {
+                            hero = this.heroAfterTraining(
+                                hero,
+                                event,
+                                event.id
+                            );
+                            this.store.dispatch(
+                                new GameStateUpdateHeroAction(hero)
+                            );
+                            this.store.dispatch(
+                                new HouseUpdateTrainingEquipmentDone(event.id)
+                            );
+                            this._notifier.notify(
+                                `${event.reward} ${event.id}`,
+                                "",
+                                "reward"
+                            );
+                            this.doTraining$.next({
+                                ...event,
+                                done: event.done + 1,
+                            });
+                        }, time);
+                    } else {
+                        this._notifier.notify("No more training", "", "text");
+                    }
+                }
+            )
         )
-    );
+        .subscribe();
 
-    @Input() _trainingEquipment: Array<TrainingEquipment>;
+    private _workingSubscription: Subscription = this.doWorking$
+        .pipe(
+            withLatestFrom(this._hero$, (event: Work, hero: Hero) => {
+                setTimeout(() => {
+                    this._work = { ...this._work, isActive: true };
+                }, 10);
+                let time = getMultiplier("swiftness", hero, event.speed);
+                this.store.dispatch(new HouseTraining("none")); // reset fillbar
+                clearTimeout(this.idlingTimer); //if training was set
+                this.idlingTimer = window.setTimeout(() => {
+                    this.store.dispatch(
+                        new GameStateCurrenciesAddCurrencyAction({
+                            name: "gold",
+                            quantity: this._work.reward,
+                        })
+                    );
+                    this._notifier.notify(
+                        "",
+                        "currency gold",
+                        "reward",
+                        this._work.reward,
+                        1000
+                    );
+                    this._work = { ...this._work, isActive: false };
+                    this.doWorking$.next({
+                        ...event,
+                        done: event.done + 1,
+                    });
+                }, time);
+            })
+        )
+        .subscribe();
 
-    public TEqpmt = (type: TrainingType) =>
-        this._trainingEquipment.find((equipment) => equipment.id == type);
+    public getTime(idling: IdlingHouse) {
+        let time: number = idling.speed;
+        this._hero$.pipe(take(1)).subscribe((h) => {
+            time = getMultiplier("swiftness", h, idling.speed);
+        });
+        return time;
+    }
 
     public displayStat(hero: Hero, stat: TrainingType) {
-        switch (stat) {
-            case "strength":
-                return hero.baseStats.find((s) => s.type == "strength").value;
-            case "endurance":
-                return hero.baseStats.find((s) => s.type == "endurance").value;
-        }
+        return hero.baseStats.find((s) => s.type == stat).value;
     }
 
-    train(hero: Hero, stat: TrainingType) {
-        let training = this._trainingEquipment.find(
-            (equipment) => equipment.id == stat
-        );
-        if (training.isTraining || training.done === training.bonus) {
-            return;
-        }
-        clearTimeout(this.idlingTimer);
-        clearTimeout(this.timeOutFilling);
-
-        // this.training = this.training.map((value, key) => false);
-        this.store.dispatch(new HouseTraining(stat));
-        this.idling(hero, stat, training);
-    }
-    private idling(
-        hero: Hero,
-        stat: TrainingType,
-        trainingObject: TrainingEquipment
-    ) {
-        let trainEquipment = trainingObject;
-        // this.training = this.training.update(stat, () => true);
-
-        this.idlingTimer = window.setTimeout(() => {
-            hero = this.heroAfterTraining(hero, trainEquipment, stat);
-            this.store.dispatch(new GameStateUpdateHeroAction(hero));
-            this.store.dispatch(new HouseUpdateTrainingEquipmentDone(stat));
-            this.store.dispatch(new HouseTraining(stat));
-            if (trainEquipment.done >= trainEquipment.bonus - 1) {
-                this.store.dispatch(new HouseTraining(stat));
-                return;
-            }
-            this.idling(hero, stat, {
-                ...trainEquipment,
-                done: trainEquipment.done + 1,
-            });
-        }, trainEquipment.speed);
-        this.timeOutFilling = window.setTimeout(() => {
-            this.store.dispatch(new HouseTraining(stat));
-        }, trainEquipment.speed - 1);
+    public trackByFn(index: number, el: TrainingEquipment) {
+        return index;
     }
 
+    //#region Private
     private heroAfterTraining(
         hero: Hero,
         trainEquipment: TrainingEquipment,
@@ -133,45 +170,17 @@ export class HouseActionComponent implements OnInit, OnDestroy {
             hp: maxHp,
         };
     }
-
-    public work = {
-        working: false,
-        time: 1000,
-        reward: 1,
-    };
-
-    goToWork(): void {
-        clearTimeout(this.idlingTimer);
-        clearTimeout(this.timeOutFilling);
-        this.store.dispatch(new HouseTraining("none"));
-        this.working();
-    }
-    private working() {
-        this.work = { ...this.work, working: true };
-
-        this.idlingTimer = window.setTimeout(() => {
-            this.store.dispatch(
-                new GameStateCurrenciesAddCurrencyAction({
-                    name: "gold",
-                    quantity: this.work.reward,
-                })
-            );
-            this.working();
-        }, this.work.time);
-        setTimeout(
-            () => (this.work = { ...this.work, working: false }),
-            this.work.time - 1
-        );
-    }
-
-    public trackByFn(index: number, el: TrainingEquipment) {
-        return index;
-    }
-    constructor(private store: Store<AppState>) {}
+    //#endregion Private
+    constructor(
+        private store: Store<AppState>,
+        private _notifier: NotifierService
+    ) {}
 
     ngOnInit(): void {}
 
     ngOnDestroy(): void {
         clearTimeout(this.idlingTimer);
+        this._workingSubscription.unsubscribe();
+        this._trainingSubscription.unsubscribe();
     }
 }
