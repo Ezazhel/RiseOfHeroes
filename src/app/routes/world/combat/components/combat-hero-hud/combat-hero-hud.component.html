@@ -42,6 +42,7 @@
                     [tooltip-type]="'spell'"
                     [spell]="spell"
                     [index]="index"
+                    [hero]="hero$ | async"
                     (rdy)="casted($event)"
                     (click)="!spell.isInCooldown && cast(spell)"
                 >

@@ -30,3 +30,8 @@
         }
     }
 }
+.tab-container {
+    display: flex;
+    flex-flow: row wrap;
+    place-content: center;
+}

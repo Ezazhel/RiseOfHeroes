@@ -12,7 +12,7 @@ export const PeasantSpells: Array<Spells | OvertimeSpells | HealSpells> = [
         isActive: true,
         isInCooldown: false,
         levelRequired: 1,
-        power: 1.5, //multiply attack power by 1.5;
+        power: 1.5, //multiply damage by 1.5;
         type: "damage",
     },
     {

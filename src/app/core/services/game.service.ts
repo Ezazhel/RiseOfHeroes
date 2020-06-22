@@ -38,6 +38,7 @@ export class GameService {
                 { ...intelligenceStat, value: 0 },
                 { ...agilityStat, value: 0 },
             ],
+            potions: [],
         };
         let character: Partial<Hero> = null;
         switch (entityClass) {

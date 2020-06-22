@@ -4,6 +4,7 @@ import * as CityAction from "./cities.action";
 import { update } from "@core/models/utils";
 import { createUpgrade } from "@core/models/upgrades";
 import { dummyCraft } from "@core/models/game-data/game-data.data";
+import { healingPotion } from "@core/models/potions/potions.data";
 
 const initialState: CitiesState = {
     cities: [
@@ -40,28 +41,7 @@ const initialState: CitiesState = {
                 {
                     type: "alchemist",
                     name: "city.city_shop.alchemist",
-                    items: [
-                        {
-                            id: "item1",
-                            name: "Health Potion",
-                            value: 150,
-                            level: 0,
-                            icon: "t_23",
-                            type: "item",
-                            quality: "common",
-                            subType: "potion",
-                        },
-                        {
-                            id: "item2",
-                            name: "Mana Potion",
-                            value: 150,
-                            level: 0,
-                            icon: "t_21",
-                            type: "item",
-                            quality: "common",
-                            subType: "potion",
-                        },
-                    ],
+                    items: [healingPotion],
                     upgrades: [],
                     display: false,
                     acceptType: "consumable",

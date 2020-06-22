@@ -1,6 +1,5 @@
 import {
     Currency,
-    ITemplateArmor,
     ITemplateBaseItem,
 } from "@core/models/game-data/game-data.model";
 import { effectFor } from "@core/models/spells/spells.utils";
@@ -15,16 +14,16 @@ import { Store } from "@ngrx/store";
 import { Injectable } from "@angular/core";
 import { AppState } from "@core/models";
 
-import { getHeroDamage } from "@core/models/utils";
+import { getHeroDamage, isCrit } from "@core/models/utils";
 import { interval, Subscription, timer } from "rxjs";
 import {
     Spells,
     OvertimeSpells,
     HealSpells,
 } from "@core/models/spells/spells.model";
-import { getFromLootbag } from "@core/models/item-generation";
 import { levelUp } from "@core/models/level";
 import { NotifierService } from "./notifier.service";
+import { getFromLootbag } from "@core/models/loot/item-generation";
 
 @Injectable({
     providedIn: "root",
@@ -69,9 +68,15 @@ export class CombatService {
         let heroInterval = interval(
             this.hero.weapon ? this.hero.weapon.speed : 1000
         ).subscribe(() => {
-            this.fighter.hp = Math.floor(
-                this.fighter.hp - getHeroDamage(this.hero)
-            );
+            let crit: number = 1;
+            let damage: number = getHeroDamage(this.hero);
+            let text: string = `You hit for ${damage}`;
+            if (isCrit(this.hero)) {
+                crit = 2;
+                text = `You critical hit for : ${damage * 2}`;
+            }
+            this.fighter.hp = Math.floor(this.fighter.hp - damage * crit);
+            this._notifier.notify(text, "", "text");
             if (this.fighter.hp <= 0) {
                 this.victory();
                 this.death();
@@ -107,7 +112,7 @@ export class CombatService {
     }
 
     activateSpell(spell: Spells | OvertimeSpells | HealSpells) {
-        effectFor(spell, this.fighter, this.hero);
+        effectFor(spell, this.fighter, this.hero, isCrit(this.hero));
         this.store.dispatch(
             new CombatStateHeroSpell({ ...spell, isInCooldown: true })
         );

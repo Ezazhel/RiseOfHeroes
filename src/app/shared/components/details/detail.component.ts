@@ -1,10 +1,11 @@
 import {
     ITemplateWeapon,
     ITemplateArmor,
-    ITemplateItem,
     ITemplateBaseItem,
 } from "@core/models/game-data/game-data.model";
 import { Component, OnInit, Input } from "@angular/core";
+import { getDescription } from "@core/models/potions/potions.utils";
+import { Potion } from "@core/models/potions/potions.model";
 
 @Component({
     selector: "detail",
@@ -15,7 +16,7 @@ export class DetailComponent implements OnInit {
     @Input("item") set item(value: ITemplateBaseItem) {
         if (value === undefined || value === null) return;
         if (value.type === "item") {
-            this.consumable = value as ITemplateItem;
+            this.consumable = value as Potion;
         } else {
             this.equipment = value as ITemplateWeapon | ITemplateArmor;
         }
@@ -27,8 +28,12 @@ export class DetailComponent implements OnInit {
     @Input() iconClass: string;
     @Input() equipped: boolean;
     _item: ITemplateBaseItem;
-    consumable: ITemplateItem;
+    consumable: Potion;
     equipment: ITemplateWeapon | ITemplateArmor;
+
+    getDescription(item: ITemplateBaseItem) {
+        return getDescription(item as Potion);
+    }
     constructor() {}
 
     ngOnInit(): void {}

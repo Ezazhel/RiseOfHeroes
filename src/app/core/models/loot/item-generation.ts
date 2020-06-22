@@ -5,14 +5,16 @@ import {
     WeaponCategory,
     ArmorCategory,
     ItemCategories,
-    entityId,
     LootbagItem,
     Reward,
-} from "./game-data/game-data.model";
-import * as baseItem from "./game-data/game-data.data";
+} from "../game-data/game-data.model";
+import * as baseItem from "../game-data/game-data.data";
 import { toNumber } from "@ngneat/transloco";
-import { commonFormula } from "./utils";
-import { modifyPrice, modifyStat } from "./craft/craft.utils";
+import * as craft from "../craft/craft.utils";
+import { entityId } from "../utils";
+import { pickFromLootbag } from "./loot.utils";
+import { rareRunes, epicRunes } from "../runes/runes.data";
+import { Rune } from "../runes/runes.model";
 
 export const Icons: Map<WeaponCategory | ArmorCategory, string[]> = new Map([
     ["axe", generateIconArray("a", 24)],
@@ -207,12 +209,13 @@ function generateArmor(
         level: level,
         icon: pickRandomIcon(icons),
         quality: quality,
+        runes: pickRandomRuneFromArray(quality),
         name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
-        armor: modifyStat(quality, baseArmor.armor, level),
-        value: modifyPrice(quality, baseArmor.value * level),
+        armor: craft.modifyStat(quality, baseArmor.armor, level),
+        value: craft.modifyPrice(quality, baseArmor.value * level),
         stats: [...baseArmor.stats].map((s) => ({
             ...s,
-            value: modifyStat(quality, s.value, level),
+            value: craft.modifyStat(quality, s.value, level),
         })),
     };
 }
@@ -236,28 +239,45 @@ function generateWeapon(
         icon: pickRandomIcon(icons),
         name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
         attack: baseWeapon.attack * level,
-        value: modifyPrice(quality, baseWeapon.value * level),
+        value: craft.modifyPrice(quality, baseWeapon.value * level),
         dps: toNumber(
             ((baseWeapon.attack * level) / (baseWeapon.speed / 1000)).toFixed(2)
         ),
         stats: [...baseWeapon.stats].map((s) => ({
             ...s,
-            value: modifyStat(quality, s.value, level),
+            value: craft.modifyStat(quality, s.value, level),
         })),
     };
 }
 
+export const pickRandomRuneFromArray = (quality: ItemQuality): Rune[] => {
+    let arr: LootbagItem[] = [];
+    let countItem = 0;
+    switch (quality) {
+        case "rare":
+            arr = rareRunes;
+            countItem = 1;
+            break;
+        case "epic":
+            arr = epicRunes;
+            countItem = 2;
+            break;
+    }
+    if (arr != []) {
+        let runes: Rune[] = [];
+        for (let i = 0; i < countItem; i++) {
+            let rwd = pickFromLootbag(arr);
+            if (rwd.item !== "none") {
+                runes.push(rwd.rune);
+            }
+        }
+        return runes;
+    }
+    return [];
+};
+
 export function getFromLootbag(level: number, bag: LootbagItem[]): Reward {
-    let totalWeigth: number = 1;
-    bag = [...bag].map((el) => {
-        el = { ...el, rangeFrom: totalWeigth };
-        totalWeigth = totalWeigth + el.weigth;
-        return { ...el, rangeTo: totalWeigth - 1 };
-    });
-    let rndNumber = Math.floor(Math.random() * totalWeigth);
-    let rwd = bag.find(
-        (l) => rndNumber >= l.rangeFrom && rndNumber <= l.rangeTo
-    );
+    let rwd = pickFromLootbag(bag);
     switch (rwd.item) {
         case "armor":
             return {

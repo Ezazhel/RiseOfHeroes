@@ -2,7 +2,7 @@ import { rewardXp } from "@core/models/level";
 import { Subject, BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs";
 import { Component, OnInit, Input } from "@angular/core";
-import { Fighter } from "@core/models/entity";
+import { Fighter, Hero } from "@core/models/entity";
 import { map } from "rxjs/operators";
 import { OvertimeSpells } from "@core/models/spells/spells.model";
 
@@ -13,6 +13,7 @@ import { OvertimeSpells } from "@core/models/spells/spells.model";
 })
 export class CombatMonsterHudComponent implements OnInit {
     @Input() fighter: Fighter;
+    @Input() hero: Hero;
     @Input() heroLevel: number;
     healthPercentage(f: Fighter): number {
         return Math.round((f.hp / f.maxHp) * 100);

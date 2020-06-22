@@ -1,11 +1,10 @@
 import { Hero, FighterColor } from "./entity";
-import * as _ from "lodash";
 import { Predicate } from "@angular/core";
 import { toNumber } from "@ngneat/transloco";
 import { Stat } from "./game-data/game-data.model";
-import { AddPassivesToStat } from "./spells/spells.utils";
 import { Rune, RuneType } from "./runes/runes.model";
 import { getEffect } from "./runes/runes.utils";
+
 /**
  * Generate probably unique IDs. See: http://stackoverflow.com/questions/26501688/a-typescript-guid-class
  * @returns {string}
@@ -17,6 +16,10 @@ export function newGuid() {
             v = c == "x" ? r : (r & 0x3) | 0x8;
         return v.toString(16);
     });
+}
+/** Generate a UUID for a given input template ID that is unique across all instances of the same template base */
+export function entityId(id: string): string {
+    return `${id}-${newGuid()}`;
 }
 
 export function update<T>(
@@ -101,6 +104,13 @@ export function getHeroRune(hero: Hero) {
 
 export function getMultiplier(runeType: RuneType, hero: Hero, stat: number) {
     let r = [...getHeroRune(hero)].find((r) => r.type === runeType);
+    if (runeType == "swiftness") {
+        console.group();
+        console.log("Rune", r);
+        console.log("stat", stat);
+        console.log("type", runeType);
+        console.groupEnd();
+    }
     return r !== undefined ? getEffect(r, stat) : stat;
 }
 
@@ -114,16 +124,6 @@ export function fighterColor(diflvl: number): FighterColor {
     return "normal";
 }
 
-//#region Stat
-export const commonFormula = (stat: number, level: number) =>
-    (stat + level) * (1 + level / 50);
-export const uncommonFormula = (stat: number) => stat * 1.1 + 1;
-export const rareFormula = (stat: number) => (uncommonFormula(stat) + 2) * 1.15;
-export const epicFormula = (stat: number) => (rareFormula(stat) + 2) * 1.2;
-export const legendaryFormula = (stat: number) => (epicFormula(stat) + 3) * 1.1;
-//#endregion Stat
-//#region  Price
-export const uPrice = (price) => price * 3;
-export const rPrice = (price) => uPrice(price) * 3;
-export const ePrice = (price) => rPrice(price) * 2.5;
-//#endregion Price
+export function isCrit(hero: Hero) {
+    return Math.random() * 100 <= getMultiplier("precision", hero, 0); // return if crit;
+}

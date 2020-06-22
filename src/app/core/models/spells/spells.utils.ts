@@ -1,4 +1,9 @@
-import { updateInsert, getHeroDamage, getHeroDps } from "@core/models/utils";
+import {
+    updateInsert,
+    getHeroDamage,
+    getHeroDps,
+    getMultiplier,
+} from "@core/models/utils";
 import {
     Spells,
     OvertimeSpells,
@@ -27,24 +32,27 @@ export function descriptionFor(
 export function effectFor(
     spells: Spells | OvertimeSpells | HealSpells,
     target: Hero | Fighter,
-    launcher: Hero | Fighter
+    launcher: Hero | Fighter,
+    isCrit: boolean
 ) {
-    return effects.get(spells.id)(spells, target, launcher);
+    return effects.get(spells.id)(spells, target, launcher, isCrit);
 }
 type DescriptionMethod = (
     spells: Spells | OvertimeSpells | HealSpells,
     hero: Hero
 ) => Description;
+
 type EffectMethod = (
     spells: Spells | OvertimeSpells | HealSpells,
     target: Hero | Fighter,
-    launcher: Hero | Fighter
+    launcher: Hero | Fighter,
+    isCrit?: boolean
 ) => void;
 const descriptions: Map<string, DescriptionMethod> = new Map([
     [
         "powerAttack",
         (spells: Spells, hero: Hero) => ({
-            param: getHeroDps(hero) * spells.power,
+            param: getHeroDamage(hero) * spells.power,
         }),
     ],
     [
@@ -74,8 +82,12 @@ const descriptions: Map<string, DescriptionMethod> = new Map([
 const effects: Map<string, EffectMethod> = new Map([
     [
         "powerAttack",
-        (spells: Spells, target: Fighter, launcher: Hero) => {
-            target.hp = target.hp - getHeroDps(launcher as Hero) * spells.power;
+        (spells: Spells, target: Fighter, launcher: Hero, isCrit: boolean) => {
+            target.hp =
+                target.hp -
+                getHeroDamage(launcher as Hero) *
+                    spells.power *
+                    (isCrit ? 2 : 1);
         },
     ],
     [
@@ -102,7 +114,12 @@ const effects: Map<string, EffectMethod> = new Map([
     ],
     [
         "peasantTorch",
-        (spells: OvertimeSpells, target: Fighter, launcher: Hero) => {
+        (
+            spells: OvertimeSpells,
+            target: Fighter,
+            launcher: Hero,
+            isCrit: boolean
+        ) => {
             if (
                 target.debuffs != undefined &&
                 target.debuffs.findIndex((d) => d.id == spells.id) != -1
@@ -115,16 +132,17 @@ const effects: Map<string, EffectMethod> = new Map([
                 target.debuffs = target.debuffs.filter(
                     (s) => s.id != spells.id
                 );
-            }, spells.duration * 1000);
+            }, getMultiplier("swiftness", launcher, spells.duration) * 1000);
             let dot = window.setInterval(() => {
                 target.hp =
                     target.hp -
                     Math.floor(
                         5 +
                             getHeroOffensivePower(launcher as Hero) *
-                                spells.power
+                                spells.power *
+                                (isCrit ? 2 : 1)
                     );
-            }, 1000);
+            }, getMultiplier("swiftness", launcher, 1000));
             target.debuffs = updateInsert(
                 target.debuffs,
                 (d) => d.id === spells.id,

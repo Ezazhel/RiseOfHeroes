@@ -2,6 +2,7 @@
     <!-- If multiFighter -->
     <app-combat-monster-hud
         [fighter]="fighter"
+        [hero]="hero$ | async"
         [heroLevel]="(hero$ | async).level"
     >
     </app-combat-monster-hud>

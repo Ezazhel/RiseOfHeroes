@@ -1,4 +1,4 @@
-import { levelSelector } from "./../../../../../../../core/models/selector";
+import { levelSelector } from "@core/models/selector";
 import { currenciesSelector, equippedSelector } from "@core/models/selector";
 import { AppState } from "@core/models";
 import { Component, OnInit, Input } from "@angular/core";
@@ -6,8 +6,6 @@ import { Shop, Craft, CraftSet } from "@routes/world/city/store/cities.model";
 import {
     ITemplateBaseItem,
     Currency,
-    entityId,
-    ITemplateWeapon,
     ITemplateBaseEquipmennt,
     ITemplateArmor,
 } from "@core/models/game-data/game-data.model";
@@ -19,6 +17,7 @@ import {
     GameStateCurrenciesAddCurrencyAction,
 } from "@core/models/game-state/game-state.action";
 import { modifyStat } from "@core/models/craft/craft.utils";
+import { entityId } from "@core/models/utils";
 
 @Component({
     selector: "app-city-shop-craft",

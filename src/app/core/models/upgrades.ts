@@ -1,4 +1,4 @@
-import { QualityArray } from "./item-generation";
+import { QualityArray } from "./loot/item-generation";
 import { Shop, ShopUpgrade } from "@routes/world/city/store/cities.model";
 export type UpgradeType = "faster" | "better" | "more";
 

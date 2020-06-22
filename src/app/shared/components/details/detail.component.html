@@ -6,11 +6,19 @@
         <div fxLayout="row">
             <i *ngIf="iconClass != ''" class="{{ iconClass }}"></i>
             <span class="{{ item.quality }}">
-                {{ item.name }}
+                {{ t(item.name) }}
             </span>
         </div>
         <div *ngIf="consumable; else weaponOrArmor">
-            Template item
+            {{
+                t(
+                    getDescription(consumable).jsonField,
+                    getDescription(consumable)
+                )
+            }}
+            <span class="cooldown_potion">
+                {{ t("potions.cooldown", { cooldown: consumable.cooldown }) }}
+            </span>
         </div>
         <ng-template #weaponOrArmor>
             <div class="stat" fxLayout="column nowrap">
@@ -75,11 +83,10 @@
             fxLayout="row"
             class="goldLevel"
             fxLayoutAlign="space-between center"
+            *ngIf="item.level > 0"
         >
-            <span *ngIf="equipment.level > 0">{{
-                t("game.requiredLevel", { level: equipment.level })
-            }}</span>
-            <span class="gold">{{ equipment.value }}g</span>
+            <span>{{ t("game.requiredLevel", { level: item.level }) }}</span>
+            <span class="gold">{{ item.value }}g</span>
         </div>
     </div>
 </ng-container>

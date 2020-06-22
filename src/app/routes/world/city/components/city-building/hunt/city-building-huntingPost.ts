@@ -6,7 +6,7 @@ import { Fighter } from "@core/models/entity";
 import { getFighterWithLevel } from "@routes/world/city/store/cities.utils";
 @Component({
     selector: "huntingPost",
-    template: ` <div fxLayout="row nowrap" fxLayoutAlign="center center">
+    template: ` <div fxLayout="row wrap" fxLayoutAlign="center center">
         <huntingPost-post
             *ngFor="let action of building.actions; trackBy: trackByFn"
             [action]="action"

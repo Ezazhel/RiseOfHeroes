@@ -1,7 +1,7 @@
-<ng-container *transloco="let tsl; read: 'city.city_shop.content'">
+<ng-container *transloco="let tsl">
     <div fxLayout="column">
         <span *ngIf="_shop.intervalStock !== undefined">{{
-            tsl("shopReset", { timer: timer })
+            tsl("city.city_shop.content.shopReset", { timer: timer })
         }}</span>
         <div
             *ngFor="let item of _shop.items; trackBy: trackByFn"
@@ -13,7 +13,7 @@
         >
             <i class="{{ item.subType }} {{ item.icon }} "></i>
             <span class="item-name">
-                {{ item.name }}
+                {{ tsl(item.name) }}
             </span>
             <div class="action">
                 <span class="item-value"> {{ item.value }}g </span>
@@ -23,7 +23,7 @@
                     "
                     (click)="buyItem(item)"
                 >
-                    {{ tsl("buy") }}
+                    {{ tsl("city.city_shop.content.buy") }}
                 </button>
             </div>
         </div>

@@ -4,16 +4,7 @@ import {
     ItemQuality,
 } from "../game-data/game-data.model";
 import { CurrencyType } from "../game-data/game-data.data";
-import {
-    commonFormula,
-    uncommonFormula,
-    rareFormula,
-    epicFormula,
-    uPrice,
-    rPrice,
-    ePrice,
-    legendaryFormula,
-} from "../utils";
+
 export const setGear = (
     set: string,
     name: string,
@@ -76,3 +67,16 @@ export const modifyStat = (
     }
     return Math.floor(statValue);
 };
+//#region Stat
+export const commonFormula = (stat: number, level: number) =>
+    (stat + level) * (1 + level / 50);
+export const uncommonFormula = (stat: number) => stat * 1.1 + 1;
+export const rareFormula = (stat: number) => (uncommonFormula(stat) + 2) * 1.15;
+export const epicFormula = (stat: number) => (rareFormula(stat) + 2) * 1.2;
+export const legendaryFormula = (stat: number) => (epicFormula(stat) + 3) * 1.1;
+//#endregion Stat
+//#region  Price
+export const uPrice = (price) => price * 3;
+export const rPrice = (price) => uPrice(price) * 3;
+export const ePrice = (price) => rPrice(price) * 2.5;
+//#endregion Price

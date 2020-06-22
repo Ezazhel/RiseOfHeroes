@@ -221,5 +221,12 @@
             "name": "Precision",
             "description": "Vous donne {{param}}% chance de critique"
         }
+    },
+    "potions": {
+        "cooldown": "{{cooldown}} sec rechargement",
+        "healing": {
+            "name": "Potion de soin",
+            "description": "Vous soigne de {{param}}% de vos pv max"
+        }
     }
 }

@@ -17,10 +17,7 @@ import {
     CityShopRenewItem,
 } from "@routes/world/city/store/cities.action";
 import { Shop } from "@routes/world/city/store/cities.model";
-import {
-    generateRandomArmor,
-    generateReward,
-} from "@core/models/item-generation";
+import { generateReward } from "@core/models/loot/item-generation";
 import { Observable } from "rxjs";
 import { levelSelector } from "@core/models/selector";
 import { first } from "rxjs/operators";
@@ -39,6 +36,7 @@ export class ShopService {
     renewShopItem(cityId: string = this.cityId, shop: Shop) {
         let level: number;
         this.level$.pipe(first()).subscribe((l) => (level = l));
+        //TODO : add maxLevel of city (because a city can't craft something at your level if your level is more than city's level)
         this.store.dispatch(
             new CityShopRenewItem({
                 city: cityId,

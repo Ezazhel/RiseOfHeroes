@@ -1,5 +1,3 @@
-import { PossibleReward } from "./../item-generation";
-import { newGuid } from "../utils";
 import { EntityType } from "../entity";
 import { CurrencyType } from "./game-data.data";
 import { Rune } from "../runes/runes.model";
@@ -84,11 +82,6 @@ export interface ITemplateBaseItem extends ITemplateId {
     readonly subType: any;
 }
 
-export interface ITemplateItem extends ITemplateBaseItem {
-    readonly type: "item";
-    readonly subType: "potion";
-}
-
 export interface ITemplateBaseEquipmennt extends ITemplateBaseItem {
     stats?: Stat[];
     runes?: Rune[];
@@ -118,38 +111,21 @@ export interface ITemplateArmor extends ITemplateBaseEquipmennt {
      */
     readonly armor: number;
 }
-/**
- * Instantiate an item from its template and assign it a unique eid value.
- * @param from The ITemplateId to stamp out a copy of
- * @param values Any optional values to assign to the instance during creation
- */
-export function instantiateEntity<T extends ITemplateId>(
-    from: any,
-    values?: Partial<T>
-): T {
-    return Object.assign(
-        {
-            eid: entityId(from.id),
-        },
-        from,
-        values || {}
-    ) as T;
-}
-
-/** Generate a UUID for a given input template ID that is unique across all instances of the same template base */
-export function entityId(id: string): string {
-    return `${id}-${newGuid()}`;
-}
-
 export interface Description {
     param?: any;
     param2?: any;
     jsonField?: string;
 }
 
-export type LootBagPossibleReward = "weapon" | "armor" | "currency" | "none";
+export type LootBagPossibleReward =
+    | "weapon"
+    | "armor"
+    | "currency"
+    | "Rune"
+    | "none";
 export interface LootbagItem {
     item: LootBagPossibleReward;
+    rune?: Rune;
     currency?: Currency;
     itemQuality?: ItemQuality;
     weigth: number;
@@ -158,5 +134,5 @@ export interface LootbagItem {
 }
 export interface Reward {
     rewardType: LootBagPossibleReward;
-    reward: ITemplateBaseItem | Currency;
+    reward: ITemplateBaseItem | Currency | Rune;
 }

@@ -1,5 +1,5 @@
 import { Fighter } from "./../entity";
-import { Stat, LootbagItem } from "./game-data.model";
+import { Stat } from "./game-data.model";
 import { ITemplateWeapon, ITemplateArmor } from "./game-data.model";
 
 export type CurrencyType = "gold" | "dummy-wood" | "dummy-screw" | "dummy-row";

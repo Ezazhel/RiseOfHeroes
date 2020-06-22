@@ -19,6 +19,8 @@ import {
 } from "@core/models/spells/spells.model";
 import { toNumber } from "@ngneat/transloco";
 import { of, Subscription } from "rxjs";
+import { getMultiplier } from "@core/models/utils";
+import { Hero } from "@core/models/entity";
 @Component({
     selector: "combat-spell-cooldown",
     templateUrl: "./combat-spell-cooldown.component.html",
@@ -29,6 +31,7 @@ export class CombatSpellCooldownComponent
     @Input() index: number;
     @Input() spell: Spells | OvertimeSpells | HealSpells;
     @Input() isSkill = true;
+    @Input() hero: Hero;
     @Output("rdy") spellReady = new EventEmitter<boolean>();
     @ViewChild("cooldown", { static: false }) canvas: ElementRef<
         HTMLCanvasElement
@@ -51,7 +54,9 @@ export class CombatSpellCooldownComponent
                         this.ctx,
                         this.canvas.nativeElement,
                         this.spell,
-                        this.action.nativeElement
+                        this.action.nativeElement,
+                        false,
+                        this.hero
                     );
                     this.ngZone.runOutsideAngular(() =>
                         cooldown.gaugeCooldown()
@@ -67,7 +72,8 @@ export class CombatSpellCooldownComponent
                     this.canvas.nativeElement,
                     this.spell,
                     this.action.nativeElement,
-                    this.isSkill
+                    this.isSkill,
+                    this.hero
                 );
                 this.ngZone.runOutsideAngular(() => cooldown.gaugeCooldown());
             }
@@ -87,7 +93,8 @@ export class Cooldown {
         private canvas: HTMLCanvasElement,
         private spell: Spells | OvertimeSpells | HealSpells,
         private element: HTMLElement,
-        private isSkill = true
+        private isSkill = true,
+        private hero: Hero
     ) {}
 
     clearCanvas() {
@@ -113,9 +120,17 @@ export class Cooldown {
         }
     }
     initiateCooldown() {
+        console.log("hero spell", this.hero);
+        console.log("spell cd", this.spell.cooldown);
+
         this.cd = this.isSkill
-            ? this.spell.cooldown * 1000
-            : (this.spell as OvertimeSpells).duration * 1000;
+            ? getMultiplier("swiftness", this.hero, this.spell.cooldown * 1000)
+            : getMultiplier(
+                  "swiftness",
+                  this.hero,
+                  (this.spell as OvertimeSpells).duration * 1000
+              );
+        console.log("cd", this.cd);
         if (!this.timer) {
             this.timer = window.setTimeout(
                 this.endCooldown.bind(this),

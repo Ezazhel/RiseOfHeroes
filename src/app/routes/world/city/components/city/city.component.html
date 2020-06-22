@@ -29,7 +29,7 @@
             <app-city-shop [shop]="shop$" [cityId]="city.id"></app-city-shop>
         </ng-container>
         <ng-container *ngIf="tab == 'building'">
-            <div fxLayout="row nowrap" fxLayoutAlign="center center">
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
                 <button
                     *ngFor="
                         let building of city.building;
