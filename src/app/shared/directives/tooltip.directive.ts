@@ -80,6 +80,7 @@ export class ToolTipDirective implements OnInit {
         >;
         switch (this.type) {
             case "spell":
+                this.overlayRef.detach();
                 tooltipRef = this.overlayRef.attach(
                     new ComponentPortal(SpellDetailComponent)
                 );
@@ -104,6 +105,7 @@ export class ToolTipDirective implements OnInit {
                 break;
             default:
                 // case "equipment":
+                this.overlayRef.detach();
                 tooltipRef = this.overlayRef.attach(
                     new ComponentPortal(SlotDetailComponent)
                 );

@@ -47,26 +47,9 @@ export class CombatSpellCooldownComponent
     ngOnInit(): void {}
     ngAfterViewInit(): void {
         this.ctx = this.canvas.nativeElement.getContext("2d");
-        this.subscription = of(this.spell).subscribe((s) => {
-            if (this.isSkill) {
-                if (s?.isInCooldown) {
-                    const cooldown: Cooldown = new Cooldown(
-                        this.ctx,
-                        this.canvas.nativeElement,
-                        this.spell,
-                        this.action.nativeElement,
-                        false,
-                        this.hero
-                    );
-                    this.ngZone.runOutsideAngular(() =>
-                        cooldown.gaugeCooldown()
-                    );
-                } else {
-                    this.spellReady.emit(true);
-                    if (this.subscription != undefined)
-                        this.subscription.unsubscribe();
-                }
-            } else {
+        console.log("after view init");
+        if (this.isSkill) {
+            if (this.spell.isInCooldown) {
                 const cooldown: Cooldown = new Cooldown(
                     this.ctx,
                     this.canvas.nativeElement,
@@ -76,11 +59,25 @@ export class CombatSpellCooldownComponent
                     this.hero
                 );
                 this.ngZone.runOutsideAngular(() => cooldown.gaugeCooldown());
+            } else {
+                this.spellReady.emit(true);
+                if (this.subscription != undefined)
+                    this.subscription.unsubscribe();
             }
-        });
+        } else {
+            const cooldown: Cooldown = new Cooldown(
+                this.ctx,
+                this.canvas.nativeElement,
+                this.spell,
+                this.action.nativeElement,
+                this.isSkill,
+                this.hero
+            );
+            this.ngZone.runOutsideAngular(() => cooldown.gaugeCooldown());
+        }
     }
     ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        //  this.subscription.unsubscribe();
     }
 }
 export class Cooldown {
@@ -95,7 +92,15 @@ export class Cooldown {
         private element: HTMLElement,
         private isSkill = true,
         private hero: Hero
-    ) {}
+    ) {
+        this.cd = this.isSkill
+            ? getMultiplier("swiftness", this.hero, this.spell.cooldown * 1000)
+            : getMultiplier(
+                  "swiftness",
+                  this.hero,
+                  (this.spell as OvertimeSpells).duration * 1000
+              );
+    }
 
     clearCanvas() {
         this.ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -120,16 +125,6 @@ export class Cooldown {
         }
     }
     initiateCooldown() {
-        console.log("hero spell", this.hero);
-        console.log("spell cd", this.spell.cooldown);
-
-        this.cd = this.isSkill
-            ? getMultiplier("swiftness", this.hero, this.spell.cooldown * 1000)
-            : getMultiplier(
-                  "swiftness",
-                  this.hero,
-                  (this.spell as OvertimeSpells).duration * 1000
-              );
         console.log("cd", this.cd);
         if (!this.timer) {
             this.timer = window.setTimeout(

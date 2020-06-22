@@ -104,13 +104,12 @@ export function getHeroRune(hero: Hero) {
 
 export function getMultiplier(runeType: RuneType, hero: Hero, stat: number) {
     let r = [...getHeroRune(hero)].find((r) => r.type === runeType);
-    if (runeType == "swiftness") {
-        console.group();
-        console.log("Rune", r);
-        console.log("stat", stat);
-        console.log("type", runeType);
-        console.groupEnd();
-    }
+
+    console.group();
+    console.log("Rune", r);
+    console.log("stat", stat);
+    console.log("type", runeType);
+    console.groupEnd();
     return r !== undefined ? getEffect(r, stat) : stat;
 }
 
