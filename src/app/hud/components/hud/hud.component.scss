@@ -127,7 +127,6 @@
     background-repeat: no-repeat;
     display: block;
     &:hover {
-        box-shadow: 0px 0px 1px 1px lightgray;
         transform: scale(1.2);
     }
     &.sprite-backpack {
@@ -163,6 +162,16 @@
         width: 64px;
         height: 64px;
         background-position: -153px -79px;
+    }
+    &:before {
+        font: 700 0.75em "Roboto Condensed", sans-serif;
+        content: attr(data-desc);
+        position: relative;
+        color: white;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+            1px 1px 0 #000;
+        bottom: -46px;
+        z-index: 3;
     }
 }
 

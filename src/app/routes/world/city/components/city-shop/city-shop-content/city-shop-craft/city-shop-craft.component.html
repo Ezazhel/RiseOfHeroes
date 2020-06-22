@@ -37,8 +37,16 @@
         </div>
         <div fxLayout="column" fxFlex="25">
             <h2>Currencies</h2>
-            <div fxLayout="row">
-                <div *ngFor="let currency of currency$ | async">
+            <div
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between space-between"
+            >
+                <div
+                    *ngFor="
+                        let currency of currency$ | async;
+                        trackBy: trackByCurrency
+                    "
+                >
                     <i
                         class="currency {{ currency.name }}"
                         [attr.data-qty]="currency.quantity"

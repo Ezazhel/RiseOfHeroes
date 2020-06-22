@@ -12,16 +12,12 @@ import { GameService } from "@core/services";
 import { update, updateInsert, getHeroMaxHp } from "../utils";
 import { Spells } from "../spells/spells.model";
 import { AddPassivesToStat } from "../spells/spells.utils";
+import { Potion } from "../potions/potions.model";
 
 const initialState: GameState = {
     companions: null,
     inventory: [],
-    currencies: [
-        { name: "gold", quantity: 50 },
-        { name: "dummy-row", quantity: 50 },
-        { name: "dummy-screw", quantity: 50 },
-        { name: "dummy-wood", quantity: 50 },
-    ],
+    currencies: [{ name: "gold", quantity: 15 }],
     location: "house",
     combatZone: "",
     maxSlots: 16,
@@ -90,6 +86,18 @@ export function gameRecuder(
                     ),
                 },
             };
+        case GameStateAction.COMBAT_HERO_POTION:
+            console.log(action.payload.isInCooldown, action.payload.potionType);
+            return {
+                ...state,
+                hero: {
+                    ...state.hero,
+                    potion: {
+                        ...state.hero.potion,
+                        isInCooldown: action.payload.isInCooldown,
+                    },
+                },
+            };
         default:
             return state;
     }
@@ -138,6 +146,8 @@ function EquipHero(hero: Hero, item: ITemplateBaseItem): Hero {
             );
         });
         hero = { ...hero, armor: hero.armor + armor.armor };
+    } else if (item.type == "item") {
+        hero = { ...hero, potion: item as Potion };
     }
     let stats = baseStats.map((s) => ({
         ...s,

@@ -25,6 +25,7 @@
                     <i
                         class="sprite sprite-map"
                         (click)="showMap = !showMap"
+                        [attr.data-desc]="'Map'"
                     ></i>
                 </li>
                 <li>
@@ -38,18 +39,21 @@
                     <i
                         class="sprite sprite-scroll"
                         (click)="showStat = !showStat"
+                        [attr.data-desc]="'Stats'"
                     ></i>
                 </li>
                 <li>
                     <i
                         (click)="showSpells = !showSpells"
                         class="sprite sprite-tome"
+                        [attr.data-desc]="'Skills'"
                     ></i>
                 </li>
                 <li>
                     <i
                         class="sprite sprite-tools"
                         (click)="showOptions = !showOptions"
+                        [attr.data-desc]="'Options'"
                     ></i>
                 </li>
             </ul>

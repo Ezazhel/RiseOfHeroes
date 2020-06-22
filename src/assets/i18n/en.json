@@ -5,7 +5,9 @@
         "levelUp": "You leveled up, Gg ! ",
         "selled": "You selled {{param}} for {{value}}",
         "bougth": "You bougth {{param}}",
-        "reward": "You earn {{param}}"
+        "reward": "You earn {{param}}",
+        "need": "You need {{param}}",
+        "heal": "You heal yourself for {{param}} hp"
     },
     "messageButton": {
         "all": "All",
@@ -149,6 +151,7 @@
             }
         },
         "zulah": {
+            "name": "Zul'ah",
             "description": "Zul'ah was once a beautiful city. Nowaday it's only a place without a king, where peasant live."
         }
     },
@@ -227,5 +230,18 @@
             "name": "Healing Potion",
             "description": "Heal you for {{param}}% of your health"
         }
+    },
+    "weapons": {
+        "sword": "Sword",
+        "hammer": "Hammer",
+        "axe": "Axe",
+        "dagger": "Dagger"
+    },
+    "armor": {
+        "helmet": "Helmet",
+        "chest": "Chest",
+        "boots": "Boots",
+        "pants": "Pants",
+        "gloves": "Gloves"
     }
 }

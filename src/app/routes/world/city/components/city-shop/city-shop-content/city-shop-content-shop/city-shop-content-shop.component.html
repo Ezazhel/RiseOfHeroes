@@ -1,30 +1,27 @@
 <ng-container *transloco="let tsl">
-    <div fxLayout="column">
-        <span *ngIf="_shop.intervalStock !== undefined">{{
-            tsl("city.city_shop.content.shopReset", { timer: timer })
-        }}</span>
+    <span *ngIf="_shop.intervalStock !== undefined">{{
+        tsl("city.city_shop.content.shopReset", { timer: timer })
+    }}</span>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between start">
         <div
             *ngFor="let item of _shop.items; trackBy: trackByFn"
             class="content {{ item.quality }}"
+            [ngClass]="{ disabled: item.value > (_gold$ | async).quantity }"
             [tooltip]="item"
-            [tooltip-equipped]="item"
             [tooltip-equipped]="equipped(item)"
             [tooltip-detach]="itemNull"
+            (click)="buyItem(item)"
         >
             <i class="{{ item.subType }} {{ item.icon }} "></i>
-            <span class="item-name">
-                {{ tsl(item.name) }}
-            </span>
-            <div class="action">
-                <span class="item-value"> {{ item.value }}g </span>
-                <button
-                    *ngIf="
-                        item.value <= (getCurrency('gold') | async)?.quantity
-                    "
-                    (click)="buyItem(item)"
-                >
-                    {{ tsl("city.city_shop.content.buy") }}
-                </button>
+            <div fxLayout="column" fxFlex="grow">
+                <span class="item-name">
+                    {{ tsl(item.name) }}
+                </span>
+                <i
+                    class="currency {{ (_gold$ | async)?.name }}"
+                    [attr.data-qty]="item.value"
+                    style="transform: scale(0.75);"
+                ></i>
             </div>
         </div>
     </div>

@@ -1,5 +1,9 @@
 import { Potion, PotionType, PotionAdvance } from "./potions.model";
 import { Hero } from "../entity";
+import { NotifierService } from "@core/services/notifier.service";
+import { Store } from "@ngrx/store";
+import { AppState } from "..";
+import { GameStateUpdateHeroAction } from "../game-state/game-state.action";
 
 export const healingPotion: Potion = {
     id: "healingPot",
@@ -13,6 +17,7 @@ export const healingPotion: Potion = {
     subType: "potion",
     power: 10,
     cooldown: 60,
+    isInCooldown: false,
 };
 
 export const potionAdvance: Map<PotionType, PotionAdvance> = new Map<
@@ -22,8 +27,25 @@ export const potionAdvance: Map<PotionType, PotionAdvance> = new Map<
     [
         "healing",
         {
-            effect: (potion: Potion, hero: Hero) => {
-                hero = { ...hero, hp: (hero.maxHp * potion.power) / 100 };
+            effect: (
+                potion: Potion,
+                hero: Hero,
+                store: Store<AppState>,
+                notification: NotifierService
+            ) => {
+                let newHp = hero.hp + (hero.maxHp * potion.power) / 100;
+                newHp = newHp > hero.maxHp ? hero.maxHp : newHp;
+                store.dispatch(
+                    new GameStateUpdateHeroAction({
+                        ...hero,
+                        hp: newHp,
+                    })
+                );
+                notification.notify(
+                    `${(hero.maxHp * potion.power) / 100}`,
+                    "",
+                    "heal"
+                );
             },
             description: (potion) => {
                 return {

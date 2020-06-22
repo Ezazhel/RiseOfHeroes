@@ -1,5 +1,6 @@
 @import "variables.scss";
 @import "sprites.scss";
+@import "sprite-currencies.scss";
 :host {
     width: 100%;
     max-height: inherit;
@@ -7,54 +8,47 @@
 }
 
 .content {
-    display: flex;
-    height: 50px;
-    justify-content: space-between;
-    align-items: center;
+    height: 60px;
+    width: 200px;
+    cursor: pointer;
     box-shadow: 0 0.2rem 0.15rem lightslategrey;
     box-sizing: border-box;
-    margin: 5px 0px;
+    margin: 5px;
     border: 1px solid lightslategrey;
     background: white;
     padding-right: 5px;
     color: $body;
     font-weight: bold;
+    &.disabled {
+        cursor: default;
+    }
+    .item-name {
+        text-align: center;
+        font-size: small;
+    }
+    .currency {
+        margin-left: auto;
+    }
     &.rare {
         box-shadow: 0 0.2rem 0.15rem $blueRareItem;
+        .item-name {
+            color: $blueRareItem;
+        }
     }
     &.uncommon {
         box-shadow: 0 0.2rem 0.15rem $greenCommonItem;
+        .item-name {
+            color: $greenCommonItem;
+        }
     }
     &.epic {
         box-shadow: 0 0.2rem 0.15rem $purpleEpicItem;
+        .item-name {
+            color: $purpleEpicItem;
+        }
     }
     &.common {
         box-shadow: 0 0.2rem 0.15rem $carreraWhite;
         color: $body !important;
-    }
-    span.item-name {
-        vertical-align: middle;
-    }
-    .action {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        span.item-value {
-            font-size: x-small;
-            color: $body;
-        }
-        button {
-            background-color: $lightgreybutton;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            height: 25px;
-            transition: 0.3s;
-            font-size: small;
-            border-radius: 10px;
-            &:hover {
-                background-color: $lightgreybutton;
-            }
-        }
     }
 }

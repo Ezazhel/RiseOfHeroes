@@ -21,6 +21,7 @@ import { toNumber } from "@ngneat/transloco";
 import { of, Subscription } from "rxjs";
 import { getMultiplier } from "@core/models/utils";
 import { Hero } from "@core/models/entity";
+import { Potion } from "@core/models/potions/potions.model";
 @Component({
     selector: "combat-spell-cooldown",
     templateUrl: "./combat-spell-cooldown.component.html",
@@ -29,7 +30,7 @@ import { Hero } from "@core/models/entity";
 export class CombatSpellCooldownComponent
     implements OnInit, AfterViewInit, OnDestroy {
     @Input() index: number;
-    @Input() spell: Spells | OvertimeSpells | HealSpells;
+    @Input() spell: Spells | OvertimeSpells | HealSpells | Potion;
     @Input() isSkill = true;
     @Input() hero: Hero;
     @Output("rdy") spellReady = new EventEmitter<boolean>();
@@ -47,8 +48,8 @@ export class CombatSpellCooldownComponent
     ngOnInit(): void {}
     ngAfterViewInit(): void {
         this.ctx = this.canvas.nativeElement.getContext("2d");
-        console.log("after view init");
         if (this.isSkill) {
+            console.log(this.isSkill);
             if (this.spell.isInCooldown) {
                 const cooldown: Cooldown = new Cooldown(
                     this.ctx,
@@ -88,11 +89,12 @@ export class Cooldown {
     constructor(
         private ctx: CanvasRenderingContext2D,
         private canvas: HTMLCanvasElement,
-        private spell: Spells | OvertimeSpells | HealSpells,
+        private spell: Spells | OvertimeSpells | HealSpells | Potion,
         private element: HTMLElement,
         private isSkill = true,
         private hero: Hero
     ) {
+        console.log(this.spell);
         this.cd = this.isSkill
             ? getMultiplier("swiftness", this.hero, this.spell.cooldown * 1000)
             : getMultiplier(
@@ -125,7 +127,6 @@ export class Cooldown {
         }
     }
     initiateCooldown() {
-        console.log("cd", this.cd);
         if (!this.timer) {
             this.timer = window.setTimeout(
                 this.endCooldown.bind(this),

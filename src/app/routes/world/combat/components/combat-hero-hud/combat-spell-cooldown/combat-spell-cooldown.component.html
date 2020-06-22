@@ -2,8 +2,14 @@
     <div class="action" #action>
         <div class="action-internal">
             <i
-                class="peasant {{ spell?.icon }}"
+                *ngIf="spell.type !== 'item'"
+                class="{{ hero.subType }} {{ spell?.icon }}"
                 [attr.data-key]="index + 1"
+            ></i>
+            <i
+                *ngIf="spell.type == 'item'"
+                class="{{ spell.subType }} {{ spell?.icon }}"
+                [attr.data-key]="index"
             ></i>
             <canvas #cooldown width="48" height="48"></canvas>
         </div>

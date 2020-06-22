@@ -44,6 +44,7 @@ export const baseWeapon: ITemplateWeapon = {
 };
 export const baseDagger: ITemplateWeapon = {
     ...baseWeapon,
+    name: "weapons.dagger",
     attack: 5, //will change accordigng to level of weapon and bonuses of hero
     value: 50, //will change according to level of weapon and bonuses of hero
     subType: "dagger",
@@ -63,6 +64,7 @@ export const baseDagger: ITemplateWeapon = {
 
 export const baseAxe: ITemplateWeapon = {
     ...baseWeapon,
+    name: "weapons.axe",
     attack: 9, //will change accordigng to level of weapon and bonuses of hero
     value: 65, //will change according to level of weapon and bonuses of hero
     subType: "axe",
@@ -81,6 +83,7 @@ export const baseAxe: ITemplateWeapon = {
 };
 export const baseHammer: ITemplateWeapon = {
     ...baseWeapon,
+    name: "weapons.hammer",
     attack: 12, //will change accordigng to level of weapon and bonuses of hero
     value: 80, //will change according to level of weapon and bonuses of hero
     subType: "hammer",
@@ -100,6 +103,7 @@ export const baseHammer: ITemplateWeapon = {
 
 export const baseSword: ITemplateWeapon = {
     ...baseWeapon,
+    name: "weapons.sword",
     attack: 7, //will change accordigng to level of weapon and bonuses of hero
     value: 55, //will change according to level of weapon and bonuses of hero
     subType: "sword",
@@ -140,6 +144,7 @@ export const baseArmor: ITemplateArmor = {
 
 export const baseChest: ITemplateArmor = {
     ...baseArmor,
+    name: "armor.chest",
     value: 35,
     subType: "chest",
     armor: 15,
@@ -157,6 +162,7 @@ export const baseChest: ITemplateArmor = {
 
 export const baseHelmet: ITemplateArmor = {
     ...baseArmor,
+    name: "armor.helmet",
     value: 15,
     subType: "helmet",
     armor: 5,
@@ -174,6 +180,7 @@ export const baseHelmet: ITemplateArmor = {
 
 export const baseBoots: ITemplateArmor = {
     ...baseArmor,
+    name: "armor.boots",
     value: 15,
     subType: "boots",
     armor: 5,
@@ -191,6 +198,7 @@ export const baseBoots: ITemplateArmor = {
 
 export const basePants: ITemplateArmor = {
     ...baseArmor,
+    name: "armor.pants",
     value: 25,
     subType: "pants",
     armor: 10,
@@ -208,6 +216,7 @@ export const basePants: ITemplateArmor = {
 
 export const baseGloves: ITemplateArmor = {
     ...baseArmor,
+    name: "armor.gloves",
     value: 15,
     subType: "gloves",
     armor: 5,

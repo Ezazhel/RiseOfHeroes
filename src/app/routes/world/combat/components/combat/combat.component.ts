@@ -18,6 +18,7 @@ import { GameStateUpdateHeroAction } from "@core/models/game-state/game-state.ac
 import { first, take } from "rxjs/operators";
 import { getFighterWithLevel } from "@routes/world/city/store/cities.utils";
 import { City } from "@routes/world/city/store/cities.model";
+import { Potion } from "@core/models/potions/potions.model";
 @Component({
     selector: "app-combat",
     templateUrl: "./combat.component.html",
@@ -30,8 +31,13 @@ export class CombatComponent implements OnInit, OnDestroy {
     );
     public fighter: Fighter;
     subscription: Subscription;
-    activateSpell(spell: Spells | OvertimeSpells | HealSpells) {
-        this.combatService.activateSpell(spell);
+
+    activateSpell(spell: Spells | OvertimeSpells | HealSpells | Potion) {
+        if (spell.type == "item") {
+            this.combatService.usePotion(spell as Potion);
+        } else {
+            this.combatService.activateSpell(spell as Spells);
+        }
     }
     constructor(
         private store: Store<AppState>,

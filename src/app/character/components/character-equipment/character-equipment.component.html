@@ -61,6 +61,13 @@
                     }}"
                 ></span>
             </li>
+            <li class="{{ hero?.potion?.quality }}" [tooltip]="hero.potion">
+                <span
+                    class="{{ hero?.potion?.subType }} {{
+                        hero?.potion?.icon
+                    }} "
+                ></span>
+            </li>
         </ul>
     </div>
 </ng-container>

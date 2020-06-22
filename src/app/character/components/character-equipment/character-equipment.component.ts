@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Hero } from "@core/models/entity";
+import { Potion } from "@core/models/potions/potions.model";
 
 @Component({
     selector: "app-character-equipment",

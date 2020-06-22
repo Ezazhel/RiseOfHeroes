@@ -22,8 +22,10 @@ import {
     currenciesSelector,
     goldSelector,
     equippedSelector,
+    currencySelector,
 } from "@core/models/selector";
-import { take } from "rxjs/operators";
+import { take, first } from "rxjs/operators";
+import { NotifierService } from "@core/services/notifier.service";
 @Component({
     selector: "app-city-shop-content-shop",
     templateUrl: "./city-shop-content-shop.component.html",
@@ -44,17 +46,21 @@ export class CityShopContentShopComponent
     timer: string;
     _previousSecond: number = 0;
 
-    public _currencies$: Observable<Array<Currency>> = this.store.pipe(
-        select(currenciesSelector)
+    public _gold$: Observable<Currency> = this.store.select(
+        currencySelector("gold")
     );
 
-    getCurrency(type: string): Observable<Currency> {
-        //param if one day i create a generic selector for currencies
-        return this.store.select(goldSelector);
-    }
     public buyItem(item: ITemplateBaseItem): void {
-        this.shopService.buyItem(item, this._shop.type, this.cityId);
-        this.itemNull.emit(true);
+        let currentGold: number;
+        this._gold$
+            .pipe(first())
+            .subscribe((g: Currency) => (currentGold = g.quantity));
+        if (currentGold >= item.value) {
+            this.shopService.buyItem(item, this._shop.type, this.cityId);
+            this.itemNull.emit(true);
+        } else {
+            this._notifier.notify("", "currency gold", "need", item.value);
+        }
     }
 
     private renew(value: Shop) {
@@ -110,10 +116,12 @@ export class CityShopContentShopComponent
     constructor(
         private store: Store<AppState>,
         private shopService: ShopService,
-        private transloco: TranslocoService
+        private transloco: TranslocoService,
+        private _notifier: NotifierService
     ) {}
 
     ngOnInit(): void {}
+
     ngOnChanges(changes: SimpleChanges): void {
         const pShop = changes["shop"].previousValue as Shop;
         const cShop = changes["shop"].currentValue as Shop;

@@ -5,7 +5,9 @@
         "levelUp": "Vous êtes monté d'un niveau, bravo ! ",
         "selled": "Vous avez vendu {{param}} pour {{value}}g",
         "bougth": "Vous avez acheté {{param}}",
-        "reward": "Vous avez gagné {{param}}"
+        "reward": "Vous avez gagné {{param}}",
+        "need": "Vous avez besoin de {{param}}",
+        "heal": "Vous vous êtes soigné pour {{param}} pv"
     },
     "messageButton": {
         "all": "Tout",
@@ -150,6 +152,7 @@
             }
         },
         "zulah": {
+            "name": "Zul'ah",
             "description": "Zul'ah était autrefois une magnifique cité. Aujourd'hui c'est bourg sans roi, où vit le bas peuple."
         }
     },
@@ -228,5 +231,18 @@
             "name": "Potion de soin",
             "description": "Vous soigne de {{param}}% de vos pv max"
         }
+    },
+    "weapons": {
+        "sword": "Epée",
+        "hammer": "Marteau",
+        "axe": "Hache",
+        "dagger": "Dague"
+    },
+    "armor": {
+        "helmet": "Casque",
+        "chest": "Torse",
+        "boots": "Bootes",
+        "pants": "Pantalon",
+        "gloves": "Gants"
     }
 }

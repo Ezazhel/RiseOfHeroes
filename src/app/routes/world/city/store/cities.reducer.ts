@@ -10,7 +10,7 @@ const initialState: CitiesState = {
     cities: [
         {
             id: "zulah",
-            name: "Zul'Ah",
+            name: "city.zulah.name",
             description: "city.zulah.description",
             levelRequirement: 0,
             maxLevel: 5,

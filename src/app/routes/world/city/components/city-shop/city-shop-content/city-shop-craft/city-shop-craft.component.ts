@@ -125,6 +125,9 @@ export class CityShopCraftComponent implements OnInit {
     trackByItem(index: number, el: ITemplateBaseItem) {
         return index;
     }
+    trackByCurrency(index: number, el: Currency) {
+        return index;
+    }
     constructor(private store: Store<AppState>) {}
 
     ngOnInit(): void {}

@@ -2,6 +2,8 @@ import { update } from "@core/models/utils";
 import {
     Stat,
     ITemplateBaseEquipmennt,
+    ITemplateArmor,
+    ITemplateWeapon,
 } from "./../../../../core/models/game-data/game-data.model";
 import {
     GameStateInventoryRemoveItemAction,
@@ -25,6 +27,7 @@ import {
 import { Store } from "@ngrx/store";
 import { heroSelector } from "@core/models/selector";
 import { first } from "rxjs/operators";
+import { Potion } from "@core/models/potions/potions.model";
 @Component({
     selector: "app-inventory-slot-item",
     templateUrl: "./inventory-slot-item.component.html",
@@ -57,7 +60,7 @@ export class InventorySlotItemComponent implements OnInit {
             .pipe(first())
             .subscribe((hero) => {
                 if (hero.hp != hero.maxHp) return;
-                let heroItem = null;
+                let heroItem: ITemplateArmor | ITemplateWeapon | Potion;
                 if (this.item.type == "armor") {
                     switch (this.item.subType as ArmorCategory) {
                         case "chest":
@@ -77,34 +80,41 @@ export class InventorySlotItemComponent implements OnInit {
                             break;
                     }
                 } else if (this.item.type == "weapon") {
-                    heroItem = hero.weapon;
+                    heroItem = hero.weapon as ITemplateWeapon;
+                } else if (this.item.type == "item") {
+                    heroItem = hero.potion as Potion;
                 }
                 if (heroItem !== undefined) {
-                    console.log(heroItem);
                     this.store.dispatch(
                         new GameStateInventoryAddItemAction(heroItem)
                     );
-                    let baseStats = [...hero.baseStats];
-                    (heroItem as ITemplateBaseEquipmennt).stats.forEach(
-                        (stat: Stat) => {
-                            baseStats = update(
-                                baseStats,
-                                (s) => s.type == stat.type,
-                                (s: Stat) => ({
-                                    ...s,
-                                    value: s.value - stat.value,
+                    if (heroItem.type == "armor" || heroItem.type == "weapon") {
+                        let baseStats = [...hero.baseStats];
+                        (heroItem as ITemplateBaseEquipmennt).stats.forEach(
+                            (stat: Stat) => {
+                                baseStats = update(
+                                    baseStats,
+                                    (s) => s.type == stat.type,
+                                    (s: Stat) => ({
+                                        ...s,
+                                        value: s.value - stat.value,
+                                    })
+                                );
+                            }
+                        );
+                        //Update Hero with removing stat
+                        if (heroItem.type == "armor") {
+                            this.store.dispatch(
+                                new GameStateUpdateHeroAction({
+                                    ...hero,
+                                    baseStats,
+                                    armor:
+                                        hero.armor -
+                                        (heroItem as ITemplateArmor).armor,
                                 })
                             );
                         }
-                    );
-                    //Update Hero with removing stat
-                    this.store.dispatch(
-                        new GameStateUpdateHeroAction({
-                            ...hero,
-                            baseStats,
-                            armor: hero.armor - heroItem.armor,
-                        })
-                    );
+                    }
                 }
                 this.store.dispatch(
                     new GameStateEquipItemHeroAction(this.item)

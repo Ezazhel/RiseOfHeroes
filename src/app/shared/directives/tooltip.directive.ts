@@ -78,7 +78,6 @@ export class ToolTipDirective implements OnInit {
             | CraftDetailComponent
             | RunesComponent
         >;
-        console.log("overlayref", this.overlayRef);
         switch (this.type) {
             case "spell":
                 tooltipRef = this.overlayRef.attach(

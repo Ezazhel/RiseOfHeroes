@@ -51,7 +51,7 @@ export interface Hero extends BaseEntity {
     readonly stats: Array<Stat>;
     readonly spells: Array<Spells | OvertimeSpells | HealSpells>;
     readonly equippedSpell: Array<Spells | OvertimeSpells | HealSpells>;
-    readonly potions: Potion[];
+    readonly potion: Potion;
 }
 
 export interface Companion extends BaseEntity {}

@@ -8,13 +8,14 @@ import {
     CombatStateHeroSpell,
     GameStateInventoryAddItemAction,
     GameStateCurrenciesAddCurrencyAction,
+    CombatStateHeroPotion,
 } from "./../models/game-state/game-state.action";
 import { Hero, Fighter } from "./../models/entity";
 import { Store } from "@ngrx/store";
 import { Injectable } from "@angular/core";
 import { AppState } from "@core/models";
 
-import { getHeroDamage, isCrit } from "@core/models/utils";
+import { getHeroDamage, isCrit, getMultiplier } from "@core/models/utils";
 import { interval, Subscription, timer } from "rxjs";
 import {
     Spells,
@@ -24,6 +25,8 @@ import {
 import { levelUp } from "@core/models/level";
 import { NotifierService } from "./notifier.service";
 import { getFromLootbag } from "@core/models/loot/item-generation";
+import { Potion } from "@core/models/potions/potions.model";
+import { getEffect } from "@core/models/potions/potions.utils";
 
 @Injectable({
     providedIn: "root",
@@ -57,6 +60,7 @@ export class CombatService {
                     ...this.hero,
                     hp: this.hero.maxHp,
                     equippedSpell: equipped,
+                    potion: { ...this.hero?.potion, isInCooldown: false },
                 })
             );
             this.startFight();
@@ -66,7 +70,9 @@ export class CombatService {
     // Auto-attack interval.
     startFight() {
         let heroInterval = interval(
-            this.hero.weapon ? this.hero.weapon.speed : 1000
+            this.hero.weapon
+                ? getMultiplier("swiftness", this.hero, this.hero.weapon.speed)
+                : getMultiplier("swiftness", this.hero, 1000)
         ).subscribe(() => {
             let crit: number = 1;
             let damage: number = getHeroDamage(this.hero);
@@ -117,7 +123,9 @@ export class CombatService {
             new CombatStateHeroSpell({ ...spell, isInCooldown: true })
         );
         this.fightIntervals.add(
-            timer(spell.cooldown * 1000).subscribe(() => {
+            timer(
+                getMultiplier("swiftness", this.hero, spell.cooldown * 1000)
+            ).subscribe(() => {
                 this.store.dispatch(
                     new CombatStateHeroSpell({ ...spell, isInCooldown: false })
                 );
@@ -127,6 +135,25 @@ export class CombatService {
             this.victory();
             this.death();
         }
+    }
+
+    usePotion(potion: Potion) {
+        getEffect(potion, this.hero, this.store, this._notifier);
+        this.store.dispatch(
+            new CombatStateHeroPotion({ ...potion, isInCooldown: true })
+        );
+        this.fightIntervals.add(
+            timer(
+                getMultiplier("swiftness", this.hero, potion.cooldown * 1000)
+            ).subscribe(() => {
+                this.store.dispatch(
+                    new CombatStateHeroPotion({
+                        ...potion,
+                        isInCooldown: false,
+                    })
+                );
+            })
+        );
     }
 
     victory() {

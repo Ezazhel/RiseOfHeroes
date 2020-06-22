@@ -4,7 +4,9 @@ export type NotificationType =
     | "levelUp"
     | "selled"
     | "bougth"
-    | "reward";
+    | "reward"
+    | "need"
+    | "heal";
 
 export class Notification {
     constructor(

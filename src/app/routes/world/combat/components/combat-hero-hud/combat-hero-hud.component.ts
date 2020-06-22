@@ -15,6 +15,7 @@ import { Hero } from "@core/models/entity";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import { map, first } from "rxjs/operators";
 import { getXPForLevel } from "@core/models/level";
+import { Potion } from "@core/models/potions/potions.model";
 
 @Component({
     selector: "app-combat-hero-hud",
@@ -25,7 +26,7 @@ export class CombatHeroHudComponent implements OnInit {
     private _hero$: Subject<Hero> = new BehaviorSubject<Hero>(null);
     hero$: Observable<Hero> = this._hero$;
     @Output() castSpell = new EventEmitter<
-        Spells | OvertimeSpells | HealSpells
+        Spells | OvertimeSpells | HealSpells | Potion
     >();
     @Input() set hero(value: Hero) {
         this._hero$.next(value);
@@ -54,6 +55,7 @@ export class CombatHeroHudComponent implements OnInit {
             const hotKey = String.fromCharCode(
                 (event as KeyboardEvent).keyCode
             );
+
             let equippedSpells;
             this.hero$
                 .pipe(first())
@@ -67,12 +69,18 @@ export class CombatHeroHudComponent implements OnInit {
                     return; //once we find the right one we return (in order to not fetch all array)
                 }
             });
-            return;
         }
         this.castSpell.emit(spell);
         this.casted(true);
     }
-
+    use(potion: Potion) {
+        if (!potion.isInCooldown) {
+            this.castSpell.emit(potion);
+            this.casted(true);
+        } else {
+            alert("En cooldown");
+        }
+    }
     getXPForLevel(level: number): number {
         return getXPForLevel(level);
     }

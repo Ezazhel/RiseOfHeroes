@@ -47,6 +47,17 @@
                     (click)="!spell.isInCooldown && cast(spell)"
                 >
                 </combat-spell-cooldown>
+                <combat-spell-cooldown
+                    *ngIf="(hero$ | async)?.potion as potion"
+                    [tooltip]="(hero$ | async)?.potion"
+                    [tooltip-detach]="spellCasted"
+                    [spell]="(hero$ | async)?.potion"
+                    [index]="5"
+                    [hero]="hero$ | async"
+                    (rdy)="casted($event)"
+                    (click)="cast(potion)"
+                >
+                </combat-spell-cooldown>
             </div>
         </ng-container>
     </app-card>

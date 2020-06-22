@@ -210,7 +210,7 @@ function generateArmor(
         icon: pickRandomIcon(icons),
         quality: quality,
         runes: pickRandomRuneFromArray(quality),
-        name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
+        // name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
         armor: craft.modifyStat(quality, baseArmor.armor, level),
         value: craft.modifyPrice(quality, baseArmor.value * level),
         stats: [...baseArmor.stats].map((s) => ({
@@ -237,7 +237,7 @@ function generateWeapon(
         id: entityId(id),
         level: level,
         icon: pickRandomIcon(icons),
-        name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
+        //name: `${id.charAt(0).toUpperCase()}${id.slice(1)}`,
         attack: baseWeapon.attack * level,
         value: craft.modifyPrice(quality, baseWeapon.value * level),
         dps: toNumber(
