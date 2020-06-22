@@ -4,7 +4,7 @@
             <span>{{ t("game.craftMaterial") }}</span>
             <div fxLayout="row" fxLayoutAlign="space-evenly center">
                 <i
-                    *ngFor="let material of materials"
+                    *ngFor="let material of materials; trackBy: trackByFn"
                     class=" currency {{ material.name }} {{
                         canCraft(material)
                     }}"

@@ -78,9 +78,9 @@ export class ToolTipDirective implements OnInit {
             | CraftDetailComponent
             | RunesComponent
         >;
+        console.log("overlayref", this.overlayRef);
         switch (this.type) {
             case "spell":
-                this.overlayRef.detach();
                 tooltipRef = this.overlayRef.attach(
                     new ComponentPortal(SpellDetailComponent)
                 );
@@ -88,7 +88,6 @@ export class ToolTipDirective implements OnInit {
                     .item as Spells;
                 break;
             case "craft":
-                this.overlayRef.detach();
                 tooltipRef = this.overlayRef.attach(
                     new ComponentPortal(CraftDetailComponent)
                 );
@@ -96,7 +95,6 @@ export class ToolTipDirective implements OnInit {
                 (tooltipRef.instance as CraftDetailComponent).itemEquipped = this.itemEquipped;
                 break;
             case "rune":
-                this.overlayRef.detach();
                 tooltipRef = this.overlayRef.attach(
                     new ComponentPortal(RunesComponent)
                 );
@@ -105,7 +103,6 @@ export class ToolTipDirective implements OnInit {
                 break;
             default:
                 // case "equipment":
-                this.overlayRef.detach();
                 tooltipRef = this.overlayRef.attach(
                     new ComponentPortal(SlotDetailComponent)
                 );

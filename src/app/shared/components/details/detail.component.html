@@ -65,12 +65,17 @@
                     </div>
                 </ng-container>
                 <!-- Loop of an array Stats. -->
-                <label *ngFor="let stat of equipment.stats">
+                <label
+                    *ngFor="let stat of equipment.stats; trackBy: trackByStat"
+                >
                     +{{ stat.value }} {{ t(stat.name) }}
                 </label>
                 <div fxLayout="column" class="runes">
                     <label
-                        *ngFor="let rune of equipment.runes"
+                        *ngFor="
+                            let rune of equipment.runes;
+                            trackBy: trackByRune
+                        "
                         [tooltip]="rune"
                         [tooltip-type]="'rune'"
                     >

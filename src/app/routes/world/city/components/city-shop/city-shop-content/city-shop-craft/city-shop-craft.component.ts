@@ -120,10 +120,10 @@ export class CityShopCraftComponent implements OnInit {
         return equipped;
     }
     trackByCraft(index: number, el: Craft) {
-        return el;
+        return index;
     }
     trackByItem(index: number, el: ITemplateBaseItem) {
-        return el;
+        return index;
     }
     constructor(private store: Store<AppState>) {}
 

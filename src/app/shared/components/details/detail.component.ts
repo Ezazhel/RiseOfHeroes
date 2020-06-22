@@ -2,10 +2,12 @@ import {
     ITemplateWeapon,
     ITemplateArmor,
     ITemplateBaseItem,
+    Stat,
 } from "@core/models/game-data/game-data.model";
 import { Component, OnInit, Input } from "@angular/core";
 import { getDescription } from "@core/models/potions/potions.utils";
 import { Potion } from "@core/models/potions/potions.model";
+import { Rune } from "@core/models/runes/runes.model";
 
 @Component({
     selector: "detail",
@@ -33,6 +35,13 @@ export class DetailComponent implements OnInit {
 
     getDescription(item: ITemplateBaseItem) {
         return getDescription(item as Potion);
+    }
+
+    trackByRune(index: number, el: Rune) {
+        return el.type;
+    }
+    trackByStat(index: number, el: Stat) {
+        return el.type;
     }
     constructor() {}
 

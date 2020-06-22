@@ -37,6 +37,10 @@ export class CraftDetailComponent implements OnInit {
             : "cantCraft";
     }
     _itemEquipped: ITemplateBaseItem;
+
+    trackByFn(index: number, el: Currency) {
+        return index;
+    }
     constructor(private store: Store<AppState>) {}
 
     ngOnInit(): void {}
