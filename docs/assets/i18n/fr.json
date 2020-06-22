@@ -1,4 +1,12 @@
 {
+    "notification": {
+        "text": "{{param}}",
+        "unlock": "Vous avez débloqué : {{param}}",
+        "levelUp": "Vous êtes monté d'un niveau, bravo ! ",
+        "selled": "Vous avez vendu {{param}} pour {{value}}g",
+        "bougth": "Vous avez acheté {{param}}",
+        "reward": "Vous avez gagné {{param}}"
+    },
     "messageButton": {
         "all": "Tout",
         "general": "General",
@@ -43,7 +51,8 @@
         "dps": "DPS",
         "damage": "Dégâts",
         "offensivePower": "Puissance Attaque",
-        "offensiveStats": "Stats offensive"
+        "offensiveStats": "Stats offensive",
+        "runes": "Runes"
     },
     "inventoryFilter": {
         "all": "Tout",
@@ -68,7 +77,9 @@
             "speed": "Vitesse {{speed}}",
             "dps": "({{dps}} dégâts par seconde)"
         },
-        "requiredLevel": "niveau {level}"
+        "requiredLevel": "niveau {level}",
+        "equipped": "Equipé",
+        "craftMaterial": "Matériaux requis"
     },
     "house": {
         "yourHouse": "Ma maison",
@@ -195,6 +206,27 @@
                 "name": "Torche du paysan",
                 "description": "Votre torche inflige {{ param }} dégâts sur {{ param2 }} secondes, (un seul actif, ne se stack pas)"
             }
+        }
+    },
+    "runes": {
+        "swiftness": {
+            "name": "Hâte",
+            "description": "Accélere tout ce que vous faîtes de {{param}}%"
+        },
+        "power": {
+            "name": "Power",
+            "description": ""
+        },
+        "precision": {
+            "name": "Precision",
+            "description": "Vous donne {{param}}% chance de critique"
+        }
+    },
+    "potions": {
+        "cooldown": "{{cooldown}} sec rechargement",
+        "healing": {
+            "name": "Potion de soin",
+            "description": "Vous soigne de {{param}}% de vos pv max"
         }
     }
 }

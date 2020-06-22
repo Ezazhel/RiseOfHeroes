@@ -1,4 +1,12 @@
 {
+    "notification": {
+        "text": "{{param}}",
+        "unlock": "You just unlocked : {{param}}",
+        "levelUp": "You leveled up, Gg ! ",
+        "selled": "You selled {{param}} for {{value}}",
+        "bougth": "You bougth {{param}}",
+        "reward": "You earn {{param}}"
+    },
     "messageButton": {
         "all": "All",
         "general": "General",
@@ -43,7 +51,8 @@
         "dps": "DPS",
         "damage": "Damage",
         "offensivePower": "Offensive Power",
-        "offensiveStats": "Offensive Stats"
+        "offensiveStats": "Offensive Stats",
+        "runes": "Runes"
     },
     "inventoryFilter": {
         "all": "All",
@@ -68,7 +77,9 @@
             "speed": "Speed {{speed}}",
             "dps": "({{dps}} damage per second)"
         },
-        "requiredLevel": "level {{level}}"
+        "requiredLevel": "level {{level}}",
+        "equipped": "Equipped",
+        "craftMaterial": "Craft materials needed"
     },
     "house": {
         "yourHouse": "This is your house",
@@ -93,7 +104,7 @@
         "work": {
             "buttonText": "Work",
             "currentGold": "own gold",
-            "level1": {
+            "peasant": {
                 "name": "Peasant",
                 "description": "You are working as a peasant !"
             }
@@ -194,6 +205,27 @@
                 "name": "Peasant's Torch",
                 "description": "Peasant's Torch deal {{ param }} damage over {{ param2 }} seconds (only one active, doesn't stack)"
             }
+        }
+    },
+    "runes": {
+        "swiftness": {
+            "name": "Swiftness",
+            "description": "Increase speed of everything you do by {{param}}%"
+        },
+        "power": {
+            "name": "Power",
+            "description": "+{{param}}% Offensive Power"
+        },
+        "precision": {
+            "name": "Precision",
+            "description": "+{{param}}% critical hit chance"
+        }
+    },
+    "potions": {
+        "cooldown": "{{cooldown}} sec cooldown",
+        "healing": {
+            "name": "Healing Potion",
+            "description": "Heal you for {{param}}% of your health"
         }
     }
 }
