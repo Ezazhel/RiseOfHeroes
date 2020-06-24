@@ -1,9 +1,4 @@
-import {
-    updateInsert,
-    getHeroDamage,
-    getHeroDps,
-    getMultiplier,
-} from "@core/models/utils";
+import { updateInsert, getHeroDamage, getMultiplier } from "@core/models/utils";
 import {
     Spells,
     OvertimeSpells,

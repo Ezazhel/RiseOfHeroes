@@ -33,6 +33,7 @@
             "name": "Livre des sorts",
             "activeTab": "Actif",
             "passiveTab": "Passif",
+            "talentTab": "Talent",
             "heroSpell": "Vos sorts",
             "equipInSlot": "Equiper en : ",
             "requiredLevel": "requiert lvl {{ lvl }}"
@@ -203,11 +204,63 @@
             },
             "peasantLabor": {
                 "name": "Travail du paysan",
-                "description": "Votre fierté vous octroie {{ param }} fois plus de récompenses"
+                "description": "Votre fierté vous octroie {{ param }} fois plus de ressources dû au travail"
             },
             "peasantTorch": {
                 "name": "Torche du paysan",
                 "description": "Votre torche inflige {{ param }} dégâts sur {{ param2 }} secondes, (un seul actif, ne se stack pas)"
+            }
+        }
+    },
+    "talents": {
+        "peasant": {
+            "stronger": {
+                "name": "Musclé",
+                "description": "Vous gagnez {{param}}% plus de force"
+            },
+            "tougher": {
+                "name": "Armoire à glace",
+                "description": "Vous gagnez {{param}}% plus d'endurance"
+            },
+            "vampiric": {
+                "name": "Suceur de sang",
+                "description": "Vos attaques vous soignent de {{ param }}% des dégâts"
+            },
+            "richer": {
+                "name": "Crésus",
+                "description": "Vous amassez {{ param }}% plus d'or"
+            },
+            "luckier": {
+                "name": "L.Luke",
+                "description": "Vous avez {{ param }} % de chance de récupérer un meilleur équipement"
+            },
+            "manager": {
+                "name": "Manageur",
+                "description": "Vos ouvriers sont 2 fois plus doués"
+            },
+            "worker": {
+                "name": "Fou de travail",
+                "description": "Vous travaillez deux fois mieux"
+            },
+            "fighter": {
+                "name": "Tyler",
+                "description": "Vous ignoez {{param}}% de l'armure ennemi"
+            },
+            "crafter": {
+                "name": "Hephaïstos",
+                "description": "Les objets que vous fabriquez sont {{param}}% plus fort"
+            },
+            "looter": {
+                "name": "Martin Looter King",
+                "description": "A la fin d'un combat vous récupérez deux objets"
+            },
+            "fighterTwo": {
+                "name": "Durden",
+                "description": "Vous ignoez {{param}}% de l'ennemi en plus (additif)"
+            },
+            "jack": {
+                "name": "Joker",
+                "description": "Vous gagnez {{param}}% plus de stats"
             }
         }
     },

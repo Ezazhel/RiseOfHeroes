@@ -10,7 +10,7 @@ import {
 import { Observable } from "rxjs";
 import { Hero } from "@core/models/entity";
 
-type tabsType = "active" | "passive";
+type tabsType = "active" | "passive" | "talent";
 @Component({
     selector: "app-spellbook",
     templateUrl: "./spellbook.component.html",

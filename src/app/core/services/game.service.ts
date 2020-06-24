@@ -14,6 +14,7 @@ import {
 import { PeasantSpells } from "@core/models/spells/spells.data";
 import { getHeroMaxHp } from "@core/models/utils";
 import { AddPassivesToStat } from "@core/models/spells/spells.utils";
+import { peasantTalent } from "@core/models/talent/talent.data";
 @Injectable({
     providedIn: "root",
 })
@@ -49,6 +50,7 @@ export class GameService {
                     basedefense: 10,
                     spells: PeasantSpells,
                     equippedSpell: [],
+                    talents: peasantTalent,
                 });
                 break;
             default:

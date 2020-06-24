@@ -5,7 +5,9 @@
         "levelUp": "You leveled up, Gg ! ",
         "selled": "You selled {{param}} for {{value}}",
         "bougth": "You bougth {{param}}",
-        "reward": "You earn {{param}}"
+        "reward": "You earn {{param}}",
+        "need": "You need {{param}}",
+        "heal": "You heal yourself for {{param}} hp"
     },
     "messageButton": {
         "all": "All",
@@ -31,6 +33,7 @@
             "name": "Spell book",
             "activeTab": "Active",
             "passiveTab": "Passive",
+            "talentTab": "Talent",
             "heroSpell": "Your spell",
             "equipInSlot": "Equip in slot",
             "requiredLevel": "required lvl {{ lvl }}"
@@ -149,6 +152,7 @@
             }
         },
         "zulah": {
+            "name": "Zul'ah",
             "description": "Zul'ah was once a beautiful city. Nowaday it's only a place without a king, where peasant live."
         }
     },
@@ -199,11 +203,63 @@
             },
             "peasantLabor": {
                 "name": "Peasant's Labor",
-                "description": "Peasant's labor give {{ param }} times more reward"
+                "description": "Peasant's labor give {{ param }} times more ressources from work"
             },
             "peasantTorch": {
                 "name": "Peasant's Torch",
                 "description": "Peasant's Torch deal {{ param }} damage over {{ param2 }} seconds (only one active, doesn't stack)"
+            }
+        }
+    },
+    "talents": {
+        "peasant": {
+            "stronger": {
+                "name": "Stronger",
+                "description": " Increase your strength by {{param}}%"
+            },
+            "tougher": {
+                "name": "Tougher",
+                "description": "Increase your endurance by {{param}}%"
+            },
+            "vampiric": {
+                "name": "Vampiric",
+                "description": "Give you {{ param }}% lifesteal"
+            },
+            "richer": {
+                "name": "Richer",
+                "description": "You gain {{ param }}% more gold"
+            },
+            "luckier": {
+                "name": "Luckier",
+                "description": "You have {{ param }} % of dropping better items"
+            },
+            "manager": {
+                "name": "Manager",
+                "description": "Your worker are twice as effective"
+            },
+            "worker": {
+                "name": "Worker",
+                "description": "You are twice as effective"
+            },
+            "fighter": {
+                "name": "Fighter",
+                "description": "You ignore {{param}}% of ennemy's armor"
+            },
+            "crafter": {
+                "name": "Crafter",
+                "description": "Item you craft are {{param}}% stronger"
+            },
+            "looter": {
+                "name": "Looter",
+                "description": "You gain two items at the end of the battle"
+            },
+            "fighterTwo": {
+                "name": "Fighter II",
+                "description": "You ignore {{param}}% of ennemy's armor"
+            },
+            "jack": {
+                "name": "Jack of all trade",
+                "description": "You gain {{param}}% more stats"
             }
         }
     },
@@ -227,5 +283,18 @@
             "name": "Healing Potion",
             "description": "Heal you for {{param}}% of your health"
         }
+    },
+    "weapons": {
+        "sword": "Sword",
+        "hammer": "Hammer",
+        "axe": "Axe",
+        "dagger": "Dagger"
+    },
+    "armor": {
+        "helmet": "Helmet",
+        "chest": "Chest",
+        "boots": "Boots",
+        "pants": "Pants",
+        "gloves": "Gloves"
     }
 }

@@ -18,6 +18,12 @@
             >
                 {{ t("spellbook.passiveTab") }}
             </button>
+            <button
+                (click)="switchTabs('talent')"
+                [ngClass]="{ active: tabs == 'talent' }"
+            >
+                {{ t("spellbook.talentTab") }}
+            </button>
         </div>
         <app-spellbook-list
             [hero]="hero$ | async"
@@ -29,6 +35,8 @@
             [spells]="getActiveSpells(_spells$ | async, false)"
             *ngIf="tabs == 'passive'"
         ></app-spellbook-list>
+        <app-talent *ngIf="tabs == 'talent'" [hero]="hero$ | async">
+        </app-talent>
         <div fxLayout="column" fxLayoutAlign="center center" class="heroSpell">
             <h5>{{ t("spellbook.heroSpell") }}</h5>
             <div fxLayout="row" fxLayoutAlign="center center">

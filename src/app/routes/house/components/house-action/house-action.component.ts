@@ -15,13 +15,7 @@ import {
 } from "@core/models/game-state/game-state.action";
 import { Hero } from "@core/models/entity";
 import { Store, select } from "@ngrx/store";
-import {
-    Component,
-    OnInit,
-    OnDestroy,
-    Input,
-    ChangeDetectionStrategy,
-} from "@angular/core";
+import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { AppState } from "@core/models";
 import { Observable, Subject, BehaviorSubject, Subscription } from "rxjs";
 import { Currency } from "@core/models/game-data/game-data.model";

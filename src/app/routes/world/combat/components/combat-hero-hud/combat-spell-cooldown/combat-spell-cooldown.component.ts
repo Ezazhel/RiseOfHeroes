@@ -11,6 +11,7 @@ import {
     OnDestroy,
     Output,
     EventEmitter,
+    ChangeDetectionStrategy,
 } from "@angular/core";
 import {
     Spells,
@@ -18,7 +19,6 @@ import {
     HealSpells,
 } from "@core/models/spells/spells.model";
 import { toNumber } from "@ngneat/transloco";
-import { of, Subscription } from "rxjs";
 import { getMultiplier } from "@core/models/utils";
 import { Hero } from "@core/models/entity";
 import { Potion } from "@core/models/potions/potions.model";
@@ -26,55 +26,56 @@ import { Potion } from "@core/models/potions/potions.model";
     selector: "combat-spell-cooldown",
     templateUrl: "./combat-spell-cooldown.component.html",
     styleUrls: ["./combat-spell-cooldown.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CombatSpellCooldownComponent
     implements OnInit, AfterViewInit, OnDestroy {
     @Input() index: number;
-    @Input() spell: Spells | OvertimeSpells | HealSpells | Potion;
-    @Input() isSkill = true;
+    @Input() spell?: Spells | OvertimeSpells | HealSpells;
+
+    @Input() set potion(value: Potion) {
+        this.initCooldown(value);
+        this._potion = value;
+    }
+    get potion(): Potion {
+        return this._potion;
+    }
+    private _potion: Potion;
+    @Input() isNotDebuff = true;
     @Input() hero: Hero;
     @Output("rdy") spellReady = new EventEmitter<boolean>();
     @ViewChild("cooldown", { static: false }) canvas: ElementRef<
         HTMLCanvasElement
     >;
+
+    private _cooldown: Cooldown;
     private ctx: CanvasRenderingContext2D;
 
     @ViewChild("action") action: ElementRef<HTMLElement>;
 
-    subscription: Subscription;
-
+    initCooldown(item: Spells | Potion) {
+        if (this._cooldown !== undefined) this._cooldown.endCooldown();
+        if (item.isInCooldown) {
+            this._cooldown = new Cooldown(
+                this.ctx,
+                this.canvas.nativeElement,
+                item,
+                this.action.nativeElement,
+                this.isNotDebuff,
+                this.hero
+            );
+            this.ngZone.runOutsideAngular(() => this._cooldown.gaugeCooldown());
+        } else {
+            this.spellReady.emit(true);
+        }
+    }
     constructor(private ngZone: NgZone) {}
 
     ngOnInit(): void {}
     ngAfterViewInit(): void {
         this.ctx = this.canvas.nativeElement.getContext("2d");
-        if (this.isSkill) {
-            console.log(this.isSkill);
-            if (this.spell.isInCooldown) {
-                const cooldown: Cooldown = new Cooldown(
-                    this.ctx,
-                    this.canvas.nativeElement,
-                    this.spell,
-                    this.action.nativeElement,
-                    this.isSkill,
-                    this.hero
-                );
-                this.ngZone.runOutsideAngular(() => cooldown.gaugeCooldown());
-            } else {
-                this.spellReady.emit(true);
-                if (this.subscription != undefined)
-                    this.subscription.unsubscribe();
-            }
-        } else {
-            const cooldown: Cooldown = new Cooldown(
-                this.ctx,
-                this.canvas.nativeElement,
-                this.spell,
-                this.action.nativeElement,
-                this.isSkill,
-                this.hero
-            );
-            this.ngZone.runOutsideAngular(() => cooldown.gaugeCooldown());
+        if (this.spell !== undefined) {
+            this.initCooldown(this.spell);
         }
     }
     ngOnDestroy(): void {
@@ -91,11 +92,10 @@ export class Cooldown {
         private canvas: HTMLCanvasElement,
         private spell: Spells | OvertimeSpells | HealSpells | Potion,
         private element: HTMLElement,
-        private isSkill = true,
+        private isNotDebuff = true,
         private hero: Hero
     ) {
-        console.log(this.spell);
-        this.cd = this.isSkill
+        this.cd = this.isNotDebuff
             ? getMultiplier("swiftness", this.hero, this.spell.cooldown * 1000)
             : getMultiplier(
                   "swiftness",

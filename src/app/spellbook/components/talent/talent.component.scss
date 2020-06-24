@@ -1,0 +1,24 @@
+@import "variables.scss";
+.talents-container {
+    width: 450px;
+    .talent-container {
+        width: 120px;
+        height: 45px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 4px -0.5px;
+        margin: 10px;
+        color: $lightgreybutton;
+        cursor: pointer;
+        span {
+            margin: auto;
+        }
+        &.unlocked {
+            color: $red;
+            box-shadow: 0px 0px 4px -0.5px $red;
+        }
+        &.selected {
+            color: $greenCommonItem !important;
+            box-shadow: 0px 0px 4px -0.5px $greenCommonItem;
+        }
+    }
+}

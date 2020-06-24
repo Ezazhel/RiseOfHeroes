@@ -19,6 +19,7 @@ export class SpellbookListComponent implements OnInit {
     @Input() hero: Hero;
     @Input() spells: (Spells | OvertimeSpells | HealSpells)[];
     @Input("active") activeSpell: boolean;
+
     equipSpell(spell: Spells, index: number) {
         let newHeroSpells = [...this.hero.equippedSpell];
         let indexOfSpellIfExist = newHeroSpells.findIndex(

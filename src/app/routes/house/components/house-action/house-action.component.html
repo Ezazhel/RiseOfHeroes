@@ -44,9 +44,11 @@
                             {{ t.id }}
                         </span>
                         <span>
-                            {{ tsl("house.maxTraining") }}
-                            {{ t.done }}/{{ t.bonus }}
+                            {{ tsl("house.maxTraining") }} {{ t.done }}/{{
+                                t.bonus
+                            }}
                         </span>
+                        <span> {{ getTime(t) / 1000 }}s </span>
                     </div>
                     <app-progressbar
                         time="{{ getTime(t) }}ms"

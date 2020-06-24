@@ -6,31 +6,35 @@ import {
 import {
     Component,
     OnInit,
-    Input,
     Output,
     EventEmitter,
     HostListener,
+    OnDestroy,
 } from "@angular/core";
 import { Hero } from "@core/models/entity";
-import { Observable, Subject, BehaviorSubject } from "rxjs";
-import { map, first } from "rxjs/operators";
+import { Observable, Subject, Subscription } from "rxjs";
+import { map, first, withLatestFrom } from "rxjs/operators";
 import { getXPForLevel } from "@core/models/level";
 import { Potion } from "@core/models/potions/potions.model";
-
+import { heroSelector } from "@core/models/selector";
+import { Store } from "@ngrx/store";
+import { AppState } from "@core/models";
+export interface CastEvent {
+    spell?: Spells;
+    potion?: Potion;
+    hotKey?: string;
+}
 @Component({
     selector: "app-combat-hero-hud",
     templateUrl: "./combat-hero-hud.component.html",
     styleUrls: ["./combat-hero-hud.component.scss"],
 })
-export class CombatHeroHudComponent implements OnInit {
-    private _hero$: Subject<Hero> = new BehaviorSubject<Hero>(null);
-    hero$: Observable<Hero> = this._hero$;
+export class CombatHeroHudComponent implements OnInit, OnDestroy {
+    hero$: Observable<Hero> = this.store.select(heroSelector);
     @Output() castSpell = new EventEmitter<
         Spells | OvertimeSpells | HealSpells | Potion
     >();
-    @Input() set hero(value: Hero) {
-        this._hero$.next(value);
-    }
+
     @Output() spellCasted = new EventEmitter<boolean>();
 
     healthPercentage$: Observable<number> = this.hero$.pipe(
@@ -45,49 +49,69 @@ export class CombatHeroHudComponent implements OnInit {
                 : 0;
         })
     );
+    potion$ = this.hero$.pipe(
+        map((hero: Hero) => {
+            return hero.potion;
+        })
+    );
+
+    public doCastSpell$: Subject<CastEvent> = new Subject<CastEvent>();
+    private _castSpellSubscription: Subscription = this.doCastSpell$
+        .pipe(
+            withLatestFrom(this.hero$, (event: CastEvent, hero: Hero) => {
+                if (event.hotKey != "") {
+                    hero.equippedSpell.forEach((sp, index) => {
+                        if (event.hotKey === (index + 1).toString()) {
+                            if (!sp.isInCooldown) {
+                                this.castSpell.emit(sp);
+                                this.casted(true);
+                            }
+                        }
+                        return;
+                    });
+                } else {
+                    if (event.spell.isInCooldown) return;
+                    this.castSpell.emit(event.spell);
+                    this.casted(true);
+                }
+            })
+        )
+        .subscribe();
+
+    public doUsePotion$: Subject<CastEvent> = new Subject<CastEvent>();
+    public _usePotionSubscription: Subscription = this.doUsePotion$
+        .pipe(
+            withLatestFrom(this.hero$, (event: CastEvent, hero: Hero) => {
+                if (event.potion.isInCooldown) return;
+                this.castSpell.emit(event.potion);
+                this.spellCasted.emit(true);
+            })
+        )
+        .subscribe();
 
     casted(b: boolean) {
         this.spellCasted.emit(b);
     }
     @HostListener("document:keydown")
     cast(spell: Spells | OvertimeSpells | HealSpells) {
+        let hotKey = "";
         if (event.type == "keydown") {
-            const hotKey = String.fromCharCode(
-                (event as KeyboardEvent).keyCode
-            );
+            hotKey = String.fromCharCode((event as KeyboardEvent).keyCode);
+        }
+        this.doCastSpell$.next({ spell, hotKey });
+    }
 
-            let equippedSpells;
-            this.hero$
-                .pipe(first())
-                .subscribe((h: Hero) => (equippedSpells = h.equippedSpell));
-            equippedSpells.forEach((spell: Spells, index) => {
-                if (hotKey === (index + 1).toString()) {
-                    if (!spell.isInCooldown) {
-                        this.castSpell.emit(spell);
-                        this.casted(true);
-                    }
-                    return; //once we find the right one we return (in order to not fetch all array)
-                }
-            });
-        }
-        this.castSpell.emit(spell);
-        this.casted(true);
-    }
-    use(potion: Potion) {
-        if (!potion.isInCooldown) {
-            this.castSpell.emit(potion);
-            this.casted(true);
-        } else {
-            alert("En cooldown");
-        }
-    }
     getXPForLevel(level: number): number {
         return getXPForLevel(level);
     }
     trackByFn(index: number, el: Spells | OvertimeSpells | HealSpells) {
         return el;
     }
-    constructor() {}
+    constructor(private store: Store<AppState>) {}
 
     ngOnInit(): void {}
+
+    ngOnDestroy(): void {
+        this._castSpellSubscription.unsubscribe();
+    }
 }

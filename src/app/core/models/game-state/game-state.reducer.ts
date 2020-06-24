@@ -87,7 +87,6 @@ export function gameRecuder(
                 },
             };
         case GameStateAction.COMBAT_HERO_POTION:
-            console.log(action.payload.isInCooldown, action.payload.potionType);
             return {
                 ...state,
                 hero: {

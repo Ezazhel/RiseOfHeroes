@@ -1,14 +1,14 @@
-<ng-container *ngIf="isSkill; else dot">
+<ng-container *ngIf="isNotDebuff; else dot">
     <div class="action" #action>
         <div class="action-internal">
             <i
-                *ngIf="spell.type !== 'item'"
+                *ngIf="spell"
                 class="{{ hero.subType }} {{ spell?.icon }}"
                 [attr.data-key]="index + 1"
             ></i>
             <i
-                *ngIf="spell.type == 'item'"
-                class="{{ spell.subType }} {{ spell?.icon }}"
+                *ngIf="potion"
+                class="{{ potion.subType }} {{ potion?.icon }}"
                 [attr.data-key]="index"
             ></i>
             <canvas #cooldown width="48" height="48"></canvas>

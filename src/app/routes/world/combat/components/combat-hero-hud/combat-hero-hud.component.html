@@ -44,18 +44,18 @@
                     [index]="index"
                     [hero]="hero$ | async"
                     (rdy)="casted($event)"
-                    (click)="!spell.isInCooldown && cast(spell)"
+                    (click)="doCastSpell$.next({ spell: spell, hotKey: '' })"
                 >
                 </combat-spell-cooldown>
                 <combat-spell-cooldown
-                    *ngIf="(hero$ | async)?.potion as potion"
-                    [tooltip]="(hero$ | async)?.potion"
+                    *ngIf="potion$ | async as potion"
+                    [tooltip]="potion"
                     [tooltip-detach]="spellCasted"
-                    [spell]="(hero$ | async)?.potion"
+                    [potion]="potion$ | async"
                     [index]="5"
                     [hero]="hero$ | async"
                     (rdy)="casted($event)"
-                    (click)="cast(potion)"
+                    (click)="doUsePotion$.next({ potion: potion })"
                 >
                 </combat-spell-cooldown>
             </div>

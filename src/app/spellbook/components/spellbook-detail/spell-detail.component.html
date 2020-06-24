@@ -1,13 +1,23 @@
 <ng-container *transloco="let t">
     <div>
-        <span class="spell-name">
-            {{ t(item.name) }}
-        </span>
-        <p class="spell-description">
-            {{ t(item.description, descriptionFor(item, hero$ | async)) }}
-        </p>
-        <span class="spell-cooldown" *ngIf="item.isActive">
-            {{ t("spells.cooldown", { cooldown: item.cooldown }) }}
-        </span>
+        <ng-container *ngIf="!isTalent; else tal">
+            <span class="spell-name">
+                {{ t(spell.name) }}
+            </span>
+            <p class="spell-description">
+                {{ t(spell.description, descriptionFor(hero$ | async)) }}
+            </p>
+            <span class="spell-cooldown" *ngIf="!isTalent && spell.isActive">
+                {{ t("spells.cooldown", { cooldown: spell?.cooldown }) }}
+            </span>
+        </ng-container>
+        <ng-template #tal>
+            <span class="spell-name">
+                {{ t(talent.name) }}
+            </span>
+            <p class="spell-description">
+                {{ t(talent.description, descriptionFor(hero$ | async)) }}
+            </p>
+        </ng-template>
     </div>
 </ng-container>
