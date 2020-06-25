@@ -66,7 +66,11 @@
                 </ng-container>
                 <!-- Loop of an array Stats. -->
                 <label
-                    *ngFor="let stat of equipment.stats; trackBy: trackByStat"
+                    *ngFor="
+                        let stat of equipment.stats;
+                        let index = index;
+                        trackBy: trackByStat
+                    "
                 >
                     +{{ stat.value }} {{ t(stat.name) }}
                 </label>
@@ -92,6 +96,31 @@
         >
             <span>{{ t("game.requiredLevel", { level: item.level }) }}</span>
             <span class="gold">{{ item.value }}g</span>
+        </div>
+        <div
+            class="compare-stat"
+            *ngIf="
+                compare !== undefined &&
+                comparaison == true &&
+                compare.stats.length > 0
+            "
+            fxLayout="column"
+        >
+            <h5>{{ t("game.stats.ifEquipped") }}</h5>
+            <span *ngIf="compare.armor >= 0" class="better">
+                ( + {{ compare.armor }} {{ t("game.stats.armor") }})
+            </span>
+            <span *ngIf="compare.armor < 0" class="worst">
+                ({{ compare.armor }} {{ t("game.stats.armor") }})
+            </span>
+            <div *ngFor="let s of compare.stats; trackBy: trackByStatCompare">
+                <span *ngIf="s.value >= 0" class="better">
+                    ( + {{ s.value }} {{ t(s.name) }})
+                </span>
+                <span *ngIf="s.value < 0" class="worst">
+                    ({{ s.value }} {{ t(s.name) }})
+                </span>
+            </div>
         </div>
     </div>
 </ng-container>

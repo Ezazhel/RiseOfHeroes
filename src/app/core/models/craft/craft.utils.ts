@@ -1,15 +1,17 @@
 import {
-    ITemplateBaseEquipmennt,
+    ITemplateBaseEquipment,
     Currency,
     ItemQuality,
+    ITemplateWeapon,
+    ITemplateArmor,
 } from "../game-data/game-data.model";
 import { CurrencyType } from "../game-data/game-data.data";
 
 export const setGear = (
     set: string,
     name: string,
-    baseItem: ITemplateBaseEquipmennt
-): ITemplateBaseEquipmennt => ({
+    baseItem: ITemplateWeapon | ITemplateArmor
+) => ({
     ...baseItem,
     icon: set,
     name: name,

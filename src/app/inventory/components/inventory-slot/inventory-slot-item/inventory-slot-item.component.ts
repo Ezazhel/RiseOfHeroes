@@ -1,7 +1,7 @@
 import { update } from "@core/models/utils";
 import {
     Stat,
-    ITemplateBaseEquipmennt,
+    ITemplateBaseEquipment,
     ITemplateArmor,
     ITemplateWeapon,
 } from "./../../../../core/models/game-data/game-data.model";
@@ -16,14 +16,7 @@ import {
     ArmorCategory,
 } from "@core/models/game-data/game-data.model";
 import { AppState } from "@core/models";
-import {
-    Component,
-    OnInit,
-    Input,
-    Output,
-    EventEmitter,
-    ViewChild,
-} from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { heroSelector } from "@core/models/selector";
 import { first } from "rxjs/operators";
@@ -90,7 +83,7 @@ export class InventorySlotItemComponent implements OnInit {
                     );
                     if (heroItem.type == "armor" || heroItem.type == "weapon") {
                         let baseStats = [...hero.baseStats];
-                        (heroItem as ITemplateBaseEquipmennt).stats.forEach(
+                        (heroItem as ITemplateBaseEquipment).stats.forEach(
                             (stat: Stat) => {
                                 baseStats = update(
                                     baseStats,

@@ -18,6 +18,7 @@ import { ComponentPortal } from "@angular/cdk/portal";
 import {
     ITemplateBaseItem,
     Currency,
+    LootbagItem,
 } from "@core/models/game-data/game-data.model";
 import {
     OvertimeSpells,
@@ -29,17 +30,20 @@ import { SlotDetailComponent } from "@shared/components";
 import { Rune } from "@core/models/runes/runes.model";
 import { RunesComponent } from "@shared/components/runes/runes.component";
 import { Talent } from "@core/models/talent/talent.model";
+import { LootDetailComponent } from "@shared/components/lootDetail/lootDetail.component";
 
-type TooltipType = "equipment" | "spell" | "craft" | "rune";
+type TooltipType = "equipment" | "spell" | "craft" | "rune" | "lootbag";
 @Directive({ selector: "[tooltip]" })
 export class ToolTipDirective implements OnInit {
     @Input("tooltip") item:
         | ITemplateBaseItem
         | (Spells | OvertimeSpells | HealSpells)
         | Rune
+        | LootbagItem[]
         | Talent;
     @Input("tooltip-material") material: Currency[];
     @Input("tooltip-isTalent") isTalent: boolean;
+    @Input("tooltip-compare") compare: boolean = true;
     @Input("tooltip-equipped") itemEquipped: ITemplateBaseItem;
     @Input("tooltip-detach") detach: EventEmitter<boolean> = new EventEmitter<
         boolean
@@ -80,6 +84,7 @@ export class ToolTipDirective implements OnInit {
             | SpellDetailComponent
             | CraftDetailComponent
             | RunesComponent
+            | LootDetailComponent
         >;
         switch (this.type) {
             case "spell":
@@ -109,6 +114,13 @@ export class ToolTipDirective implements OnInit {
                 (tooltipRef.instance as RunesComponent).item = this
                     .item as Rune;
                 break;
+            case "lootbag":
+                tooltipRef = this.overlayRef.attach(
+                    new ComponentPortal(LootDetailComponent)
+                );
+                (tooltipRef.instance as LootDetailComponent).item = this
+                    .item as LootbagItem[];
+                break;
             default:
                 // case "equipment":
                 tooltipRef = this.overlayRef.attach(
@@ -117,6 +129,7 @@ export class ToolTipDirective implements OnInit {
                 (tooltipRef.instance as SlotDetailComponent).itemEquipped = this.itemEquipped;
                 (tooltipRef.instance as SlotDetailComponent).item = this
                     .item as ITemplateBaseItem;
+                (tooltipRef.instance as SlotDetailComponent).compare = this.compare;
                 break;
         }
     }

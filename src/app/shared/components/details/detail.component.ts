@@ -3,6 +3,7 @@ import {
     ITemplateArmor,
     ITemplateBaseItem,
     Stat,
+    StatChange,
 } from "@core/models/game-data/game-data.model";
 import { Component, OnInit, Input } from "@angular/core";
 import { getDescription } from "@core/models/potions/potions.utils";
@@ -16,7 +17,8 @@ import { Rune } from "@core/models/runes/runes.model";
 })
 export class DetailComponent implements OnInit {
     @Input("item") set item(value: ITemplateBaseItem) {
-        if (value === undefined || value === null) return;
+        if (value === undefined || value === null || value.type === undefined)
+            return;
         if (value.type === "item") {
             this.consumable = value as Potion;
         } else {
@@ -29,6 +31,9 @@ export class DetailComponent implements OnInit {
     }
     @Input() iconClass: string;
     @Input() equipped: boolean;
+    @Input() compare: StatChange;
+    @Input() comparaison: boolean;
+
     _item: ITemplateBaseItem;
     consumable: Potion;
     equipment: ITemplateWeapon | ITemplateArmor;
@@ -36,14 +41,18 @@ export class DetailComponent implements OnInit {
     getDescription(item: ITemplateBaseItem) {
         return getDescription(item as Potion);
     }
-
     trackByRune(index: number, el: Rune) {
         return el.type;
     }
     trackByStat(index: number, el: Stat) {
         return el.type;
     }
+    trackByStatCompare(index: number, el: Stat) {
+        return index;
+    }
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        console.log(this.comparaison);
+    }
 }

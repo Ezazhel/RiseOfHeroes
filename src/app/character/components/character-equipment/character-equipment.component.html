@@ -4,6 +4,7 @@
             <li
                 class="equipment w {{ hero?.weapon?.quality }}"
                 [tooltip]="hero.weapon"
+                [tooltip-compare]="'false'"
             >
                 <span
                     class="icon {{ hero?.weapon?.subType }} {{
@@ -13,6 +14,7 @@
             </li>
             <li
                 class="equipment h {{ hero?.helmet?.quality }}"
+                [tooltip-compare]="'false'"
                 [tooltip]="hero.helmet"
             >
                 <span
@@ -23,6 +25,7 @@
             </li>
             <li
                 class="equipment c {{ hero?.chest?.quality }}"
+                [tooltip-compare]="'false'"
                 [tooltip]="hero.chest"
             >
                 <span
@@ -33,6 +36,7 @@
             </li>
             <li
                 class="equipment g {{ hero?.gloves?.quality }}"
+                [tooltip-compare]="'false'"
                 [tooltip]="hero.gloves"
             >
                 <span
@@ -43,6 +47,7 @@
             </li>
             <li
                 class="equipment p {{ hero?.pants?.quality }}"
+                [tooltip-compare]="'false'"
                 [tooltip]="hero.pants"
             >
                 <span
@@ -53,6 +58,7 @@
             </li>
             <li
                 class="equipment b {{ hero?.boots?.quality }}"
+                [tooltip-compare]="'false'"
                 [tooltip]="hero.boots"
             >
                 <span
@@ -61,7 +67,11 @@
                     }}"
                 ></span>
             </li>
-            <li class="{{ hero?.potion?.quality }}" [tooltip]="hero.potion">
+            <li
+                class="{{ hero?.potion?.quality }}"
+                [tooltip]="hero?.potion"
+                [tooltip-compare]="'false'"
+            >
                 <span
                     class="{{ hero?.potion?.subType }} {{
                         hero?.potion?.icon

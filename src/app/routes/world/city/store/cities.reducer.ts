@@ -3,7 +3,11 @@ import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
 import * as CityAction from "./cities.action";
 import { update } from "@core/models/utils";
 import { createUpgrade } from "@core/models/upgrades";
-import { dummyCraft } from "@core/models/game-data/game-data.data";
+import {
+    dummyCraft,
+    sheepyCraft,
+    piggyCraft,
+} from "@core/models/game-data/game-data.data";
 import { healingPotion } from "@core/models/potions/potions.data";
 
 const initialState: CitiesState = {
@@ -21,7 +25,7 @@ const initialState: CitiesState = {
                     maxItemQuality: 1,
                     maxItem: 5,
                     items: [],
-                    crafts: [{ ...dummyCraft }],
+                    crafts: [dummyCraft, sheepyCraft, piggyCraft],
                     upgrades: [
                         {
                             ...createUpgrade("faster", 5, 500, "faster"),

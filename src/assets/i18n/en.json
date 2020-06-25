@@ -69,6 +69,7 @@
         "InitWelcomeAfterReset": "I hope you are ready this time...!",
         "alertHARDRESET": "Are you sure you want to hard reset your game ?",
         "stats": {
+            "ifEquipped": "If equipped ",
             "armor": "Armor",
             "strength": "Strength",
             "endurance": "Endurance",

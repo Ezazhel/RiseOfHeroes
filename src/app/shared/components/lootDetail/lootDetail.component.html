@@ -1,0 +1,21 @@
+<ng-container *transloco="let t">
+    <div fxLayout="column" class="description">
+        <span class="title">Potential loot (add trad)</span>
+        <div
+            *ngFor="let loot of item; trackBy: trackByItem"
+            fxLayout="row nowrap"
+            fxLayoutAlign="flex-start center"
+        >
+            <ng-container *ngIf="loot.item === 'currency'">
+                {{ loot.currency.name }}
+            </ng-container>
+            <ng-container
+                *ngIf="loot.item === 'weapon' || loot.item === 'armor'"
+            >
+                <span class="{{ loot.itemQuality }}">
+                    {{ loot.itemQuality }} {{ loot.item }}</span
+                >
+            </ng-container>
+        </div>
+    </div>
+</ng-container>

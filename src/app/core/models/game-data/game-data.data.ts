@@ -242,27 +242,25 @@ export const fighters: Fighter[] = [
         eid: "0",
         name: "Dummy Moore",
         icon: "dummy_01",
-        attack: 15,
-        attackSpeed: 1 * 1000,
-        hp: 350,
+        attack: 10,
+        attackSpeed: 1.1 * 1000,
+        hp: 300,
         level: 1,
-        maxHp: 350,
+        maxHp: 300,
         defense: 0,
         lootbag: [
-            { item: "none", weigth: 60 },
+            { item: "none", weigth: 50 },
             { item: "weapon", itemQuality: "common", weigth: 30 },
             { item: "armor", itemQuality: "common", weigth: 30 },
-            { item: "weapon", itemQuality: "rare", weigth: 15 },
-            { item: "armor", itemQuality: "rare", weigth: 15 },
             {
                 item: "currency",
                 currency: { name: "dummy-row", quantity: 1 },
-                weigth: 5,
+                weigth: 10,
             },
             {
                 item: "currency",
                 currency: { name: "dummy-screw", quantity: 1 },
-                weigth: 5,
+                weigth: 10,
             },
             {
                 item: "currency",
@@ -275,23 +273,65 @@ export const fighters: Fighter[] = [
         eid: "1",
         name: "Sheepy",
         icon: "sheep_01",
-        attack: 35,
+        attack: 25,
         attackSpeed: 1.4 * 1000,
         hp: 750,
         level: 1,
         maxHp: 750,
         defense: 25,
+        lootbag: [
+            { item: "none", weigth: 30 },
+            { item: "weapon", itemQuality: "rare", weigth: 20 },
+            { item: "armor", itemQuality: "rare", weigth: 20 },
+            {
+                item: "currency",
+                currency: { name: "dummy-row", quantity: 1 },
+                weigth: 10,
+            },
+            {
+                item: "currency",
+                currency: { name: "dummy-screw", quantity: 1 },
+                weigth: 10,
+            },
+            {
+                item: "currency",
+                currency: { name: "dummy-wood", quantity: 1 },
+                weigth: 10,
+            },
+        ],
     },
     {
         eid: "2",
         name: "Piggy",
         icon: "pig_01",
-        attack: 65,
+        attack: 55,
         attackSpeed: 1.5 * 1000,
-        hp: 1000,
+        hp: 800,
         level: 1,
-        maxHp: 1000,
+        maxHp: 800,
         defense: 75,
+        lootbag: [
+            { item: "none", weigth: 10 },
+            { item: "weapon", itemQuality: "rare", weigth: 20 },
+            { item: "weapon", itemQuality: "epic", weigth: 5 },
+            { item: "armor", itemQuality: "rare", weigth: 20 },
+            { item: "armor", itemQuality: "epic", weigth: 5 },
+            {
+                item: "currency",
+                currency: { name: "dummy-row", quantity: 1 },
+                weigth: 10,
+            },
+            {
+                item: "currency",
+                currency: { name: "dummy-screw", quantity: 1 },
+                weigth: 10,
+            },
+            {
+                item: "currency",
+                currency: { name: "dummy-wood", quantity: 1 },
+                weigth: 10,
+            },
+        ],
     },
 ];
 
@@ -349,6 +389,211 @@ export const dummyCraft: Craft = {
                 ...baseBoots,
                 runes: [{ ...swiftnessRune, currentLvl: 2 }],
             }) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
+        },
+    ],
+};
+export const sheepyCraft: Craft = {
+    name: "Sheepy",
+    weaponArmor: [
+        {
+            equipment: setGear("sheepy", "Sheepy Torso", {
+                ...baseChest,
+                stats: [...baseChest.stats].map(
+                    (s) => (s = { ...s, value: s.value + 2 })
+                ),
+                runes: [{ ...precisionRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [2, 4, 6]
+            ),
+        },
+        {
+            equipment: setGear("sheepy", "Sheepy Head", {
+                ...baseHelmet,
+                stats: [...baseHelmet.stats].map(
+                    (s) => (s = { ...s, value: s.value + 2 })
+                ),
+                runes: [{ ...swiftnessRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
+        },
+        {
+            equipment: setGear("sheepy", "Sheepy Panties", {
+                ...basePants,
+                stats: [...basePants.stats].map(
+                    (s) => (s = { ...s, value: s.value + 2 })
+                ),
+                runes: [
+                    { ...powerRune, currentLvl: 1 },
+                    { ...swiftnessRune, currentLvl: 1 },
+                ],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 3, 4]
+            ),
+        },
+        {
+            equipment: setGear("sheepy", "Sheepy Hands", {
+                ...baseGloves,
+                stats: [...baseGloves.stats].map(
+                    (s) => (s = { ...s, value: s.value + 2 })
+                ),
+                runes: [{ ...precisionRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
+        },
+        {
+            equipment: setGear("sheepy", "Sheepy Boots", {
+                ...baseBoots,
+                stats: [...baseBoots.stats].map(
+                    (s) => (s = { ...s, value: s.value + 2 })
+                ),
+                runes: [{ ...powerRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
+        },
+        {
+            equipment: setGear("sheepy", "Sheepy Axe", {
+                ...baseAxe,
+                stats: [...baseAxe.stats].map(
+                    (s) => (s = { ...s, value: s.value + 2 })
+                ),
+                runes: [
+                    { ...powerRune, currentLvl: 1 },
+                    { ...precisionRune, currentLvl: 2 },
+                ],
+            }) as ITemplateWeapon,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
+        },
+        {
+            equipment: setGear("sheepy", "Sheepy Cutter", {
+                ...baseDagger,
+                stats: [...baseDagger.stats].map(
+                    (s) => (s = { ...s, value: s.value + 4 })
+                ),
+                attack: baseDagger.attack * 2,
+            }) as ITemplateWeapon,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
+        },
+    ],
+};
+export const piggyCraft: Craft = {
+    name: "Piggy",
+    weaponArmor: [
+        {
+            equipment: setGear("piggy", "Piggy Torso", {
+                ...baseChest,
+                stats: [...baseChest.stats].map(
+                    (s) => (s = { ...s, value: s.value + 5 })
+                ),
+                runes: [{ ...powerRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [2, 4, 6]
+            ),
+        },
+        {
+            equipment: setGear("piggy", "Piggy Head", {
+                ...baseHelmet,
+                stats: [...baseHelmet.stats].map(
+                    (s) => (s = { ...s, value: s.value + 5 })
+                ),
+                runes: [{ ...precisionRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
+        },
+        {
+            equipment: setGear("piggy", "Piggy Panties", {
+                ...basePants,
+                stats: [...basePants.stats].map(
+                    (s) => (s = { ...s, value: s.value + 5 })
+                ),
+                runes: [
+                    { ...precisionRune, currentLvl: 1 },
+                    { ...powerRune, currentLvl: 1 },
+                ],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 3, 4]
+            ),
+        },
+        {
+            equipment: setGear("piggy", "Piggy Hands", {
+                ...baseGloves,
+                stats: [...baseGloves.stats].map(
+                    (s) => (s = { ...s, value: s.value + 5 })
+                ),
+                runes: [{ ...powerRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
+        },
+        {
+            equipment: setGear("piggy", "Piggy Boots", {
+                ...baseBoots,
+                stats: [...baseBoots.stats].map(
+                    (s) => (s = { ...s, value: s.value + 5 })
+                ),
+                runes: [{ ...precisionRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
+        },
+        {
+            equipment: setGear("piggy", "Piggy Hammer", {
+                ...baseHammer,
+                stats: [...baseHammer.stats].map(
+                    (s) => (s = { ...s, value: s.value + 5 })
+                ),
+                runes: [
+                    { ...powerRune, currentLvl: 2 },
+                    { ...precisionRune, currentLvl: 2 },
+                ],
+            }) as ITemplateWeapon,
+            materials: setMaterial(
+                ["dummy-row", "dummy-screw", "dummy-wood"],
+                [3, 2, 2]
+            ),
+        },
+        {
+            equipment: setGear("piggy", "Piggy Toothpick", {
+                ...baseSword,
+                stats: [...baseSword.stats].map(
+                    (s) => (s = { ...s, value: s.value + 8 })
+                ),
+                attack: baseSword.attack * 2.5,
+                runes: [{ ...powerRune, currentLvl: 1 }],
+            }) as ITemplateWeapon,
             materials: setMaterial(
                 ["dummy-row", "dummy-screw", "dummy-wood"],
                 [3, 2, 2]

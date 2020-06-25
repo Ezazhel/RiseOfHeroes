@@ -6,8 +6,10 @@ import { Shop, Craft, CraftSet } from "@routes/world/city/store/cities.model";
 import {
     ITemplateBaseItem,
     Currency,
-    ITemplateBaseEquipmennt,
+    ITemplateBaseEquipment,
     ITemplateArmor,
+    ITemplateWeapon,
+    StatChange,
 } from "@core/models/game-data/game-data.model";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
@@ -18,6 +20,7 @@ import {
 } from "@core/models/game-state/game-state.action";
 import { modifyStat } from "@core/models/craft/craft.utils";
 import { entityId } from "@core/models/utils";
+import { toNumber } from "@ngneat/transloco";
 
 @Component({
     selector: "app-city-shop-craft",
@@ -28,12 +31,29 @@ export class CityShopCraftComponent implements OnInit {
     @Input() cityId: string;
 
     @Input("shop") set shop(value: Shop) {
+        this.level$.pipe(take(1)).subscribe((l: number) => {
+            console.log("shop", value);
+            value = {
+                ...value,
+                crafts: [...value.crafts].map((c) => ({
+                    ...c,
+                    weaponArmor: [...c.weaponArmor].map((item) => {
+                        return {
+                            ...item,
+                            equipment: this.setWithStat(item.equipment, l),
+                        };
+                    }),
+                })),
+            };
+            console.log("value after stat", value);
+        });
         this._shop = value;
     }
 
     _shop: Shop;
     currency$: Observable<Currency[]> = this.store.select(currenciesSelector);
     level$ = this.store.select(levelSelector);
+
     canCraft(material: Currency[]): boolean {
         let currencies: Currency[];
         let canCraft: boolean = true;
@@ -50,9 +70,10 @@ export class CityShopCraftComponent implements OnInit {
         });
         return canCraft;
     }
+
     craftItem(item: CraftSet): void {
         if (this.canCraft(item.materials)) {
-            let equipment: ITemplateBaseEquipmennt = {
+            let equipment: ITemplateBaseEquipment = {
                 ...item.equipment,
                 id: entityId(item.equipment.name),
             };
@@ -88,26 +109,34 @@ export class CityShopCraftComponent implements OnInit {
         }
     }
 
-    setWithStat(item: ITemplateBaseEquipmennt) {
-        this.level$.pipe(take(1)).subscribe((l: number) => {
-            item = {
-                ...item,
-                stats: item.stats.map((s) => ({
-                    ...s,
-                    value: modifyStat("legendary", s.value, l),
-                })),
+    setWithStat(item: ITemplateArmor | ITemplateWeapon, l: number) {
+        item = {
+            ...item,
+            stats: item.stats.map((s) => ({
+                ...s,
+                value: modifyStat("legendary", s.value, l),
+            })),
+        };
+        if (item.type == "armor") {
+            (item as ITemplateArmor) = {
+                ...(item as ITemplateArmor),
+                armor: modifyStat(
+                    "legendary",
+                    (item as ITemplateArmor).armor,
+                    l
+                ),
             };
-            if (item.type == "armor") {
-                (item as ITemplateArmor) = {
-                    ...(item as ITemplateArmor),
-                    armor: modifyStat(
-                        "legendary",
-                        (item as ITemplateArmor).armor,
-                        l
-                    ),
-                };
-            }
-        });
+        }
+        if (item.type == "weapon") {
+            let weapon = item as ITemplateWeapon;
+            weapon = {
+                ...weapon,
+                dps: toNumber(
+                    ((weapon.attack * l) / (weapon.speed / 1000)).toFixed(2)
+                ),
+            };
+            item = { ...weapon };
+        }
         return item;
     }
 
@@ -118,6 +147,33 @@ export class CityShopCraftComponent implements OnInit {
             .pipe(take(1))
             .subscribe((i) => (equipped = i));
         return equipped;
+    }
+
+    getStatDifference(item: ITemplateBaseItem): StatChange {
+        let equipped = this.equipped(item);
+        let change: StatChange = {};
+        if (item.type == "item") return change;
+        let equipment = item as ITemplateWeapon | ITemplateArmor;
+        change.armor =
+            equipped !== undefined && item.type == "armor"
+                ? (equipment as ITemplateArmor).armor -
+                  (equipped as ITemplateArmor).armor
+                : item.type == "weapon"
+                ? 0
+                : (item as ITemplateArmor).armor;
+        change.stats =
+            equipped !== undefined
+                ? [...equipment.stats].map((s, index) => {
+                      return {
+                          ...s,
+                          value:
+                              s.value -
+                              (equipped as ITemplateWeapon | ITemplateArmor)
+                                  .stats[index].value,
+                      };
+                  })
+                : [...equipment.stats];
+        return change;
     }
     trackByCraft(index: number, el: Craft) {
         return index;

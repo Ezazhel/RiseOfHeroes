@@ -1,31 +1,90 @@
-@mixin stitches-dummy($x: 0, $y: 0, $width: 0, $height: 0) {
+@mixin stitches($x: 0, $y: 0, $width: 0, $height: 0) {
     background-position: $x $y;
     width: $width;
     height: $height;
 }
-
-.dummy {
-    background-image: url(~/assets/dummy_set.png);
+@mixin base() {
+    background-image: url(~/assets/set.png);
     background-repeat: no-repeat;
     display: block;
+}
 
+.dummy {
+    @include base();
     &.chest {
-        @include stitches-dummy(-5px, -5px, 48px, 48px);
+        @include stitches(-5px, -5px, 48px, 48px);
     }
 
     &.boots {
-        @include stitches-dummy(-63px, -5px, 48px, 48px);
+        @include stitches(-63px, -5px, 48px, 48px);
     }
 
     &.gloves {
-        @include stitches-dummy(-5px, -63px, 48px, 48px);
+        @include stitches(-121px, -5px, 48px, 48px);
     }
 
     &.helmet {
-        @include stitches-dummy(-63px, -63px, 48px, 48px);
+        @include stitches(-179px, -5px, 48px, 48px);
     }
 
     &.pants {
-        @include stitches-dummy(-121px, -5px, 48px, 48px);
+        @include stitches(-5px, -63px, 48px, 48px);
+    }
+}
+.sheepy {
+    @include base();
+
+    &.chest {
+        @include stitches(-63px, -179px, 48px, 48px);
+    }
+
+    &.boots {
+        @include stitches(-5px, -179px, 48px, 48px);
+    }
+
+    &.gloves {
+        @include stitches(-121px, -179px, 48px, 48px);
+    }
+
+    &.helmet {
+        @include stitches(-179px, -179px, 48px, 48px);
+    }
+
+    &.pants {
+        @include stitches(-237px, -5px, 48px, 48px);
+    }
+    &.axe {
+        @include stitches(-237px, -63px, 48px, 48px);
+    }
+    &.dagger {
+        @include stitches(-237px, -121px, 48px, 48px);
+    }
+}
+.piggy {
+    @include base();
+    &.chest {
+        @include stitches(-121px, -63px, 48px, 48px);
+    }
+
+    &.boots {
+        @include stitches(-63px, -63px, 48px, 48px);
+    }
+
+    &.gloves {
+        @include stitches(-179px, -63px, 48px, 48px);
+    }
+
+    &.helmet {
+        @include stitches(-5px, -121px, 48px, 48px);
+    }
+
+    &.pants {
+        @include stitches(-63px, -121px, 48px, 48px);
+    }
+    &.hammer {
+        @include stitches(-121px, -121px, 48px, 48px);
+    }
+    &.sword {
+        @include stitches(-179px, -121px, 48px, 48px);
     }
 }

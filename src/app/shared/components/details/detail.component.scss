@@ -45,5 +45,15 @@
         .runes {
             color: $eucalyptus;
         }
+
+        .compare-stat {
+            font-size: small;
+            .better {
+                color: $eucalyptus;
+            }
+            .worst {
+                color: $red;
+            }
+        }
     }
 }

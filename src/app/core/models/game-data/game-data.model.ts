@@ -36,6 +36,11 @@ export interface Stat {
     name: string;
     value: number;
 }
+
+export interface StatChange {
+    armor?: number;
+    stats?: Stat[];
+}
 export interface ITemplateId {
     /**
      * The lowercase-hyphenated string id of the item. This can be used to look the id up in the table.
@@ -82,11 +87,11 @@ export interface ITemplateBaseItem extends ITemplateId {
     readonly subType: any;
 }
 
-export interface ITemplateBaseEquipmennt extends ITemplateBaseItem {
+export interface ITemplateBaseEquipment extends ITemplateBaseItem {
     stats?: Stat[];
     runes?: Rune[];
 }
-export interface ITemplateWeapon extends ITemplateBaseEquipmennt {
+export interface ITemplateWeapon extends ITemplateBaseEquipment {
     readonly type: "weapon";
 
     readonly subType: WeaponCategory;
@@ -99,7 +104,7 @@ export interface ITemplateWeapon extends ITemplateBaseEquipmennt {
     dps: number;
     speed: number;
 }
-export interface ITemplateArmor extends ITemplateBaseEquipmennt {
+export interface ITemplateArmor extends ITemplateBaseEquipment {
     /**
      * What part of the body does the armor apply to?
      */

@@ -21,7 +21,8 @@
                         (click)="craftItem(item)"
                         class="detail-craft"
                         [ngClass]="{ canCraft: canCraft(item.materials) }"
-                        [item]="setWithStat(item.equipment)"
+                        [item]="item.equipment"
+                        [compare]="getStatDifference(item.equipment)"
                         iconClass="{{ item.equipment.subType }} {{
                             item.equipment.icon
                         }}"

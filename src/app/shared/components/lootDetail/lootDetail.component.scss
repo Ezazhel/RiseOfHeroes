@@ -1,0 +1,34 @@
+@import "variables.scss";
+@import "sprite-set.scss";
+@import "sprite-currencies.scss";
+:host {
+    width: 250px;
+    height: fit-content;
+    .description {
+        background: hsl(228, 60%, 8%);
+        border: 2px solid white;
+        border-radius: 5px;
+        color: $greenTextOnBody;
+        padding: 5px;
+        font-size: small;
+        .title {
+            font-size: large;
+            margin-bottom: 5px;
+        }
+        .rare {
+            color: $blueRareItem;
+        }
+        .uncommon {
+            color: $greenCommonItem;
+        }
+        .epic {
+            color: $purpleEpicItem;
+        }
+        .common {
+            color: $lavenderTextOnBody;
+        }
+        .legendary {
+            color: $orange;
+        }
+    }
+}

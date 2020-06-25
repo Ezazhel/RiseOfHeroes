@@ -1,5 +1,5 @@
 import { BuildingAction, City } from "../../../store/cities.model";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Building } from "../../../store/cities.model";
 import { fighters } from "@core/models/game-data/game-data.data";
 import { Fighter } from "@core/models/entity";
@@ -13,6 +13,10 @@ import { getFighterWithLevel } from "@routes/world/city/store/cities.utils";
             [building]="building"
             [city]="city"
             [fighter]="fighterFor(action)"
+            [tooltip]="fighterFor(action).lootbag"
+            [tooltip-type]="'lootbag'"
+            (hunt)="huntStarted.emit($event)"
+            [tooltip-detach]="huntStarted"
         ></huntingPost-post>
     </div>`,
     styleUrls: ["../city-building.component.scss"],
@@ -20,6 +24,7 @@ import { getFighterWithLevel } from "@routes/world/city/store/cities.utils";
 export class HuntingPost implements OnInit {
     @Input() building: Building;
     @Input() city: City;
+    @Output() huntStarted = new EventEmitter<boolean>();
 
     fighterFor(a: BuildingAction): Fighter {
         return getFighterWithLevel(

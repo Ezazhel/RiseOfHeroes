@@ -2,7 +2,7 @@ import { CombatService } from "@core/services/combat.service";
 import { first, take } from "rxjs/operators";
 import { levelSelector } from "./../../../../../../core/models/selector";
 import { rewardXp } from "@core/models/level";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import {
     BuildingAction,
     City,
@@ -28,11 +28,14 @@ export class HuntPostPost implements OnInit {
     @Input() fighter: Fighter;
     @Input() city: City;
 
+    @Output("hunt") huntSelected = new EventEmitter<boolean>();
+
     herolevel$: Observable<number> = this.store.select(levelSelector);
     heroLevel: number;
     effect(a: BuildingAction) {
         switch (a.type) {
             case "hunt":
+                this.huntSelected.emit(true);
                 this.router.navigateByUrl(
                     `/world/${this.city.id}/combat/${this.fighter.name}`
                 );

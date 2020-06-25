@@ -4,6 +4,7 @@ import { ProgressbarComponent } from "./progressbar/progressbar.component";
 import { SlotDetailComponent } from "./details/slot-detail.component";
 import { DetailComponent } from "./details/detail.component";
 import { CraftDetailComponent } from "./craftDetail/craft-detail.component";
+import { LootDetailComponent } from "./lootDetail/lootDetail.component";
 export const components: any[] = [
     ModalComponent,
     CardComponent,
@@ -11,6 +12,7 @@ export const components: any[] = [
     SlotDetailComponent,
     DetailComponent,
     CraftDetailComponent,
+    LootDetailComponent,
 ];
 export * from "./modal/modal.component";
 export * from "./progressbar/progressbar.component";
