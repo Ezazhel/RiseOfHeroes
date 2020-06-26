@@ -6,6 +6,9 @@ export type NotificationType =
     | "bougth"
     | "reward"
     | "need"
+    | "noReward"
+    | "inventoryFull"
+    | "cantCraft"
     | "heal";
 
 export class Notification {

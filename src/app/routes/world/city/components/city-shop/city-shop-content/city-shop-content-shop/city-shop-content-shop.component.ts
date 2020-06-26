@@ -15,7 +15,7 @@ import {
 } from "@core/models/game-data/game-data.model";
 import { TranslocoService } from "@ngneat/transloco";
 import { ShopService } from "@core/services/shop.service";
-import { Subscription, timer, Observable } from "rxjs";
+import { Subscription, timer, Observable, Subject } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
 import {
@@ -23,8 +23,11 @@ import {
     goldSelector,
     equippedSelector,
     currencySelector,
+    inventorySelector,
+    sliceGameStateMaxSlots,
+    availableSlot,
 } from "@core/models/selector";
-import { take, first } from "rxjs/operators";
+import { take, first, withLatestFrom } from "rxjs/operators";
 import { NotifierService } from "@core/services/notifier.service";
 @Component({
     selector: "app-city-shop-content-shop",
@@ -40,7 +43,7 @@ export class CityShopContentShopComponent
     @Input("shop") set shop(value: Shop) {
         this._shop = value;
     }
-
+    private _availableSlot$ = this.store.select(availableSlot);
     _shop: Shop;
     minutes: Subscription;
     timer: string;
@@ -49,19 +52,46 @@ export class CityShopContentShopComponent
     public _gold$: Observable<Currency> = this.store.select(
         currencySelector("gold")
     );
-
-    public buyItem(item: ITemplateBaseItem): void {
-        let currentGold: number;
-        this._gold$
-            .pipe(first())
-            .subscribe((g: Currency) => (currentGold = g.quantity));
-        if (currentGold >= item.value) {
-            this.shopService.buyItem(item, this._shop.type, this.cityId);
-            this.itemNull.emit(true);
-        } else {
-            this._notifier.notify("", "currency gold", "need", item.value);
-        }
-    }
+    public doBuyItem$: Subject<ITemplateBaseItem> = new Subject();
+    private _buyItemSubcription = this.doBuyItem$
+        .pipe(
+            withLatestFrom(
+                this._availableSlot$,
+                (event: ITemplateBaseItem, availableSlot: number) => {
+                    console.log(availableSlot);
+                    if (availableSlot <= 0) {
+                        this._notifier.notify(
+                            `${event.name}`,
+                            "",
+                            "inventoryFull"
+                        );
+                    } else {
+                        let currentGold: number;
+                        this._gold$
+                            .pipe(first())
+                            .subscribe(
+                                (g: Currency) => (currentGold = g.quantity)
+                            );
+                        if (currentGold >= event.value) {
+                            this.shopService.buyItem(
+                                event,
+                                this._shop.type,
+                                this.cityId
+                            );
+                            this.itemNull.emit(true);
+                        } else {
+                            this._notifier.notify(
+                                "",
+                                "currency gold",
+                                "need",
+                                event.value
+                            );
+                        }
+                    }
+                }
+            )
+        )
+        .subscribe();
 
     private renew(value: Shop) {
         if (this.minutes != undefined) this.minutes.unsubscribe();
@@ -69,12 +99,12 @@ export class CityShopContentShopComponent
             maximumSignificantDigits: 2,
             minimumIntegerDigits: 2,
         });
-        const perf = performance.now();
+        const now = Date.now();
 
         let renewTimerMinute =
-            (perf - value.lastTick) / 1000 / value.intervalStock; //use when we come back on shop
+            (now - value.lastTick) / 1000 / value.intervalStock; //use when we come back on shop
         let renewTimerSecond =
-            ((perf - value.lastTick) / 1000) % value.intervalStock; //second
+            ((now - value.lastTick) / 1000) % value.intervalStock; //second
         let t = value.intervalStock - renewTimerSecond - this._previousSecond; // renewTimer will always be lt intervalStock
         t = Math.round(t);
 
@@ -110,6 +140,7 @@ export class CityShopContentShopComponent
             .subscribe((i) => (equipped = i));
         return equipped;
     }
+
     trackByFn(index: number, item: ITemplateBaseItem): number {
         return index;
     }
@@ -137,5 +168,6 @@ export class CityShopContentShopComponent
     }
     ngOnDestroy() {
         if (this.minutes !== undefined) this.minutes.unsubscribe();
+        this._buyItemSubcription.unsubscribe();
     }
 }

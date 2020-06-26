@@ -9,12 +9,11 @@ import { CurrencyType } from "../game-data/game-data.data";
 
 export const setGear = (
     set: string,
-    name: string,
     baseItem: ITemplateWeapon | ITemplateArmor
 ) => ({
     ...baseItem,
     icon: set,
-    name: name,
+    name: `set.${set}.${baseItem.subType}`,
     quality: "legendary",
 });
 

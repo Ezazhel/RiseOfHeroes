@@ -1,3 +1,4 @@
+import { first } from "rxjs/operators";
 import {
     Currency,
     ITemplateBaseItem,
@@ -27,6 +28,7 @@ import { NotifierService } from "./notifier.service";
 import { getFromLootbag } from "@core/models/loot/item-generation";
 import { Potion } from "@core/models/potions/potions.model";
 import { getEffect } from "@core/models/potions/potions.utils";
+import { availableSlot } from "@core/models/selector";
 
 @Injectable({
     providedIn: "root",
@@ -158,7 +160,9 @@ export class CombatService {
 
     victory() {
         this.store.dispatch(
-            new GameStateUpdateHeroAction(levelUp(this.hero, this.fighter))
+            new GameStateUpdateHeroAction(
+                levelUp(this.hero, this.fighter, this._notifier)
+            )
         );
         //random loot from monster dropbag
         let rwd = getFromLootbag(this.fighter.level, this.fighter.lootbag);
@@ -179,21 +183,46 @@ export class CombatService {
                     break;
                 case "armor":
                 case "weapon":
-                    this.store.dispatch(
-                        new GameStateInventoryAddItemAction(
-                            rwd.reward as ITemplateBaseItem
-                        )
-                    );
-                    this._notifier.notify(
-                        (rwd.reward as ITemplateBaseItem).name,
-                        `   
+                    this.store
+                        .select(availableSlot)
+                        .pipe(first())
+                        .subscribe((available: number) => {
+                            if (available <= 0) {
+                                this._notifier.notify(
+                                    `${
+                                        (rwd.reward as ITemplateBaseItem)
+                                            .quality
+                                    } - ${
+                                        (rwd.reward as ITemplateBaseItem).name
+                                    } `,
+                                    `   
                             ${(rwd.reward as ITemplateBaseItem).subType} 
                             ${(rwd.reward as ITemplateBaseItem).icon}
                         `,
-                        "reward"
-                    );
+                                    "inventoryFull"
+                                );
+                                return;
+                            }
+                            this.store.dispatch(
+                                new GameStateInventoryAddItemAction(
+                                    rwd.reward as ITemplateBaseItem
+                                )
+                            );
+                            this._notifier.notify(
+                                `${
+                                    (rwd.reward as ITemplateBaseItem).quality
+                                } - ${(rwd.reward as ITemplateBaseItem).name}`,
+                                `   
+                            ${(rwd.reward as ITemplateBaseItem).subType} 
+                            ${(rwd.reward as ITemplateBaseItem).icon}
+                        `,
+                                "reward"
+                            );
+                        });
                     break;
             }
+        } else {
+            this._notifier.notify("", "", "noReward");
         }
     }
 }

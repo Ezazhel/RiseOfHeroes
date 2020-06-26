@@ -2,6 +2,7 @@ import { BaseEntity, Hero, Fighter } from "./entity";
 import { getHeroMaxHp } from "./utils";
 import { AddPassivesToStat } from "./spells/spells.utils";
 import { toNumber } from "@ngneat/transloco";
+import { NotifierService } from "@core/services/notifier.service";
 
 export function getXPForLevel(level: number) {
     return 45 + level * 5 * (45 + 2 * level);
@@ -13,7 +14,14 @@ export function rewardXp(level: number, difLvl: number) {
     return toNumber(xp.toFixed(2));
 }
 
-export function levelUp(hero: Hero, fighter: Fighter): Hero {
+export function isLevelUp(heroExp, xpReward, xpForLevel) {
+    return heroExp + xpReward > xpForLevel;
+}
+export function levelUp(
+    hero: Hero,
+    fighter: Fighter,
+    notifier: NotifierService
+): Hero {
     //give exp
     //if exp : this.hero.exp + rewardXp > getXpForLevel(level) : LevelUp
     //exp : getXpForLevel(level) - this.hero.exp + rewardXp : exp after level up.
@@ -27,9 +35,11 @@ export function levelUp(hero: Hero, fighter: Fighter): Hero {
     let xpReward = rewardXp(hero.level, difLvl);
     let exp: number;
     let level: number = hero.level;
-    if (hero.exp + xpReward > xpForLevel) {
+    if (isLevelUp(hero.exp, xpReward, xpForLevel)) {
         exp = hero.exp + xpReward - xpForLevel;
         level += 1;
+        notifier.notify(`Level up ! ${level}`, "", "text");
+        //getUnlock for level, notify...
     } else {
         exp = hero.exp + xpReward;
     }

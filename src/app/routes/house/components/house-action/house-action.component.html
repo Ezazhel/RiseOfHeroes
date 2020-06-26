@@ -1,93 +1,28 @@
-<ng-container *ngIf="_hero$ | async as hero">
+<ng-container>
     <ng-container *transloco="let tsl">
         <div fxLayout="column nowrap">
             <div class="tab" fxLayout="row" fxLayoutAlign="center center">
                 <button
                     (click)="dTab = 'training'"
-                    [ngClass]="dTab === 'training' ? 'active' : ''"
+                    [ngClass]="{ active: dTab === 'training' }"
                 >
                     {{ tsl("house.training.buttonText") }}
                 </button>
                 <button
                     (click)="dTab = 'work'"
-                    [ngClass]="dTab === 'work' ? 'active' : ''"
+                    [ngClass]="{ active: dTab === 'work' }"
                 >
                     {{ tsl("house.work.buttonText") }}
                 </button>
+                <button
+                    (click)="dTab = 'construction'"
+                    [ngClass]="{ active: dTab === 'construction' }"
+                >
+                    {{ tsl("house.construction.buttonText") }}
+                </button>
             </div>
         </div>
-        <div
-            class="tab-container"
-            [style.display]="dTab === 'training' ? 'flex' : 'none'"
-        >
-            <app-card
-                *ngFor="
-                    let t of _trainingEquipment$ | async;
-                    trackBy: trackByFn
-                "
-                (click)="doTraining$.next(t)"
-            >
-                <ng-container cardHeader>
-                    <span>
-                        {{ tsl(t.cardHeader) }} ({{ displayStat(hero, t.id) }})
-                    </span>
-                </ng-container>
-                <ng-container cardBody>
-                    <span>
-                        {{ tsl(t.description) }}
-                    </span>
-                </ng-container>
-                <ng-container cardFooter>
-                    <div class="training-reward-information">
-                        <span>
-                            {{ tsl("house.reward") }} : + {{ t.reward }}
-                            {{ t.id }}
-                        </span>
-                        <span>
-                            {{ tsl("house.maxTraining") }} {{ t.done }}/{{
-                                t.bonus
-                            }}
-                        </span>
-                        <span> {{ getTime(t) / 1000 }}s </span>
-                    </div>
-                    <app-progressbar
-                        time="{{ getTime(t) }}ms"
-                        [animate]="t.isActive ? 'filling' : 'initial'"
-                    ></app-progressbar>
-                </ng-container>
-            </app-card>
-        </div>
-        <div
-            class="tab-container"
-            [style.display]="dTab === 'work' ? 'flex' : 'none'"
-        >
-            <app-card (click)="doWorking$.next(_work)">
-                <ng-container cardHeader>
-                    <span>
-                        {{ tsl(_work.name) }}
-                    </span>
-                </ng-container>
-                <ng-container cardBody>
-                    <label>
-                        {{ tsl(_work.description) }}
-                    </label>
-                </ng-container>
-                <ng-container cardFooter>
-                    <div class="training-reward-information">
-                        <span>
-                            {{ tsl("house.reward") }} : +{{ _work.reward }}g
-                        </span>
-                        <span>
-                            {{ tsl("house.work.currentGold") }}
-                            {{ (gold$ | async)?.quantity }}
-                        </span>
-                    </div>
-                    <app-progressbar
-                        time="{{ getTime(_work) }}ms"
-                        [animate]="_work.isActive ? 'filling' : 'initial'"
-                    ></app-progressbar>
-                </ng-container>
-            </app-card>
-        </div>
+        <training *ngIf="dTab === 'training'"></training>
+        <work *ngIf="dTab === 'work'"></work>
     </ng-container>
 </ng-container>

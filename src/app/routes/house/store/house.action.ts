@@ -1,12 +1,13 @@
 import { Action } from "@ngrx/store";
-import { TrainingEquipment, TrainingType } from "./house.model";
+import { TrainingEquipment, TrainingType, WorkingType } from "./house.model";
 export const HOUSE_ADD_TRAINING_EQUIPMENT = "[house] add training equipment";
 export const HOUSE_UPDATE_TRAINING_EQUIPMENT_BONUS =
     "[house] update training equipment bonus";
 export const HOUSE_UPDATE_TRAINING_EQUIPMENT_DONE =
     "[house] update training equipment done";
 export const HOUSE_TRAINING = "[house] is training";
-"[house] update training equipment done";
+export const HOUSE_WORKING = "[house] is working";
+
 export class HouseAddTrainingEquipment implements Action {
     readonly type = HOUSE_ADD_TRAINING_EQUIPMENT;
     constructor(public payload: TrainingEquipment) {}
@@ -25,8 +26,13 @@ export class HouseTraining implements Action {
     readonly type = HOUSE_TRAINING;
     constructor(public payload: TrainingType) {}
 }
+export class HouseWorking implements Action {
+    readonly type = HOUSE_WORKING;
+    constructor(public payload: WorkingType) {}
+}
 export type HouseActionType =
     | HouseAddTrainingEquipment
     | HouseUpdateTrainingEquipmentBonus
     | HouseUpdateTrainingEquipmentDone
-    | HouseTraining;
+    | HouseTraining
+    | HouseWorking;

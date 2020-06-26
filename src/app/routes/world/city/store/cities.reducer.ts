@@ -40,7 +40,7 @@ const initialState: CitiesState = {
                     display: false,
                     acceptType: "equipment",
                     intervalStock: 15,
-                    lastTick: performance.now(),
+                    lastTick: Date.now(),
                 },
                 {
                     type: "alchemist",
@@ -229,7 +229,7 @@ function renewItem(
         shops[shopIndex] = {
             ...shops[shopIndex],
             items: items,
-            lastTick: performance.now(),
+            lastTick: Date.now(),
         };
         return shops;
     }

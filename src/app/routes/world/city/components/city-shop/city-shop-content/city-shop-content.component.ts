@@ -47,8 +47,7 @@ export class CityShopContentComponent implements OnInit {
     }
     constructor(
         private store: Store<AppState>,
-        private shopService: ShopService,
-        private transloco: TranslocoService
+        private shopService: ShopService
     ) {}
 
     ngOnInit(): void {}

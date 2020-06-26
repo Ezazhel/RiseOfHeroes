@@ -7,6 +7,9 @@
         "bougth": "Vous avez acheté {{param}}",
         "reward": "Vous avez gagné {{param}}",
         "need": "Vous avez besoin de {{param}}",
+        "noReward": "Le monstre n'a rien donné",
+        "cantCraft": "Vous ne pouvez pas fabriquer {{param}} vous n'avez pas les composants",
+        "inventoryFull": "Vous n'avez pas reçu {{param}} : votre inventaire est plein",
         "heal": "Vous vous êtes soigné pour {{param}} pv"
     },
     "messageButton": {
@@ -87,7 +90,7 @@
     },
     "house": {
         "yourHouse": "Ma maison",
-        "houseInformation": "N'hésitez pas à vous entrainer, aller travailler",
+        "houseInformation": "N'hésitez pas à vous entrainer, aller travailler (vous ne pourrez pas faire les deux !)",
         "training": {
             "buttonText": "Entraînement",
             "strength": {
@@ -113,6 +116,9 @@
                 "name": "Paysan",
                 "description": "Tu es un simple paysan !"
             }
+        },
+        "construction": {
+            "buttonText": "Construction"
         },
         "reward": "Récompense",
         "maxTraining": "Max"
@@ -298,5 +304,32 @@
         "boots": "Bootes",
         "pants": "Pantalon",
         "gloves": "Gants"
+    },
+    "set": {
+        "dummy": {
+            "chest": "ChesterSon",
+            "helmet": "HeilMate",
+            "pants": "Woody Pant",
+            "gloves": "Holdon",
+            "boots": "Ryuna"
+        },
+        "sheepy": {
+            "chest": "FurChest",
+            "helmet": "Beeh",
+            "pants": "Hot Pants",
+            "gloves": "Finest Finger",
+            "boots": "Bhoofts",
+            "dagger": "Sheepy cutter",
+            "axe": "Woody Wood Cutter"
+        },
+        "piggy": {
+            "chest": "Bac-on-hest",
+            "helmet": "Piggymet",
+            "pants": "Wolf bait",
+            "gloves": "Constructor mitains",
+            "boots": "Running Gag",
+            "hammer": "Wrecking ball",
+            "sword": "The edge"
+        }
     }
 }

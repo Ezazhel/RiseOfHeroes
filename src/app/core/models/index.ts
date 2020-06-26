@@ -23,7 +23,26 @@ export function localStorageSyncReducer(
     reducer: ActionReducer<any>
 ): ActionReducer<any> {
     return localStorageSync({
-        keys: ["gameState", "house", "cities"],
+        keys: [
+            {
+                gameState: {
+                    encrypt: (state) => btoa(state),
+                    decrypt: (state) => atob(state),
+                },
+            },
+            {
+                house: {
+                    encrypt: (state) => btoa(state),
+                    decrypt: (state) => atob(state),
+                },
+            },
+            {
+                cities: {
+                    encrypt: (state) => btoa(state),
+                    decrypt: (state) => atob(state),
+                },
+            },
+        ],
         rehydrate: true,
     })(reducer);
 }

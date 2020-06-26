@@ -10,7 +10,7 @@
             [tooltip]="item"
             [tooltip-equipped]="equipped(item)"
             [tooltip-detach]="itemNull"
-            (click)="buyItem(item)"
+            (click)="doBuyItem$.next(item)"
         >
             <i class="{{ item.subType }} {{ item.icon }} "></i>
             <div fxLayout="column" fxFlex="grow">

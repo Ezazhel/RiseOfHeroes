@@ -6,6 +6,9 @@
         "selled": "You selled {{param}} for {{value}}",
         "bougth": "You bougth {{param}}",
         "reward": "You earn {{param}}",
+        "noReward": "Monster drop nothing",
+        "cantCraft": "You can't craft {{param}} you don't have the ressources",
+        "inventoryFull": "Couldn't get {{param}} : your inventory is full",
         "need": "You need {{param}}",
         "heal": "You heal yourself for {{param}} hp"
     },
@@ -87,7 +90,7 @@
     },
     "house": {
         "yourHouse": "This is your house",
-        "houseInformation": "Feel free to train, go to work.",
+        "houseInformation": "Feel free to train, go to work. (Be careful as you can't do both)",
         "training": {
             "buttonText": "Training",
             "strength": {
@@ -112,6 +115,9 @@
                 "name": "Peasant",
                 "description": "You are working as a peasant !"
             }
+        },
+        "construction": {
+            "buttonText": "Construction"
         },
         "reward": "reward",
         "maxTraining": "Max"
@@ -297,5 +303,32 @@
         "boots": "Boots",
         "pants": "Pants",
         "gloves": "Gloves"
+    },
+    "set": {
+        "dummy": {
+            "chest": "ChesterSon",
+            "helmet": "HeilMate",
+            "pants": "Woody Pant",
+            "gloves": "Holdon",
+            "boots": "Ryuna"
+        },
+        "sheepy": {
+            "chest": "FurChest",
+            "helmet": "Beeh",
+            "pants": "Hot Pants",
+            "gloves": "Finest Finger",
+            "boots": "Bhoofts",
+            "dagger": "Sheepy cutter",
+            "axe": "Woody Wood Cutter"
+        },
+        "piggy": {
+            "chest": "Bac-on-hest",
+            "helmet": "Piggymet",
+            "pants": "Wolf bait",
+            "gloves": "Constructor mitains",
+            "boots": "Running Gag",
+            "hammer": "Wrecking ball",
+            "sword": "The edge"
+        }
     }
 }

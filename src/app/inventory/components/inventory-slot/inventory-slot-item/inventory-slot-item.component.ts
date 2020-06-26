@@ -21,6 +21,7 @@ import { Store } from "@ngrx/store";
 import { heroSelector } from "@core/models/selector";
 import { first } from "rxjs/operators";
 import { Potion } from "@core/models/potions/potions.model";
+import { NotifierService } from "@core/services/notifier.service";
 @Component({
     selector: "app-inventory-slot-item",
     templateUrl: "./inventory-slot-item.component.html",
@@ -37,7 +38,10 @@ export class InventorySlotItemComponent implements OnInit {
     descriptionDisplay: string;
     delayedAction: number;
     actionDisplay: string;
-    constructor(private store: Store<AppState>) {}
+    constructor(
+        private store: Store<AppState>,
+        private _notifier: NotifierService
+    ) {}
 
     ngOnInit(): void {
         this.style = this.item.icon;

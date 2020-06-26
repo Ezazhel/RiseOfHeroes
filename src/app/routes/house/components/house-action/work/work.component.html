@@ -1,0 +1,34 @@
+<ng-container *transloco="let tsl">
+    <div *ngIf="_hero$ | async as hero" class="tab-container">
+        <app-card
+            *ngIf="_work$ | async as work"
+            (click)="doWorking$.next(work)"
+        >
+            <ng-container cardHeader>
+                <span>
+                    {{ tsl(work.name) }}
+                </span>
+            </ng-container>
+            <ng-container cardBody>
+                <label>
+                    {{ tsl(work.description) }}
+                </label>
+            </ng-container>
+            <ng-container cardFooter>
+                <div class="training-reward-information">
+                    <span>
+                        {{ tsl("house.reward") }} : +{{ work.reward }}g
+                    </span>
+                    <span>
+                        {{ tsl("house.work.currentGold") }}
+                        {{ (_gold$ | async)?.quantity }}
+                    </span>
+                </div>
+                <app-progressbar
+                    time="{{ getTime(work) }}ms"
+                    [animate]="work.isActive ? 'filling' : 'initial'"
+                ></app-progressbar>
+            </ng-container>
+        </app-card>
+    </div>
+</ng-container>

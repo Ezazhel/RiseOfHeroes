@@ -19,11 +19,6 @@ export class HouseComponent implements OnInit, OnDestroy {
     private heroSubscription: Subscription;
     public _hero$: Observable<Hero> = this.store.pipe(select(heroSelector));
 
-    public _trainingEquipment$: Observable<
-        Array<TrainingEquipment>
-    > = this.store.select(trainingEquipement);
-    public _work$: Observable<Work> = this.store.select(work);
-
     constructor(private store: Store<AppState>) {}
 
     ngOnInit(): void {

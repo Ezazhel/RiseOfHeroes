@@ -339,7 +339,7 @@ export const dummyCraft: Craft = {
     name: "Dummy",
     weaponArmor: [
         {
-            equipment: setGear("dummy", "Dummy Torso", {
+            equipment: setGear("dummy", {
                 ...baseChest,
                 runes: [
                     { ...swiftnessRune, currentLvl: 1 },
@@ -352,7 +352,7 @@ export const dummyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("dummy", "Dummy Head", {
+            equipment: setGear("dummy", {
                 ...baseHelmet,
                 runes: [{ ...swiftnessRune, currentLvl: 2 }],
             }) as ITemplateArmor,
@@ -362,7 +362,7 @@ export const dummyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("dummy", "Dummy Panties", {
+            equipment: setGear("dummy", {
                 ...basePants,
                 runes: [
                     { ...precisionRune, currentLvl: 1 },
@@ -375,7 +375,7 @@ export const dummyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("dummy", "Dummy Hands", {
+            equipment: setGear("dummy", {
                 ...baseGloves,
                 runes: [{ ...precisionRune, currentLvl: 2 }],
             }) as ITemplateArmor,
@@ -385,7 +385,7 @@ export const dummyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("dummy", "Dummy Boots", {
+            equipment: setGear("dummy", {
                 ...baseBoots,
                 runes: [{ ...swiftnessRune, currentLvl: 2 }],
             }) as ITemplateArmor,
@@ -400,7 +400,7 @@ export const sheepyCraft: Craft = {
     name: "Sheepy",
     weaponArmor: [
         {
-            equipment: setGear("sheepy", "Sheepy Torso", {
+            equipment: setGear("sheepy", {
                 ...baseChest,
                 stats: [...baseChest.stats].map(
                     (s) => (s = { ...s, value: s.value + 2 })
@@ -413,7 +413,7 @@ export const sheepyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("sheepy", "Sheepy Head", {
+            equipment: setGear("sheepy", {
                 ...baseHelmet,
                 stats: [...baseHelmet.stats].map(
                     (s) => (s = { ...s, value: s.value + 2 })
@@ -426,7 +426,7 @@ export const sheepyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("sheepy", "Sheepy Panties", {
+            equipment: setGear("sheepy", {
                 ...basePants,
                 stats: [...basePants.stats].map(
                     (s) => (s = { ...s, value: s.value + 2 })
@@ -442,7 +442,7 @@ export const sheepyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("sheepy", "Sheepy Hands", {
+            equipment: setGear("sheepy", {
                 ...baseGloves,
                 stats: [...baseGloves.stats].map(
                     (s) => (s = { ...s, value: s.value + 2 })
@@ -455,7 +455,7 @@ export const sheepyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("sheepy", "Sheepy Boots", {
+            equipment: setGear("sheepy", {
                 ...baseBoots,
                 stats: [...baseBoots.stats].map(
                     (s) => (s = { ...s, value: s.value + 2 })
@@ -468,7 +468,7 @@ export const sheepyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("sheepy", "Sheepy Axe", {
+            equipment: setGear("sheepy", {
                 ...baseAxe,
                 stats: [...baseAxe.stats].map(
                     (s) => (s = { ...s, value: s.value + 2 })
@@ -484,7 +484,7 @@ export const sheepyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("sheepy", "Sheepy Cutter", {
+            equipment: setGear("sheepy", {
                 ...baseDagger,
                 stats: [...baseDagger.stats].map(
                     (s) => (s = { ...s, value: s.value + 4 })
@@ -502,7 +502,7 @@ export const piggyCraft: Craft = {
     name: "Piggy",
     weaponArmor: [
         {
-            equipment: setGear("piggy", "Piggy Torso", {
+            equipment: setGear("piggy", {
                 ...baseChest,
                 stats: [...baseChest.stats].map(
                     (s) => (s = { ...s, value: s.value + 5 })
@@ -515,7 +515,7 @@ export const piggyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("piggy", "Piggy Head", {
+            equipment: setGear("piggy", {
                 ...baseHelmet,
                 stats: [...baseHelmet.stats].map(
                     (s) => (s = { ...s, value: s.value + 5 })
@@ -528,7 +528,7 @@ export const piggyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("piggy", "Piggy Panties", {
+            equipment: setGear("piggy", {
                 ...basePants,
                 stats: [...basePants.stats].map(
                     (s) => (s = { ...s, value: s.value + 5 })
@@ -544,7 +544,7 @@ export const piggyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("piggy", "Piggy Hands", {
+            equipment: setGear("piggy", {
                 ...baseGloves,
                 stats: [...baseGloves.stats].map(
                     (s) => (s = { ...s, value: s.value + 5 })
@@ -557,7 +557,7 @@ export const piggyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("piggy", "Piggy Boots", {
+            equipment: setGear("piggy", {
                 ...baseBoots,
                 stats: [...baseBoots.stats].map(
                     (s) => (s = { ...s, value: s.value + 5 })
@@ -570,7 +570,7 @@ export const piggyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("piggy", "Piggy Hammer", {
+            equipment: setGear("piggy", {
                 ...baseHammer,
                 stats: [...baseHammer.stats].map(
                     (s) => (s = { ...s, value: s.value + 5 })
@@ -586,7 +586,7 @@ export const piggyCraft: Craft = {
             ),
         },
         {
-            equipment: setGear("piggy", "Piggy Toothpick", {
+            equipment: setGear("piggy", {
                 ...baseSword,
                 stats: [...baseSword.stats].map(
                     (s) => (s = { ...s, value: s.value + 8 })

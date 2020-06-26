@@ -52,7 +52,5 @@ export class DetailComponent implements OnInit {
     }
     constructor() {}
 
-    ngOnInit(): void {
-        console.log(this.comparaison);
-    }
+    ngOnInit(): void {}
 }

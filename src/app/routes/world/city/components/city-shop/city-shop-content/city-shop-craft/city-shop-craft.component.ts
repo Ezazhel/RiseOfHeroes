@@ -1,7 +1,7 @@
-import { levelSelector } from "@core/models/selector";
+import { levelSelector, availableSlot } from "@core/models/selector";
 import { currenciesSelector, equippedSelector } from "@core/models/selector";
 import { AppState } from "@core/models";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { Shop, Craft, CraftSet } from "@routes/world/city/store/cities.model";
 import {
     ITemplateBaseItem,
@@ -12,22 +12,23 @@ import {
     StatChange,
 } from "@core/models/game-data/game-data.model";
 import { Store } from "@ngrx/store";
-import { Observable } from "rxjs";
-import { take } from "rxjs/operators";
+import { Observable, Subject } from "rxjs";
+import { take, withLatestFrom } from "rxjs/operators";
 import {
     GameStateInventoryAddItemAction,
     GameStateCurrenciesAddCurrencyAction,
 } from "@core/models/game-state/game-state.action";
-import { modifyStat } from "@core/models/craft/craft.utils";
+import { modifyStat, modifyPrice } from "@core/models/craft/craft.utils";
 import { entityId } from "@core/models/utils";
 import { toNumber } from "@ngneat/transloco";
+import { NotifierService } from "@core/services/notifier.service";
 
 @Component({
     selector: "app-city-shop-craft",
     templateUrl: "./city-shop-craft.component.html",
     styleUrls: ["./city-shop-craft.component.scss"],
 })
-export class CityShopCraftComponent implements OnInit {
+export class CityShopCraftComponent implements OnInit, OnDestroy {
     @Input() cityId: string;
 
     @Input("shop") set shop(value: Shop) {
@@ -53,6 +54,7 @@ export class CityShopCraftComponent implements OnInit {
     _shop: Shop;
     currency$: Observable<Currency[]> = this.store.select(currenciesSelector);
     level$ = this.store.select(levelSelector);
+    private _availableSlot$ = this.store.select(availableSlot);
 
     canCraft(material: Currency[]): boolean {
         let currencies: Currency[];
@@ -71,43 +73,75 @@ export class CityShopCraftComponent implements OnInit {
         return canCraft;
     }
 
-    craftItem(item: CraftSet): void {
-        if (this.canCraft(item.materials)) {
-            let equipment: ITemplateBaseEquipment = {
-                ...item.equipment,
-                id: entityId(item.equipment.name),
-            };
-            this.level$.pipe(take(1)).subscribe((l: number) => {
-                equipment = {
-                    ...equipment,
-                    stats: equipment.stats.map((s) => ({
-                        ...s,
-                        value: modifyStat("legendary", s.value, l),
-                    })),
-                };
-                if (equipment.type == "armor") {
-                    (equipment as ITemplateArmor) = {
-                        ...(equipment as ITemplateArmor),
-                        armor: modifyStat(
-                            "legendary",
-                            (equipment as ITemplateArmor).armor,
-                            l
-                        ),
-                    };
-                }
-            });
+    public doCraftItem$: Subject<CraftSet> = new Subject();
+    private _craftItemSubscription = this.doCraftItem$
+        .pipe(
+            withLatestFrom(
+                this._availableSlot$,
+                (event: CraftSet, availableSlot: number) => {
+                    const item = event;
+                    if (!this.canCraft(item.materials)) {
+                        this._notifier.notify(
+                            `${event.equipment.name}`,
+                            "",
+                            "cantCraft"
+                        );
+                        return;
+                    }
+                    if (availableSlot <= 0) {
+                        this._notifier.notify(
+                            `${event.equipment.name}`,
+                            "",
+                            "inventoryFull"
+                        );
+                        return;
+                    } else {
+                        if (this.canCraft(item.materials)) {
+                            let equipment: ITemplateBaseEquipment = {
+                                ...item.equipment,
+                                id: entityId(item.equipment.name),
+                            };
+                            this.level$.pipe(take(1)).subscribe((l: number) => {
+                                equipment = {
+                                    ...equipment,
+                                    stats: equipment.stats.map((s) => ({
+                                        ...s,
+                                        value: modifyStat(
+                                            "legendary",
+                                            s.value,
+                                            l
+                                        ),
+                                    })),
+                                };
+                                if (equipment.type == "armor") {
+                                    (equipment as ITemplateArmor) = {
+                                        ...(equipment as ITemplateArmor),
+                                        armor: modifyStat(
+                                            "legendary",
+                                            (equipment as ITemplateArmor).armor,
+                                            l
+                                        ),
+                                    };
+                                }
+                            });
 
-            this.store.dispatch(new GameStateInventoryAddItemAction(equipment));
-            item.materials.forEach((el) => {
-                this.store.dispatch(
-                    new GameStateCurrenciesAddCurrencyAction({
-                        ...el,
-                        quantity: -1 * el.quantity,
-                    })
-                );
-            });
-        }
-    }
+                            this.store.dispatch(
+                                new GameStateInventoryAddItemAction(equipment)
+                            );
+                            item.materials.forEach((el) => {
+                                this.store.dispatch(
+                                    new GameStateCurrenciesAddCurrencyAction({
+                                        ...el,
+                                        quantity: -1 * el.quantity,
+                                    })
+                                );
+                            });
+                        }
+                    }
+                }
+            )
+        )
+        .subscribe();
 
     setWithStat(item: ITemplateArmor | ITemplateWeapon, l: number) {
         item = {
@@ -131,6 +165,8 @@ export class CityShopCraftComponent implements OnInit {
             let weapon = item as ITemplateWeapon;
             weapon = {
                 ...weapon,
+                attack: weapon.attack * l,
+                value: modifyPrice(weapon.quality, weapon.value * l),
                 dps: toNumber(
                     ((weapon.attack * l) / (weapon.speed / 1000)).toFixed(2)
                 ),
@@ -184,7 +220,14 @@ export class CityShopCraftComponent implements OnInit {
     trackByCurrency(index: number, el: Currency) {
         return index;
     }
-    constructor(private store: Store<AppState>) {}
+    constructor(
+        private store: Store<AppState>,
+        private _notifier: NotifierService
+    ) {}
 
     ngOnInit(): void {}
+
+    ngOnDestroy() {
+        this._craftItemSubscription.unsubscribe();
+    }
 }

@@ -1,0 +1,37 @@
+<ng-container *transloco="let tsl">
+    <div class="tab-container" *ngIf="_hero$ | async as hero">
+        <app-card
+            *ngFor="let t of _trainingEquipment$ | async; trackBy: trackByFn"
+            (click)="doTraining$.next(t)"
+        >
+            <ng-container cardHeader>
+                <span>
+                    {{ tsl(t.cardHeader) }} ({{ displayStat(hero, t.id) }})
+                </span>
+            </ng-container>
+            <ng-container cardBody>
+                <span>
+                    {{ tsl(t.description) }}
+                </span>
+            </ng-container>
+            <ng-container cardFooter>
+                <div class="training-reward-information">
+                    <span>
+                        {{ tsl("house.reward") }} : + {{ t.reward }}
+                        {{ t.id }}
+                    </span>
+                    <span>
+                        {{ tsl("house.maxTraining") }} {{ t.done }}/{{
+                            t.bonus
+                        }}
+                    </span>
+                    <span> {{ getTime(t) / 1000 }}s </span>
+                </div>
+                <app-progressbar
+                    time="{{ getTime(t) }}ms"
+                    [animate]="t.isActive ? 'filling' : 'initial'"
+                ></app-progressbar>
+            </ng-container>
+        </app-card>
+    </div>
+</ng-container>

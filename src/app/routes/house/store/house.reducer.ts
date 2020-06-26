@@ -101,6 +101,14 @@ export function houseReducer(
                     }
                 ),
             };
+        case HouseAction.HOUSE_WORKING:
+            return {
+                ...state,
+                work: {
+                    ...state.work,
+                    isActive: action.payload === state.work.id,
+                },
+            };
         default:
             return state;
     }

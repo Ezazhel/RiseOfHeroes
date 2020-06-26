@@ -90,6 +90,7 @@ export const inventoryFiltered = (filter: ItemFilter) =>
             return items;
         }
     });
+
 export const totalInventory = createSelector(
     sliceGameStateMaxSlots,
     inventoryToArraySelector,
@@ -100,6 +101,13 @@ export const totalInventory = createSelector(
             return "";
         }
     }
+);
+
+export const availableSlot = createSelector(
+    sliceGameStateMaxSlots,
+    inventoryToArraySelector,
+    (maxSlots: number, items: ITemplateBaseItem[]) =>
+        maxSlots - (items === null ? 0 : items.length)
 );
 
 export const spellsSelector = createSelector(heroSelector, (hero: Hero) => {

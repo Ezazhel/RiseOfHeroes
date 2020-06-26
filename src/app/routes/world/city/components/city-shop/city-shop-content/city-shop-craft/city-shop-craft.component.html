@@ -18,7 +18,7 @@
                             let item of craft.weaponArmor;
                             trackBy: trackByItem
                         "
-                        (click)="craftItem(item)"
+                        (click)="doCraftItem$.next(item)"
                         class="detail-craft"
                         [ngClass]="{ canCraft: canCraft(item.materials) }"
                         [item]="item.equipment"

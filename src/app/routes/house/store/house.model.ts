@@ -1,5 +1,5 @@
 export type TrainingType = "none" | "strength" | "endurance";
-export type WorkingType = "peasant" | "mayor" | "artist";
+export type WorkingType = "none" | "peasant" | "mayor" | "artist";
 
 export type IdleType = "strength" | "endurance" | "gold";
 

@@ -4,9 +4,6 @@
             <h2>{{ t("yourHouse") }}</h2>
             <p>{{ t("houseInformation") }}</p>
         </div>
-        <house-action
-            [trainings]="_trainingEquipment$"
-            [work]="_work$ | async"
-        ></house-action>
+        <house-action></house-action>
     </div>
 </ng-container>

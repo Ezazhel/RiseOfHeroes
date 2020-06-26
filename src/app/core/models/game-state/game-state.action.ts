@@ -3,6 +3,7 @@ import { Currency, ITemplateBaseItem } from "../game-data/game-data.model";
 import { Hero } from "../entity";
 import { Spells } from "../spells/spells.model";
 import { Potion } from "../potions/potions.model";
+import { NotifierService } from "@core/services/notifier.service";
 
 export const GAME_INVENTORY_ADD = "[game state] add item";
 export const GAME_INVENTORY_REMOVE = "[game state] remove item";
