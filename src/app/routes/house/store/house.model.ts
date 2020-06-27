@@ -1,5 +1,13 @@
+import { Currency } from "@core/models/game-data/game-data.model";
+
 export type TrainingType = "none" | "strength" | "endurance";
-export type WorkingType = "none" | "peasant" | "mayor" | "artist";
+export type WorkingType =
+    | "none"
+    | "miner"
+    | "lumberjack"
+    | "peasant"
+    | "mayor"
+    | "artist";
 
 export type IdleType = "strength" | "endurance" | "gold";
 
@@ -21,4 +29,15 @@ export interface TrainingEquipment extends IdlingHouse {
 
 export interface Work extends IdlingHouse {
     id: WorkingType;
+    currency: Currency;
+}
+
+export type ConstructionType = "sawmill" | "mine";
+export interface Construction {
+    id: ConstructionType;
+    name: string;
+    description: string;
+    cost: Currency[];
+    built?: boolean;
+    required?: ConstructionType;
 }

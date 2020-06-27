@@ -1,4 +1,5 @@
-import { TrainingEquipment, TrainingType, Work } from "./house.model";
+import { worksData, constructionData } from "./house.data";
+import { TrainingEquipment, Work, Construction } from "./house.model";
 import * as HouseAction from "./house.action";
 import { updateInsert, update } from "@core/models/utils";
 
@@ -29,21 +30,14 @@ const initialState: HouseState = {
             isActive: false,
         },
     ],
-    work: {
-        id: "peasant",
-        cardHeader: "house.work.peasant.name",
-        name: "house.work.peasant.name",
-        description: "house.work.peasant.description",
-        reward: 1,
-        speed: 1 * 1000,
-        isActive: false,
-        done: 0,
-    },
+    works: [{ ...worksData.get("peasant") }],
+    constructions: Array.from(constructionData.values()),
 };
 
 export interface HouseState {
     trainingEquipment: Array<TrainingEquipment>;
-    work: Work;
+    works: Work[];
+    constructions: Construction[];
 }
 
 export function houseReducer(
@@ -104,10 +98,33 @@ export function houseReducer(
         case HouseAction.HOUSE_WORKING:
             return {
                 ...state,
-                work: {
-                    ...state.work,
-                    isActive: action.payload === state.work.id,
-                },
+                works: update(
+                    [...state.works].map((t) => {
+                        return t.id != action.payload
+                            ? { ...t, isActive: false }
+                            : t;
+                    }),
+                    (t: Work) => t.id == action.payload,
+                    (t: Work) => ({ ...t, isActive: !t.isActive })
+                ),
+            };
+        case HouseAction.HOUSE_BUILD:
+            return {
+                ...state,
+                constructions: update(
+                    state.constructions,
+                    (c: Construction) => c.id === action.payload,
+                    (c: Construction) => ({
+                        ...c,
+                        built: true,
+                    })
+                ),
+                works: updateInsert(
+                    state.works,
+                    (t: Work) => t.id == action.workToAdd.id,
+                    (t: Work) => ({ ...t, isActive: !t.isActive }),
+                    action.workToAdd
+                ),
             };
         default:
             return state;

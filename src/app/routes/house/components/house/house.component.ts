@@ -1,11 +1,8 @@
-import { work } from "./../../store/house.selector";
 import { HouseUpdateTrainingEquipmentBonus } from "./../../store/house.action";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
-import { trainingEquipement } from "../../store/house.selector";
 import { Observable, Subscription } from "rxjs";
-import { TrainingEquipment, Work } from "../../store/house.model";
 import { heroSelector } from "@core/models/selector";
 
 import { Hero } from "@core/models/entity";

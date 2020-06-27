@@ -1,7 +1,6 @@
 import { EntitySubtype } from "./../entity";
 import { Talent, TalentAdvance } from "./talent.model";
 
-type setType = "name" | "description";
 export function setTalent(
     subtype: EntitySubtype,
     id: string,

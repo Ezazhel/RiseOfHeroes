@@ -1,0 +1,43 @@
+<ng-container *transloco="let tsl">
+    <div class="tab-container" *ngIf="_hero$ | async as hero">
+        <app-card
+            *ngFor="
+                let construction of _constructions$ | async;
+                trackBy: trackByFn
+            "
+            (click)="_doBuild$.next(construction)"
+            [ngClass]="{ done: construction.built }"
+        >
+            <ng-container cardHeader>
+                <span>
+                    {{ tsl(construction.name) }}
+                </span>
+            </ng-container>
+            <ng-container cardBody>
+                <span>
+                    {{ tsl(construction.description) }}
+                </span>
+            </ng-container>
+            <ng-container cardFooter>
+                <div class="information">
+                    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                        <div *ngIf="!construction.built; else done">
+                            <i
+                                *ngFor="
+                                    let currency of construction.cost;
+                                    trackBy: trackByCost
+                                "
+                                class=" currency {{ currency.name }}"
+                                [attr.data-qty]="currency.quantity"
+                                style="transform: scale(0.85);"
+                            ></i>
+                        </div>
+                        <ng-template #done>
+                            <span> Done </span>
+                        </ng-template>
+                    </div>
+                </div>
+            </ng-container>
+        </app-card>
+    </div>
+</ng-container>

@@ -1,9 +1,10 @@
 @import "variables.scss";
-
-.training-reward-information {
+@import "sprite-currencies.scss";
+.information {
     display: flex;
     justify-content: space-evenly;
     font-size: x-small;
+    align-items: flex-end;
 }
 .tab {
     button {
@@ -34,4 +35,8 @@
     display: flex;
     flex-flow: row wrap;
     place-content: center;
+    .done {
+        background: $darkgreybutton;
+        color: $greenTextOnBody;
+    }
 }

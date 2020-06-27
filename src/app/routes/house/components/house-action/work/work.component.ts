@@ -16,7 +16,7 @@ import { GameStateCurrenciesAddCurrencyAction } from "@core/models/game-state/ga
 import { HouseTraining, HouseWorking } from "@routes/house/store/house.action";
 import { Subscription, Subject, Observable } from "rxjs";
 import { heroSelector, currencySelector } from "@core/models/selector";
-import { trainingEquipement, work } from "@routes/house/store/house.selector";
+import { works } from "@routes/house/store/house.selector";
 import { Currency } from "@core/models/game-data/game-data.model";
 
 @Component({
@@ -29,7 +29,7 @@ export class WorkComponent implements OnInit, OnDestroy {
 
     public _hero$: Observable<Hero> = this.store.pipe(select(heroSelector));
 
-    public _work$: Observable<Work> = this.store.select(work);
+    public _work$: Observable<Work[]> = this.store.select(works);
     public _gold$: Observable<Currency> = this.store.select(
         currencySelector("gold")
     );
@@ -39,23 +39,19 @@ export class WorkComponent implements OnInit, OnDestroy {
         .pipe(
             withLatestFrom(this._hero$, (event: Work, hero: Hero) => {
                 setTimeout(() => {
-                    this.store.dispatch(new HouseWorking("peasant"));
+                    this.store.dispatch(new HouseWorking(event.id));
                 }, 10);
                 let time = getMultiplier("swiftness", hero, event.speed);
-                this.store.dispatch(new HouseTraining("none")); // reset fillbar
                 clearTimeout(this.idlingTimer); //if training was set
                 this.idlingTimer = window.setTimeout(() => {
                     this.store.dispatch(
-                        new GameStateCurrenciesAddCurrencyAction({
-                            name: "gold",
-                            quantity: event.reward,
-                        })
+                        new GameStateCurrenciesAddCurrencyAction(event.currency)
                     );
                     this._notifier.notify(
                         "",
-                        "currency gold",
+                        `currency ${event.currency.name}`,
                         "reward",
-                        event.reward,
+                        event.currency.quantity,
                         1000
                     );
                     this.store.dispatch(new HouseWorking("none"));
@@ -75,11 +71,7 @@ export class WorkComponent implements OnInit, OnDestroy {
         return time;
     }
 
-    public displayStat(hero: Hero, stat: TrainingType) {
-        return hero.baseStats.find((s) => s.type == stat).value;
-    }
-
-    public trackByFn(index: number, el: TrainingEquipment) {
+    public trackByFn(index: number, el: Work) {
         return index;
     }
 

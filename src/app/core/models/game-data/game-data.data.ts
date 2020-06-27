@@ -2,7 +2,17 @@ import { Fighter } from "./../entity";
 import { Stat } from "./game-data.model";
 import { ITemplateWeapon, ITemplateArmor } from "./game-data.model";
 
-export type CurrencyType = "gold" | "dummy-wood" | "dummy-screw" | "dummy-row";
+export type CurrencyType =
+    | "gold"
+    | "dummy-wood"
+    | "dummy-screw"
+    | "dummy-row"
+    | "bones"
+    | "sheepy_fur"
+    | "piggy_leather"
+    | "tooth"
+    | "wood"
+    | "stone";
 
 //#region Stats
 export const strenghtStat: Stat = {
@@ -280,23 +290,28 @@ export const fighters: Fighter[] = [
         maxHp: 750,
         defense: 25,
         lootbag: [
-            { item: "none", weigth: 30 },
+            { item: "none", weigth: 10 },
             { item: "weapon", itemQuality: "rare", weigth: 20 },
             { item: "armor", itemQuality: "rare", weigth: 20 },
             {
                 item: "currency",
-                currency: { name: "dummy-row", quantity: 1 },
-                weigth: 10,
+                currency: { name: "sheepy_fur", quantity: 1 },
+                weigth: 15,
             },
             {
                 item: "currency",
-                currency: { name: "dummy-screw", quantity: 1 },
-                weigth: 10,
+                currency: { name: "dummy-screw", quantity: 2 },
+                weigth: 15,
             },
             {
                 item: "currency",
-                currency: { name: "dummy-wood", quantity: 1 },
-                weigth: 10,
+                currency: { name: "tooth", quantity: 1 },
+                weigth: 15,
+            },
+            {
+                item: "currency",
+                currency: { name: "bones", quantity: 1 },
+                weigth: 15,
             },
         ],
     },
@@ -311,24 +326,23 @@ export const fighters: Fighter[] = [
         maxHp: 800,
         defense: 75,
         lootbag: [
-            { item: "none", weigth: 10 },
             { item: "weapon", itemQuality: "rare", weigth: 20 },
             { item: "weapon", itemQuality: "epic", weigth: 5 },
             { item: "armor", itemQuality: "rare", weigth: 20 },
             { item: "armor", itemQuality: "epic", weigth: 5 },
             {
                 item: "currency",
-                currency: { name: "dummy-row", quantity: 1 },
+                currency: { name: "tooth", quantity: 2 },
                 weigth: 10,
             },
             {
                 item: "currency",
-                currency: { name: "dummy-screw", quantity: 1 },
+                currency: { name: "bones", quantity: 2 },
                 weigth: 10,
             },
             {
                 item: "currency",
-                currency: { name: "dummy-wood", quantity: 1 },
+                currency: { name: "piggy_leather", quantity: 1 },
                 weigth: 10,
             },
         ],
@@ -408,7 +422,7 @@ export const sheepyCraft: Craft = {
                 runes: [{ ...precisionRune, currentLvl: 2 }],
             }) as ITemplateArmor,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["dummy-row", "dummy-screw", "sheepy_fur"],
                 [2, 4, 6]
             ),
         },
@@ -421,7 +435,7 @@ export const sheepyCraft: Craft = {
                 runes: [{ ...swiftnessRune, currentLvl: 2 }],
             }) as ITemplateArmor,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["dummy-row", "dummy-screw", "sheepy_fur"],
                 [3, 2, 2]
             ),
         },
@@ -437,7 +451,7 @@ export const sheepyCraft: Craft = {
                 ],
             }) as ITemplateArmor,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["dummy-row", "dummy-screw", "sheepy_fur"],
                 [3, 3, 4]
             ),
         },
@@ -450,7 +464,7 @@ export const sheepyCraft: Craft = {
                 runes: [{ ...precisionRune, currentLvl: 2 }],
             }) as ITemplateArmor,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["dummy-row", "dummy-screw", "sheepy_fur"],
                 [3, 2, 2]
             ),
         },
@@ -463,7 +477,7 @@ export const sheepyCraft: Craft = {
                 runes: [{ ...powerRune, currentLvl: 2 }],
             }) as ITemplateArmor,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["dummy-row", "dummy-screw", "sheepy_fur"],
                 [3, 2, 2]
             ),
         },
@@ -479,7 +493,7 @@ export const sheepyCraft: Craft = {
                 ],
             }) as ITemplateWeapon,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["tooth", "dummy-screw", "bones"],
                 [3, 2, 2]
             ),
         },
@@ -492,7 +506,7 @@ export const sheepyCraft: Craft = {
                 attack: baseDagger.attack * 2,
             }) as ITemplateWeapon,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["tooth", "dummy-screw", "bones"],
                 [3, 2, 2]
             ),
         },
@@ -510,7 +524,7 @@ export const piggyCraft: Craft = {
                 runes: [{ ...powerRune, currentLvl: 2 }],
             }) as ITemplateArmor,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["dummy-row", "dummy-screw", "piggy_leather"],
                 [2, 4, 6]
             ),
         },
@@ -523,7 +537,7 @@ export const piggyCraft: Craft = {
                 runes: [{ ...precisionRune, currentLvl: 2 }],
             }) as ITemplateArmor,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["dummy-row", "dummy-screw", "piggy_leather"],
                 [3, 2, 2]
             ),
         },
@@ -539,7 +553,7 @@ export const piggyCraft: Craft = {
                 ],
             }) as ITemplateArmor,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["dummy-row", "dummy-screw", "piggy_leather"],
                 [3, 3, 4]
             ),
         },
@@ -552,7 +566,7 @@ export const piggyCraft: Craft = {
                 runes: [{ ...powerRune, currentLvl: 2 }],
             }) as ITemplateArmor,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["dummy-row", "dummy-screw", "piggy_leather"],
                 [3, 2, 2]
             ),
         },
@@ -565,7 +579,7 @@ export const piggyCraft: Craft = {
                 runes: [{ ...precisionRune, currentLvl: 2 }],
             }) as ITemplateArmor,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["dummy-row", "dummy-screw", "piggy_leather"],
                 [3, 2, 2]
             ),
         },
@@ -581,7 +595,7 @@ export const piggyCraft: Craft = {
                 ],
             }) as ITemplateWeapon,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["tooth", "bones", "dummy-screw"],
                 [3, 2, 2]
             ),
         },
@@ -595,7 +609,7 @@ export const piggyCraft: Craft = {
                 runes: [{ ...powerRune, currentLvl: 1 }],
             }) as ITemplateWeapon,
             materials: setMaterial(
-                ["dummy-row", "dummy-screw", "dummy-wood"],
+                ["tooth", "bones", "dummy-screw"],
                 [3, 2, 2]
             ),
         },

@@ -114,10 +114,26 @@
             "peasant": {
                 "name": "Peasant",
                 "description": "You are working as a peasant !"
+            },
+            "lumberjack": {
+                "name": "Jacky",
+                "description": "Its seems that killing some trees give you pleasure"
+            },
+            "miner": {
+                "name": "Miner",
+                "description": "Diggy, diggy hole, digging a hole"
             }
         },
         "construction": {
-            "buttonText": "Construction"
+            "buttonText": "Construction",
+            "sawmill": {
+                "name": "Sawmill",
+                "description": "Give you the ability to cut wood to get... well wood."
+            },
+            "mine": {
+                "name": "Mine",
+                "description": "Give you the ability to mine ore to get... well ore."
+            }
         },
         "reward": "reward",
         "maxTraining": "Max"
@@ -135,7 +151,8 @@
                     "description": "Hunt : {{fighters}}",
                     "upgrade": "Buff {{fighter}}",
                     "decrease": "Nerf {{fighter}}"
-                }
+                },
+                "potentialLoot": "Potential Loot"
             },
             "Mayor": "Mayor",
             "Tavern": "Tavern"

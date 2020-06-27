@@ -8,7 +8,12 @@ export const trainingEquipement = createSelector(
     (houseState: HouseState) => houseState.trainingEquipment
 );
 
-export const work = createSelector(
+export const works = createSelector(
     houseStateSelector,
-    (houseState: HouseState) => houseState.work
+    (houseState: HouseState) => houseState.works
+);
+
+export const constructions = createSelector(
+    houseStateSelector,
+    (houseState: HouseState) => houseState.constructions
 );

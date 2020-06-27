@@ -111,14 +111,29 @@
         "work": {
             "buttonText": "Travail",
             "currentGold": "or possédé",
-
-            "level1": {
+            "peasant": {
                 "name": "Paysan",
                 "description": "Tu es un simple paysan !"
+            },
+            "lumberjack": {
+                "name": "Jacky",
+                "description": "Encore un métier à bûcher."
+            },
+            "miner": {
+                "name": "Miner",
+                "description": "Diggy, diggy hole, digging a hole"
             }
         },
         "construction": {
-            "buttonText": "Construction"
+            "buttonText": "Construction",
+            "sawmill": {
+                "name": "Scierie",
+                "description": "Vous pouvez maintenant couper du bois pour récupérer... du bois !"
+            },
+            "mine": {
+                "name": "Mine",
+                "description": "Vous pouvez maintenant miner des cailloux pour récupérer... des cailloux !"
+            }
         },
         "reward": "Récompense",
         "maxTraining": "Max"
@@ -136,7 +151,8 @@
                     "description": "Chasser : {{fighters}}",
                     "upgrade": "Buff {{fighter}}",
                     "decrease": "Nerf {{fighter}}"
-                }
+                },
+                "potentialLoot": "Loot potentiel"
             },
             "Mayor": "Maire",
             "Tavern": "Taverne"

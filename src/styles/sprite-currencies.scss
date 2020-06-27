@@ -20,12 +20,17 @@
         top: 28px;
         z-index: 3;
     }
-    &.dummy-row {
+
+    &.bones {
         @include stitches-currency(-5px, -5px, 48px, 48px);
     }
 
-    &.dummy-screw {
+    &.dummy-row {
         @include stitches-currency(-63px, -5px, 48px, 48px);
+    }
+
+    &.dummy-screw {
+        @include stitches-currency(-121px, -5px, 48px, 48px);
     }
 
     &.dummy-wood {
@@ -34,5 +39,25 @@
 
     &.gold {
         @include stitches-currency(-63px, -63px, 48px, 48px);
+    }
+
+    &.piggy_leather {
+        @include stitches-currency(-121px, -63px, 48px, 48px);
+    }
+
+    &.sheepy_fur {
+        @include stitches-currency(-5px, -121px, 48px, 48px);
+    }
+
+    &.stone {
+        @include stitches-currency(-63px, -121px, 48px, 48px);
+    }
+
+    &.tooth {
+        @include stitches-currency(-121px, -121px, 48px, 48px);
+    }
+
+    &.wood {
+        @include stitches-currency(-179px, -5px, 48px, 48px);
     }
 }
