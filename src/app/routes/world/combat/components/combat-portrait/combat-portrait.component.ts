@@ -2,7 +2,7 @@ import { Observable, BehaviorSubject, Subject } from "rxjs";
 import { Component, OnInit, Input } from "@angular/core";
 import { map } from "rxjs/operators";
 import { getXPForLevel } from "@core/models/level";
-import { BaseEntity, Hero } from "@core/models/entity";
+import { BaseEntity, Hero } from "@core/models/entity/entity";
 @Component({
     selector: "app-combat-portrait",
     templateUrl: "./combat-portrait.component.html",

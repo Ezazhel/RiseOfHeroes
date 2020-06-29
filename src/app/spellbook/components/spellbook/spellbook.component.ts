@@ -8,7 +8,7 @@ import {
     HealSpells,
 } from "@core/models/spells/spells.model";
 import { Observable } from "rxjs";
-import { Hero } from "@core/models/entity";
+import { Hero } from "@core/models/entity/entity";
 
 type tabsType = "active" | "passive" | "talent";
 @Component({

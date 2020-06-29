@@ -1,13 +1,7 @@
-import { ITemplateId } from "../game-data/game-data.model";
+import { ITemplateId, BuffType } from "../game-data/game-data.model";
 
 export type SpellsType = "damage" | "heal" | "buff" | "debuff";
-export type PassiveBuff =
-    | "armor"
-    | "strength"
-    | "endurance"
-    | "intellect"
-    | "agility"
-    | "reward";
+
 export interface Spells extends ITemplateId {
     icon?: string;
     castingTime: number;
@@ -19,7 +13,7 @@ export interface Spells extends ITemplateId {
     power: number; //can be a percent or a flat bonus.
     levelRequired: number;
     isActive: boolean; //if not active > Passive (seems legit)
-    buffStat?: PassiveBuff;
+    buffStat?: BuffType;
 }
 
 export interface OvertimeSpells extends Spells {

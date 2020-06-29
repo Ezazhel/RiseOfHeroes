@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Hero } from "@core/models/entity";
+import { Hero } from "@core/models/entity/entity";
 import { Talent } from "@core/models/talent/talent.model";
 import { AppState } from "@core/models";
 import { Store } from "@ngrx/store";

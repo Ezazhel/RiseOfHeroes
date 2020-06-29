@@ -1,6 +1,6 @@
 import { Action } from "@ngrx/store";
 import { Currency, ITemplateBaseItem } from "../game-data/game-data.model";
-import { Hero } from "../entity";
+import { Hero } from "../entity/entity";
 import { Spells } from "../spells/spells.model";
 import { Potion } from "../potions/potions.model";
 import { NotifierService } from "@core/services/notifier.service";

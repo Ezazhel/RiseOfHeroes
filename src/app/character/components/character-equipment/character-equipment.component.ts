@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Hero } from "@core/models/entity";
+import { Hero } from "@core/models/entity/entity";
 import { Potion } from "@core/models/potions/potions.model";
 
 @Component({

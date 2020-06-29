@@ -1,5 +1,5 @@
 import { Stat } from "./../game-data/game-data.model";
-import { Companion, Hero } from "./../entity";
+import { Companion, Hero } from "../entity/entity";
 import * as GameStateAction from "./game-state.action";
 import * as Immutable from "immutable";
 import {
@@ -9,15 +9,17 @@ import {
     ITemplateWeapon,
 } from "../game-data/game-data.model";
 import { GameService } from "@core/services";
-import { update, updateInsert, getHeroMaxHp } from "../utils";
+import { update, updateInsert } from "../utils";
+import { getHeroMaxHp } from "../entity/entity.utils";
+
 import { Spells } from "../spells/spells.model";
-import { AddPassivesToStat } from "../spells/spells.utils";
+import { AddBuffToStat } from "../spells/spells.utils";
 import { Potion } from "../potions/potions.model";
 
 const initialState: GameState = {
     companions: null,
     inventory: [],
-    currencies: [{ name: "gold", quantity: 15 }],
+    currencies: [{ name: "gold", quantity: 500 }],
     location: "house",
     combatZone: "",
     maxSlots: 16,
@@ -148,10 +150,15 @@ function EquipHero(hero: Hero, item: ITemplateBaseItem): Hero {
     } else if (item.type == "item") {
         hero = { ...hero, potion: item as Potion };
     }
-    let stats = baseStats.map((s) => ({
-        ...s,
-        value: AddPassivesToStat(s.value, s.type, hero),
-    }));
+    let stats = baseStats.map((s) => {
+        const buff = hero.buffs.find((b) => b.type === s.type);
+        console.log(hero.buffs);
+        if (buff != undefined) console.log(buff);
+        return {
+            ...s,
+            value: AddBuffToStat(s.value, s.type, hero),
+        };
+    });
     let maxHp = getHeroMaxHp(stats.find((s) => s.type == "endurance").value);
     return {
         ...hero,

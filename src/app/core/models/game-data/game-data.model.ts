@@ -1,6 +1,27 @@
-import { EntityType } from "../entity";
+import { EntityType } from "../entity/entity";
 import { CurrencyType } from "./game-data.data";
 import { Rune } from "../runes/runes.model";
+
+export type BuffType =
+    | "armor"
+    | "intellect"
+    | "agility"
+    | "reward"
+    | "gold"
+    | "ressource"
+    | "strength"
+    | "stat"
+    | "endurance"
+    | "lifesteal"
+    | "apenetration"
+    | "loot"
+    | "lootdrop"
+    | "critc"
+    | "critd"
+    | "work"
+    | "worker"
+    | "craft"
+    | "speed";
 
 export type ItemCategories = "item" | "weapon" | "armor";
 
@@ -37,6 +58,11 @@ export interface Stat {
     value: number;
 }
 
+export interface Buff {
+    type: BuffType;
+    add: number;
+    mult: number;
+}
 export interface StatChange {
     armor?: number;
     stats?: Stat[];

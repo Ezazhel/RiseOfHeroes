@@ -5,7 +5,7 @@ import {
     OvertimeSpells,
     HealSpells,
 } from "@core/models/spells/spells.model";
-import { Hero } from "@core/models/entity";
+import { Hero } from "@core/models/entity/entity";
 import { Store } from "@ngrx/store";
 import { AppState } from "@core/models";
 import { updateInsert } from "@core/models/utils";

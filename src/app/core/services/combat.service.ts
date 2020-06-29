@@ -11,12 +11,15 @@ import {
     GameStateCurrenciesAddCurrencyAction,
     CombatStateHeroPotion,
 } from "./../models/game-state/game-state.action";
-import { Hero, Fighter } from "./../models/entity";
+import { Hero, Fighter } from "../models/entity/entity";
 import { Store } from "@ngrx/store";
 import { Injectable } from "@angular/core";
 import { AppState } from "@core/models";
-
-import { getHeroDamage, isCrit, getMultiplier } from "@core/models/utils";
+import {
+    getHeroDamage,
+    getMultiplier,
+    isCrit,
+} from "@core/models/entity/entity.utils";
 import { interval, Subscription, timer } from "rxjs";
 import {
     Spells,
@@ -84,7 +87,7 @@ export class CombatService {
                 text = `You critical hit for : ${damage * 2}`;
             }
             this.fighter.hp = Math.floor(this.fighter.hp - damage * crit);
-            this._notifier.notify(text, "", "text");
+            this._notifier.notify(text, "", "text", 0, 2000);
             if (this.fighter.hp <= 0) {
                 this.victory();
                 this.death();
@@ -120,7 +123,13 @@ export class CombatService {
     }
 
     activateSpell(spell: Spells | OvertimeSpells | HealSpells) {
-        effectFor(spell, this.fighter, this.hero, isCrit(this.hero));
+        effectFor(
+            spell,
+            this.fighter,
+            this.hero,
+            isCrit(this.hero),
+            this._notifier
+        );
         this.store.dispatch(
             new CombatStateHeroSpell({ ...spell, isInCooldown: true })
         );

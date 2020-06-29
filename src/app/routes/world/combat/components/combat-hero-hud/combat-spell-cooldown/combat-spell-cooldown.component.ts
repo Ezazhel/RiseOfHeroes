@@ -19,8 +19,8 @@ import {
     HealSpells,
 } from "@core/models/spells/spells.model";
 import { toNumber } from "@ngneat/transloco";
-import { getMultiplier } from "@core/models/utils";
-import { Hero } from "@core/models/entity";
+import { getMultiplier } from "@core/models/entity/entity.utils";
+import { Hero } from "@core/models/entity/entity";
 import { Potion } from "@core/models/potions/potions.model";
 @Component({
     selector: "combat-spell-cooldown",

@@ -5,7 +5,7 @@ import { Observable, Subscription } from "rxjs";
 import { Store, select } from "@ngrx/store";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AppState } from "@core/models";
-import { Fighter, Hero } from "@core/models/entity";
+import { Fighter, Hero } from "@core/models/entity/entity";
 import { Router, ActivatedRoute } from "@angular/router";
 import { toNumber } from "@ngneat/transloco";
 import { CombatService } from "@core/services/combat.service";

@@ -4,7 +4,7 @@ import {
     Input,
     ChangeDetectionStrategy,
 } from "@angular/core";
-import { Hero } from "@core/models/entity";
+import { Hero } from "@core/models/entity/entity";
 
 import { Stat } from "@core/models/game-data/game-data.model";
 import {
@@ -12,7 +12,7 @@ import {
     getHeroOffensivePower,
     getHeroDamage,
     getHeroRune,
-} from "@core/models/utils";
+} from "@core/models/entity/entity.utils";
 import { getXPForLevel } from "@core/models/level";
 import { Rune, RuneType } from "@core/models/runes/runes.model";
 @Component({

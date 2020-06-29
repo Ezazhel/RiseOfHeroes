@@ -3,15 +3,16 @@ import {
     Stat,
     StatType,
     LootbagItem,
+    Buff,
 } from "@core/models/game-data/game-data.model";
 import {
     ITemplateWeapon,
     ITemplateArmor,
     ITemplateBaseItem,
-} from "./game-data/game-data.model";
-import { Spells, OvertimeSpells, HealSpells } from "./spells/spells.model";
-import { Potion } from "./potions/potions.model";
-import { Talent } from "./talent/talent.model";
+} from "../game-data/game-data.model";
+import { Spells, OvertimeSpells, HealSpells } from "../spells/spells.model";
+import { Potion } from "../potions/potions.model";
+import { Talent } from "../talent/talent.model";
 
 export type EntityType = "hero" | "monster";
 export type EntitySubtype = "warrior" | "mage" | "ranger" | "peasant";
@@ -54,6 +55,7 @@ export interface Hero extends BaseEntity {
     readonly equippedSpell: Array<Spells | OvertimeSpells | HealSpells>;
     readonly potion: Potion;
     readonly talents: Talent[];
+    readonly buffs: Buff[];
 }
 
 export interface Companion extends BaseEntity {}

@@ -1,10 +1,12 @@
-import { EntitySubtype } from "./../entity";
+import { EntitySubtype } from "../entity/entity";
 import { Talent, TalentAdvance } from "./talent.model";
+import { BuffType } from "../game-data/game-data.model";
 
 export function setTalent(
     subtype: EntitySubtype,
     id: string,
-    level: number
+    level: number,
+    bonus: BuffType
 ): Talent {
     return {
         id: id,
@@ -12,44 +14,45 @@ export function setTalent(
         description: `talents.${subtype}.${id}.description`,
         levelRequired: level,
         selected: false,
+        bonus: bonus,
     };
 }
 export const peasantTalent: Talent[] = [
     {
-        ...setTalent("peasant", "stronger", 10),
+        ...setTalent("peasant", "stronger", 10, "strength"),
     },
     {
-        ...setTalent("peasant", "tougher", 10),
+        ...setTalent("peasant", "tougher", 10, "endurance"),
     },
     {
-        ...setTalent("peasant", "vampiric", 10),
+        ...setTalent("peasant", "vampiric", 10, "lifesteal"),
     },
     {
-        ...setTalent("peasant", "richer", 20),
+        ...setTalent("peasant", "richer", 20, "gold"),
     },
     {
-        ...setTalent("peasant", "luckier", 20),
+        ...setTalent("peasant", "luckier", 20, "loot"),
     },
     {
-        ...setTalent("peasant", "manager", 20),
+        ...setTalent("peasant", "manager", 20, "work"),
     },
     {
-        ...setTalent("peasant", "worker", 30),
+        ...setTalent("peasant", "worker", 30, "worker"),
     },
     {
-        ...setTalent("peasant", "fighter", 30),
+        ...setTalent("peasant", "fighter", 30, "apenetration"),
     },
     {
-        ...setTalent("peasant", "crafter", 30),
+        ...setTalent("peasant", "crafter", 30, "craft"),
     },
     {
-        ...setTalent("peasant", "looter", 40),
+        ...setTalent("peasant", "looter", 40, "lootdrop"),
     },
     {
-        ...setTalent("peasant", "fighterTwo", 40),
+        ...setTalent("peasant", "fighterTwo", 40, "apenetration"),
     },
     {
-        ...setTalent("peasant", "jack", 40),
+        ...setTalent("peasant", "jack", 40, "stat"),
     },
 ];
 

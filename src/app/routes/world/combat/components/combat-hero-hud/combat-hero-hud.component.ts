@@ -11,7 +11,7 @@ import {
     HostListener,
     OnDestroy,
 } from "@angular/core";
-import { Hero } from "@core/models/entity";
+import { Hero } from "@core/models/entity/entity";
 import { Observable, Subject, Subscription } from "rxjs";
 import { map, first, withLatestFrom } from "rxjs/operators";
 import { getXPForLevel } from "@core/models/level";

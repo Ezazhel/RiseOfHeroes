@@ -5,10 +5,12 @@ import {
     IdlingHouse,
     Work,
 } from "@routes/house/store/house.model";
-import { Hero } from "@core/models/entity";
-import { getMultiplier, update, getHeroMaxHp } from "@core/models/utils";
+import { Hero } from "@core/models/entity/entity";
+import { update } from "@core/models/utils";
+import { getMultiplier, getHeroMaxHp } from "@core/models/entity/entity.utils";
+
 import { take, withLatestFrom } from "rxjs/operators";
-import { AddPassivesToStat } from "@core/models/spells/spells.utils";
+import { AddBuffToStat } from "@core/models/spells/spells.utils";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
 import { NotifierService } from "@core/services/notifier.service";
@@ -18,6 +20,7 @@ import { Subscription, Subject, Observable } from "rxjs";
 import { heroSelector, currencySelector } from "@core/models/selector";
 import { works } from "@routes/house/store/house.selector";
 import { Currency } from "@core/models/game-data/game-data.model";
+import { CurrencyType } from "@core/models/game-data/game-data.data";
 
 @Component({
     selector: "work",
@@ -30,9 +33,6 @@ export class WorkComponent implements OnInit, OnDestroy {
     public _hero$: Observable<Hero> = this.store.pipe(select(heroSelector));
 
     public _work$: Observable<Work[]> = this.store.select(works);
-    public _gold$: Observable<Currency> = this.store.select(
-        currencySelector("gold")
-    );
     public doWorking$: Subject<Work> = new Subject<Work>();
 
     private _workingSubscription: Subscription = this.doWorking$
@@ -43,15 +43,32 @@ export class WorkComponent implements OnInit, OnDestroy {
                 }, 10);
                 let time = getMultiplier("swiftness", hero, event.speed);
                 clearTimeout(this.idlingTimer); //if training was set
+                const buffMult = hero.buffs.find((b) => b.type === "loot");
+                const reward = {
+                    ...event,
+                    currency:
+                        buffMult !== undefined
+                            ? {
+                                  ...event.currency,
+                                  quantity:
+                                      buffMult !== undefined
+                                          ? event.currency.quantity *
+                                            buffMult.mult
+                                          : event.currency.quantity,
+                              }
+                            : event.currency,
+                };
                 this.idlingTimer = window.setTimeout(() => {
                     this.store.dispatch(
-                        new GameStateCurrenciesAddCurrencyAction(event.currency)
+                        new GameStateCurrenciesAddCurrencyAction(
+                            reward.currency
+                        )
                     );
                     this._notifier.notify(
                         "",
                         `currency ${event.currency.name}`,
                         "reward",
-                        event.currency.quantity,
+                        reward.currency.quantity,
                         1000
                     );
                     this.store.dispatch(new HouseWorking("none"));
@@ -63,6 +80,10 @@ export class WorkComponent implements OnInit, OnDestroy {
             })
         )
         .subscribe();
+
+    public getCurrency(type: CurrencyType): Observable<Currency> {
+        return this.store.select(currencySelector(type));
+    }
     public getTime(idling: IdlingHouse) {
         let time: number = idling.speed;
         this._hero$.pipe(take(1)).subscribe((h) => {
@@ -74,39 +95,6 @@ export class WorkComponent implements OnInit, OnDestroy {
     public trackByFn(index: number, el: Work) {
         return index;
     }
-
-    //#region Private
-
-    private heroAfterTraining(
-        hero: Hero,
-        trainEquipment: TrainingEquipment,
-        stat: TrainingType
-    ) {
-        let baseStats = update(
-            hero.baseStats,
-            (s) => s.type === stat,
-            (s) => ({ ...s, value: s.value + trainEquipment.reward })
-        );
-        let stats = update(
-            baseStats,
-            (s) => s.type === stat,
-            (s) => ({
-                ...s,
-                value: AddPassivesToStat(s.value, s.type, hero),
-            })
-        );
-        let maxHp = getHeroMaxHp(
-            stats.find((s) => s.type == "endurance").value
-        );
-        return {
-            ...hero,
-            baseStats,
-            stats,
-            maxHp,
-            hp: maxHp,
-        };
-    }
-    //#endregion Private
 
     constructor(
         private store: Store<AppState>,

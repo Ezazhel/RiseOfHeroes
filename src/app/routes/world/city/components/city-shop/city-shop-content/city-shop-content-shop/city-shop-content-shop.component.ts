@@ -58,7 +58,6 @@ export class CityShopContentShopComponent
             withLatestFrom(
                 this._availableSlot$,
                 (event: ITemplateBaseItem, availableSlot: number) => {
-                    console.log(availableSlot);
                     if (availableSlot <= 0) {
                         this._notifier.notify(
                             `${event.name}`,

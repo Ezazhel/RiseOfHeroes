@@ -2,7 +2,7 @@ import { BuildingAction, City } from "../../../store/cities.model";
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Building } from "../../../store/cities.model";
 import { fighters } from "@core/models/game-data/game-data.data";
-import { Fighter } from "@core/models/entity";
+import { Fighter } from "@core/models/entity/entity";
 import { getFighterWithLevel } from "@routes/world/city/store/cities.utils";
 @Component({
     selector: "huntingPost",

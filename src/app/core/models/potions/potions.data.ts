@@ -1,5 +1,5 @@
 import { Potion, PotionType, PotionAdvance } from "./potions.model";
-import { Hero } from "../entity";
+import { Hero } from "../entity/entity";
 import { NotifierService } from "@core/services/notifier.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "..";

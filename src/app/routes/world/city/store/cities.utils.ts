@@ -1,4 +1,4 @@
-import { Fighter } from "@core/models/entity";
+import { Fighter } from "@core/models/entity/entity";
 import { toNumber } from "@ngneat/transloco";
 
 //Hunting utils

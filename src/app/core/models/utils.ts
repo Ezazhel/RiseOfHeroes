@@ -1,4 +1,4 @@
-import { Hero, FighterColor } from "./entity";
+import { Hero, FighterColor } from "./entity/entity";
 import { Predicate } from "@angular/core";
 import { toNumber } from "@ngneat/transloco";
 import { Stat } from "./game-data/game-data.model";
@@ -46,67 +46,6 @@ export function updateInsert<T>(
         : [...arr].concat(insertValue);
 }
 
-export function getHeroDamage(hero: Hero) {
-    let damage: number;
-    damage =
-        hero.weapon == null
-            ? 3 * hero.level + getHeroOffensivePower(hero) / 8
-            : hero.weapon.dps +
-              (getHeroOffensivePower(hero) / 8) * (hero.weapon.speed / 1000);
-
-    return toNumber(damage.toFixed(2));
-}
-
-export function getHeroDps(hero: Hero): number {
-    let dps =
-        hero.weapon == null
-            ? 3 * hero.level + getHeroOffensivePower(hero) / 8
-            : hero.weapon.dps + getHeroOffensivePower(hero) / 8;
-    return toNumber(dps.toFixed(2));
-}
-
-export function getHeroOffensivePower(hero: Hero): number {
-    return toNumber(
-        getMultiplier(
-            "power",
-            hero,
-            hero.level * 3 +
-                hero.stats.find((s: Stat) => s.type == "strength").value * 2
-        ).toFixed(2)
-    );
-}
-
-export function getHeroMaxHp(endurance: number) {
-    return toNumber((endurance * 10).toFixed(2));
-}
-
-export function getHeroRune(hero: Hero) {
-    let runes: Map<RuneType, Rune> = new Map();
-    let addRune = (rune: Rune[]) => {
-        if (rune === undefined) return;
-        rune.forEach((rune) => {
-            const r = runes.get(rune.type);
-            const currentLvl =
-                r !== undefined
-                    ? r.currentLvl + rune.currentLvl
-                    : rune.currentLvl;
-            runes.set(rune.type, { ...rune, currentLvl });
-        });
-    };
-    addRune(hero.weapon?.runes);
-    addRune(hero.helmet?.runes);
-    addRune(hero.chest?.runes);
-    addRune(hero.gloves?.runes);
-    addRune(hero.boots?.runes);
-    addRune(hero.pants?.runes);
-    return runes.values();
-}
-
-export function getMultiplier(runeType: RuneType, hero: Hero, stat: number) {
-    let r = [...getHeroRune(hero)].find((r) => r.type === runeType);
-    return r !== undefined ? getEffect(r, stat) : stat;
-}
-
 export function fighterColor(diflvl: number): FighterColor {
     if (diflvl > 5) return "useless";
     if (diflvl >= 2) return "easy";
@@ -117,6 +56,6 @@ export function fighterColor(diflvl: number): FighterColor {
     return "normal";
 }
 
-export function isCrit(hero: Hero) {
-    return Math.random() * 100 <= getMultiplier("precision", hero, 0); // return if crit;
+export function getNumberFixed(number: number, fixed: number = 2): number {
+    return toNumber(number.toFixed(fixed));
 }

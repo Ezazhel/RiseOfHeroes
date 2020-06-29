@@ -22,9 +22,14 @@
                         [attr.data-qty]="work.currency.quantity"
                     ></i>
                     <span>
-                        {{ tsl("house.work.currentGold") }}
-                        {{ (_gold$ | async)?.quantity }}
+                        {{ tsl("house.work.current") }}
                     </span>
+                    <i
+                        class="currency {{ work.currency.name }}"
+                        [attr.data-qty]="
+                            (getCurrency(work.currency.name) | async)?.quantity
+                        "
+                    ></i>
                     <span> {{ getTime(work) / 1000 }}s </span>
                 </div>
                 <app-progressbar

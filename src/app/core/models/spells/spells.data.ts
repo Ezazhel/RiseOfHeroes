@@ -1,6 +1,11 @@
 import { Spells, OvertimeSpells, HealSpells } from "./spells.model";
-import { setSpell } from "./spells.utils";
+import { EntitySubtype } from "../entity/entity";
 
+type setType = "name" | "description";
+
+export function setSpell(subtype: EntitySubtype, id: string, setType: setType) {
+    return `spells.${subtype}.${id}.${setType}`;
+}
 export const PeasantSpells: Array<Spells | OvertimeSpells | HealSpells> = [
     {
         id: "powerAttack", //Single attack dealing 150% of you attack power

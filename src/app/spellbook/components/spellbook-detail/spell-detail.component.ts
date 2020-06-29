@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Spells } from "@core/models/spells/spells.model";
 import { descriptionFor } from "@core/models/spells/spells.utils";
-import { Hero } from "@core/models/entity";
+import { Hero } from "@core/models/entity/entity";
 import { heroSelector } from "@core/models/selector";
 import { AppState } from "@core/models";
 import { Store } from "@ngrx/store";

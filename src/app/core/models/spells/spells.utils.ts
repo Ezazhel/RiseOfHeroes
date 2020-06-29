@@ -1,16 +1,15 @@
-import { updateInsert, getHeroDamage, getMultiplier } from "@core/models/utils";
-import {
-    Spells,
-    OvertimeSpells,
-    HealSpells,
-    PassiveBuff,
-} from "./spells.model";
-import { Hero, EntitySubtype, Fighter } from "../entity";
-import { getHeroOffensivePower } from "../utils";
-import { toNumber } from "@ngneat/transloco";
-import { Description } from "../game-data/game-data.model";
+import { updateInsert, getNumberFixed } from "@core/models/utils";
+import { getHeroDamage, getMultiplier } from "@core/models/entity/entity.utils";
 
-type setType = "name" | "description";
+import { Spells, OvertimeSpells, HealSpells } from "./spells.model";
+import { Hero, EntitySubtype, Fighter } from "../entity/entity";
+import { getHeroOffensivePower } from "../entity/entity.utils";
+import { toNumber } from "@ngneat/transloco";
+import { Description, BuffType, Buff } from "../game-data/game-data.model";
+import { NotifierService } from "@core/services/notifier.service";
+import { AppState } from "..";
+import { Store } from "@ngrx/store";
+import { PeasantSpells } from "./spells.data";
 
 export function descriptionFor(
     spells: Spells | OvertimeSpells | HealSpells,
@@ -28,9 +27,18 @@ export function effectFor(
     spells: Spells | OvertimeSpells | HealSpells,
     target: Hero | Fighter,
     launcher: Hero | Fighter,
-    isCrit: boolean
+    isCrit: boolean,
+    notifier?: NotifierService,
+    shop?: Store<AppState>
 ) {
-    return effects.get(spells.id)(spells, target, launcher, isCrit);
+    return effects.get(spells.id)(
+        spells,
+        target,
+        launcher,
+        isCrit,
+        notifier,
+        shop
+    );
 }
 type DescriptionMethod = (
     spells: Spells | OvertimeSpells | HealSpells,
@@ -41,19 +49,24 @@ type EffectMethod = (
     spells: Spells | OvertimeSpells | HealSpells,
     target: Hero | Fighter,
     launcher: Hero | Fighter,
-    isCrit?: boolean
+    isCrit?: boolean,
+    notifier?: NotifierService,
+    shop?: Store<AppState>
 ) => void;
+
+type PassiveMethod = (notifier?: NotifierService) => Buff;
 const descriptions: Map<string, DescriptionMethod> = new Map([
     [
         "powerAttack",
         (spells: Spells, hero: Hero) => ({
-            param: getHeroDamage(hero) * spells.power,
+            param: getNumberFixed(getHeroDamage(hero) * spells.power),
         }),
     ],
     [
         "peasantHearth",
         (spells: Spells, hero: Hero) => ({
             param: spells.power * 100,
+            param2: 10,
         }),
     ],
     [
@@ -77,24 +90,22 @@ const descriptions: Map<string, DescriptionMethod> = new Map([
 const effects: Map<string, EffectMethod> = new Map([
     [
         "powerAttack",
-        (spells: Spells, target: Fighter, launcher: Hero, isCrit: boolean) => {
-            target.hp =
-                target.hp -
+        (
+            spells: Spells,
+            target: Fighter,
+            launcher: Hero,
+            isCrit: boolean,
+            notifier: NotifierService
+        ) => {
+            let damage = getNumberFixed(
                 getHeroDamage(launcher as Hero) *
                     spells.power *
-                    (isCrit ? 2 : 1);
-        },
-    ],
-    [
-        "peasantHearth",
-        (spells: Spells, target: Hero | Fighter, launcher: Hero) => {
-            launcher = {
-                ...launcher,
-                hp:
-                    launcher.hp * (1 + spells.power) > launcher.maxHp
-                        ? launcher.maxHp
-                        : launcher.hp * (1 + spells.power),
-            };
+                    (isCrit ? 2 : 1)
+            );
+            target.hp = target.hp - damage;
+            isCrit
+                ? notifier.notify(damage.toString(), "", "damageCrit")
+                : notifier.notify(damage.toString(), "", "damage");
         },
     ],
     [
@@ -156,11 +167,33 @@ const effects: Map<string, EffectMethod> = new Map([
     ],
 ]);
 
-export function setSpell(subtype: EntitySubtype, id: string, setType: setType) {
-    return `spells.${subtype}.${id}.${setType}`;
+const effectsPassives: Map<string, PassiveMethod> = new Map<
+    string,
+    PassiveMethod
+>([
+    [
+        "peasantHearth",
+        (notifier) => {
+            let spell = PeasantSpells.find((s) => s.id === "peasantHearth");
+            notifier.notify(spell.name, "", "unlock");
+            return { type: "endurance", add: 10, mult: spell.power };
+        },
+    ],
+    [
+        "peasantLabor",
+        (notifier) => {
+            let spell = PeasantSpells.find((s) => s.id === "peasantLabor");
+            notifier.notify(spell.name, "", "unlock");
+            return { type: "loot", add: 0, mult: 2 };
+        },
+    ],
+]);
+
+export function getPassiveBuff(passiveId: string, notifier: NotifierService) {
+    return effectsPassives.get(passiveId)(notifier);
 }
 
-export function GetPassives(buff: PassiveBuff, hero: Hero): Spells[] {
+export function GetPassives(buff: BuffType, hero: Hero): Spells[] {
     return hero.spells.filter((s: Spells) => {
         if (
             s.levelRequired <= hero.level &&
@@ -172,12 +205,7 @@ export function GetPassives(buff: PassiveBuff, hero: Hero): Spells[] {
     });
 }
 
-export function AddPassivesToStat(stat: number, buff: PassiveBuff, hero: Hero) {
-    let multiplier: number = 0;
-    GetPassives(buff, hero).forEach((p) => {
-        multiplier += p.power;
-    });
-    let rtn =
-        multiplier != 0 ? toNumber((stat * (1 + multiplier)).toFixed(2)) : stat;
-    return rtn;
+export function AddBuffToStat(stat: number, buff: BuffType, hero: Hero) {
+    const b = hero.buffs.find((b) => b.type === buff);
+    return b != undefined ? (stat + b.add) * (1 + b.mult) : stat;
 }

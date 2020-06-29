@@ -9,7 +9,7 @@ import {
 import { createSelector } from "@ngrx/store";
 import { GameState } from "@core/models/game-state/game-state.reducer";
 import { createFeatureSelector } from "@ngrx/store";
-import { Hero } from "./entity";
+import { Hero } from "./entity/entity";
 import { CurrencyType } from "./game-data/game-data.data";
 
 export const gameStateSelector = createFeatureSelector<GameState>("gameState");

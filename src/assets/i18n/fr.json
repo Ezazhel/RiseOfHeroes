@@ -1,6 +1,8 @@
 {
     "notification": {
         "text": "{{param}}",
+        "damage": "Vous avez infligé {{param}}",
+        "damageCrit": "Vous avez infligé {{param}}, coup critique !",
         "unlock": "Vous avez débloqué : {{param}}",
         "levelUp": "Vous êtes monté d'un niveau, bravo ! ",
         "selled": "Vous avez vendu {{param}} pour {{value}}g",
@@ -110,7 +112,7 @@
         },
         "work": {
             "buttonText": "Travail",
-            "currentGold": "or possédé",
+            "current": "possédé",
             "peasant": {
                 "name": "Paysan",
                 "description": "Tu es un simple paysan !"
@@ -223,7 +225,7 @@
             },
             "peasantHearth": {
                 "name": "Coeur du paysan",
-                "description": "Votre travail à la ferme vous donne un bonus d'endurance de {{ param }}%"
+                "description": "Votre travail à la ferme vous donne un bonus d'endurance de +{{param}} et {{ param2 }}%"
             },
             "peasantLabor": {
                 "name": "Travail du paysan",
@@ -263,7 +265,7 @@
             },
             "worker": {
                 "name": "Fou de travail",
-                "description": "Vous travaillez deux fois mieux"
+                "description": "Vous travaillez deux fois mieux, vous gagnez deux fois plus de ressources"
             },
             "fighter": {
                 "name": "Tyler",

@@ -8,7 +8,7 @@ import {
     City,
     Building,
 } from "@routes/world/city/store/cities.model";
-import { Fighter } from "@core/models/entity";
+import { Fighter } from "@core/models/entity/entity";
 import { descriptionFor } from "@core/models/actions";
 import { Router } from "@angular/router";
 import { AppState } from "@core/models";

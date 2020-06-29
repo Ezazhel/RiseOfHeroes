@@ -1,7 +1,7 @@
 import { AppState } from "./../index";
 import { Store } from "@ngrx/store";
 import { ITemplateBaseItem, Description } from "../game-data/game-data.model";
-import { Hero } from "../entity";
+import { Hero } from "../entity/entity";
 import { NotifierService } from "@core/services/notifier.service";
 
 export type PotionType = "healing";

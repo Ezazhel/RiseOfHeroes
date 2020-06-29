@@ -1,4 +1,4 @@
-import { Fighter } from "./../entity";
+import { Fighter } from "../entity/entity";
 import { Stat } from "./game-data.model";
 import { ITemplateWeapon, ITemplateArmor } from "./game-data.model";
 
@@ -254,9 +254,9 @@ export const fighters: Fighter[] = [
         icon: "dummy_01",
         attack: 10,
         attackSpeed: 1.1 * 1000,
-        hp: 300,
+        hp: 300, // base 300
         level: 1,
-        maxHp: 300,
+        maxHp: 300, // base 300
         defense: 0,
         lootbag: [
             { item: "none", weigth: 50 },

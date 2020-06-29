@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { heroSelector } from "@core/models/selector";
 import { Observable } from "rxjs";
-import { Hero } from "@core/models/entity";
+import { Hero } from "@core/models/entity/entity";
 import { Store } from "@ngrx/store";
 import { AppState } from "@core/models";
 

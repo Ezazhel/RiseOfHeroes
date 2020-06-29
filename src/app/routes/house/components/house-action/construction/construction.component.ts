@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { Hero } from "@core/models/entity";
+import { Hero } from "@core/models/entity/entity";
 import { select, Store } from "@ngrx/store";
 import { heroSelector } from "@core/models/selector";
 import { AppState } from "@core/models";

@@ -3,7 +3,7 @@ import { AppState } from "@core/models";
 import { MessageService } from "./message.service";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { EntitySubtype, Hero } from "@core/models/entity";
+import { EntitySubtype, Hero } from "@core/models/entity/entity";
 import * as _ from "lodash";
 import {
     intelligenceStat,
@@ -12,17 +12,14 @@ import {
     enduranceStat,
 } from "@core/models/game-data/game-data.data";
 import { PeasantSpells } from "@core/models/spells/spells.data";
-import { getHeroMaxHp } from "@core/models/utils";
-import { AddPassivesToStat } from "@core/models/spells/spells.utils";
+import { getHeroMaxHp } from "@core/models/entity/entity.utils";
+import { AddBuffToStat } from "@core/models/spells/spells.utils";
 import { peasantTalent } from "@core/models/talent/talent.data";
 @Injectable({
     providedIn: "root",
 })
 export class GameService {
-    constructor(
-        public messageService: MessageService,
-        private store: Store<AppState>
-    ) {}
+    constructor(public messageService: MessageService) {}
     initialize() {}
 
     static create(entityClass: EntitySubtype) {
@@ -39,6 +36,7 @@ export class GameService {
                 { ...intelligenceStat, value: 0 },
                 { ...agilityStat, value: 0 },
             ],
+            buffs: [],
         };
         let character: Partial<Hero> = null;
         switch (entityClass) {
@@ -59,10 +57,10 @@ export class GameService {
         character = _.extend(character, {
             stats: character.baseStats.map((s) => ({
                 ...s,
-                value: AddPassivesToStat(s.value, s.type, character as Hero),
+                value: AddBuffToStat(s.value, s.type, character as Hero),
             })),
             maxHp: getHeroMaxHp(
-                AddPassivesToStat(
+                AddBuffToStat(
                     character.baseStats.find((s) => s.type == "endurance")
                         .value,
                     "endurance",
@@ -70,7 +68,7 @@ export class GameService {
                 )
             ),
             hp: getHeroMaxHp(
-                AddPassivesToStat(
+                AddBuffToStat(
                     character.baseStats.find((s) => s.type == "endurance")
                         .value,
                     "endurance",

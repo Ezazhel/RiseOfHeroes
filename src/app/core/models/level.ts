@@ -1,8 +1,10 @@
-import { BaseEntity, Hero, Fighter } from "./entity";
-import { getHeroMaxHp } from "./utils";
-import { AddPassivesToStat } from "./spells/spells.utils";
+import { BaseEntity, Hero, Fighter } from "./entity/entity";
+import { getHeroMaxHp } from "./entity/entity.utils";
+import { getPassiveBuff, AddBuffToStat } from "./spells/spells.utils";
 import { toNumber } from "@ngneat/transloco";
 import { NotifierService } from "@core/services/notifier.service";
+import { updateInsert } from "./utils";
+import { Buff } from "./game-data/game-data.model";
 
 export function getXPForLevel(level: number) {
     return 45 + level * 5 * (45 + 2 * level);
@@ -47,7 +49,21 @@ export function levelUp(
     let baseStats = [...hero.baseStats];
     let stats = [...hero.stats];
     let maxHp = hero.maxHp;
+    let buffs: Buff[] = [...hero.buffs];
     if (hero.level != level) {
+        //get unlocked, add passive to buff
+        [...hero.spells]
+            .filter((s) => !s.isActive && s.levelRequired === level) // === because we do it once.
+            .forEach((p) => {
+                const ibuff = getPassiveBuff(p.id, notifier);
+                buffs = updateInsert<Buff>(
+                    buffs,
+                    (b: Buff) => b.type === p.buffStat,
+                    (b: Buff) => ({ ...b, add: ibuff.add, mult: ibuff.mult }),
+                    ibuff
+                );
+            });
+
         baseStats = [...hero.baseStats].map((s) => {
             if (s.type === "endurance") {
                 return { ...s, value: s.value + 2 };
@@ -57,8 +73,9 @@ export function levelUp(
         });
         stats = [...baseStats].map((s) => ({
             ...s,
-            value: AddPassivesToStat(s.value, s.type, {
+            value: AddBuffToStat(s.value, s.type, {
                 ...hero,
+                buffs: buffs,
                 level: level,
             }),
         }));
@@ -72,6 +89,7 @@ export function levelUp(
         baseStats, //BaseStat may be the same stat if no levelup
         stats,
         maxHp,
+        buffs,
         hp: maxHp,
     }; //stats with passive are calculated during the dispatch action
 }

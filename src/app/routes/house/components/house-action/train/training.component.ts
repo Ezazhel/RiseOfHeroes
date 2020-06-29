@@ -4,10 +4,12 @@ import {
     TrainingType,
     IdlingHouse,
 } from "@routes/house/store/house.model";
-import { Hero } from "@core/models/entity";
-import { getMultiplier, update, getHeroMaxHp } from "@core/models/utils";
+import { Hero } from "@core/models/entity/entity";
+import { update } from "@core/models/utils";
+import { getMultiplier, getHeroMaxHp } from "@core/models/entity/entity.utils";
+
 import { take, withLatestFrom } from "rxjs/operators";
-import { AddPassivesToStat } from "@core/models/spells/spells.utils";
+import { AddBuffToStat } from "@core/models/spells/spells.utils";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
 import { NotifierService } from "@core/services/notifier.service";
@@ -117,7 +119,7 @@ export class TrainingComponent implements OnInit, OnDestroy {
             (s) => s.type === stat,
             (s) => ({
                 ...s,
-                value: AddPassivesToStat(s.value, s.type, hero),
+                value: AddBuffToStat(s.value, s.type, hero),
             })
         );
         let maxHp = getHeroMaxHp(

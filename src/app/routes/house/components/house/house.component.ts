@@ -5,7 +5,7 @@ import { AppState } from "@core/models";
 import { Observable, Subscription } from "rxjs";
 import { heroSelector } from "@core/models/selector";
 
-import { Hero } from "@core/models/entity";
+import { Hero } from "@core/models/entity/entity";
 
 @Component({
     selector: "app-house",

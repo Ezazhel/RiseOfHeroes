@@ -1,5 +1,7 @@
 export type NotificationType =
     | "text"
+    | "damage"
+    | "damageCrit"
     | "unlock"
     | "levelUp"
     | "selled"

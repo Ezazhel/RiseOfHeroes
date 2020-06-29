@@ -1,7 +1,8 @@
-import { Description } from "../game-data/game-data.model";
+import { Description, BuffType } from "../game-data/game-data.model";
 
 export interface Talent {
     id: string;
+    bonus: BuffType;
     name: string;
     description: string;
     levelRequired: number;
