@@ -1,5 +1,5 @@
-<ng-container *transloco="let t; read: 'map'">
-    <app-modal [cclass]="'map'" (close)="onClose()" [header]="t('map')">
+<ng-container *transloco="let t">
+    <app-modal [cclass]="'map'" (close)="onClose()" [header]="t('map.map')">
         <div fxLayout="column nowrap">
             <a
                 fxLayout="row"
@@ -10,20 +10,20 @@
                 [routerLinkActive]="'active'"
             >
                 <div>
-                    <label> {{ t("house") }} </label>
+                    <label> {{ t("map.house") }} </label>
                     <span class="requirement"></span>
                 </div>
             </a>
             <a
-                [routerLink]="['/world/city', 'zulah']"
+                *ngFor="let city of cities$ | async"
+                [routerLink]="['/world/city', city.id]"
                 [routerLinkActive]="'active'"
                 fxLayout="row"
                 fxLayoutAlign="center center"
                 class="travel-container"
             >
                 <div fxLayout="column">
-                    <label>Zulah</label>
-                    <span class="requirement"></span>
+                    <label>{{ t(city.name) }}</label>
                 </div>
             </a>
         </div>

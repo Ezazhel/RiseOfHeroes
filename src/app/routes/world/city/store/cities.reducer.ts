@@ -1,84 +1,12 @@
-import { City, Shop, baseHuntingAction, Building } from "./cities.model";
+import { City, Shop, Building } from "./cities.model";
 import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
 import * as CityAction from "./cities.action";
 import { update } from "@core/models/utils";
-import { createUpgrade } from "@core/models/upgrades";
-import {
-    dummyCraft,
-    sheepyCraft,
-    piggyCraft,
-} from "@core/models/game-data/game-data.data";
-import { healingPotion } from "@core/models/potions/potions.data";
+
+import { cities } from "./city.data";
 
 const initialState: CitiesState = {
-    cities: [
-        {
-            id: "zulah",
-            name: "city.zulah.name",
-            description: "city.zulah.description",
-            levelRequirement: 0,
-            maxLevel: 5,
-            shops: [
-                {
-                    type: "blacksmith",
-                    name: "city.city_shop.blacksmith",
-                    maxItemQuality: 1,
-                    maxItem: 5,
-                    items: [],
-                    crafts: [dummyCraft, sheepyCraft, piggyCraft],
-                    upgrades: [
-                        {
-                            ...createUpgrade("faster", 5, 500, "faster"),
-                        },
-                        {
-                            ...createUpgrade("better", 2, 2000, "better"),
-                        },
-                        {
-                            ...createUpgrade("more", 5, 250, "more"),
-                        },
-                    ],
-                    display: false,
-                    acceptType: "equipment",
-                    intervalStock: 15,
-                    lastTick: Date.now(),
-                },
-                {
-                    type: "alchemist",
-                    name: "city.city_shop.alchemist",
-                    items: [healingPotion],
-                    upgrades: [],
-                    display: false,
-                    acceptType: "consumable",
-                },
-            ],
-            building: [
-                {
-                    type: "huntingPost",
-                    name: "city.city_building.huntingPost.name",
-                    actions: [
-                        {
-                            ...baseHuntingAction,
-                            targetId: 0, //Combatant
-                            currentLevel: 1,
-                            maxLevel: 5,
-                        },
-                        {
-                            ...baseHuntingAction,
-                            targetId: 1, //Combatant
-                            currentLevel: 1,
-                            maxLevel: 5,
-                        },
-                        {
-                            ...baseHuntingAction,
-                            targetId: 2, //Combatant
-                            currentLevel: 1,
-                            maxLevel: 5,
-                        },
-                    ],
-                },
-            ],
-        },
-    ],
+    cities: [cities.get("zulah")],
 };
 
 export interface CitiesState {
@@ -180,6 +108,11 @@ export function citiesReducer(
                         ),
                     })
                 ),
+            };
+        case CityAction.CITY_ADD_CITY:
+            return {
+                ...state,
+                cities: [...state.cities, action.payload],
             };
         default:
             return state;

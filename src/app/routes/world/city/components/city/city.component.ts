@@ -14,9 +14,7 @@ import { map } from "rxjs/operators";
     styleUrls: ["./city.component.scss"],
 })
 export class CityComponent implements OnInit {
-    city$: Observable<City> = this.store.pipe(
-        select(citySelector(this.route.snapshot.paramMap.get("cityId")))
-    );
+    city$: Observable<City>;
     shop$: Observable<Shop>;
     building$: Observable<Building>;
 
@@ -50,5 +48,15 @@ export class CityComponent implements OnInit {
         this.shopService.cityId = this.route.snapshot.paramMap.get("cityId");
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.route.paramMap.subscribe((params: ParamMap) => {
+            this.shopService.cityId = params.get("cityId");
+            this.city$ = this.store.pipe(
+                select(citySelector(params.get("cityId")))
+            );
+            this.setTab("");
+            this.shop$ = null;
+            this.building$ = null;
+        });
+    }
 }

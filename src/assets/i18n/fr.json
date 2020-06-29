@@ -180,6 +180,10 @@
         "zulah": {
             "name": "Zul'ah",
             "description": "Zul'ah était autrefois une magnifique cité. Aujourd'hui c'est bourg sans roi, où vit le bas peuple."
+        },
+        "heapoo": {
+            "name": "Heapoo",
+            "description": "Ca pue, ça pique, mais surtout ça pue (oups, je me repête) ! Bienvenue à Heapoo, la cité marécage."
         }
     },
     "upgrades": {
@@ -301,6 +305,18 @@
         "precision": {
             "name": "Precision",
             "description": "Vous donne {{param}}% chance de critique"
+        },
+        "ferocity": {
+            "name": "Férocité",
+            "description": "+{{param}}% dégâts critiques"
+        },
+        "endurance": {
+            "name": "Endurance",
+            "description": "+{{param}}% endurance"
+        },
+        "lifesteal": {
+            "name": "Vampirism",
+            "description": "{{param}}% des dégâts convertis en pv"
         }
     },
     "potions": {

@@ -5,6 +5,10 @@ import { toNumber } from "@ngneat/transloco";
 import { NotifierService } from "@core/services/notifier.service";
 import { updateInsert } from "./utils";
 import { Buff } from "./game-data/game-data.model";
+import { Store } from "@ngrx/store";
+import { AppState } from ".";
+import { cities } from "@routes/world/city/store/city.data";
+import { CityAddCity } from "@routes/world/city/store/cities.action";
 
 export function getXPForLevel(level: number) {
     return 45 + level * 5 * (45 + 2 * level);
@@ -22,7 +26,8 @@ export function isLevelUp(heroExp, xpReward, xpForLevel) {
 export function levelUp(
     hero: Hero,
     fighter: Fighter,
-    notifier: NotifierService
+    notifier: NotifierService,
+    store: Store<AppState>
 ): Hero {
     //give exp
     //if exp : this.hero.exp + rewardXp > getXpForLevel(level) : LevelUp
@@ -51,7 +56,7 @@ export function levelUp(
     let maxHp = hero.maxHp;
     let buffs: Buff[] = [...hero.buffs];
     if (hero.level != level) {
-        //get unlocked, add passive to buff
+        //get unlocked, add passive to buff, should unlocked with an effect on heroUpdate check if levelUp or not
         [...hero.spells]
             .filter((s) => !s.isActive && s.levelRequired === level) // === because we do it once.
             .forEach((p) => {
@@ -80,6 +85,9 @@ export function levelUp(
             }),
         }));
         maxHp = getHeroMaxHp(stats.find((s) => s.type == "endurance").value);
+        if (level === 5) {
+            store.dispatch(new CityAddCity(cities.get("heapoo")));
+        }
     }
 
     return {
@@ -91,7 +99,7 @@ export function levelUp(
         maxHp,
         buffs,
         hp: maxHp,
-    }; //stats with passive are calculated during the dispatch action
+    };
 }
 
 export function getStrengthForLevel(level: number, model: BaseEntity) {

@@ -1,9 +1,9 @@
 import { Hero } from "./entity";
-import { toNumber } from "@ngneat/transloco";
 import { Stat, Buff } from "../game-data/game-data.model";
 import { RuneType, Rune } from "../runes/runes.model";
 import { getEffect } from "../runes/runes.utils";
 import { getNumberFixed } from "../utils";
+import { NotifierService } from "@core/services/notifier.service";
 
 export function getHeroDamage(hero: Hero) {
     let damage: number;
@@ -74,4 +74,20 @@ export function getAddBuff(hero: Hero, stat: Stat) {
 export function isCrit(hero: Hero) {
     //add from buff if passive give crit
     return Math.random() * 100 <= getMultiplier("precision", hero, 0); // return if crit;
+}
+
+export function lifeSteal(
+    hero: Hero,
+    damage: number,
+    notifier: NotifierService
+) {
+    let r = [...getHeroRune(hero)].find((r) => r.type === "lifesteal");
+    const lifesteal = r !== undefined ? getEffect(r, damage) : 0;
+
+    //let percentLife = hero.buffs.filter((b) => b.type === "lifesteal").reduce((sum, b: Buff) => sum+b.add, 0);
+    if (lifesteal === 0) return hero;
+    const regen = lifesteal + hero.hp;
+    const maxHp = regen > hero.maxHp ? hero.maxHp : regen;
+    notifier.notify(`(trd)lifesteal : ${lifesteal}`, "", "text");
+    return { ...hero, hp: getNumberFixed(maxHp) };
 }

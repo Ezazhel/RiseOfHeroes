@@ -180,6 +180,10 @@
         "zulah": {
             "name": "Zul'ah",
             "description": "Zul'ah was once a beautiful city. Nowaday it's only a place without a king, where peasant live."
+        },
+        "heapoo": {
+            "name": "Heapoo",
+            "description": "It stings, it stinks, more importantly it smells (damn already say it !). Welcome to heapoo the swamp city."
         }
     },
     "upgrades": {
@@ -301,6 +305,18 @@
         "precision": {
             "name": "Precision",
             "description": "+{{param}}% critical hit chance"
+        },
+        "ferocity": {
+            "name": "Ferocity",
+            "description": "+{{param}}% critical damage"
+        },
+        "endurance": {
+            "name": "Endurance",
+            "description": "+{{param}}% endurance"
+        },
+        "lifesteal": {
+            "name": "Vampirism",
+            "description": "{{param}}% heal from damage"
         }
     },
     "potions": {

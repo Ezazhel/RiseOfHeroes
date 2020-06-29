@@ -50,7 +50,7 @@ export class SlotDetailComponent implements OnInit {
     getStatDifference(): StatChange {
         let change: StatChange = {};
         if (this._item.type === undefined || this._item.type == "item")
-            return change;
+            return undefined;
         let equipment = this._item as ITemplateWeapon | ITemplateArmor;
         change.armor =
             this._itemEquipped !== undefined && this._item.type == "armor"

@@ -19,7 +19,12 @@ import { Potion } from "../potions/potions.model";
 const initialState: GameState = {
     companions: null,
     inventory: [],
-    currencies: [{ name: "gold", quantity: 500 }],
+    currencies: [
+        { name: "gold", quantity: 500 },
+        { name: "dummy-screw", quantity: 50 },
+        { name: "tooth", quantity: 50 },
+        { name: "bones", quantity: 50 },
+    ],
     location: "house",
     combatZone: "",
     maxSlots: 16,
@@ -151,9 +156,6 @@ function EquipHero(hero: Hero, item: ITemplateBaseItem): Hero {
         hero = { ...hero, potion: item as Potion };
     }
     let stats = baseStats.map((s) => {
-        const buff = hero.buffs.find((b) => b.type === s.type);
-        console.log(hero.buffs);
-        if (buff != undefined) console.log(buff);
         return {
             ...s,
             value: AddBuffToStat(s.value, s.type, hero),

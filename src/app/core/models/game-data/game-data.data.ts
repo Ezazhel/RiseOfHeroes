@@ -244,7 +244,15 @@ export const baseGloves: ITemplateArmor = {
 //#endregion Armor
 import { Craft } from "@routes/world/city/store/cities.model";
 import { setGear, setMaterial } from "../craft/craft.utils";
-import { swiftnessRune, powerRune, precisionRune } from "../runes/runes.data";
+import {
+    swiftnessRune,
+    powerRune,
+    precisionRune,
+    ferocityRune,
+    enduranceRune,
+    lifestealRune,
+} from "../runes/runes.data";
+import { lifeSteal } from "../entity/entity.utils";
 
 //#region Monster
 export const fighters: Fighter[] = [
@@ -321,9 +329,9 @@ export const fighters: Fighter[] = [
         icon: "pig_01",
         attack: 55,
         attackSpeed: 1.5 * 1000,
-        hp: 800,
+        hp: 8, //800
         level: 1,
-        maxHp: 800,
+        maxHp: 8, //800
         defense: 75,
         lootbag: [
             { item: "weapon", itemQuality: "rare", weigth: 20 },
@@ -447,7 +455,7 @@ export const sheepyCraft: Craft = {
                 ),
                 runes: [
                     { ...powerRune, currentLvl: 1 },
-                    { ...swiftnessRune, currentLvl: 1 },
+                    { ...ferocityRune, currentLvl: 1 },
                 ],
             }) as ITemplateArmor,
             materials: setMaterial(
@@ -461,7 +469,7 @@ export const sheepyCraft: Craft = {
                 stats: [...baseGloves.stats].map(
                     (s) => (s = { ...s, value: s.value + 2 })
                 ),
-                runes: [{ ...precisionRune, currentLvl: 2 }],
+                runes: [{ ...ferocityRune, currentLvl: 2 }],
             }) as ITemplateArmor,
             materials: setMaterial(
                 ["dummy-row", "dummy-screw", "sheepy_fur"],
@@ -534,7 +542,7 @@ export const piggyCraft: Craft = {
                 stats: [...baseHelmet.stats].map(
                     (s) => (s = { ...s, value: s.value + 5 })
                 ),
-                runes: [{ ...precisionRune, currentLvl: 2 }],
+                runes: [{ ...ferocityRune, currentLvl: 2 }],
             }) as ITemplateArmor,
             materials: setMaterial(
                 ["dummy-row", "dummy-screw", "piggy_leather"],
@@ -548,8 +556,8 @@ export const piggyCraft: Craft = {
                     (s) => (s = { ...s, value: s.value + 5 })
                 ),
                 runes: [
-                    { ...precisionRune, currentLvl: 1 },
-                    { ...powerRune, currentLvl: 1 },
+                    { ...lifestealRune, currentLvl: 1 },
+                    { ...enduranceRune, currentLvl: 1 },
                 ],
             }) as ITemplateArmor,
             materials: setMaterial(
@@ -563,7 +571,7 @@ export const piggyCraft: Craft = {
                 stats: [...baseGloves.stats].map(
                     (s) => (s = { ...s, value: s.value + 5 })
                 ),
-                runes: [{ ...powerRune, currentLvl: 2 }],
+                runes: [{ ...enduranceRune, currentLvl: 2 }],
             }) as ITemplateArmor,
             materials: setMaterial(
                 ["dummy-row", "dummy-screw", "piggy_leather"],
@@ -590,7 +598,7 @@ export const piggyCraft: Craft = {
                     (s) => (s = { ...s, value: s.value + 5 })
                 ),
                 runes: [
-                    { ...powerRune, currentLvl: 2 },
+                    { ...ferocityRune, currentLvl: 2 },
                     { ...precisionRune, currentLvl: 2 },
                 ],
             }) as ITemplateWeapon,
@@ -606,7 +614,7 @@ export const piggyCraft: Craft = {
                     (s) => (s = { ...s, value: s.value + 8 })
                 ),
                 attack: baseSword.attack * 2.5,
-                runes: [{ ...powerRune, currentLvl: 1 }],
+                runes: [{ ...lifestealRune, currentLvl: 1 }],
             }) as ITemplateWeapon,
             materials: setMaterial(
                 ["tooth", "bones", "dummy-screw"],
@@ -616,56 +624,3 @@ export const piggyCraft: Craft = {
     ],
 };
 //#endregion Monster
-
-//#region City
-// export const cities: Map<string, City> = Map<string, City>([
-//     [
-//         "zulah",
-//         {
-//             id: "zulah",
-//             name: "Zul'ah",
-//             levelRequirement: 1,
-//         },
-//     ],
-//     [
-//         "heapoo",
-//         {
-//             id: "heapoo",
-//             name: "Heapoo",
-//             levelRequirement: 5,
-//         },
-//     ],
-//     [
-//         "krakotoa",
-//         {
-//             id: "krakotoa",
-//             name: "Krakotoa",
-//             levelRequirement: 10,
-//         },
-//     ],
-//     [
-//         "baalrug",
-//         {
-//             id: "baalrug",
-//             name: "baalrug",
-//             levelRequirement: 15,
-//         },
-//     ],
-//     [
-//         "cresolia",
-//         {
-//             id: "cresolia",
-//             name: "Crésolia",
-//             levelRequirement: 26,
-//         },
-//     ],
-//     [
-//         "onigashi",
-//         {
-//             id: "onigashi",
-//             name: "Onigashi",
-//             levelRequirement: 35,
-//         },
-//     ],
-// ]);
-//#endregion City

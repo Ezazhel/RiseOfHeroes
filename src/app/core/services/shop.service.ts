@@ -22,26 +22,35 @@ import { Observable } from "rxjs";
 import { levelSelector } from "@core/models/selector";
 import { first } from "rxjs/operators";
 import { NotifierService } from "./notifier.service";
+import { cities } from "@routes/world/city/store/city.data";
 @Injectable({
     providedIn: "root",
 })
 export class ShopService {
     cityId: string;
-    level$: Observable<number> = this.store.select(levelSelector);
+    heroLevel$: Observable<number> = this.store.select(levelSelector);
+
     constructor(
         private store: Store<AppState>,
         private _notifier: NotifierService
     ) {}
 
     renewShopItem(cityId: string = this.cityId, shop: Shop) {
-        let level: number;
-        this.level$.pipe(first()).subscribe((l) => (level = l));
-        //TODO : add maxLevel of city (because a city can't craft something at your level if your level is more than city's level)
+        let city = cities.get(cityId);
+        let minlevelEquipement = city.levelRequirement; // minimum this
+        this.heroLevel$.pipe(first()).subscribe((heroLvl) => {
+            minlevelEquipement =
+                heroLvl > minlevelEquipement
+                    ? heroLvl > city.maxLevel
+                        ? city.maxLevel
+                        : heroLvl
+                    : minlevelEquipement;
+        });
         this.store.dispatch(
             new CityShopRenewItem({
                 city: cityId,
                 shopType: shop.type,
-                items: this.renewByType(level, shop),
+                items: this.renewByType(minlevelEquipement, shop),
             })
         );
     }

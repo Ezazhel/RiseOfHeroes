@@ -1,15 +1,21 @@
 import { updateInsert, getNumberFixed } from "@core/models/utils";
-import { getHeroDamage, getMultiplier } from "@core/models/entity/entity.utils";
+import {
+    getHeroDamage,
+    getMultiplier,
+    getHeroRune,
+    lifeSteal,
+} from "@core/models/entity/entity.utils";
 
 import { Spells, OvertimeSpells, HealSpells } from "./spells.model";
-import { Hero, EntitySubtype, Fighter } from "../entity/entity";
+import { Hero, Fighter } from "../entity/entity";
 import { getHeroOffensivePower } from "../entity/entity.utils";
-import { toNumber } from "@ngneat/transloco";
 import { Description, BuffType, Buff } from "../game-data/game-data.model";
 import { NotifierService } from "@core/services/notifier.service";
 import { AppState } from "..";
 import { Store } from "@ngrx/store";
 import { PeasantSpells } from "./spells.data";
+import { getEffect } from "../runes/runes.utils";
+import { GameStateUpdateHeroAction } from "../game-state/game-state.action";
 
 export function descriptionFor(
     spells: Spells | OvertimeSpells | HealSpells,
@@ -95,28 +101,22 @@ const effects: Map<string, EffectMethod> = new Map([
             target: Fighter,
             launcher: Hero,
             isCrit: boolean,
-            notifier: NotifierService
+            notifier: NotifierService,
+            store: Store<AppState>
         ) => {
             let damage = getNumberFixed(
-                getHeroDamage(launcher as Hero) *
-                    spells.power *
-                    (isCrit ? 2 : 1)
+                getHeroDamage(launcher) * spells.power * (isCrit ? 2 : 1)
             );
             target.hp = target.hp - damage;
             isCrit
                 ? notifier.notify(damage.toString(), "", "damageCrit")
                 : notifier.notify(damage.toString(), "", "damage");
+            store.dispatch(
+                new GameStateUpdateHeroAction(
+                    lifeSteal(launcher, damage * (isCrit ? 2 : 1), notifier)
+                )
+            );
         },
-    ],
-    [
-        "peasantLabor",
-        (
-            spells: Spells | OvertimeSpells | HealSpells,
-            target: Hero | Fighter,
-            launcher: Hero | Fighter
-        ) => ({
-            param: spells.power, // Passive with no effect now
-        }),
     ],
     [
         "peasantTorch",
@@ -207,5 +207,10 @@ export function GetPassives(buff: BuffType, hero: Hero): Spells[] {
 
 export function AddBuffToStat(stat: number, buff: BuffType, hero: Hero) {
     const b = hero.buffs.find((b) => b.type === buff);
-    return b != undefined ? (stat + b.add) * (1 + b.mult) : stat;
+    //add Rune bonus
+    const r = [...getHeroRune(hero)].find((r) => r.type == buff);
+    stat = b != undefined ? (stat + b.add) * (1 + b.mult) : stat; //buff first
+    if (r != undefined) stat = getEffect(r, stat); //rune second
+
+    return stat;
 }

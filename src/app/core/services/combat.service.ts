@@ -19,6 +19,7 @@ import {
     getHeroDamage,
     getMultiplier,
     isCrit,
+    lifeSteal,
 } from "@core/models/entity/entity.utils";
 import { interval, Subscription, timer } from "rxjs";
 import {
@@ -51,30 +52,38 @@ export class CombatService {
         this.hero = hero;
         if (!this.isFigthing) {
             this.isFigthing = true;
-            this.fighter.hp = this.fighter.maxHp;
-            this.fighter.debuffs?.forEach((d) => {
-                clearTimeout(d.timeOut);
-                clearInterval(d.interval);
-            });
-            this.fighter.debuffs = [];
-            let equipped = [
-                ...this.hero.equippedSpell,
-            ].map((spell: Spells) => ({ ...spell, isInCooldown: false }));
-            this.store.dispatch(
-                new GameStateUpdateHeroAction({
-                    ...this.hero,
-                    hp: this.hero.maxHp,
-                    equippedSpell: equipped,
-                    potion: { ...this.hero?.potion, isInCooldown: false },
-                })
-            );
+            this.resetFighter();
+            this.initHero();
+
             this.startFight();
         }
     }
+    private resetFighter() {
+        this.fighter.hp = this.fighter.maxHp;
+        this.fighter.debuffs?.forEach((d) => {
+            clearTimeout(d.timeOut);
+            clearInterval(d.interval);
+        });
+        this.fighter.debuffs = [];
+    }
 
-    // Auto-attack interval.
-    startFight() {
-        let heroInterval = interval(
+    private initHero() {
+        let equipped = [...this.hero.equippedSpell].map((spell: Spells) => ({
+            ...spell,
+            isInCooldown: false,
+        }));
+        this.store.dispatch(
+            new GameStateUpdateHeroAction({
+                ...this.hero,
+                hp: this.hero.maxHp,
+                equippedSpell: equipped,
+                potion: { ...this.hero?.potion, isInCooldown: false },
+            })
+        );
+    }
+
+    private heroAttack(): Subscription {
+        return interval(
             this.hero.weapon
                 ? getMultiplier("swiftness", this.hero, this.hero.weapon.speed)
                 : getMultiplier("swiftness", this.hero, 1000)
@@ -88,27 +97,37 @@ export class CombatService {
             }
             this.fighter.hp = Math.floor(this.fighter.hp - damage * crit);
             this._notifier.notify(text, "", "text", 0, 2000);
+            //heal after hit
+            this.store.dispatch(
+                new GameStateUpdateHeroAction(
+                    lifeSteal(this.hero, damage * crit, this._notifier)
+                )
+            );
             if (this.fighter.hp <= 0) {
                 this.victory();
                 this.death();
             }
         });
-        let fighterInterval = interval(this.fighter.attackSpeed).subscribe(
-            () => {
-                this.store.dispatch(
-                    new GameStateUpdateHeroAction({
-                        ...this.hero,
-                        hp: this.hero.hp - this.fighter.attack,
-                    })
-                );
-                if (this.hero.hp <= 0) {
-                    this.death();
-                }
-            }
-        );
-        this.fightIntervals.add(heroInterval);
-        this.fightIntervals.add(fighterInterval);
     }
+
+    private fighterAttack() {
+        return interval(this.fighter.attackSpeed).subscribe(() => {
+            this.store.dispatch(
+                new GameStateUpdateHeroAction({
+                    ...this.hero,
+                    hp: this.hero.hp - this.fighter.attack,
+                })
+            );
+            if (this.hero.hp <= 0) {
+                this.death();
+            }
+        });
+    }
+    startFight() {
+        this.fightIntervals.add(this.heroAttack());
+        this.fightIntervals.add(this.fighterAttack());
+    }
+
     stop() {
         this.fightIntervals.forEach((subscription: Subscription) => {
             subscription.unsubscribe();
@@ -128,7 +147,8 @@ export class CombatService {
             this.fighter,
             this.hero,
             isCrit(this.hero),
-            this._notifier
+            this._notifier,
+            this.store
         );
         this.store.dispatch(
             new CombatStateHeroSpell({ ...spell, isInCooldown: true })
@@ -170,9 +190,10 @@ export class CombatService {
     victory() {
         this.store.dispatch(
             new GameStateUpdateHeroAction(
-                levelUp(this.hero, this.fighter, this._notifier)
+                levelUp(this.hero, this.fighter, this._notifier, this.store)
             )
         );
+
         //random loot from monster dropbag
         let rwd = getFromLootbag(this.fighter.level, this.fighter.lootbag);
         if (rwd != undefined) {

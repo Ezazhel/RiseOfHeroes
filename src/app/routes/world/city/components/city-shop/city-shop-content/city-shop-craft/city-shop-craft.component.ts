@@ -33,7 +33,6 @@ export class CityShopCraftComponent implements OnInit, OnDestroy {
 
     @Input("shop") set shop(value: Shop) {
         this.level$.pipe(take(1)).subscribe((l: number) => {
-            console.log("shop", value);
             value = {
                 ...value,
                 crafts: [...value.crafts].map((c) => ({
@@ -46,7 +45,6 @@ export class CityShopCraftComponent implements OnInit, OnDestroy {
                     }),
                 })),
             };
-            console.log("value after stat", value);
         });
         this._shop = value;
     }

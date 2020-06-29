@@ -4,6 +4,11 @@ import { City } from "./cities.model";
 
 export const citiesStateSelector = createFeatureSelector<CitiesState>("cities");
 
+export const citiesSelector = createSelector(
+    citiesStateSelector,
+    (state: CitiesState) => state.cities
+);
+
 export const citySelector = (cityId: string) =>
     createSelector(citiesStateSelector, (state: CitiesState) =>
         state.cities.find((c) => c.id == cityId)

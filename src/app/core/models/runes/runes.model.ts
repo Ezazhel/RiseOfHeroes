@@ -1,6 +1,13 @@
 import { Description } from "../game-data/game-data.model";
 
-export type RuneType = "swiftness" | "precision" | "power" | "none";
+export type RuneType =
+    | "swiftness"
+    | "precision"
+    | "power"
+    | "none"
+    | "lifesteal"
+    | "endurance"
+    | "ferocity";
 export type EffectRune = (rune: Rune, statToUpdate: number) => number;
 export type DescriptionRune = (rune: Rune) => Description;
 export interface Rune {
