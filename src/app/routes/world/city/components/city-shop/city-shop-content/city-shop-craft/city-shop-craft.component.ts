@@ -124,7 +124,10 @@ export class CityShopCraftComponent implements OnInit, OnDestroy {
                             });
 
                             this.store.dispatch(
-                                new GameStateInventoryAddItemAction(equipment)
+                                new GameStateInventoryAddItemAction({
+                                    ...equipment,
+                                    value: 0,
+                                })
                             );
                             item.materials.forEach((el) => {
                                 this.store.dispatch(

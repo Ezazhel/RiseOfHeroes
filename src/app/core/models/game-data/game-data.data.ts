@@ -4,6 +4,10 @@ import { ITemplateWeapon, ITemplateArmor } from "./game-data.model";
 
 export type CurrencyType =
     | "gold"
+    | "goboss_tooth"
+    | "froggy_slime"
+    | "gobelino_axe"
+    | "gobelino_candy"
     | "dummy-wood"
     | "dummy-screw"
     | "dummy-row"
@@ -252,110 +256,208 @@ import {
     enduranceRune,
     lifestealRune,
 } from "../runes/runes.data";
-import { lifeSteal } from "../entity/entity.utils";
 
 //#region Monster
-export const fighters: Fighter[] = [
-    {
-        eid: "0",
-        name: "Dummy Moore",
-        icon: "dummy_01",
-        attack: 10,
-        attackSpeed: 1.1 * 1000,
-        hp: 300, // base 300
-        level: 1,
-        maxHp: 300, // base 300
-        defense: 0,
-        lootbag: [
-            { item: "none", weigth: 50 },
-            { item: "weapon", itemQuality: "common", weigth: 30 },
-            { item: "armor", itemQuality: "common", weigth: 30 },
-            {
-                item: "currency",
-                currency: { name: "dummy-row", quantity: 1 },
-                weigth: 10,
-            },
-            {
-                item: "currency",
-                currency: { name: "dummy-screw", quantity: 1 },
-                weigth: 10,
-            },
-            {
-                item: "currency",
-                currency: { name: "dummy-wood", quantity: 1 },
-                weigth: 10,
-            },
-        ],
-    },
-    {
-        eid: "1",
-        name: "Sheepy",
-        icon: "sheep_01",
-        attack: 25,
-        attackSpeed: 1.4 * 1000,
-        hp: 750,
-        level: 1,
-        maxHp: 750,
-        defense: 25,
-        lootbag: [
-            { item: "none", weigth: 10 },
-            { item: "weapon", itemQuality: "rare", weigth: 20 },
-            { item: "armor", itemQuality: "rare", weigth: 20 },
-            {
-                item: "currency",
-                currency: { name: "sheepy_fur", quantity: 1 },
-                weigth: 15,
-            },
-            {
-                item: "currency",
-                currency: { name: "dummy-screw", quantity: 2 },
-                weigth: 15,
-            },
-            {
-                item: "currency",
-                currency: { name: "tooth", quantity: 1 },
-                weigth: 15,
-            },
-            {
-                item: "currency",
-                currency: { name: "bones", quantity: 1 },
-                weigth: 15,
-            },
-        ],
-    },
-    {
-        eid: "2",
-        name: "Piggy",
-        icon: "pig_01",
-        attack: 55,
-        attackSpeed: 1.5 * 1000,
-        hp: 8, //800
-        level: 1,
-        maxHp: 8, //800
-        defense: 75,
-        lootbag: [
-            { item: "weapon", itemQuality: "rare", weigth: 20 },
-            { item: "weapon", itemQuality: "epic", weigth: 5 },
-            { item: "armor", itemQuality: "rare", weigth: 20 },
-            { item: "armor", itemQuality: "epic", weigth: 5 },
-            {
-                item: "currency",
-                currency: { name: "tooth", quantity: 2 },
-                weigth: 10,
-            },
-            {
-                item: "currency",
-                currency: { name: "bones", quantity: 2 },
-                weigth: 10,
-            },
-            {
-                item: "currency",
-                currency: { name: "piggy_leather", quantity: 1 },
-                weigth: 10,
-            },
-        ],
-    },
-];
+export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
+    [
+        "dummy",
+        {
+            eid: "dummy",
+            name: "Dummy Moore",
+            icon: "dummy_01",
+            attack: 10,
+            attackSpeed: 1.1 * 1000,
+            hp: 300, // base 300
+            level: 1,
+            maxHp: 300, // base 300
+            defense: 0,
+            lootbag: [
+                { item: "none", weigth: 50 },
+                { item: "weapon", itemQuality: "common", weigth: 30 },
+                { item: "armor", itemQuality: "common", weigth: 30 },
+                {
+                    item: "currency",
+                    currency: { name: "dummy-row", quantity: 1 },
+                    weigth: 10,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "dummy-screw", quantity: 1 },
+                    weigth: 10,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "dummy-wood", quantity: 1 },
+                    weigth: 10,
+                },
+            ],
+        },
+    ],
+    [
+        "sheepy",
+        {
+            eid: "sheepy",
+            name: "Sheepy",
+            icon: "sheep_01",
+            attack: 25,
+            attackSpeed: 1.4 * 1000,
+            hp: 750,
+            level: 1,
+            maxHp: 750,
+            defense: 25,
+            lootbag: [
+                { item: "none", weigth: 10 },
+                { item: "weapon", itemQuality: "rare", weigth: 20 },
+                { item: "armor", itemQuality: "rare", weigth: 20 },
+                {
+                    item: "currency",
+                    currency: { name: "sheepy_fur", quantity: 1 },
+                    weigth: 15,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "dummy-screw", quantity: 2 },
+                    weigth: 15,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "tooth", quantity: 1 },
+                    weigth: 15,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "bones", quantity: 1 },
+                    weigth: 15,
+                },
+            ],
+        },
+    ],
+    [
+        "piggy",
+        {
+            eid: "piggy",
+            name: "Piggy",
+            icon: "pig_01",
+            attack: 55,
+            attackSpeed: 1.5 * 1000,
+            hp: 8, //800
+            level: 1,
+            maxHp: 8, //800
+            defense: 75,
+            lootbag: [
+                { item: "weapon", itemQuality: "rare", weigth: 20 },
+                { item: "weapon", itemQuality: "epic", weigth: 5 },
+                { item: "armor", itemQuality: "rare", weigth: 20 },
+                { item: "armor", itemQuality: "epic", weigth: 5 },
+                {
+                    item: "currency",
+                    currency: { name: "tooth", quantity: 2 },
+                    weigth: 10,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "bones", quantity: 2 },
+                    weigth: 10,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "piggy_leather", quantity: 1 },
+                    weigth: 10,
+                },
+            ],
+        },
+    ],
+    [
+        "froggy",
+        {
+            eid: "froggy",
+            name: "Froggy",
+            icon: "froggy",
+            attack: 120,
+            attackSpeed: 1.1 * 1000,
+            hp: 1000,
+            level: 5,
+            maxHp: 1000,
+            defense: 125,
+            lootbag: [
+                { item: "none", weigth: 30 },
+                { item: "armor", itemQuality: "rare", weigth: 20 },
+                {
+                    item: "currency",
+                    currency: { name: "gold", quantity: 150 },
+                    weigth: 30,
+                },
+            ],
+        },
+    ],
+    [
+        "gobelino",
+        {
+            eid: "gobelino",
+            name: "Gobelino",
+            icon: "gobelino",
+            attack: 200,
+            attackSpeed: 1.3 * 1000,
+            hp: 1200,
+            level: 5,
+            maxHp: 1200,
+            defense: 100,
+            lootbag: [
+                { item: "weapon", itemQuality: "rare", weigth: 40 },
+                { item: "armor", itemQuality: "rare", weigth: 20 },
+                { item: "armor", itemQuality: "epic", weigth: 5 },
+                {
+                    item: "currency",
+                    currency: { name: "gold", quantity: 250 },
+                    weigth: 10,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "bones", quantity: 4 },
+                    weigth: 10,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "tooth", quantity: 4 },
+                    weigth: 10,
+                },
+            ],
+        },
+    ],
+    [
+        "goboss",
+        {
+            eid: "goboss",
+            name: "Goboss",
+            icon: "goboss",
+            attack: 300,
+            attackSpeed: 1.5 * 1000,
+            hp: 3000,
+            level: 1,
+            maxHp: 3000,
+            defense: 250,
+            lootbag: [
+                { item: "weapon", itemQuality: "epic", weigth: 5 },
+                { item: "armor", itemQuality: "epic", weigth: 5 },
+                {
+                    item: "currency",
+                    currency: { name: "tooth", quantity: 6 },
+                    weigth: 10,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "bones", quantity: 6 },
+                    weigth: 10,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "gold", quantity: 500 },
+                    weigth: 10,
+                },
+            ],
+        },
+    ],
+]);
 
 export const dummyCraft: Craft = {
     name: "Dummy",

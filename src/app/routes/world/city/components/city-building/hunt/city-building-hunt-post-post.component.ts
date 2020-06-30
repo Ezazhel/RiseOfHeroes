@@ -33,14 +33,10 @@ export class HuntPostPost implements OnInit {
     herolevel$: Observable<number> = this.store.select(levelSelector);
     heroLevel: number;
     effect(a: BuildingAction) {
-        switch (a.type) {
-            case "hunt":
-                this.huntSelected.emit(true);
-                this.router.navigateByUrl(
-                    `/world/${this.city.id}/combat/${this.fighter.name}`
-                );
-                break;
-        }
+        this.huntSelected.emit(true);
+        this.router.navigateByUrl(
+            `/world/${this.city.id}/combat/${this.fighter.eid}`
+        );
     }
 
     upgrade(isUpgrade: boolean) {
@@ -74,11 +70,7 @@ export class HuntPostPost implements OnInit {
     rewardExp() {
         return rewardXp(this.heroLevel, this.heroLevel - this.fighter.level);
     }
-    constructor(
-        private router: Router,
-        private store: Store<AppState>,
-        private combatService: CombatService
-    ) {}
+    constructor(private router: Router, private store: Store<AppState>) {}
 
     ngOnInit(): void {
         this.herolevel$.pipe(take(1)).subscribe((h) => (this.heroLevel = h));

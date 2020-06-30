@@ -50,7 +50,7 @@ export interface ShopUpgrade {
 
 export interface BuildingAction {
     type: ActionType;
-    targetId?: number;
+    targetId?: string;
     maxLevel?: number;
     currentLevel?: number;
     name?: string;

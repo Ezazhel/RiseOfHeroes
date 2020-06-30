@@ -44,6 +44,9 @@ li {
         @include shadow($carreraWhite);
         color: $body !important;
     }
+    &.legendary {
+        @include shadow($orange);
+    }
 }
 $gloves: -39px -5px;
 $head: -39px -39px;

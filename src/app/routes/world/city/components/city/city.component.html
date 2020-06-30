@@ -2,51 +2,38 @@
     <div class="container" *ngIf="city$ | async as city">
         <h1>{{ tsl(city.name) }}</h1>
         <p>{{ tsl(city?.description) }}</p>
-        <div fxLayout="row rowwrap" fxLayoutAlign="center center">
-            <button
-                (click)="setTab('shop')"
-                [ngClass]="{ active: tab === 'shop' }"
+        <div fxLayout="row nowrap" fxLayoutAlign="center center">
+            <i
+                class="building {{ shop.type }}"
+                [attr.data-desc]="tsl(shop.name)"
+                *ngFor="let shop of city.shops; trackBy: trackByFn"
+                (click)="setShop(shop)"
+                [ngClass]="{ active: shop.type === (shop$ | async)?.type }"
             >
-                {{ tsl("city.tab.shops") }}
-            </button>
-            <button
-                (click)="setTab('building')"
-                [ngClass]="{ active: tab === 'building' }"
+            </i>
+            <i
+                class="building {{ building.type }}"
+                [attr.data-desc]="tsl(building.name)"
+                *ngFor="
+                    let building of city.building;
+                    trackBy: trackByFnBuilding
+                "
+                (click)="setBuilding(building)"
+                [ngClass]="{
+                    active: building.type === (building$ | async)?.type
+                }"
             >
-                {{ tsl("city.tab.building") }}
-            </button>
+            </i>
         </div>
-        <ng-container *ngIf="tab == 'shop'">
-            <div fxLayout="row nowrap" fxLayoutAlign="center center">
-                <button
-                    *ngFor="let shop of city.shops; trackBy: trackByFn"
-                    (click)="setShop(shop)"
-                    [ngClass]="{ active: shop.type === (shop$ | async)?.type }"
-                >
-                    {{ tsl(shop.name) }}
-                </button>
-            </div>
-            <app-city-shop [shop]="shop$" [cityId]="city.id"></app-city-shop>
-        </ng-container>
-        <ng-container *ngIf="tab == 'building'">
-            <div fxLayout="row wrap" fxLayoutAlign="center center">
-                <button
-                    *ngFor="
-                        let building of city.building;
-                        trackBy: trackByFnBuilding
-                    "
-                    (click)="setBuilding(building)"
-                    [ngClass]="{
-                        active: building.type === (building$ | async)?.type
-                    }"
-                >
-                    {{ tsl(building.name) }}
-                </button>
-            </div>
-            <app-city-building
-                [building]="building$"
-                [city]="city"
-            ></app-city-building>
-        </ng-container>
+        <app-city-shop
+            *ngIf="shop$"
+            [shop]="shop$"
+            [cityId]="city.id"
+        ></app-city-shop>
+        <app-city-building
+            *ngIf="building$"
+            [building]="building$"
+            [city]="city"
+        ></app-city-building>
     </div>
 </ng-container>

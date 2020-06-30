@@ -153,7 +153,6 @@ export class CityShopContentShopComponent
     ngOnInit(): void {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes["shop"]);
         const pShop = changes["shop"].previousValue as Shop;
         const cShop = changes["shop"].currentValue as Shop;
         if (changes["shop"].firstChange || pShop?.type != cShop.type) {

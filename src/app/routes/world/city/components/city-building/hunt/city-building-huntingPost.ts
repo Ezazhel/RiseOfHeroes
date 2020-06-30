@@ -27,8 +27,16 @@ export class HuntingPost implements OnInit {
     @Output() huntStarted = new EventEmitter<boolean>();
 
     fighterFor(a: BuildingAction): Fighter {
+        console.log(
+            "f with lvl",
+            getFighterWithLevel(
+                fighters.get(a.targetId),
+                this.building.actions.find((f) => f.targetId == a.targetId)
+                    .currentLevel
+            )
+        );
         return getFighterWithLevel(
-            fighters[a.targetId],
+            fighters.get(a.targetId),
             this.building.actions.find((f) => f.targetId == a.targetId)
                 .currentLevel
         );

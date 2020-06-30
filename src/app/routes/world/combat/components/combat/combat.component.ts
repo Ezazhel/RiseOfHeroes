@@ -47,14 +47,12 @@ export class CombatComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
-        let fIndex = fighters.findIndex(
-            (f) => f.name === this.route.snapshot.paramMap.get("monster")
-        );
+        let fighter = fighters.get(this.route.snapshot.paramMap.get("monster"));
         this.city$.pipe(take(1)).subscribe((c: City) => {
             let currentLevel = c.building
                 .find((b) => b.type == "huntingPost")
-                .actions.find((a) => a.targetId === fIndex).currentLevel;
-            this.fighter = getFighterWithLevel(fighters[fIndex], currentLevel);
+                .actions.find((a) => a.targetId === fighter.eid).currentLevel;
+            this.fighter = getFighterWithLevel(fighter, currentLevel);
         });
 
         this.combatService.fighter = this.fighter;

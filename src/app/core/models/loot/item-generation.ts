@@ -279,13 +279,15 @@ export function getFromLootbag(level: number, bag: LootbagItem[]): Reward {
     let rwd = pickFromLootbag(bag);
     switch (rwd.item) {
         case "armor":
+            const armor = generateRandomArmor(level, 0, rwd.itemQuality);
             return {
-                reward: generateRandomArmor(level, 0, rwd.itemQuality),
+                reward: { ...armor, value: armor.value * 0.5 },
                 rewardType: "armor",
             };
         case "weapon":
+            const weapon = generateRandomWeapon(level, 0, rwd.itemQuality);
             return {
-                reward: generateRandomWeapon(level, 0, rwd.itemQuality),
+                reward: { ...weapon, value: weapon.value * 0.5 }, //% will change with rune or passive or unlockable
                 rewardType: "weapon",
             };
         case "currency":

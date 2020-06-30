@@ -36,28 +36,41 @@
     &.dummy-wood {
         @include stitches-currency(-5px, -63px, 48px, 48px);
     }
-
-    &.gold {
+    &.froggy_slime {
         @include stitches-currency(-63px, -63px, 48px, 48px);
     }
-
-    &.piggy_leather {
+    &.gobelino_axe {
         @include stitches-currency(-121px, -63px, 48px, 48px);
     }
 
-    &.sheepy_fur {
+    &.gobelino_candy {
         @include stitches-currency(-5px, -121px, 48px, 48px);
     }
 
-    &.stone {
+    &.goboss_tooth {
         @include stitches-currency(-63px, -121px, 48px, 48px);
     }
-
-    &.tooth {
+    &.gold {
         @include stitches-currency(-121px, -121px, 48px, 48px);
     }
 
-    &.wood {
+    &.piggy_leather {
         @include stitches-currency(-179px, -5px, 48px, 48px);
+    }
+
+    &.sheepy_fur {
+        @include stitches-currency(-179px, -63px, 48px, 48px);
+    }
+
+    &.stone {
+        @include stitches-currency(-179px, -121px, 48px, 48px);
+    }
+
+    &.tooth {
+        @include stitches-currency(-5px, -179px, 48px, 48px);
+    }
+
+    &.wood {
+        @include stitches-currency(-63px, -179px, 48px, 48px);
     }
 }

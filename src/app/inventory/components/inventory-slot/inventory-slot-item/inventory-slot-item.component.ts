@@ -110,6 +110,13 @@ export class InventorySlotItemComponent implements OnInit {
                                         (heroItem as ITemplateArmor).armor,
                                 })
                             );
+                        } else if (heroItem.type == "weapon") {
+                            this.store.dispatch(
+                                new GameStateUpdateHeroAction({
+                                    ...hero,
+                                    baseStats,
+                                })
+                            );
                         }
                     }
                 }

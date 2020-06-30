@@ -56,19 +56,19 @@ export const cities: Map<string, City> = new Map<string, City>([
                     actions: [
                         {
                             ...baseHuntingAction,
-                            targetId: 0, //Combatant
+                            targetId: "dummy", //Combatant
                             currentLevel: 1,
                             maxLevel: 5,
                         },
                         {
                             ...baseHuntingAction,
-                            targetId: 1, //Combatant
+                            targetId: "sheepy", //Combatant
                             currentLevel: 1,
                             maxLevel: 5,
                         },
                         {
                             ...baseHuntingAction,
-                            targetId: 2, //Combatant
+                            targetId: "piggy", //Combatant
                             currentLevel: 1,
                             maxLevel: 5,
                         },
@@ -117,21 +117,21 @@ export const cities: Map<string, City> = new Map<string, City>([
                     actions: [
                         {
                             ...baseHuntingAction,
-                            targetId: 0, //Combatant
-                            currentLevel: 1,
-                            maxLevel: 5,
+                            targetId: "froggy", //Combatant
+                            currentLevel: 5,
+                            maxLevel: 10,
                         },
                         {
                             ...baseHuntingAction,
-                            targetId: 1, //Combatant
-                            currentLevel: 1,
-                            maxLevel: 5,
+                            targetId: "gobelino", //Combatant
+                            currentLevel: 5,
+                            maxLevel: 10,
                         },
                         {
                             ...baseHuntingAction,
-                            targetId: 2, //Combatant
-                            currentLevel: 1,
-                            maxLevel: 5,
+                            targetId: "goboss", //Combatant
+                            currentLevel: 5,
+                            maxLevel: 10,
                         },
                     ],
                 },

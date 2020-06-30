@@ -23,12 +23,14 @@ export class CityComponent implements OnInit {
         this.shop$ = this.city$.pipe(
             map((city: City) => city.shops.find((s) => s.type == value.type))
         );
+        this.building$ = null;
     }
 
     setBuilding(value: Building) {
         this.building$ = this.city$.pipe(
             map((city: City) => city.building.find((b) => b.type == value.type))
         );
+        this.shop$ = null;
     }
     setTab(value: string) {
         this.tab = value;
