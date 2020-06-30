@@ -16,7 +16,10 @@
     </ng-container>
     <ng-container cardFooter>
         <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="grow">
-            <button *ngIf="fighter.level > 1" (click)="upgrade(false)">
+            <button
+                *ngIf="fighter.level > city.levelRequirement"
+                (click)="upgrade(false)"
+            >
                 <
             </button>
             <button

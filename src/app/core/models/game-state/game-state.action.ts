@@ -12,6 +12,7 @@ export const GAME_ADD_CURRENCY = "[game state] add currency";
 
 export const GAME_UPDATE_HERO = "[game state] update hero";
 export const GAME_EQUIP_ITEM_HERO = "[game state] equip item hero";
+export const GAME_UNEQUIP_ITEM_HERO = "[game state] unequip item hero";
 
 export const COMBAT_HERO_SPELL = "[combat] hero launch spell";
 export const COMBAT_HERO_POTION = "[combat] hero use potion";
@@ -40,6 +41,10 @@ export class GameStateEquipItemHeroAction implements Action {
     readonly type = GAME_EQUIP_ITEM_HERO;
     constructor(public payload: ITemplateBaseItem) {}
 }
+export class GameStateUnEquipItemHeroAction implements Action {
+    readonly type = GAME_UNEQUIP_ITEM_HERO;
+    constructor(public payload: ITemplateBaseItem) {}
+}
 
 export class CombatStateHeroSpell implements Action {
     readonly type = COMBAT_HERO_SPELL;
@@ -55,5 +60,6 @@ export type GameActionType =
     | GameStateCurrenciesAddCurrencyAction
     | GameStateUpdateHeroAction
     | GameStateEquipItemHeroAction
+    | GameStateUnEquipItemHeroAction
     | CombatStateHeroSpell
     | CombatStateHeroPotion;

@@ -6,7 +6,7 @@ import { update } from "@core/models/utils";
 import { cities } from "./city.data";
 
 const initialState: CitiesState = {
-    cities: [cities.get("zulah")],
+    cities: [cities.get("zulah"), cities.get("heapoo")],
 };
 
 export interface CitiesState {
@@ -104,6 +104,22 @@ export function citiesReducer(
                         building: update(
                             c.building,
                             (b: Building) => b.type == "huntingPost",
+                            (b: Building) => action.payload.building
+                        ),
+                    })
+                ),
+            };
+        case CityAction.CITY_BUILDING_TRAIN_HERO:
+            return {
+                ...state,
+                cities: update(
+                    state.cities,
+                    (c: City) => c.id == action.payload.city,
+                    (c: City) => ({
+                        ...c,
+                        building: update(
+                            c.building,
+                            (b: Building) => b.type == "trainer",
                             (b: Building) => action.payload.building
                         ),
                     })

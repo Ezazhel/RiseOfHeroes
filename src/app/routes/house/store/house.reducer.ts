@@ -7,6 +7,7 @@ const initialState: HouseState = {
     trainingEquipment: [
         {
             id: "strength",
+            type: "strength",
             cardHeader: "house.training.strength.cardHeader",
             name: "house.training.strength.level1.name ",
             description: "house.training.strength.level1.description",
@@ -19,6 +20,7 @@ const initialState: HouseState = {
         },
         {
             id: "endurance",
+            type: "endurance",
             cardHeader: "house.training.endurance.cardHeader",
             name: "house.training.endurance.level1.name",
             description: "house.training.endurance.level1.description",
@@ -56,6 +58,7 @@ export function houseReducer(
                 }),
             };
         case HouseAction.HOUSE_ADD_TRAINING_EQUIPMENT:
+            console.log(action.payload);
             return {
                 ...state,
                 trainingEquipment: updateInsert(

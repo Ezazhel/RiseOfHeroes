@@ -91,6 +91,12 @@ const descriptions: Map<string, DescriptionMethod> = new Map([
             param2: spells.duration,
         }),
     ],
+    [
+        "peasantProficiency",
+        (spells: Spells, hero: Hero) => ({
+            param: spells.power,
+        }),
+    ],
 ]);
 
 const effects: Map<string, EffectMethod> = new Map([
@@ -187,6 +193,16 @@ const effectsPassives: Map<string, PassiveMethod> = new Map<
             return { type: "loot", add: 0, mult: 2 };
         },
     ],
+    [
+        "peasantProficiency",
+        (notifier) => {
+            let spell = PeasantSpells.find(
+                (s) => s.id === "peasantProficiency"
+            );
+            notifier.notify(spell.name, "", "unlock");
+            return { type: "critc", add: spell.power, mult: 0 };
+        },
+    ],
 ]);
 
 export function getPassiveBuff(passiveId: string, notifier: NotifierService) {
@@ -203,14 +219,4 @@ export function GetPassives(buff: BuffType, hero: Hero): Spells[] {
             return s;
         }
     });
-}
-
-export function AddBuffToStat(stat: number, buff: BuffType, hero: Hero) {
-    const b = hero.buffs.find((b) => b.type === buff);
-    //add Rune bonus
-    const r = [...getHeroRune(hero)].find((r) => r.type == buff);
-    stat = b != undefined ? (stat + b.add) * (1 + b.mult) : stat; //buff first
-    if (r != undefined) stat = getEffect(r, stat); //rune second
-
-    return stat;
 }

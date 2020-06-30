@@ -1,9 +1,10 @@
 import { Hero, FighterColor } from "./entity/entity";
 import { Predicate } from "@angular/core";
 import { toNumber } from "@ngneat/transloco";
-import { Stat } from "./game-data/game-data.model";
+import { Stat, BuffType } from "./game-data/game-data.model";
 import { Rune, RuneType } from "./runes/runes.model";
 import { getEffect } from "./runes/runes.utils";
+import { getHeroRune } from "./entity/entity.utils";
 
 /**
  * Generate probably unique IDs. See: http://stackoverflow.com/questions/26501688/a-typescript-guid-class

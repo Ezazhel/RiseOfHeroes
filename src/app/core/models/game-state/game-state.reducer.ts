@@ -1,20 +1,12 @@
-import { Stat } from "./../game-data/game-data.model";
 import { Companion, Hero } from "../entity/entity";
 import * as GameStateAction from "./game-state.action";
 import * as Immutable from "immutable";
-import {
-    Currency,
-    ITemplateBaseItem,
-    ITemplateArmor,
-    ITemplateWeapon,
-} from "../game-data/game-data.model";
+import { Currency, ITemplateBaseItem } from "../game-data/game-data.model";
 import { GameService } from "@core/services";
 import { update, updateInsert } from "../utils";
-import { getHeroMaxHp } from "../entity/entity.utils";
+import { Equip, UnEquip } from "../entity/entity.utils";
 
 import { Spells } from "../spells/spells.model";
-import { AddBuffToStat } from "../spells/spells.utils";
-import { Potion } from "../potions/potions.model";
 
 const initialState: GameState = {
     companions: null,
@@ -77,7 +69,26 @@ export function gameRecuder(
                 hero: action.payload,
             };
         case GameStateAction.GAME_EQUIP_ITEM_HERO:
-            return { ...state, hero: EquipHero(state.hero, action.payload) };
+            return {
+                ...state,
+                hero: Equip(state.hero, action.payload),
+                inventory: [...state.inventory].filter(
+                    (i) => i.id != action.payload.id
+                ),
+            };
+
+        case GameStateAction.GAME_UNEQUIP_ITEM_HERO:
+            //OnUnequip add item to inventory
+            return action.payload.id === "null"
+                ? state
+                : {
+                      ...state,
+                      hero: UnEquip(state.hero, action.payload),
+                      inventory:
+                          action.payload.id === "null"
+                              ? state.inventory
+                              : state.inventory.concat(action.payload),
+                  };
         case GameStateAction.COMBAT_HERO_SPELL:
             return {
                 ...state,
@@ -107,66 +118,4 @@ export function gameRecuder(
         default:
             return state;
     }
-}
-
-function EquipHero(hero: Hero, item: ITemplateBaseItem): Hero {
-    let baseStats = [...hero.baseStats];
-    if (item.type == "weapon") {
-        let weapon = item as ITemplateWeapon;
-        hero = { ...hero, weapon: weapon };
-        weapon.stats.forEach((stat) => {
-            baseStats = update<Stat>(
-                baseStats,
-                (s: Stat) => s.type == stat.type,
-                (s: Stat) => {
-                    return { ...s, value: s.value + stat.value };
-                }
-            );
-        });
-    } else if (item.type == "armor") {
-        let armor = item as ITemplateArmor;
-        switch (armor.subType) {
-            case "chest":
-                hero = { ...hero, chest: armor };
-                break;
-            case "boots":
-                hero = { ...hero, boots: armor };
-                break;
-            case "gloves":
-                hero = { ...hero, gloves: armor };
-                break;
-            case "helmet":
-                hero = { ...hero, helmet: armor };
-                break;
-            case "pants":
-                hero = { ...hero, pants: armor };
-                break;
-        }
-        armor.stats.forEach((stat) => {
-            baseStats = update<Stat>(
-                baseStats,
-                (s: Stat) => s.type == stat.type,
-                (s: Stat) => {
-                    return { ...s, value: s.value + stat.value };
-                }
-            );
-        });
-        hero = { ...hero, armor: hero.armor + armor.armor };
-    } else if (item.type == "item") {
-        hero = { ...hero, potion: item as Potion };
-    }
-    let stats = baseStats.map((s) => {
-        return {
-            ...s,
-            value: AddBuffToStat(s.value, s.type, hero),
-        };
-    });
-    let maxHp = getHeroMaxHp(stats.find((s) => s.type == "endurance").value);
-    return {
-        ...hero,
-        baseStats,
-        stats,
-        maxHp,
-        hp: maxHp,
-    };
 }

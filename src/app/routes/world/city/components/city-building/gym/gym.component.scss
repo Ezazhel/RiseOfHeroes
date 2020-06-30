@@ -1,0 +1,42 @@
+@import "variables.scss";
+@import "sprite-currencies.scss";
+.information {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: x-small;
+    align-items: flex-end;
+}
+.tab {
+    button {
+        height: 35px;
+        width: 150px;
+        background: $blueTextOnBody;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s;
+        color: $carreraWhite;
+        font-size: small;
+
+        &:hover {
+            background: transparentize($color: $blueTextOnBody, $amount: 0.35);
+        }
+        &.active {
+            background: transparentize($color: $greenTextOnBody, $amount: 0.25);
+            color: $outerspaceGrey;
+
+            &:hover {
+                background: $greenTextOnBody;
+            }
+        }
+    }
+}
+.tab-container {
+    display: flex;
+    flex-flow: row wrap;
+    place-content: center;
+    .done {
+        background: $darkgreybutton;
+        color: $greenTextOnBody;
+    }
+}

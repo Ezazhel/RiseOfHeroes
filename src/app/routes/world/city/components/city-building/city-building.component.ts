@@ -17,14 +17,6 @@ export class CityBuildingComponent implements OnInit {
     descriptionFor(a: BuildingAction) {
         return descriptionFor(a);
     }
-
-    effect(a: BuildingAction) {
-        switch (a.type) {
-            case "hunt":
-                this.router.navigateByUrl(`/world/combat/${a.targetId}`);
-                break;
-        }
-    }
     constructor(private router: Router) {}
 
     ngOnInit(): void {}

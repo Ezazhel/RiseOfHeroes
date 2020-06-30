@@ -62,4 +62,18 @@ export const PeasantSpells: Array<Spells | OvertimeSpells | HealSpells> = [
         power: 0.15,
         type: "debuff",
     },
+    {
+        id: "peasantProficiency",
+        name: setSpell("peasant", "peasantProficiency", "name"),
+        description: setSpell("peasant", "peasantProficiency", "description"),
+        castingTime: 0,
+        icon: "peasantProficiency",
+        cooldown: 0,
+        isActive: false,
+        isInCooldown: false,
+        levelRequired: 5,
+        type: "buff",
+        power: 5, //5%
+        buffStat: "critc",
+    },
 ];

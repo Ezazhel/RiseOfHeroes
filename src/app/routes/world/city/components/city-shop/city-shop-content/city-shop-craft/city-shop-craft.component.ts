@@ -1,7 +1,13 @@
 import { levelSelector, availableSlot } from "@core/models/selector";
 import { currenciesSelector, equippedSelector } from "@core/models/selector";
 import { AppState } from "@core/models";
-import { Component, OnInit, Input, OnDestroy } from "@angular/core";
+import {
+    Component,
+    OnInit,
+    Input,
+    OnDestroy,
+    ChangeDetectionStrategy,
+} from "@angular/core";
 import { Shop, Craft, CraftSet } from "@routes/world/city/store/cities.model";
 import {
     ITemplateBaseItem,
@@ -179,6 +185,7 @@ export class CityShopCraftComponent implements OnInit, OnDestroy {
 
     public equipped(item: ITemplateBaseItem) {
         let equipped: ITemplateBaseItem;
+
         this.store
             .select(equippedSelector(item?.type == "weapon", item?.subType))
             .pipe(take(1))
@@ -191,15 +198,18 @@ export class CityShopCraftComponent implements OnInit, OnDestroy {
         let change: StatChange = {};
         if (item.type == "item") return change;
         let equipment = item as ITemplateWeapon | ITemplateArmor;
+        if (item.id === "null") return undefined;
         change.armor =
-            equipped !== undefined && item.type == "armor"
+            equipped !== undefined &&
+            equipped.id !== "null" &&
+            item.type == "armor"
                 ? (equipment as ITemplateArmor).armor -
                   (equipped as ITemplateArmor).armor
                 : item.type == "weapon"
                 ? 0
                 : (item as ITemplateArmor).armor;
         change.stats =
-            equipped !== undefined
+            equipped !== undefined && equipped.id !== "null"
                 ? [...equipment.stats].map((s, index) => {
                       return {
                           ...s,

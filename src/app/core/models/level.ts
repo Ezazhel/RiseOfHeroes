@@ -1,6 +1,6 @@
 import { BaseEntity, Hero, Fighter } from "./entity/entity";
-import { getHeroMaxHp } from "./entity/entity.utils";
-import { getPassiveBuff, AddBuffToStat } from "./spells/spells.utils";
+import { getHeroMaxHp, AddBuffToStat } from "./entity/entity.utils";
+import { getPassiveBuff } from "./spells/spells.utils";
 import { toNumber } from "@ngneat/transloco";
 import { NotifierService } from "@core/services/notifier.service";
 import { updateInsert } from "./utils";

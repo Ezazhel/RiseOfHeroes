@@ -82,20 +82,20 @@ export interface ITemplateBaseItem extends ITemplateId {
      * The sprite icon name to use to render the item, e.g. "shortSword.png", "bluePotion.png".
      * Note that the icon must exist in the game's sprites collection to be valid.
      */
-    readonly icon: string;
+    readonly icon?: string;
 
     /**
      * The value of the object. This is used for buying/selling.
      */
-    readonly value: number;
+    readonly value?: number;
     /**
      * Human readable item name, e.g. "Short Sword"
      */
-    readonly name: string;
+    readonly name?: string;
     /**
      * The level of the weapon.
      */
-    readonly level: number;
+    readonly level?: number;
     /**
      * This object is only used by the given types of entities {@see EntityType}
      */
@@ -108,9 +108,9 @@ export interface ITemplateBaseItem extends ITemplateId {
     /**
      * Any logical groups of items this object matches, e.g. "rare", "magic"
      */
-    readonly quality: ItemQuality;
+    readonly quality?: ItemQuality;
 
-    readonly subType: any;
+    readonly subType?: any;
 }
 
 export interface ITemplateBaseEquipment extends ITemplateBaseItem {
@@ -120,15 +120,15 @@ export interface ITemplateBaseEquipment extends ITemplateBaseItem {
 export interface ITemplateWeapon extends ITemplateBaseEquipment {
     readonly type: "weapon";
 
-    readonly subType: WeaponCategory;
-    weaponHandling: WeaponHandling;
+    readonly subType?: WeaponCategory;
+    weaponHandling?: WeaponHandling;
 
     /**
      * The attack value for this weapon.
      */
-    attack: number;
-    dps: number;
-    speed: number;
+    attack?: number;
+    dps?: number;
+    speed?: number;
 }
 export interface ITemplateArmor extends ITemplateBaseEquipment {
     /**
@@ -140,7 +140,7 @@ export interface ITemplateArmor extends ITemplateBaseEquipment {
     /**
      * The defensive rating of this piece of armor.
      */
-    readonly armor: number;
+    readonly armor?: number;
 }
 export interface Description {
     param?: any;

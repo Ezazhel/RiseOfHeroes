@@ -6,6 +6,45 @@ import {
     piggyCraft,
 } from "@core/models/game-data/game-data.data";
 import { healingPotion } from "@core/models/potions/potions.data";
+import { TrainingEquipment } from "@routes/house/store/house.model";
+
+export const trainerTrainings: Map<string, TrainingEquipment[]> = new Map<
+    string,
+    TrainingEquipment[]
+>([
+    [
+        "heapoo",
+        [
+            {
+                id: "strength2",
+                type: "strength",
+                cardHeader: "house.training.strength.cardHeader",
+                name: "house.training.strength.level2.name ",
+                description: "house.training.strength.level2.description",
+                bonus: 5,
+                baseBonus: 5,
+                speed: 8 * 1000,
+                reward: 1,
+                done: 0,
+                isActive: false,
+            },
+            {
+                id: "endurance2",
+                type: "endurance",
+                cardHeader: "house.training.endurance.cardHeader",
+                name: "house.training.endurance.level2.name",
+                description: "house.training.endurance.level2.description",
+                bonus: 5,
+                baseBonus: 5,
+                speed: 8 * 1000,
+                reward: 1,
+                done: 0,
+                isActive: false,
+            },
+        ],
+    ],
+]);
+
 //#region City
 export const cities: Map<string, City> = new Map<string, City>([
     [
@@ -14,7 +53,7 @@ export const cities: Map<string, City> = new Map<string, City>([
             id: "zulah",
             name: "city.zulah.name",
             description: "city.zulah.description",
-            levelRequirement: 0,
+            levelRequirement: 1,
             maxLevel: 5,
             shops: [
                 {
@@ -134,6 +173,19 @@ export const cities: Map<string, City> = new Map<string, City>([
                             maxLevel: 10,
                         },
                     ],
+                },
+                {
+                    type: "trainer",
+                    name: "city.city_building.trainer.name",
+                    trainings: [
+                        { id: "strength2", done: 0, isActive: false },
+                        { id: "endurance2", done: 0, isActive: false },
+                    ],
+                },
+                {
+                    type: "merchant",
+                    name: "city.city_building.merchant.name",
+                    actions: [],
                 },
             ],
         },

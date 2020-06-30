@@ -1,0 +1,50 @@
+<ng-container *transloco="let tsl">
+    <label *ngIf="building.trainings.length === 0; else description">
+        {{ tsl("city.city_building.trainer.completed") }}
+    </label>
+    <ng-template #description>
+        <label>
+            {{ tsl("city.city_building.trainer.description") }}
+        </label>
+    </ng-template>
+
+    <div class="tab-container" *ngIf="_hero$ | async as hero">
+        <ng-container *ngFor="let t of _trainings; trackBy: trackByFn">
+            <ng-container *ngIf="t.done !== undefined">
+                <app-card
+                    (click)="doTraining$.next({ training: t, done: t.done })"
+                >
+                    <ng-container cardHeader>
+                        <span>
+                            {{ tsl(t.cardHeader) }} ({{
+                                displayStat(hero, t.type)
+                            }})
+                        </span>
+                    </ng-container>
+                    <ng-container cardBody>
+                        <span>
+                            {{ tsl(t.description) }}
+                        </span>
+                    </ng-container>
+                    <ng-container cardFooter>
+                        <div class="information">
+                            <span>
+                                {{ tsl("house.reward") }} : + {{ t.reward }}
+                                {{ t.type }}
+                            </span>
+                            <span>
+                                {{ tsl("house.maxTraining") }}
+                                {{ t.done }}/{{ t.bonus }}
+                            </span>
+                            <span> {{ getTime(t) / 1000 }}s </span>
+                        </div>
+                        <app-progressbar
+                            time="{{ getTime(t) }}ms"
+                            [animate]="t.isActive ? 'filling' : 'initial'"
+                        ></app-progressbar>
+                    </ng-container>
+                </app-card>
+            </ng-container>
+        </ng-container>
+    </div>
+</ng-container>

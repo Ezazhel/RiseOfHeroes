@@ -42,13 +42,14 @@ export interface BaseEntity extends TemplateEntity, IHiddenAttributes {
 export interface Hero extends BaseEntity {
     readonly exp?: number;
     readonly subType?: EntitySubtype;
-    readonly weapon?: ITemplateWeapon;
-    readonly helmet?: ITemplateArmor;
-    readonly chest?: ITemplateArmor;
-    readonly gloves?: ITemplateArmor;
-    readonly pants?: ITemplateArmor;
-    readonly boots?: ITemplateArmor;
-    readonly accesory?: null;
+    readonly equipments?: (ITemplateWeapon | ITemplateArmor)[];
+    // readonly weapon?: ITemplateWeapon;
+    // readonly helmet?: ITemplateArmor;
+    // readonly chest?: ITemplateArmor;
+    // readonly gloves?: ITemplateArmor;
+    // readonly pants?: ITemplateArmor;
+    // readonly boots?: ITemplateArmor;
+    // readonly accesory?: null;
     readonly armor: number;
     readonly stats: Array<Stat>;
     readonly spells: Array<Spells | OvertimeSpells | HealSpells>;

@@ -24,4 +24,7 @@
     &.powerAttack {
         @include stitches-peasant(-63px, -63px, 48px, 48px);
     }
+    &.peasantProficiency {
+        @include stitches-peasant(-121px, -5px, 48px, 48px);
+    }
 }

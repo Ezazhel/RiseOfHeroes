@@ -6,7 +6,7 @@
         >
             <ng-container cardHeader>
                 <span>
-                    {{ tsl(t.cardHeader) }} ({{ displayStat(hero, t.id) }})
+                    {{ tsl(t.cardHeader) }} ({{ displayStat(hero, t.type) }})
                 </span>
             </ng-container>
             <ng-container cardBody>
@@ -18,7 +18,7 @@
                 <div class="information">
                     <span>
                         {{ tsl("house.reward") }} : + {{ t.reward }}
-                        {{ t.id }}
+                        {{ t.type }}
                     </span>
                     <span>
                         {{ tsl("house.maxTraining") }} {{ t.done }}/{{

@@ -23,6 +23,7 @@
                         [ngClass]="{ canCraft: canCraft(item.materials) }"
                         [item]="item.equipment"
                         [compare]="getStatDifference(item.equipment)"
+                        [comparaison]="true"
                         iconClass="{{ item.equipment.subType }} {{
                             item.equipment.icon
                         }}"

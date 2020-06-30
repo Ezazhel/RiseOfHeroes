@@ -1,21 +1,14 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import {
-    TrainingEquipment,
-    TrainingType,
-    IdlingHouse,
-    Work,
-} from "@routes/house/store/house.model";
+import { IdlingHouse, Work } from "@routes/house/store/house.model";
 import { Hero } from "@core/models/entity/entity";
-import { update } from "@core/models/utils";
-import { getMultiplier, getHeroMaxHp } from "@core/models/entity/entity.utils";
+import { getMultiplier } from "@core/models/entity/entity.utils";
 
 import { take, withLatestFrom } from "rxjs/operators";
-import { AddBuffToStat } from "@core/models/spells/spells.utils";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
 import { NotifierService } from "@core/services/notifier.service";
 import { GameStateCurrenciesAddCurrencyAction } from "@core/models/game-state/game-state.action";
-import { HouseTraining, HouseWorking } from "@routes/house/store/house.action";
+import { HouseWorking } from "@routes/house/store/house.action";
 import { Subscription, Subject, Observable } from "rxjs";
 import { heroSelector, currencySelector } from "@core/models/selector";
 import { works } from "@routes/house/store/house.selector";

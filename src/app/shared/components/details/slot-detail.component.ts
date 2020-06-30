@@ -52,15 +52,18 @@ export class SlotDetailComponent implements OnInit {
         if (this._item.type === undefined || this._item.type == "item")
             return undefined;
         let equipment = this._item as ITemplateWeapon | ITemplateArmor;
+        if (this._item.id === "null") return undefined;
         change.armor =
-            this._itemEquipped !== undefined && this._item.type == "armor"
+            this._itemEquipped !== undefined &&
+            this._itemEquipped.id !== "null" &&
+            this._item.type == "armor"
                 ? (equipment as ITemplateArmor).armor -
                   (this._itemEquipped as ITemplateArmor).armor
                 : this._item.type == "weapon"
                 ? 0
                 : (this._item as ITemplateArmor).armor;
         change.stats =
-            this._itemEquipped !== undefined
+            this._itemEquipped !== undefined && this._itemEquipped.id !== "null"
                 ? [...equipment.stats].map((s, index) => {
                       return {
                           ...s,

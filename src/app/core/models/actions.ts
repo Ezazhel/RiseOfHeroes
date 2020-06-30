@@ -6,7 +6,6 @@ export type ActionType = "hunt" | "promote" | "recruit";
 export function descriptionFor(action: BuildingAction) {
     switch (action.type) {
         case "hunt":
-            console.log("fi", fighters.get(action.targetId));
             return { fighters: fighters.get(action.targetId).name };
         case "promote":
             break;

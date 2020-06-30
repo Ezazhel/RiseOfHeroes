@@ -36,4 +36,11 @@
     &.huntingPost {
         @include icon(-5px, -79px, 64px, 64px);
     }
+    &.merchant {
+        @include icon(-79px, -79px, 64px, 64px);
+    }
+
+    &.trainer {
+        @include icon(-153px, -5px, 64px, 64px);
+    }
 }

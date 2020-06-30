@@ -20,6 +20,7 @@ import {
     getMultiplier,
     isCrit,
     lifeSteal,
+    findEquipment,
 } from "@core/models/entity/entity.utils";
 import { interval, Subscription, timer } from "rxjs";
 import {
@@ -83,9 +84,10 @@ export class CombatService {
     }
 
     private heroAttack(): Subscription {
+        const weapon = findEquipment(this.hero, "weapon");
         return interval(
-            this.hero.weapon
-                ? getMultiplier("swiftness", this.hero, this.hero.weapon.speed)
+            weapon !== undefined
+                ? getMultiplier("swiftness", this.hero, weapon.speed)
                 : getMultiplier("swiftness", this.hero, 1000)
         ).subscribe(() => {
             let crit: number = 1;

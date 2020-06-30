@@ -17,7 +17,12 @@ import { Rune } from "@core/models/runes/runes.model";
 })
 export class DetailComponent implements OnInit {
     @Input("item") set item(value: ITemplateBaseItem) {
-        if (value === undefined || value === null || value.type === undefined)
+        if (
+            value === undefined ||
+            value === null ||
+            value.type === undefined ||
+            value.id === "null"
+        )
             return;
         if (value.type === "item") {
             this.consumable = value as Potion;

@@ -10,6 +10,7 @@ import {
     GameStateEquipItemHeroAction,
     GameStateInventoryAddItemAction,
     GameStateUpdateHeroAction,
+    GameStateUnEquipItemHeroAction,
 } from "@core/models/game-state/game-state.action";
 import {
     ITemplateBaseItem,
@@ -22,6 +23,7 @@ import { heroSelector } from "@core/models/selector";
 import { first } from "rxjs/operators";
 import { Potion } from "@core/models/potions/potions.model";
 import { NotifierService } from "@core/services/notifier.service";
+import { findEquipment } from "@core/models/entity/entity.utils";
 @Component({
     selector: "app-inventory-slot-item",
     templateUrl: "./inventory-slot-item.component.html",
@@ -57,74 +59,21 @@ export class InventorySlotItemComponent implements OnInit {
             .pipe(first())
             .subscribe((hero) => {
                 if (hero.hp != hero.maxHp) return;
-                let heroItem: ITemplateArmor | ITemplateWeapon | Potion;
-                if (this.item.type == "armor") {
-                    switch (this.item.subType as ArmorCategory) {
-                        case "chest":
-                            heroItem = hero.chest;
-                            break;
-                        case "boots":
-                            heroItem = hero.boots;
-                            break;
-                        case "gloves":
-                            heroItem = hero.gloves;
-                            break;
-                        case "helmet":
-                            heroItem = hero.helmet;
-                            break;
-                        case "pants":
-                            heroItem = hero.pants;
-                            break;
-                    }
-                } else if (this.item.type == "weapon") {
-                    heroItem = hero.weapon as ITemplateWeapon;
-                } else if (this.item.type == "item") {
-                    heroItem = hero.potion as Potion;
-                }
-                if (heroItem !== undefined) {
+
+                const heroItem =
+                    this.item.type != "item"
+                        ? this.item.type === "armor"
+                            ? findEquipment(hero, "armor", this.item.subType)
+                            : findEquipment(hero, "weapon")
+                        : findEquipment(hero, "item");
+                if (heroItem !== undefined && heroItem.id !== "null") {
                     this.store.dispatch(
-                        new GameStateInventoryAddItemAction(heroItem)
+                        new GameStateUnEquipItemHeroAction(heroItem)
                     );
-                    if (heroItem.type == "armor" || heroItem.type == "weapon") {
-                        let baseStats = [...hero.baseStats];
-                        (heroItem as ITemplateBaseEquipment).stats.forEach(
-                            (stat: Stat) => {
-                                baseStats = update(
-                                    baseStats,
-                                    (s) => s.type == stat.type,
-                                    (s: Stat) => ({
-                                        ...s,
-                                        value: s.value - stat.value,
-                                    })
-                                );
-                            }
-                        );
-                        //Update Hero with removing stat
-                        if (heroItem.type == "armor") {
-                            this.store.dispatch(
-                                new GameStateUpdateHeroAction({
-                                    ...hero,
-                                    baseStats,
-                                    armor:
-                                        hero.armor -
-                                        (heroItem as ITemplateArmor).armor,
-                                })
-                            );
-                        } else if (heroItem.type == "weapon") {
-                            this.store.dispatch(
-                                new GameStateUpdateHeroAction({
-                                    ...hero,
-                                    baseStats,
-                                })
-                            );
-                        }
-                    }
                 }
+
                 this.store.dispatch(
                     new GameStateEquipItemHeroAction(this.item)
-                );
-                this.store.dispatch(
-                    new GameStateInventoryRemoveItemAction(this.item.id)
                 );
                 this.itemHover.emit(null);
             });

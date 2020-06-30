@@ -100,6 +100,10 @@
                 "level1": {
                     "name": "Push-Up !",
                     "description": "Do some push-up in order to build muscle"
+                },
+                "level2": {
+                    "name": "Lift weigth",
+                    "description": "It aint much, but it's something !"
                 }
             },
             "endurance": {
@@ -107,6 +111,10 @@
                 "level1": {
                     "name": "Cold shower",
                     "description": "Take cold shower, save penguins !"
+                },
+                "level2": {
+                    "name": "Run boy run",
+                    "description": "Just do it !"
                 }
             }
         },
@@ -157,7 +165,13 @@
                 "potentialLoot": "Potential Loot"
             },
             "Mayor": "Mayor",
-            "Tavern": "Tavern"
+            "Tavern": "Tavern",
+            "trainer": {
+                "name": "Trainer",
+                "description": "Hello there... If you manage to complete my trainings you will unlock them in your house. It's not good for business but whatever i'm a cool guy",
+                "completed": "It seems you have completed all my training ! Good Job Pal ! Have fun killing some living creatures."
+            },
+            "merchant": { "name": "Merchant" }
         },
         "tab": {
             "building": "Building",
@@ -238,6 +252,10 @@
             "peasantTorch": {
                 "name": "Peasant's Torch",
                 "description": "Peasant's Torch deal {{ param }} damage over {{ param2 }} seconds (only one active, doesn't stack)"
+            },
+            "peasantProficiency": {
+                "name": "Peasant's Profiency",
+                "description": "You doesn't know how but now you have {{ param }}% of critical hit chance"
             }
         }
     },

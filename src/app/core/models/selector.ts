@@ -2,8 +2,6 @@ import {
     ITemplateBaseItem,
     ItemFilter,
     Currency,
-    ItemCategories,
-    WeaponCategory,
     ArmorCategory,
 } from "./game-data/game-data.model";
 import { createSelector } from "@ngrx/store";
@@ -11,6 +9,7 @@ import { GameState } from "@core/models/game-state/game-state.reducer";
 import { createFeatureSelector } from "@ngrx/store";
 import { Hero } from "./entity/entity";
 import { CurrencyType } from "./game-data/game-data.data";
+import { findEquipment } from "./entity/entity.utils";
 
 export const gameStateSelector = createFeatureSelector<GameState>("gameState");
 
@@ -29,21 +28,9 @@ export const equippedSelector = (
     armorCategory?: ArmorCategory
 ) =>
     createSelector(heroSelector, (h: Hero) => {
-        if (isWeapon) return h?.weapon;
-        else {
-            switch (armorCategory) {
-                case "chest":
-                    return h?.chest;
-                case "boots":
-                    return h?.boots;
-                case "gloves":
-                    return h?.gloves;
-                case "helmet":
-                    return h?.helmet;
-                case "pants":
-                    return h?.pants;
-            }
-        }
+        return isWeapon
+            ? findEquipment(h, "weapon")
+            : findEquipment(h, "armor", armorCategory);
     });
 export const levelSelector = createSelector(
     gameStateSelector,

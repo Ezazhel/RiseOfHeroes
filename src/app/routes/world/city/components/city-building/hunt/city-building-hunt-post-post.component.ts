@@ -1,5 +1,4 @@
-import { CombatService } from "@core/services/combat.service";
-import { first, take } from "rxjs/operators";
+import { take } from "rxjs/operators";
 import { levelSelector } from "./../../../../../../core/models/selector";
 import { rewardXp } from "@core/models/level";
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";

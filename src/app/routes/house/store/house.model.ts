@@ -21,9 +21,10 @@ export interface IdlingHouse {
     done: number;
 }
 export interface TrainingEquipment extends IdlingHouse {
-    id: TrainingType;
+    id: string;
+    type: TrainingType;
     bonus: number; // Bonus stat trainable default is 5xlevel. calculate in house.component.
-    baseBonus: 0;
+    baseBonus: number;
     done: number;
 }
 

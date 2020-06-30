@@ -7,6 +7,8 @@ export const CITY_SHOP_BUY = "[city] buy shop item";
 export const CITY_SHOP_SELL = "[city] sell item to shop";
 export const CITY_UPGRADE_SHOP = "[city] upgrade shop";
 export const CITY_BUILDING_UPGRADE_FIGHTER = "[city] building upgrade fighter";
+export const CITY_BUILDING_TRAIN_HERO = "[city] building train hero";
+
 export const CITY_ADD_CITY = "[city] add City";
 
 export class CityShopRenewItem implements Action {
@@ -32,7 +34,10 @@ export class CityBuildingUpgradeFighter implements Action {
     readonly type = CITY_BUILDING_UPGRADE_FIGHTER;
     constructor(public payload: BuildingInteraction) {}
 }
-
+export class CityBuildingTrainHero implements Action {
+    readonly type = CITY_BUILDING_TRAIN_HERO;
+    constructor(public payload: BuildingInteraction) {}
+}
 export class CityAddCity implements Action {
     readonly type = CITY_ADD_CITY;
     constructor(public payload: City) {}
@@ -44,6 +49,7 @@ export type CityActionType =
     | CityShopSellItem
     | CityUpgradeShop
     | CityBuildingUpgradeFighter
+    | CityBuildingTrainHero
     | CityAddCity;
 
 export interface ShopInteraction {

@@ -1,8 +1,5 @@
-import { StatType, Stat } from "./../models/game-data/game-data.model";
-import { AppState } from "@core/models";
 import { MessageService } from "./message.service";
 import { Injectable } from "@angular/core";
-import { Store } from "@ngrx/store";
 import { EntitySubtype, Hero } from "@core/models/entity/entity";
 import * as _ from "lodash";
 import {
@@ -12,8 +9,7 @@ import {
     enduranceStat,
 } from "@core/models/game-data/game-data.data";
 import { PeasantSpells } from "@core/models/spells/spells.data";
-import { getHeroMaxHp } from "@core/models/entity/entity.utils";
-import { AddBuffToStat } from "@core/models/spells/spells.utils";
+import { getHeroMaxHp, AddBuffToStat } from "@core/models/entity/entity.utils";
 import { peasantTalent } from "@core/models/talent/talent.data";
 @Injectable({
     providedIn: "root",
@@ -30,6 +26,14 @@ export class GameService {
             level: 1,
             exp: 0,
             armor: 0,
+            equipments: [
+                { type: "weapon", id: "null", icon: "w" },
+                { type: "armor", subType: "helmet", id: "null", icon: "h" },
+                { type: "armor", subType: "chest", id: "null", icon: "c" },
+                { type: "armor", subType: "gloves", id: "null", icon: "g" },
+                { type: "armor", subType: "pants", id: "null", icon: "p" },
+                { type: "armor", subType: "boots", id: "null", icon: "b" },
+            ],
             baseStats: [
                 { ...strenghtStat, value: 5 },
                 { ...enduranceStat, value: 15 },

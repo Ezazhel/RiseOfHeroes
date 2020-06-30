@@ -2,69 +2,14 @@
     <div>
         <ul class="equipment-slots">
             <li
-                class="equipment w {{ hero?.weapon?.quality }}"
-                [tooltip]="hero.weapon"
+                *ngFor="let equipment of hero.equipments; trackBy: trackByFn"
+                class="equipment {{ equipment.quality }} {{ equipment.icon }}"
+                [tooltip]="equipment"
+                [ngClass]="{ equipment: equipment.id === 'null' }"
                 [tooltip-compare]="'false'"
             >
                 <span
-                    class="icon {{ hero?.weapon?.subType }} {{
-                        hero?.weapon?.icon
-                    }}"
-                ></span>
-            </li>
-            <li
-                class="equipment h {{ hero?.helmet?.quality }}"
-                [tooltip-compare]="'false'"
-                [tooltip]="hero.helmet"
-            >
-                <span
-                    class="icon {{ hero?.helmet?.subType }} {{
-                        hero?.helmet?.icon
-                    }}"
-                ></span>
-            </li>
-            <li
-                class="equipment c {{ hero?.chest?.quality }}"
-                [tooltip-compare]="'false'"
-                [tooltip]="hero.chest"
-            >
-                <span
-                    class="icon {{ hero?.chest?.subType }} {{
-                        hero?.chest?.icon
-                    }}"
-                ></span>
-            </li>
-            <li
-                class="equipment g {{ hero?.gloves?.quality }}"
-                [tooltip-compare]="'false'"
-                [tooltip]="hero.gloves"
-            >
-                <span
-                    class="icon {{ hero?.gloves?.subType }} {{
-                        hero?.gloves?.icon
-                    }}"
-                ></span>
-            </li>
-            <li
-                class="equipment p {{ hero?.pants?.quality }}"
-                [tooltip-compare]="'false'"
-                [tooltip]="hero.pants"
-            >
-                <span
-                    class="icon {{ hero?.pants?.subType }} {{
-                        hero?.pants?.icon
-                    }}"
-                ></span>
-            </li>
-            <li
-                class="equipment b {{ hero?.boots?.quality }}"
-                [tooltip-compare]="'false'"
-                [tooltip]="hero.boots"
-            >
-                <span
-                    class="icon {{ hero?.boots?.subType }} {{
-                        hero?.boots?.icon
-                    }}"
+                    class="{{ equipment.subType }} {{ equipment.icon }}"
                 ></span>
             </li>
             <li

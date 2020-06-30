@@ -9,7 +9,12 @@ import { UpgradeType } from "@core/models/upgrades";
 import { ActionType } from "@core/models/actions";
 
 export type ShopType = "blacksmith" | "alchemist" | "merchant";
-export type BuildingType = "huntingPost" | "mayor" | "tavern";
+export type BuildingType =
+    | "huntingPost"
+    | "mayor"
+    | "tavern"
+    | "trainer"
+    | "merchant";
 export interface City {
     id: string;
     name: string;
@@ -36,7 +41,8 @@ export interface Shop {
 export interface Building {
     type: BuildingType;
     name: string;
-    actions: BuildingAction[];
+    actions?: BuildingAction[];
+    trainings?: { id: string; done: number; isActive: boolean }[];
 }
 
 export interface ShopUpgrade {

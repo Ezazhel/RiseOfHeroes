@@ -100,6 +100,10 @@
                 "level1": {
                     "name": "Pompes !",
                     "description": "Fais quelques pompes pour gagner du muscle"
+                },
+                "level2": {
+                    "name": "Haltères",
+                    "description": "Après l'entraînement bois de l'eau pour te dés-haltéré !"
                 }
             },
             "endurance": {
@@ -107,6 +111,10 @@
                 "level1": {
                     "name": "Douche froide",
                     "description": "Prends une douche froide, sauve les pingouins !"
+                },
+                "level2": {
+                    "name": "Cours Forest Cours",
+                    "description": "Il ne te reste plus qu'à courir !"
                 }
             }
         },
@@ -238,6 +246,10 @@
             "peasantTorch": {
                 "name": "Torche du paysan",
                 "description": "Votre torche inflige {{ param }} dégâts sur {{ param2 }} secondes, (un seul actif, ne se stack pas)"
+            },
+            "peasantProficiency": {
+                "name": "Maîtrise du paysan",
+                "description": "Allez savoir comment mais maintenant vous avez {{ param }}% chance de crit !"
             }
         }
     },

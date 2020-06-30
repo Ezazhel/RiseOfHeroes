@@ -1,9 +1,17 @@
 <ng-container *transloco="let t">
     <ng-container *ngIf="building$ | async as building">
-        <huntingPost
-            *ngIf="building.type == 'huntingPost'"
-            [building]="building"
-            [city]="city"
-        ></huntingPost>
+        <ng-container [ngSwitch]="building.type">
+            <huntingPost
+                *ngSwitchCase="'huntingPost'"
+                [building]="building"
+                [city]="city"
+            ></huntingPost>
+            <gym
+                *ngSwitchCase="'trainer'"
+                [building]="building"
+                [city]="city"
+            ></gym>
+            <div *ngSwitchDefault></div>
+        </ng-container>
     </ng-container>
 </ng-container>

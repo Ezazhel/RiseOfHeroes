@@ -6,10 +6,13 @@ import {
 } from "@routes/house/store/house.model";
 import { Hero } from "@core/models/entity/entity";
 import { update } from "@core/models/utils";
-import { getMultiplier, getHeroMaxHp } from "@core/models/entity/entity.utils";
+import {
+    getMultiplier,
+    getHeroMaxHp,
+    AddBuffToStat,
+} from "@core/models/entity/entity.utils";
 
 import { take, withLatestFrom } from "rxjs/operators";
-import { AddBuffToStat } from "@core/models/spells/spells.utils";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
 import { NotifierService } from "@core/services/notifier.service";
@@ -51,7 +54,7 @@ export class TrainingComponent implements OnInit, OnDestroy {
                         window.setTimeout(
                             () =>
                                 this.store.dispatch(
-                                    new HouseTraining(event.id)
+                                    new HouseTraining(event.type)
                                 ),
                             10
                         );
@@ -60,13 +63,13 @@ export class TrainingComponent implements OnInit, OnDestroy {
                             hero = this.heroAfterTraining(
                                 hero,
                                 event,
-                                event.id
+                                event.type
                             );
                             this.store.dispatch(
                                 new GameStateUpdateHeroAction(hero)
                             );
                             this.store.dispatch(
-                                new HouseUpdateTrainingEquipmentDone(event.id)
+                                new HouseUpdateTrainingEquipmentDone(event.type)
                             );
                             this._notifier.notify(
                                 `${event.reward} ${event.id}`,
