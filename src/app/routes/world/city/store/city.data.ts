@@ -56,6 +56,22 @@ export const merchantConversion: Map<string, CurrencyConversion[]> = new Map<
                 from: { name: "gold", quantity: 1000 },
                 to: { name: "dummy-screw", quantity: 1 },
             },
+            {
+                from: { name: "gold", quantity: 500 },
+                to: { name: "dummy-wood", quantity: 1 },
+            },
+            {
+                from: { name: "gold", quantity: 600 },
+                to: { name: "dummy-row", quantity: 1 },
+            },
+            {
+                from: { name: "gold", quantity: 2000 },
+                to: { name: "piggy_leather", quantity: 2 },
+            },
+            {
+                from: { name: "gold", quantity: 2000 },
+                to: { name: "sheepy_fur", quantity: 2 },
+            },
         ],
     ],
     [
@@ -144,6 +160,11 @@ export const cities: Map<string, City> = new Map<string, City>([
                             maxLevel: 5,
                         },
                     ],
+                },
+                {
+                    type: "merchant",
+                    name: "city.city_building.merchant.name",
+                    actions: [],
                 },
             ],
         },

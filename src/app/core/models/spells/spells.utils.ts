@@ -162,11 +162,13 @@ const effects: Map<string, EffectMethod> = new Map([
                     ...d,
                     timeOut: timeOutDot,
                     interval: dot,
+                    isInCooldown: true,
                 }),
                 {
                     ...spells,
                     timeOut: timeOutDot,
                     interval: dot,
+                    isInCooldown: true,
                 }
             );
         },

@@ -24,6 +24,7 @@ import {
 import { Subscription, Subject, Observable } from "rxjs";
 import { heroSelector } from "@core/models/selector";
 import { trainingEquipement } from "@routes/house/store/house.selector";
+import { levelUpFromAction, getXPForAction } from "@core/models/level";
 
 @Component({
     selector: "training",
@@ -75,6 +76,22 @@ export class TrainingComponent implements OnInit, OnDestroy {
                                 `${event.reward} ${event.id}`,
                                 "",
                                 "reward"
+                            );
+                            this.store.dispatch(
+                                new GameStateUpdateHeroAction(
+                                    levelUpFromAction(
+                                        hero,
+                                        "train",
+                                        this._notifier,
+                                        this.store
+                                    )
+                                )
+                            );
+                            this._notifier.notify(
+                                `exp ${getXPForAction(hero.level, "train")}`,
+                                "",
+                                "reward",
+                                500
                             );
                             this.doTraining$.next({
                                 ...event,

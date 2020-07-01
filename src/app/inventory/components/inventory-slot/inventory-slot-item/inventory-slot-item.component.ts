@@ -1,27 +1,13 @@
-import { update } from "@core/models/utils";
 import {
-    Stat,
-    ITemplateBaseEquipment,
-    ITemplateArmor,
-    ITemplateWeapon,
-} from "./../../../../core/models/game-data/game-data.model";
-import {
-    GameStateInventoryRemoveItemAction,
     GameStateEquipItemHeroAction,
-    GameStateInventoryAddItemAction,
-    GameStateUpdateHeroAction,
     GameStateUnEquipItemHeroAction,
 } from "@core/models/game-state/game-state.action";
-import {
-    ITemplateBaseItem,
-    ArmorCategory,
-} from "@core/models/game-data/game-data.model";
+import { ITemplateBaseItem } from "@core/models/game-data/game-data.model";
 import { AppState } from "@core/models";
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { heroSelector } from "@core/models/selector";
 import { first } from "rxjs/operators";
-import { Potion } from "@core/models/potions/potions.model";
 import { NotifierService } from "@core/services/notifier.service";
 import { findEquipment } from "@core/models/entity/entity.utils";
 @Component({

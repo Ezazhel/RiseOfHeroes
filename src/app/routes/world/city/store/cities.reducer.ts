@@ -6,7 +6,7 @@ import { update } from "@core/models/utils";
 import { cities } from "./city.data";
 
 const initialState: CitiesState = {
-    cities: [cities.get("zulah"), cities.get("heapoo")],
+    cities: [cities.get("zulah")],
 };
 
 export interface CitiesState {

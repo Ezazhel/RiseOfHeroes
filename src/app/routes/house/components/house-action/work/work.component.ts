@@ -7,13 +7,17 @@ import { take, withLatestFrom } from "rxjs/operators";
 import { Store, select } from "@ngrx/store";
 import { AppState } from "@core/models";
 import { NotifierService } from "@core/services/notifier.service";
-import { GameStateCurrenciesAddCurrencyAction } from "@core/models/game-state/game-state.action";
+import {
+    GameStateCurrenciesAddCurrencyAction,
+    GameStateUpdateHeroAction,
+} from "@core/models/game-state/game-state.action";
 import { HouseWorking } from "@routes/house/store/house.action";
 import { Subscription, Subject, Observable } from "rxjs";
 import { heroSelector, currencySelector } from "@core/models/selector";
 import { works } from "@routes/house/store/house.selector";
 import { Currency } from "@core/models/game-data/game-data.model";
 import { CurrencyType } from "@core/models/game-data/game-data.data";
+import { levelUpFromAction, getXPForAction } from "@core/models/level";
 
 @Component({
     selector: "work",
@@ -63,6 +67,22 @@ export class WorkComponent implements OnInit, OnDestroy {
                         "reward",
                         reward.currency.quantity,
                         1000
+                    );
+                    this.store.dispatch(
+                        new GameStateUpdateHeroAction(
+                            levelUpFromAction(
+                                hero,
+                                "work",
+                                this._notifier,
+                                this.store
+                            )
+                        )
+                    );
+                    this._notifier.notify(
+                        `exp ${getXPForAction(hero.level, "work")}`,
+                        "",
+                        "reward",
+                        500
                     );
                     this.store.dispatch(new HouseWorking("none"));
                     this.doWorking$.next({

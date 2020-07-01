@@ -5,7 +5,9 @@
                 (click)="doConvert$.next(item)"
                 [ngClass]="{ cant: !canConvert(item) }"
             >
-                <ng-container cardHeader> {{ item.to.name }} </ng-container>
+                <ng-container cardHeader>
+                    {{ t("currencies." + item.to.name) }}
+                </ng-container>
                 <ng-container cardBody>
                     <div
                         fxLayout="row"

@@ -26,6 +26,22 @@
         "monsterKilled": "You killed {{monster}} !",
         "levelUp": "You gain a level !"
     },
+    "currencies": {
+        "gold": "Gold",
+        "goboss_tooth": "Goboss's Tooth",
+        "froggy_slime": "Froggy's Slime",
+        "gobelino_axe": "Gobelino's Axe",
+        "gobelino_candy": "Gobelino's candy",
+        "dummy-wood": "Dummy's wood",
+        "dummy-screw": "Dummy's screw",
+        "dummy-row": "Dummy's row",
+        "bones": "Bones",
+        "sheepy_fur": "Sheepy Fur",
+        "piggy_leather": "Piggy's leather",
+        "tooth": "Tooth",
+        "wood": "Wood",
+        "stone": "Stone"
+    },
     "hud": {
         "notCasting": "Not casting",
         "casting": "Casting {{spell}} !"
@@ -50,6 +66,7 @@
         "HARDRESET": "HARD RESET /!\\"
     },
     "hud-stats": {
+        "level": "Level",
         "exp": "Experience",
         "hp": "Health point",
         "mana": "Mana",

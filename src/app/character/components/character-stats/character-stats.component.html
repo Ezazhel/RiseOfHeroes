@@ -4,6 +4,16 @@
     </h3>
     <ul>
         <li>
+            <span class="stat-label">{{ t("hud-stats.level") }} :</span>
+            <span class="stat-value">{{ hero.level }}</span>
+        </li>
+        <li>
+            <span class="stat-label"> {{ t("hud-stats.exp") }} :</span>
+            <span class="stat-value">
+                {{ hero.exp }}/{{ expNextLevel(hero.level) }}</span
+            >
+        </li>
+        <li>
             <span class="stat-label">{{ t("hud-stats.hp") }} :</span>
             <span class="stat-value">{{ hero.maxHp }}</span>
         </li>
@@ -13,12 +23,6 @@
             <span class="stat-value"> {{ hero.maxRessource }}</span>
         </li>
 
-        <li>
-            <span class="stat-label"> {{ t("hud-stats.exp") }} :</span>
-            <span class="stat-value">
-                {{ hero.exp }}/{{ expNextLevel(hero.level) }}</span
-            >
-        </li>
         <li>
             <span class="stat-label"> {{ t("game.stats.armor") }} :</span>
             <span class="stat-value"> {{ hero.armor }}</span>

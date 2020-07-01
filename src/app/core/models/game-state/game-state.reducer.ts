@@ -69,6 +69,8 @@ export function gameRecuder(
                 hero: action.payload,
             };
         case GameStateAction.GAME_EQUIP_ITEM_HERO:
+            console.log(state.inventory);
+            console.log(action.payload.id);
             return {
                 ...state,
                 hero: Equip(state.hero, action.payload),

@@ -3,9 +3,11 @@
         <ul class="equipment-slots">
             <li
                 *ngFor="let equipment of hero.equipments; trackBy: trackByFn"
-                class="equipment {{ equipment.quality }} {{ equipment.icon }}"
+                class="{{ equipment.quality }}"
+                [attr.data-type]="
+                    equipment?.subType ? equipment.subType : equipment.type
+                "
                 [tooltip]="equipment"
-                [ngClass]="{ equipment: equipment.id === 'null' }"
                 [tooltip-compare]="'false'"
             >
                 <span

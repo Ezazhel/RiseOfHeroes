@@ -105,29 +105,6 @@ export class CityShopCraftComponent implements OnInit, OnDestroy {
                                 ...item.equipment,
                                 id: entityId(item.equipment.name),
                             };
-                            this.level$.pipe(take(1)).subscribe((l: number) => {
-                                equipment = {
-                                    ...equipment,
-                                    stats: equipment.stats.map((s) => ({
-                                        ...s,
-                                        value: modifyStat(
-                                            "legendary",
-                                            s.value,
-                                            l
-                                        ),
-                                    })),
-                                };
-                                if (equipment.type == "armor") {
-                                    (equipment as ITemplateArmor) = {
-                                        ...(equipment as ITemplateArmor),
-                                        armor: modifyStat(
-                                            "legendary",
-                                            (equipment as ITemplateArmor).armor,
-                                            l
-                                        ),
-                                    };
-                                }
-                            });
 
                             this.store.dispatch(
                                 new GameStateInventoryAddItemAction({

@@ -26,6 +26,22 @@
         "monsterKilled": "Voius avez tué {{monster}} !",
         "levelUp": "Vous avez gagné un niveau !"
     },
+    "currencies": {
+        "gold": "Or",
+        "goboss_tooth": "Dent de Goboss",
+        "froggy_slime": "Bave de Froggy",
+        "gobelino_axe": "Hache de Gobelino",
+        "gobelino_candy": "Bonbon de Gobelino",
+        "dummy-wood": "Bois du Dummy",
+        "dummy-screw": "Vis du Dummy",
+        "dummy-row": "Corde du Dummy",
+        "bones": "Os",
+        "sheepy_fur": "Fourrure de Sheepy",
+        "piggy_leather": "Cuir de Piggy",
+        "tooth": "Dents",
+        "wood": "Bois",
+        "stone": "Pierre"
+    },
     "hud": {
         "notCasting": "Pas d'incantation",
         "casting": "Lance : {{spell}} !"
@@ -50,6 +66,7 @@
         "HARDRESET": "REMISE A ZERO"
     },
     "hud-stats": {
+        "level": "Niveau",
         "exp": "Experience",
         "hp": "Santé",
         "mana": "Mana",

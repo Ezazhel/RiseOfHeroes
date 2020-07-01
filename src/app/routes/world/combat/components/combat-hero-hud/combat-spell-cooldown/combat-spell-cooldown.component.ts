@@ -41,7 +41,7 @@ export class CombatSpellCooldownComponent
         return this._potion;
     }
     private _potion: Potion;
-    @Input() isNotDebuff = true;
+    @Input() monsterDebuff: boolean = false;
     @Input() hero: Hero;
     @Output("rdy") spellReady = new EventEmitter<boolean>();
     @ViewChild("cooldown", { static: false }) canvas: ElementRef<
@@ -61,7 +61,8 @@ export class CombatSpellCooldownComponent
                 this.canvas.nativeElement,
                 item,
                 this.action.nativeElement,
-                this.isNotDebuff,
+                (item.type === "buff" || item.type === "debuff") &&
+                    this.monsterDebuff,
                 this.hero
             );
             this.ngZone.runOutsideAngular(() => this._cooldown.gaugeCooldown());
@@ -92,10 +93,10 @@ export class Cooldown {
         private canvas: HTMLCanvasElement,
         private spell: Spells | OvertimeSpells | HealSpells | Potion,
         private element: HTMLElement,
-        private isNotDebuff = true,
+        private isMonsterBuff,
         private hero: Hero
     ) {
-        this.cd = this.isNotDebuff
+        this.cd = !this.isMonsterBuff
             ? getMultiplier("swiftness", this.hero, this.spell.cooldown * 1000)
             : getMultiplier(
                   "swiftness",

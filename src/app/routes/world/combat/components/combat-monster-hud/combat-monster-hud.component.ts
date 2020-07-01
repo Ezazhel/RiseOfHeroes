@@ -20,7 +20,7 @@ export class CombatMonsterHudComponent implements OnInit {
     }
 
     trackByFn(index: number, el: OvertimeSpells) {
-        return index;
+        return el;
     }
     rewardExp() {
         return rewardXp(this.heroLevel, this.heroLevel - this.fighter.level);

@@ -42,6 +42,7 @@ export function localStorageSyncReducer(
                     decrypt: (state) => atob(state),
                 },
             },
+            { router: {} },
         ],
         rehydrate: true,
     })(reducer);

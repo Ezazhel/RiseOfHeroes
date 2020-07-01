@@ -28,6 +28,17 @@ li {
     background-color: rgba(255, 255, 255, 0.1);
     box-sizing: border-box;
     color: $carreraWhite;
+    &:after {
+        font: 700 0.5em "Roboto Condensed", sans-serif;
+        left: 18px;
+        content: attr(data-type);
+        position: absolute;
+        color: white;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+            1px 1px 0 #000;
+        top: 36px;
+        z-index: 3;
+    }
     @mixin shadow($color) {
         box-shadow: 0px 0px 0.15rem 0.2rem $color;
     }
@@ -47,45 +58,6 @@ li {
     &.legendary {
         @include shadow($orange);
     }
-}
-$gloves: -39px -5px;
-$head: -39px -39px;
-$torso: -5px -5px;
-$pants: -5px -39px;
-$boots: -73px -5px;
-.equipment::before {
-    background-image: url(~/assets/characterEquipment.png);
-    background-repeat: no-repeat;
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 24px;
-    height: 24px;
-    content: "";
-}
-.w::before {
-    background-image: none !important;
-}
-.h::before {
-    background-position: $head;
-}
-.c::before {
-    background-position: $torso;
-}
-.g::before {
-    background-position: $gloves;
-}
-.p::before {
-    background-position: $pants;
-}
-.b::before {
-    background-position: $boots;
-}
-
-.equipment:hover {
-    box-shadow: 0px 0px 1px 1px rgba(255, 255, 255, 0.8);
 }
 
 .icon {

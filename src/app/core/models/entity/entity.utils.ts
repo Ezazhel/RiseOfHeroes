@@ -326,7 +326,7 @@ export function AddBuffToStat(stat: number, buff: BuffType, hero: Hero) {
     stat = b != undefined ? (stat + b.add) * (1 + b.mult) : stat; //buff first
     if (r != undefined) stat = getEffect(r, stat); //rune second
 
-    return stat;
+    return getNumberFixed(stat);
 }
 
 export function heroAfterTraining(

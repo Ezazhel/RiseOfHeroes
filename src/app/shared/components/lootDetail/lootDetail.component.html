@@ -9,7 +9,7 @@
             fxLayoutAlign="flex-start center"
         >
             <ng-container *ngIf="loot.item === 'currency'">
-                {{ loot.currency.name }}
+                {{ t("currencies." + loot.currency.name) }}
             </ng-container>
             <ng-container
                 *ngIf="loot.item === 'weapon' || loot.item === 'armor'"

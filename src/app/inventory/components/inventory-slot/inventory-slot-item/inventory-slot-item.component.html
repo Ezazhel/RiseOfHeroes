@@ -1,10 +1,10 @@
 <!-- Need to refactor that one -->
 <div
     class="slot-item {{ item.quality }}"
-    (click)="equipItem()"
     [ngClass]="{ disabled: (hero$ | async).hp != (hero$ | async).maxHp }"
 >
-    <span class="{{ item.subType }} {{ item.icon }}"> </span>
+    <span class="{{ item.subType }} {{ item.icon }}" (click)="equipItem()">
+    </span>
     <button
         (click)="sellOrThrow()"
         class="throw"
