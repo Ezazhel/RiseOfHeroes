@@ -1,12 +1,17 @@
 {
     "notification": {
         "text": "{{param}}",
+        "damage": "Vous avez infligé {{param}}",
+        "damageCrit": "Vous avez infligé {{param}}, coup critique !",
         "unlock": "Vous avez débloqué : {{param}}",
         "levelUp": "Vous êtes monté d'un niveau, bravo ! ",
         "selled": "Vous avez vendu {{param}} pour {{value}}g",
         "bougth": "Vous avez acheté {{param}}",
         "reward": "Vous avez gagné {{param}}",
         "need": "Vous avez besoin de {{param}}",
+        "noReward": "Le monstre n'a rien donné",
+        "cantCraft": "Vous ne pouvez pas fabriquer {{param}} vous n'avez pas les composants",
+        "inventoryFull": "Vous n'avez pas reçu {{param}} : votre inventaire est plein",
         "heal": "Vous vous êtes soigné pour {{param}} pv"
     },
     "messageButton": {
@@ -20,6 +25,22 @@
         "expEarn": "Vous avez reçu {{exp}} point d'exp",
         "monsterKilled": "Voius avez tué {{monster}} !",
         "levelUp": "Vous avez gagné un niveau !"
+    },
+    "currencies": {
+        "gold": "Or",
+        "goboss_tooth": "Dent de Goboss",
+        "froggy_slime": "Bave de Froggy",
+        "gobelino_axe": "Hache de Gobelino",
+        "gobelino_candy": "Bonbon de Gobelino",
+        "dummy-wood": "Bois du Dummy",
+        "dummy-screw": "Vis du Dummy",
+        "dummy-row": "Corde du Dummy",
+        "bones": "Os",
+        "sheepy_fur": "Fourrure de Sheepy",
+        "piggy_leather": "Cuir de Piggy",
+        "tooth": "Dents",
+        "wood": "Bois",
+        "stone": "Pierre"
     },
     "hud": {
         "notCasting": "Pas d'incantation",
@@ -45,6 +66,7 @@
         "HARDRESET": "REMISE A ZERO"
     },
     "hud-stats": {
+        "level": "Niveau",
         "exp": "Experience",
         "hp": "Santé",
         "mana": "Mana",
@@ -69,6 +91,7 @@
         "InitWelcomeAfterReset": "J'espère que cette fois vous serez prêt...!",
         "alertHARDRESET": "Certains de repartir de zéro ?",
         "stats": {
+            "ifEquipped": "Si équipé ",
             "armor": "Armure",
             "strength": "Force",
             "endurance": "Endurance",
@@ -86,7 +109,7 @@
     },
     "house": {
         "yourHouse": "Ma maison",
-        "houseInformation": "N'hésitez pas à vous entrainer, aller travailler",
+        "houseInformation": "N'hésitez pas à vous entrainer, aller travailler (vous ne pourrez pas faire les deux !)",
         "training": {
             "buttonText": "Entraînement",
             "strength": {
@@ -94,6 +117,10 @@
                 "level1": {
                     "name": "Pompes !",
                     "description": "Fais quelques pompes pour gagner du muscle"
+                },
+                "level2": {
+                    "name": "Haltères",
+                    "description": "Après l'entraînement bois de l'eau pour te dés-haltéré !"
                 }
             },
             "endurance": {
@@ -101,16 +128,38 @@
                 "level1": {
                     "name": "Douche froide",
                     "description": "Prends une douche froide, sauve les pingouins !"
+                },
+                "level2": {
+                    "name": "Cours Forest Cours",
+                    "description": "Il ne te reste plus qu'à courir !"
                 }
             }
         },
         "work": {
             "buttonText": "Travail",
-            "currentGold": "or possédé",
-
-            "level1": {
+            "current": "possédé",
+            "peasant": {
                 "name": "Paysan",
                 "description": "Tu es un simple paysan !"
+            },
+            "lumberjack": {
+                "name": "Jacky",
+                "description": "Encore un métier à bûcher."
+            },
+            "miner": {
+                "name": "Miner",
+                "description": "Diggy, diggy hole, digging a hole"
+            }
+        },
+        "construction": {
+            "buttonText": "Construction",
+            "sawmill": {
+                "name": "Scierie",
+                "description": "Vous pouvez maintenant couper du bois pour récupérer... du bois !"
+            },
+            "mine": {
+                "name": "Mine",
+                "description": "Vous pouvez maintenant miner des cailloux pour récupérer... des cailloux !"
             }
         },
         "reward": "Récompense",
@@ -129,7 +178,8 @@
                     "description": "Chasser : {{fighters}}",
                     "upgrade": "Buff {{fighter}}",
                     "decrease": "Nerf {{fighter}}"
-                }
+                },
+                "potentialLoot": "Loot potentiel"
             },
             "Mayor": "Maire",
             "Tavern": "Taverne"
@@ -155,6 +205,10 @@
         "zulah": {
             "name": "Zul'ah",
             "description": "Zul'ah était autrefois une magnifique cité. Aujourd'hui c'est bourg sans roi, où vit le bas peuple."
+        },
+        "heapoo": {
+            "name": "Heapoo",
+            "description": "Ca pue, ça pique, mais surtout ça pue (oups, je me repête) ! Bienvenue à Heapoo, la cité marécage."
         }
     },
     "upgrades": {
@@ -200,7 +254,7 @@
             },
             "peasantHearth": {
                 "name": "Coeur du paysan",
-                "description": "Votre travail à la ferme vous donne un bonus d'endurance de {{ param }}%"
+                "description": "Votre travail à la ferme vous donne un bonus d'endurance de +{{param}} et {{ param2 }}%"
             },
             "peasantLabor": {
                 "name": "Travail du paysan",
@@ -209,6 +263,10 @@
             "peasantTorch": {
                 "name": "Torche du paysan",
                 "description": "Votre torche inflige {{ param }} dégâts sur {{ param2 }} secondes, (un seul actif, ne se stack pas)"
+            },
+            "peasantProficiency": {
+                "name": "Maîtrise du paysan",
+                "description": "Allez savoir comment mais maintenant vous avez {{ param }}% chance de crit !"
             }
         }
     },
@@ -240,7 +298,7 @@
             },
             "worker": {
                 "name": "Fou de travail",
-                "description": "Vous travaillez deux fois mieux"
+                "description": "Vous travaillez deux fois mieux, vous gagnez deux fois plus de ressources"
             },
             "fighter": {
                 "name": "Tyler",
@@ -276,6 +334,18 @@
         "precision": {
             "name": "Precision",
             "description": "Vous donne {{param}}% chance de critique"
+        },
+        "ferocity": {
+            "name": "Férocité",
+            "description": "+{{param}}% dégâts critiques"
+        },
+        "endurance": {
+            "name": "Endurance",
+            "description": "+{{param}}% endurance"
+        },
+        "lifesteal": {
+            "name": "Vampirism",
+            "description": "{{param}}% des dégâts convertis en pv"
         }
     },
     "potions": {
@@ -297,5 +367,32 @@
         "boots": "Bootes",
         "pants": "Pantalon",
         "gloves": "Gants"
+    },
+    "set": {
+        "dummy": {
+            "chest": "ChesterSon",
+            "helmet": "HeilMate",
+            "pants": "Woody Pant",
+            "gloves": "Holdon",
+            "boots": "Ryuna"
+        },
+        "sheepy": {
+            "chest": "FurChest",
+            "helmet": "Beeh",
+            "pants": "Hot Pants",
+            "gloves": "Finest Finger",
+            "boots": "Bhoofts",
+            "dagger": "Sheepy cutter",
+            "axe": "Woody Wood Cutter"
+        },
+        "piggy": {
+            "chest": "Bac-on-hest",
+            "helmet": "Piggymet",
+            "pants": "Wolf bait",
+            "gloves": "Constructor mitains",
+            "boots": "Running Gag",
+            "hammer": "Wrecking ball",
+            "sword": "The edge"
+        }
     }
 }

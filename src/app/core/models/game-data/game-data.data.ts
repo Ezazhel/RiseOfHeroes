@@ -340,9 +340,9 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
             icon: "piggy",
             attack: 55,
             attackSpeed: 1.5 * 1000,
-            hp: 8, //800
+            hp: 800,
             level: 1,
-            maxHp: 8, //800
+            maxHp: 800,
             defense: 75,
             lootbag: [
                 { item: "weapon", itemQuality: "rare", weigth: 20 },

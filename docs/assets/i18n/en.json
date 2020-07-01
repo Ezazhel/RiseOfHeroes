@@ -1,11 +1,16 @@
 {
     "notification": {
         "text": "{{param}}",
+        "damage": "You dealt {{param}}",
+        "damageCrit": "You dealt {{param}}, critical hit !",
         "unlock": "You just unlocked : {{param}}",
         "levelUp": "You leveled up, Gg ! ",
         "selled": "You selled {{param}} for {{value}}",
         "bougth": "You bougth {{param}}",
         "reward": "You earn {{param}}",
+        "noReward": "Monster drop nothing",
+        "cantCraft": "You can't craft {{param}} you don't have the ressources",
+        "inventoryFull": "Couldn't get {{param}} : your inventory is full",
         "need": "You need {{param}}",
         "heal": "You heal yourself for {{param}} hp"
     },
@@ -20,6 +25,22 @@
         "expEarn": "You earn {{exp}} experience points",
         "monsterKilled": "You killed {{monster}} !",
         "levelUp": "You gain a level !"
+    },
+    "currencies": {
+        "gold": "Gold",
+        "goboss_tooth": "Goboss's Tooth",
+        "froggy_slime": "Froggy's Slime",
+        "gobelino_axe": "Gobelino's Axe",
+        "gobelino_candy": "Gobelino's candy",
+        "dummy-wood": "Dummy's wood",
+        "dummy-screw": "Dummy's screw",
+        "dummy-row": "Dummy's row",
+        "bones": "Bones",
+        "sheepy_fur": "Sheepy Fur",
+        "piggy_leather": "Piggy's leather",
+        "tooth": "Tooth",
+        "wood": "Wood",
+        "stone": "Stone"
     },
     "hud": {
         "notCasting": "Not casting",
@@ -45,6 +66,7 @@
         "HARDRESET": "HARD RESET /!\\"
     },
     "hud-stats": {
+        "level": "Level",
         "exp": "Experience",
         "hp": "Health point",
         "mana": "Mana",
@@ -69,6 +91,7 @@
         "InitWelcomeAfterReset": "I hope you are ready this time...!",
         "alertHARDRESET": "Are you sure you want to hard reset your game ?",
         "stats": {
+            "ifEquipped": "If equipped ",
             "armor": "Armor",
             "strength": "Strength",
             "endurance": "Endurance",
@@ -86,7 +109,7 @@
     },
     "house": {
         "yourHouse": "This is your house",
-        "houseInformation": "Feel free to train, go to work.",
+        "houseInformation": "Feel free to train, go to work. (Be careful as you can't do both)",
         "training": {
             "buttonText": "Training",
             "strength": {
@@ -94,6 +117,10 @@
                 "level1": {
                     "name": "Push-Up !",
                     "description": "Do some push-up in order to build muscle"
+                },
+                "level2": {
+                    "name": "Lift weigth",
+                    "description": "It aint much, but it's something !"
                 }
             },
             "endurance": {
@@ -101,15 +128,38 @@
                 "level1": {
                     "name": "Cold shower",
                     "description": "Take cold shower, save penguins !"
+                },
+                "level2": {
+                    "name": "Run boy run",
+                    "description": "Just do it !"
                 }
             }
         },
         "work": {
             "buttonText": "Work",
-            "currentGold": "own gold",
+            "current": "own",
             "peasant": {
                 "name": "Peasant",
                 "description": "You are working as a peasant !"
+            },
+            "lumberjack": {
+                "name": "Jacky",
+                "description": "Its seems that killing some trees give you pleasure"
+            },
+            "miner": {
+                "name": "Miner",
+                "description": "Diggy, diggy hole, digging a hole"
+            }
+        },
+        "construction": {
+            "buttonText": "Construction",
+            "sawmill": {
+                "name": "Sawmill",
+                "description": "Give you the ability to cut wood to get... well wood."
+            },
+            "mine": {
+                "name": "Mine",
+                "description": "Give you the ability to mine ore to get... well ore."
             }
         },
         "reward": "reward",
@@ -128,10 +178,17 @@
                     "description": "Hunt : {{fighters}}",
                     "upgrade": "Buff {{fighter}}",
                     "decrease": "Nerf {{fighter}}"
-                }
+                },
+                "potentialLoot": "Potential Loot"
             },
             "Mayor": "Mayor",
-            "Tavern": "Tavern"
+            "Tavern": "Tavern",
+            "trainer": {
+                "name": "Trainer",
+                "description": "Hello there... If you manage to complete my trainings you will unlock them in your house. It's not good for business but whatever i'm a cool guy",
+                "completed": "It seems you have completed all my training ! Good Job Pal ! Have fun killing some living creatures."
+            },
+            "merchant": { "name": "Merchant" }
         },
         "tab": {
             "building": "Building",
@@ -154,6 +211,10 @@
         "zulah": {
             "name": "Zul'ah",
             "description": "Zul'ah was once a beautiful city. Nowaday it's only a place without a king, where peasant live."
+        },
+        "heapoo": {
+            "name": "Heapoo",
+            "description": "It stings, it stinks, more importantly it smells (damn already say it !). Welcome to heapoo the swamp city."
         }
     },
     "upgrades": {
@@ -199,7 +260,7 @@
             },
             "peasantHearth": {
                 "name": "Peasant's Hearth",
-                "description": "Peasant's Hearth give {{ param }}% endurance bonus"
+                "description": "Peasant's Hearth give +{{param}} and +{{ param2 }}% endurance bonus"
             },
             "peasantLabor": {
                 "name": "Peasant's Labor",
@@ -208,6 +269,10 @@
             "peasantTorch": {
                 "name": "Peasant's Torch",
                 "description": "Peasant's Torch deal {{ param }} damage over {{ param2 }} seconds (only one active, doesn't stack)"
+            },
+            "peasantProficiency": {
+                "name": "Peasant's Profiency",
+                "description": "You doesn't know how but now you have {{ param }}% of critical hit chance"
             }
         }
     },
@@ -239,7 +304,7 @@
             },
             "worker": {
                 "name": "Worker",
-                "description": "You are twice as effective"
+                "description": "You are twice as effective, you earn twice more ressources"
             },
             "fighter": {
                 "name": "Fighter",
@@ -275,6 +340,18 @@
         "precision": {
             "name": "Precision",
             "description": "+{{param}}% critical hit chance"
+        },
+        "ferocity": {
+            "name": "Ferocity",
+            "description": "+{{param}}% critical damage"
+        },
+        "endurance": {
+            "name": "Endurance",
+            "description": "+{{param}}% endurance"
+        },
+        "lifesteal": {
+            "name": "Vampirism",
+            "description": "{{param}}% heal from damage"
         }
     },
     "potions": {
@@ -296,5 +373,32 @@
         "boots": "Boots",
         "pants": "Pants",
         "gloves": "Gloves"
+    },
+    "set": {
+        "dummy": {
+            "chest": "ChesterSon",
+            "helmet": "HeilMate",
+            "pants": "Woody Pant",
+            "gloves": "Holdon",
+            "boots": "Ryuna"
+        },
+        "sheepy": {
+            "chest": "FurChest",
+            "helmet": "Beeh",
+            "pants": "Hot Pants",
+            "gloves": "Finest Finger",
+            "boots": "Bhoofts",
+            "dagger": "Sheepy cutter",
+            "axe": "Woody Wood Cutter"
+        },
+        "piggy": {
+            "chest": "Bac-on-hest",
+            "helmet": "Piggymet",
+            "pants": "Wolf bait",
+            "gloves": "Constructor mitains",
+            "boots": "Running Gag",
+            "hammer": "Wrecking ball",
+            "sword": "The edge"
+        }
     }
 }
