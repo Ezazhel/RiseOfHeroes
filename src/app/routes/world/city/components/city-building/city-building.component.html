@@ -11,6 +11,11 @@
                 [building]="building"
                 [city]="city"
             ></gym>
+            <merchant
+                *ngSwitchCase="'merchant'"
+                [building]="building"
+                [city]="city"
+            ></merchant>
             <div *ngSwitchDefault></div>
         </ng-container>
     </ng-container>

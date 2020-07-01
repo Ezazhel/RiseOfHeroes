@@ -16,15 +16,11 @@ import {
 import { TranslocoService } from "@ngneat/transloco";
 import { ShopService } from "@core/services/shop.service";
 import { Subscription, timer, Observable, Subject } from "rxjs";
-import { Store, select } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import { AppState } from "@core/models";
 import {
-    currenciesSelector,
-    goldSelector,
     equippedSelector,
     currencySelector,
-    inventorySelector,
-    sliceGameStateMaxSlots,
     availableSlot,
 } from "@core/models/selector";
 import { take, first, withLatestFrom } from "rxjs/operators";

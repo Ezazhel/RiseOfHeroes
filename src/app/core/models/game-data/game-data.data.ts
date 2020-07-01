@@ -264,7 +264,7 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
         {
             eid: "dummy",
             name: "Dummy Moore",
-            icon: "dummy_01",
+            icon: "dummy",
             attack: 10,
             attackSpeed: 1.1 * 1000,
             hp: 300, // base 300
@@ -298,7 +298,7 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
         {
             eid: "sheepy",
             name: "Sheepy",
-            icon: "sheep_01",
+            icon: "sheepy",
             attack: 25,
             attackSpeed: 1.4 * 1000,
             hp: 750,
@@ -337,7 +337,7 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
         {
             eid: "piggy",
             name: "Piggy",
-            icon: "pig_01",
+            icon: "piggy",
             attack: 55,
             attackSpeed: 1.5 * 1000,
             hp: 8, //800

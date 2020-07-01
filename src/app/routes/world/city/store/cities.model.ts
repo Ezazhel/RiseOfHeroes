@@ -78,3 +78,8 @@ export interface CraftSet {
     equipment: ITemplateWeapon | ITemplateArmor;
     materials: Currency[];
 }
+
+export interface CurrencyConversion {
+    from: Currency;
+    to: Currency;
+}

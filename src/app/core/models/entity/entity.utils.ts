@@ -26,7 +26,7 @@ export function getHeroDamage(hero: Hero) {
         (e) => e.type == "weapon"
     ) as ITemplateWeapon;
     damage =
-        weapon == null
+        weapon.id == "null"
             ? 3 * hero.level + getHeroOffensivePower(hero) / 8
             : weapon.dps +
               (getHeroOffensivePower(hero) / 8) * (weapon.speed / 1000);
@@ -39,7 +39,7 @@ export function getHeroDps(hero: Hero): number {
         (e) => e.type == "weapon"
     ) as ITemplateWeapon;
     let dps =
-        weapon == null
+        weapon.id == "null"
             ? 3 * hero.level + getHeroOffensivePower(hero) / 8
             : weapon.dps + getHeroOffensivePower(hero) / 8;
     return getNumberFixed(dps);

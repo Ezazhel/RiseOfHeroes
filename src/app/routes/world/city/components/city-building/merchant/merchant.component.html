@@ -1,0 +1,49 @@
+<ng-container *transloco="let t">
+    <div fxLayout="row wrap" fxLayoutAlign="center">
+        <ng-container *ngFor="let item of goods; trackBy: trackByFn">
+            <app-card
+                (click)="doConvert$.next(item)"
+                [ngClass]="{ cant: !canConvert(item) }"
+            >
+                <ng-container cardHeader> {{ item.to.name }} </ng-container>
+                <ng-container cardBody>
+                    <div
+                        fxLayout="row"
+                        fxLayoutAlign="center center"
+                        fxFlex="grow"
+                    >
+                        <i
+                            class="currency {{ item.from.name }}"
+                            [attr.data-qty]="item.from.quantity"
+                        ></i>
+                        <span> > </span>
+                        <i
+                            class="currency {{ item.to.name }}"
+                            [attr.data-qty]="item.to.quantity"
+                        ></i>
+                    </div>
+                </ng-container>
+                <ng-container cardFooter>
+                    <div class="information">
+                        <span>
+                            {{ t("house.work.current") }}
+                        </span>
+                        <i
+                            class="currency {{ item.from.name }}"
+                            [attr.data-qty]="
+                                (getCurrency(item.from.name) | async)?.quantity
+                            "
+                        ></i>
+                        <i
+                            class="currency {{ item.to.name }}"
+                            [attr.data-qty]="
+                                (getCurrency(item.to.name) | async)?.quantity ||
+                                0
+                            "
+                        ></i>
+                    </div>
+                </ng-container>
+            </app-card>
+        </ng-container>
+    </div>
+</ng-container>

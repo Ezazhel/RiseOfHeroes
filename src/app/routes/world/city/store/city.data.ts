@@ -1,4 +1,4 @@
-import { City, baseHuntingAction } from "./cities.model";
+import { City, baseHuntingAction, CurrencyConversion } from "./cities.model";
 import { createUpgrade } from "@core/models/upgrades";
 import {
     dummyCraft,
@@ -19,7 +19,7 @@ export const trainerTrainings: Map<string, TrainingEquipment[]> = new Map<
                 id: "strength2",
                 type: "strength",
                 cardHeader: "house.training.strength.cardHeader",
-                name: "house.training.strength.level2.name ",
+                name: "house.training.strength.level2.name",
                 description: "house.training.strength.level2.description",
                 bonus: 5,
                 baseBonus: 5,
@@ -40,6 +40,38 @@ export const trainerTrainings: Map<string, TrainingEquipment[]> = new Map<
                 reward: 1,
                 done: 0,
                 isActive: false,
+            },
+        ],
+    ],
+]);
+
+export const merchantConversion: Map<string, CurrencyConversion[]> = new Map<
+    string,
+    CurrencyConversion[]
+>([
+    [
+        "zulah",
+        [
+            {
+                from: { name: "gold", quantity: 1000 },
+                to: { name: "dummy-screw", quantity: 1 },
+            },
+        ],
+    ],
+    [
+        "heapoo",
+        [
+            {
+                from: { name: "gold", quantity: 1000 },
+                to: { name: "froggy_slime", quantity: 1 },
+            },
+            {
+                from: { name: "gold", quantity: 1500 },
+                to: { name: "gobelino_axe", quantity: 1 },
+            },
+            {
+                from: { name: "gold", quantity: 2000 },
+                to: { name: "gobelino_candy", quantity: 1 },
             },
         ],
     ],

@@ -1,0 +1,14 @@
+@import "variables.scss";
+@import "sprite-currencies.scss";
+.information {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: x-small;
+    align-items: flex-end;
+}
+.cant {
+    box-shadow: 0px 0px 10px 5px $red;
+    &:hover {
+        box-shadow: 0px 0px 10px 5px $red !important;
+    }
+}

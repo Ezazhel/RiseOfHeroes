@@ -9,7 +9,7 @@ const initialState: HouseState = {
             id: "strength",
             type: "strength",
             cardHeader: "house.training.strength.cardHeader",
-            name: "house.training.strength.level1.name ",
+            name: "house.training.strength.level1.name",
             description: "house.training.strength.level1.description",
             bonus: 0,
             baseBonus: 0,

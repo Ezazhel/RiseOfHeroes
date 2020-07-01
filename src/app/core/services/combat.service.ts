@@ -86,7 +86,7 @@ export class CombatService {
     private heroAttack(): Subscription {
         const weapon = findEquipment(this.hero, "weapon");
         return interval(
-            weapon !== undefined
+            weapon.id !== "null"
                 ? getMultiplier("swiftness", this.hero, weapon.speed)
                 : getMultiplier("swiftness", this.hero, 1000)
         ).subscribe(() => {
