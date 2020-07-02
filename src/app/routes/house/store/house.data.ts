@@ -14,11 +14,15 @@ const setWork = (id: WorkingType, currency: Currency): Work => ({
     cardHeader: `house.work.${id}.name`,
     name: `house.work.${id}.name`,
     description: `house.work.${id}.description`,
+    baseReward: 1,
     reward: 1,
     speed: 1 * 1000,
     isActive: false,
     currency: currency,
     done: 0,
+    level: 1,
+    basePromotion: 50,
+    promotion: 50,
 });
 
 export const worksData: Map<WorkingType, Work> = new Map<WorkingType, Work>([

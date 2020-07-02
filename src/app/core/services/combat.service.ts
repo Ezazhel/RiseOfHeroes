@@ -77,7 +77,10 @@ export class CombatService {
                 ...this.hero,
                 hp: this.hero.maxHp,
                 equippedSpell: equipped,
-                potion: { ...this.hero?.potion, isInCooldown: false },
+                potion:
+                    this.hero.potion !== undefined
+                        ? { ...this.hero?.potion, isInCooldown: false }
+                        : undefined,
             })
         );
     }
@@ -97,7 +100,7 @@ export class CombatService {
                 text = `You critical hit for : ${damage * 2}`;
             }
             this.fighter.hp = Math.floor(this.fighter.hp - damage * crit);
-            this._notifier.notify(text, "", "text", 0, 2000);
+            this._notifier.notify(text, "", "text", 0, weapon.speed / 2);
             //heal after hit
             this.store.dispatch(
                 new GameStateUpdateHeroAction(
@@ -130,9 +133,11 @@ export class CombatService {
     }
 
     startFight() {
-        this.fightIntervals.add(this.heroAttack());
-        this.fightIntervals.add(this.fighterAttack());
-        this.launchSpell(this.hero);
+        setTimeout(() => {
+            this.fightIntervals.add(this.heroAttack());
+            this.fightIntervals.add(this.fighterAttack());
+            this.launchSpell(this.hero);
+        }, 1000);
     }
 
     stop() {

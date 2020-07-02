@@ -152,6 +152,7 @@
             }
         },
         "construction": {
+            "notUnlocked": "This option will be unlocked at level 3 !",
             "buttonText": "Construction",
             "sawmill": {
                 "name": "Sawmill",
@@ -399,6 +400,20 @@
             "boots": "Running Gag",
             "hammer": "Wrecking ball",
             "sword": "The edge"
+        },
+        "froggy": {
+            "pants": "Siposibl",
+            "boots": "Jumping Crôa",
+            "helmet": "Shrek"
+        },
+        "gobelino": {
+            "chest": "Shred",
+            "axe": "Shredder !!!"
+        },
+        "goboss": {
+            "chest": "Rough One",
+            "boots": "ShinyThing",
+            "gloves": "Handfull-One"
         }
     }
 }

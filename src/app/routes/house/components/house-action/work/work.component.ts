@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import {
+    Component,
+    OnInit,
+    OnDestroy,
+    EventEmitter,
+    Output,
+} from "@angular/core";
 import { IdlingHouse, Work } from "@routes/house/store/house.model";
 import { Hero } from "@core/models/entity/entity";
 import { getMultiplier } from "@core/models/entity/entity.utils";
@@ -11,7 +17,7 @@ import {
     GameStateCurrenciesAddCurrencyAction,
     GameStateUpdateHeroAction,
 } from "@core/models/game-state/game-state.action";
-import { HouseWorking } from "@routes/house/store/house.action";
+import { HouseWorking, HousePromotion } from "@routes/house/store/house.action";
 import { Subscription, Subject, Observable } from "rxjs";
 import { heroSelector, currencySelector } from "@core/models/selector";
 import { works } from "@routes/house/store/house.selector";
@@ -25,21 +31,22 @@ import { levelUpFromAction, getXPForAction } from "@core/models/level";
     styleUrls: ["../house-action.component.scss"],
 })
 export class WorkComponent implements OnInit, OnDestroy {
-    idlingTimer: number; //Timer general allowing only one training or working.
-
     public _hero$: Observable<Hero> = this.store.pipe(select(heroSelector));
 
     public _work$: Observable<Work[]> = this.store.select(works);
+
+    @Output() public doWorking: EventEmitter<void> = new EventEmitter<void>();
+    @Output() setTimer: EventEmitter<number> = new EventEmitter<number>();
     public doWorking$: Subject<Work> = new Subject<Work>();
 
     private _workingSubscription: Subscription = this.doWorking$
         .pipe(
             withLatestFrom(this._hero$, (event: Work, hero: Hero) => {
+                this.doWorking.emit();
                 setTimeout(() => {
                     this.store.dispatch(new HouseWorking(event.id));
                 }, 10);
                 let time = getMultiplier("swiftness", hero, event.speed);
-                clearTimeout(this.idlingTimer); //if training was set
                 const buffMult = hero.buffs.find((b) => b.type === "loot");
                 const reward = {
                     ...event,
@@ -55,41 +62,64 @@ export class WorkComponent implements OnInit, OnDestroy {
                               }
                             : event.currency,
                 };
-                this.idlingTimer = window.setTimeout(() => {
-                    this.store.dispatch(
-                        new GameStateCurrenciesAddCurrencyAction(
-                            reward.currency
-                        )
-                    );
-                    this._notifier.notify(
-                        "",
-                        `currency ${event.currency.name}`,
-                        "reward",
-                        reward.currency.quantity,
-                        1000
-                    );
-                    this.store.dispatch(
-                        new GameStateUpdateHeroAction(
-                            levelUpFromAction(
-                                hero,
-                                "work",
-                                this._notifier,
-                                this.store
+                this.setTimer.emit(
+                    window.setTimeout(() => {
+                        this.store.dispatch(
+                            new GameStateCurrenciesAddCurrencyAction(
+                                reward.currency
                             )
-                        )
-                    );
-                    this._notifier.notify(
-                        `exp ${getXPForAction(hero.level, "work")}`,
-                        "",
-                        "reward",
-                        500
-                    );
-                    this.store.dispatch(new HouseWorking("none"));
-                    this.doWorking$.next({
-                        ...event,
-                        done: event.done + 1,
-                    });
-                }, time);
+                        );
+                        this._notifier.notify(
+                            "",
+                            `currency ${event.currency.name}`,
+                            "reward",
+                            reward.currency.quantity,
+                            time - 100
+                        );
+                        this.store.dispatch(
+                            new GameStateUpdateHeroAction(
+                                levelUpFromAction(
+                                    hero,
+                                    "work",
+                                    this._notifier,
+                                    this.store
+                                )
+                            )
+                        );
+                        this._notifier.notify(
+                            `exp ${getXPForAction(hero.level, "work")}`,
+                            "",
+                            "reward",
+                            time - 100
+                        );
+                        event = { ...event, done: event.done + 1 };
+                        if (event.done >= event.promotion) {
+                            event = {
+                                ...event,
+                                level: event.level + 1,
+                                promotion:
+                                    event.basePromotion +
+                                    event.basePromotion * event.level,
+                                currency: {
+                                    ...event.currency,
+                                    quantity:
+                                        event.currency.quantity +
+                                        event.currency.quantity * event.level,
+                                },
+                            };
+                            this.store.dispatch(new HousePromotion(event));
+
+                            this._notifier.notify(
+                                `${event.name} : ${event.level}`,
+                                "",
+                                "unlock",
+                                2000
+                            );
+                        }
+                        this.store.dispatch(new HouseWorking("none"));
+                        this.doWorking$.next(event);
+                    }, time)
+                );
             })
         )
         .subscribe();
@@ -117,8 +147,6 @@ export class WorkComponent implements OnInit, OnDestroy {
     ngOnInit(): void {}
 
     ngOnDestroy(): void {
-        clearTimeout(this.idlingTimer);
         this._workingSubscription.unsubscribe();
-        this.store.dispatch(new HouseWorking("none"));
     }
 }

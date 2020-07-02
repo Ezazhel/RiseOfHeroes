@@ -5,12 +5,19 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
     styleUrls: ["./house-action.component.scss"],
 })
 export class HouseActionComponent implements OnInit, OnDestroy {
-    public dTab: string = "training";
-
-    //#endregion Private
+    public timer: number;
+    setTimer(timer: number) {
+        this.clearTimer();
+        this.timer = timer;
+    }
+    clearTimer() {
+        clearTimeout(this.timer);
+    }
     constructor() {}
 
     ngOnInit(): void {}
 
-    ngOnDestroy(): void {}
+    ngOnDestroy(): void {
+        this.clearTimer();
+    }
 }

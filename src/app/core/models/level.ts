@@ -12,7 +12,7 @@ import { CityAddCity } from "@routes/world/city/store/cities.action";
 import { ActionType } from "./actions";
 
 export function getXPForLevel(level: number) {
-    return 45 + level * 5 * (45 + 2 * level);
+    return 35 + level * 5 * (35 + 2 * level);
 }
 export function getXPForAction(level, action: ActionType): number {
     //Percentage of total exp earn
@@ -67,7 +67,7 @@ export function levelUp(
     if (isLevelUp(hero.exp, xpReward, xpForLevel)) {
         exp = hero.exp + xpReward - xpForLevel;
         level += 1;
-        notifier.notify(`Level up ! ${level}`, "", "text");
+        notifier.notify(`Level up ! ${level}`, "", "text", 0, 5000);
         //getUnlock for level, notify...
     } else {
         exp = hero.exp + xpReward;
@@ -108,9 +108,7 @@ export function levelUp(
         }));
         maxHp = getHeroMaxHp(stats.find((s) => s.type == "endurance").value);
 
-        if (level === 5) {
-            store.dispatch(new CityAddCity(cities.get("heapoo")));
-        }
+        levelUpUnlock(level, store, notifier);
     }
 
     return {
@@ -160,4 +158,23 @@ export function getIntelligenceForLevel(level: number, model: BaseEntity) {
         model.baseStats.find((s) => s.type === "intellect").value *
             Math.pow(level, 0.95)
     );
+}
+
+function levelUpUnlock(
+    level: number,
+    store: Store<AppState>,
+    notifier: NotifierService
+) {
+    switch (level) {
+        case 3:
+            notifier.notify("Construction", "", "unlock", 0, 5000);
+            break; //Unlock Construction automatically
+        case 5:
+            notifier.notify("New city", "", "unlock", 0, 5000);
+            store.dispatch(new CityAddCity(cities.get("heapoo")));
+            break; //Unlock new city
+        case 10:
+            notifier.notify("Talent", "", "unlock", 0, 5000);
+            break;
+    }
 }

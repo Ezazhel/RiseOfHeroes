@@ -4,6 +4,9 @@ import {
     dummyCraft,
     sheepyCraft,
     piggyCraft,
+    froggyCraft,
+    gobelinoCraft,
+    GobossCraft,
 } from "@core/models/game-data/game-data.data";
 import { healingPotion } from "@core/models/potions/potions.data";
 import { TrainingEquipment } from "@routes/house/store/house.model";
@@ -53,11 +56,11 @@ export const merchantConversion: Map<string, CurrencyConversion[]> = new Map<
         "zulah",
         [
             {
-                from: { name: "gold", quantity: 1000 },
+                from: { name: "stone", quantity: 100 },
                 to: { name: "dummy-screw", quantity: 1 },
             },
             {
-                from: { name: "gold", quantity: 500 },
+                from: { name: "wood", quantity: 100 },
                 to: { name: "dummy-wood", quantity: 1 },
             },
             {
@@ -71,6 +74,43 @@ export const merchantConversion: Map<string, CurrencyConversion[]> = new Map<
             {
                 from: { name: "gold", quantity: 2000 },
                 to: { name: "sheepy_fur", quantity: 2 },
+            },
+            {
+                from: { name: "gold", quantity: 500 },
+                to: { name: "tooth", quantity: 2 },
+            },
+            {
+                from: { name: "gold", quantity: 500 },
+                to: { name: "bones", quantity: 2 },
+            },
+
+            {
+                to: { name: "gold", quantity: 250 },
+                from: { name: "dummy-screw", quantity: 1 },
+            },
+            {
+                to: { name: "gold", quantity: 100 },
+                from: { name: "dummy-wood", quantity: 1 },
+            },
+            {
+                to: { name: "gold", quantity: 200 },
+                from: { name: "dummy-row", quantity: 1 },
+            },
+            {
+                to: { name: "gold", quantity: 500 },
+                from: { name: "piggy_leather", quantity: 2 },
+            },
+            {
+                to: { name: "gold", quantity: 500 },
+                from: { name: "sheepy_fur", quantity: 2 },
+            },
+            {
+                to: { name: "gold", quantity: 100 },
+                from: { name: "tooth", quantity: 2 },
+            },
+            {
+                to: { name: "gold", quantity: 100 },
+                from: { name: "bones", quantity: 2 },
             },
         ],
     ],
@@ -88,6 +128,18 @@ export const merchantConversion: Map<string, CurrencyConversion[]> = new Map<
             {
                 from: { name: "gold", quantity: 2000 },
                 to: { name: "gobelino_candy", quantity: 1 },
+            },
+            {
+                to: { name: "gold", quantity: 150 },
+                from: { name: "froggy_slime", quantity: 1 },
+            },
+            {
+                to: { name: "gold", quantity: 200 },
+                from: { name: "gobelino_axe", quantity: 1 },
+            },
+            {
+                to: { name: "gold", quantity: 250 },
+                from: { name: "gobelino_candy", quantity: 1 },
             },
         ],
     ],
@@ -181,10 +233,10 @@ export const cities: Map<string, City> = new Map<string, City>([
                 {
                     type: "blacksmith",
                     name: "city.city_shop.blacksmith",
-                    maxItemQuality: 1,
-                    maxItem: 5,
+                    maxItemQuality: 2,
+                    maxItem: 10,
                     items: [],
-                    crafts: [dummyCraft, sheepyCraft, piggyCraft],
+                    crafts: [froggyCraft, gobelinoCraft, GobossCraft],
                     upgrades: [
                         {
                             ...createUpgrade("faster", 5, 500, "faster"),

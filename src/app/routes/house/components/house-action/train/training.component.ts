@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import {
+    Component,
+    OnInit,
+    OnDestroy,
+    EventEmitter,
+    Output,
+} from "@angular/core";
 import {
     TrainingEquipment,
     TrainingType,
@@ -32,14 +38,13 @@ import { levelUpFromAction, getXPForAction } from "@core/models/level";
     styleUrls: ["../house-action.component.scss"],
 })
 export class TrainingComponent implements OnInit, OnDestroy {
-    idlingTimer: number; //Timer general allowing only one training or working.
-
     public _hero$: Observable<Hero> = this.store.pipe(select(heroSelector));
 
     _trainingEquipment$: Observable<TrainingEquipment[]> = this.store.select(
         trainingEquipement
     );
-
+    @Output() doTraining: EventEmitter<void> = new EventEmitter<void>();
+    @Output() setTimer: EventEmitter<number> = new EventEmitter<number>();
     public doTraining$: Subject<TrainingEquipment> = new Subject<
         TrainingEquipment
     >();
@@ -49,55 +54,63 @@ export class TrainingComponent implements OnInit, OnDestroy {
             withLatestFrom(
                 this._hero$,
                 (event: TrainingEquipment, hero: Hero) => {
+                    this.doTraining.emit();
                     let time = getMultiplier("swiftness", hero, event.speed);
                     if (event.done <= event.bonus - 1) {
-                        this.store.dispatch(new HouseTraining("none")); // reset every fillbar
+                        this.store.dispatch(
+                            new HouseTraining({
+                                ...event,
+                                id: "none",
+                                type: "none",
+                            })
+                        ); // reset every fillbar
                         window.setTimeout(
-                            () =>
-                                this.store.dispatch(
-                                    new HouseTraining(event.type)
-                                ),
+                            () => this.store.dispatch(new HouseTraining(event)),
                             10
                         );
-                        clearTimeout(this.idlingTimer);
-                        this.idlingTimer = window.setTimeout(() => {
-                            hero = this.heroAfterTraining(
-                                hero,
-                                event,
-                                event.type
-                            );
-                            this.store.dispatch(
-                                new GameStateUpdateHeroAction(hero)
-                            );
-                            this.store.dispatch(
-                                new HouseUpdateTrainingEquipmentDone(event.type)
-                            );
-                            this._notifier.notify(
-                                `${event.reward} ${event.id}`,
-                                "",
-                                "reward"
-                            );
-                            this.store.dispatch(
-                                new GameStateUpdateHeroAction(
-                                    levelUpFromAction(
-                                        hero,
-                                        "train",
-                                        this._notifier,
-                                        this.store
+                        this.setTimer.emit(
+                            window.setTimeout(() => {
+                                hero = this.heroAfterTraining(
+                                    hero,
+                                    event,
+                                    event.type
+                                );
+                                this.store.dispatch(
+                                    new GameStateUpdateHeroAction(hero)
+                                );
+                                this.store.dispatch(
+                                    new HouseUpdateTrainingEquipmentDone(event)
+                                );
+                                this._notifier.notify(
+                                    `${event.reward} ${event.id}`,
+                                    "",
+                                    "reward"
+                                );
+                                this.store.dispatch(
+                                    new GameStateUpdateHeroAction(
+                                        levelUpFromAction(
+                                            hero,
+                                            "train",
+                                            this._notifier,
+                                            this.store
+                                        )
                                     )
-                                )
-                            );
-                            this._notifier.notify(
-                                `exp ${getXPForAction(hero.level, "train")}`,
-                                "",
-                                "reward",
-                                500
-                            );
-                            this.doTraining$.next({
-                                ...event,
-                                done: event.done + 1,
-                            });
-                        }, time);
+                                );
+                                this._notifier.notify(
+                                    `exp ${getXPForAction(
+                                        hero.level,
+                                        "train"
+                                    )}`,
+                                    "",
+                                    "reward",
+                                    500
+                                );
+                                this.doTraining$.next({
+                                    ...event,
+                                    done: event.done + 1,
+                                });
+                            }, time)
+                        );
                     } else {
                         this._notifier.notify("No more training", "", "text");
                     }
@@ -163,8 +176,6 @@ export class TrainingComponent implements OnInit, OnDestroy {
     ngOnInit(): void {}
 
     ngOnDestroy(): void {
-        clearTimeout(this.idlingTimer);
         this._trainingSubscription.unsubscribe();
-        this.store.dispatch(new HouseTraining("none")); // reset every fillbar
     }
 }

@@ -152,6 +152,7 @@
             }
         },
         "construction": {
+            "notUnlocked": "Cette option sera disponible au niveau 3 !",
             "buttonText": "Construction",
             "sawmill": {
                 "name": "Scierie",

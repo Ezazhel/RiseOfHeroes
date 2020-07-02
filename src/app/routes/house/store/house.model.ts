@@ -15,6 +15,7 @@ export interface IdlingHouse {
     name: string; //Displayed name
     cardHeader: string;
     reward: number;
+    baseReward?: number;
     speed: number;
     description: string;
     isActive: boolean;
@@ -31,6 +32,9 @@ export interface TrainingEquipment extends IdlingHouse {
 export interface Work extends IdlingHouse {
     id: WorkingType;
     currency: Currency;
+    level: number;
+    promotion: number;
+    basePromotion: number;
 }
 
 export type ConstructionType = "sawmill" | "mine";

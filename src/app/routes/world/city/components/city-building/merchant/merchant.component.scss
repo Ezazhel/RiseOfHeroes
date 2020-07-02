@@ -6,9 +6,15 @@
     font-size: x-small;
     align-items: flex-end;
 }
-.cant {
-    box-shadow: 0px 0px 10px 5px $red;
-    &:hover {
-        box-shadow: 0px 0px 10px 5px $red !important;
+.content {
+    width: 80vw;
+}
+.merchant-goods {
+    box-shadow: 0px 0px 10px 5px $greenCommonItem;
+    &.cant {
+        box-shadow: 0px 0px 10px 5px $red;
+        &:hover {
+            box-shadow: 0px 0px 10px 5px $red !important;
+        }
     }
 }

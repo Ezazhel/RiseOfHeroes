@@ -1,8 +1,9 @@
 <ng-container *transloco="let t">
-    <div fxLayout="row wrap" fxLayoutAlign="center">
+    <div class="content" fxLayout="row wrap" fxLayoutAlign="center">
         <ng-container *ngFor="let item of goods; trackBy: trackByFn">
             <app-card
                 (click)="doConvert$.next(item)"
+                class="merchant-goods"
                 [ngClass]="{ cant: !canConvert(item) }"
             >
                 <ng-container cardHeader>
@@ -16,12 +17,12 @@
                     >
                         <i
                             class="currency {{ item.from.name }}"
-                            [attr.data-qty]="item.from.quantity"
+                            [attr.data-qty]="item.from.quantity || 0"
                         ></i>
                         <span> > </span>
                         <i
                             class="currency {{ item.to.name }}"
-                            [attr.data-qty]="item.to.quantity"
+                            [attr.data-qty]="item.to.quantity || 0"
                         ></i>
                     </div>
                 </ng-container>
@@ -33,7 +34,8 @@
                         <i
                             class="currency {{ item.from.name }}"
                             [attr.data-qty]="
-                                (getCurrency(item.from.name) | async)?.quantity
+                                (getCurrency(item.from.name) | async)
+                                    ?.quantity || 0
                             "
                         ></i>
                         <i

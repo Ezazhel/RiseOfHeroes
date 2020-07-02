@@ -36,7 +36,7 @@ export class GameService {
             ],
             baseStats: [
                 { ...strenghtStat, value: 5 },
-                { ...enduranceStat, value: 15 },
+                { ...enduranceStat, value: 25 },
                 { ...intelligenceStat, value: 0 },
                 { ...agilityStat, value: 0 },
             ],

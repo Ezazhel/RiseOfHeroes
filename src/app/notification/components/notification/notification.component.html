@@ -1,10 +1,7 @@
 <ng-container *transloco="let t; read: 'notification'">
-    <div *ngIf="src">
+    <div *ngIf="src" fxLayout="column-reverse">
         <ng-container
-            *ngFor="
-                let notification of src.notifications.reverse();
-                trackBy: trackByFn
-            "
+            *ngFor="let notification of src.notifications; trackBy: trackByFn"
         >
             <div [@notify]="'show'">
                 <div

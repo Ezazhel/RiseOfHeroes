@@ -1,29 +1,13 @@
 <ng-container>
     <ng-container *transloco="let tsl">
-        <div fxLayout="column nowrap">
-            <div class="tab" fxLayout="row" fxLayoutAlign="center center">
-                <button
-                    (click)="dTab = 'training'"
-                    [ngClass]="{ active: dTab === 'training' }"
-                >
-                    {{ tsl("house.training.buttonText") }}
-                </button>
-                <button
-                    (click)="dTab = 'work'"
-                    [ngClass]="{ active: dTab === 'work' }"
-                >
-                    {{ tsl("house.work.buttonText") }}
-                </button>
-                <button
-                    (click)="dTab = 'construction'"
-                    [ngClass]="{ active: dTab === 'construction' }"
-                >
-                    {{ tsl("house.construction.buttonText") }}
-                </button>
-            </div>
-        </div>
-        <training *ngIf="dTab === 'training'"></training>
-        <work *ngIf="dTab === 'work'"></work>
-        <construction *ngIf="dTab === 'construction'"></construction>
+        <h4>{{ tsl("house.training.buttonText") }}</h4>
+        <training
+            (doTraining)="clearTimer()"
+            (setTimer)="setTimer($event)"
+        ></training>
+        <h4>{{ tsl("house.work.buttonText") }}</h4>
+        <work (doWorking)="clearTimer()" (setTimer)="setTimer($event)"></work>
+        <h4>{{ tsl("house.construction.buttonText") }}</h4>
+        <construction></construction>
     </ng-container>
 </ng-container>

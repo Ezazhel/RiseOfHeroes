@@ -13,6 +13,8 @@ export const HOUSE_UPDATE_TRAINING_EQUIPMENT_DONE =
     "[house] update training equipment done";
 export const HOUSE_TRAINING = "[house] is training";
 export const HOUSE_WORKING = "[house] is working";
+export const HOUSE_PROMOTION = "[house] promote";
+
 export const HOUSE_BUILD = "[house] build something";
 
 export class HouseAddTrainingEquipment implements Action {
@@ -27,15 +29,19 @@ export class HouseUpdateTrainingEquipmentBonus implements Action {
 
 export class HouseUpdateTrainingEquipmentDone implements Action {
     readonly type = HOUSE_UPDATE_TRAINING_EQUIPMENT_DONE;
-    constructor(public payload: TrainingType) {}
+    constructor(public payload: TrainingEquipment) {}
 }
 export class HouseTraining implements Action {
     readonly type = HOUSE_TRAINING;
-    constructor(public payload: TrainingType) {}
+    constructor(public payload: TrainingEquipment) {}
 }
 export class HouseWorking implements Action {
     readonly type = HOUSE_WORKING;
     constructor(public payload: WorkingType) {}
+}
+export class HousePromotion implements Action {
+    readonly type = HOUSE_PROMOTION;
+    constructor(public payload: Work) {}
 }
 
 export class HouseBuild implements Action {
@@ -48,4 +54,5 @@ export type HouseActionType =
     | HouseUpdateTrainingEquipmentDone
     | HouseTraining
     | HouseWorking
+    | HousePromotion
     | HouseBuild;

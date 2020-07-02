@@ -2,18 +2,22 @@
     <span *ngIf="_shop.intervalStock !== undefined">{{
         tsl("city.city_shop.content.shopReset", { timer: timer })
     }}</span>
-    <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+    <div fxLayout="row wrap" fxLayoutAlign="start start">
         <div
             *ngFor="let item of _shop.items; trackBy: trackByFn"
             class="content {{ item.quality }}"
-            [ngClass]="{ disabled: item.value > (_gold$ | async).quantity }"
+            [ngClass]="{ disabled: item.value > (_gold$ | async)?.quantity }"
             [tooltip]="item"
             [tooltip-equipped]="equipped(item)"
             [tooltip-detach]="itemNull"
             (click)="doBuyItem$.next(item)"
+            fxLayout="row nowrap"
         >
-            <i class="{{ item.subType }} {{ item.icon }} "></i>
-            <div fxLayout="column" fxFlex="grow">
+            <i
+                class="{{ item.subType }} {{ item.icon }}"
+                style="margin: 5px;"
+            ></i>
+            <div fxLayout="column" fxLayoutAlign="center center">
                 <span class="item-name">
                     {{ tsl(item.name) }}
                 </span>

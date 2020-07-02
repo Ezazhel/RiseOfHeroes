@@ -266,13 +266,12 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
             name: "Dummy Moore",
             icon: "dummy",
             attack: 10,
-            attackSpeed: 1.1 * 1000,
+            attackSpeed: 1.4 * 1000,
             hp: 300, // base 300
             level: 1,
             maxHp: 300, // base 300
             defense: 0,
             lootbag: [
-                { item: "none", weigth: 50 },
                 { item: "weapon", itemQuality: "common", weigth: 30 },
                 { item: "armor", itemQuality: "common", weigth: 30 },
                 {
@@ -299,14 +298,13 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
             eid: "sheepy",
             name: "Sheepy",
             icon: "sheepy",
-            attack: 25,
-            attackSpeed: 1.4 * 1000,
-            hp: 750,
+            attack: 35,
+            attackSpeed: 1.8 * 1000,
+            hp: 550,
             level: 1,
-            maxHp: 750,
+            maxHp: 550,
             defense: 25,
             lootbag: [
-                { item: "none", weigth: 10 },
                 { item: "weapon", itemQuality: "rare", weigth: 20 },
                 { item: "armor", itemQuality: "rare", weigth: 20 },
                 {
@@ -339,7 +337,7 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
             name: "Piggy",
             icon: "piggy",
             attack: 55,
-            attackSpeed: 1.5 * 1000,
+            attackSpeed: 2.1 * 1000,
             hp: 800,
             level: 1,
             maxHp: 800,
@@ -373,18 +371,22 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
             eid: "froggy",
             name: "Froggy",
             icon: "froggy",
-            attack: 120,
-            attackSpeed: 1.1 * 1000,
-            hp: 1000,
+            attack: 65,
+            attackSpeed: 1.8 * 1000,
+            hp: 900,
             level: 5,
-            maxHp: 1000,
+            maxHp: 900,
             defense: 125,
             lootbag: [
-                { item: "none", weigth: 30 },
+                {
+                    item: "currency",
+                    currency: { name: "froggy_slime", quantity: 10 },
+                    weigth: 15,
+                },
                 { item: "armor", itemQuality: "rare", weigth: 20 },
                 {
                     item: "currency",
-                    currency: { name: "gold", quantity: 150 },
+                    currency: { name: "gold", quantity: 200 },
                     weigth: 30,
                 },
             ],
@@ -396,11 +398,11 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
             eid: "gobelino",
             name: "Gobelino",
             icon: "gobelino",
-            attack: 200,
-            attackSpeed: 1.3 * 1000,
-            hp: 1200,
+            attack: 85,
+            attackSpeed: 2.5 * 1000,
+            hp: 1100,
             level: 5,
-            maxHp: 1200,
+            maxHp: 1100,
             defense: 100,
             lootbag: [
                 { item: "weapon", itemQuality: "rare", weigth: 40 },
@@ -408,13 +410,23 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
                 { item: "armor", itemQuality: "epic", weigth: 5 },
                 {
                     item: "currency",
-                    currency: { name: "gold", quantity: 250 },
+                    currency: { name: "gold", quantity: 400 },
                     weigth: 10,
                 },
                 {
                     item: "currency",
                     currency: { name: "bones", quantity: 4 },
                     weigth: 10,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "gobelino_axe", quantity: 1 },
+                    weigth: 15,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "gobelino_candy", quantity: 2 },
+                    weigth: 15,
                 },
                 {
                     item: "currency",
@@ -430,20 +442,15 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
             eid: "goboss",
             name: "Goboss",
             icon: "goboss",
-            attack: 300,
-            attackSpeed: 1.5 * 1000,
-            hp: 3000,
+            attack: 125,
+            attackSpeed: 3.2 * 1000,
+            hp: 2400,
             level: 1,
-            maxHp: 3000,
+            maxHp: 2400,
             defense: 250,
             lootbag: [
                 { item: "weapon", itemQuality: "epic", weigth: 5 },
                 { item: "armor", itemQuality: "epic", weigth: 5 },
-                {
-                    item: "currency",
-                    currency: { name: "tooth", quantity: 6 },
-                    weigth: 10,
-                },
                 {
                     item: "currency",
                     currency: { name: "bones", quantity: 6 },
@@ -451,8 +458,13 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
                 },
                 {
                     item: "currency",
-                    currency: { name: "gold", quantity: 500 },
+                    currency: { name: "gold", quantity: 550 },
                     weigth: 10,
+                },
+                {
+                    item: "currency",
+                    currency: { name: "goboss_tooth", quantity: 4 },
+                    weigth: 15,
                 },
             ],
         },
@@ -722,6 +734,133 @@ export const piggyCraft: Craft = {
                 ["tooth", "bones", "dummy-screw"],
                 [3, 2, 2]
             ),
+        },
+    ],
+};
+
+export const froggyCraft: Craft = {
+    name: "Froggy",
+    weaponArmor: [
+        {
+            equipment: setGear("froggy", {
+                ...basePants,
+                stats: [...basePants.stats].map(
+                    (s) => (s = { ...s, value: s.value + 5 })
+                ),
+                runes: [{ ...lifestealRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["froggy_slime", "dummy-row", "piggy_leather"],
+                [35, 4, 6]
+            ),
+        },
+        {
+            equipment: setGear("froggy", {
+                ...baseBoots,
+                stats: [...baseBoots.stats].map(
+                    (s) => (s = { ...s, value: s.value + 2 })
+                ),
+                runes: [{ ...lifestealRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["froggy_slime", "dummy-row", "piggy_leather"],
+                [15, 2, 4]
+            ),
+        },
+        {
+            equipment: setGear("froggy", {
+                ...baseHelmet,
+                stats: [...baseHelmet.stats].map(
+                    (s) => (s = { ...s, value: s.value + 2 })
+                ),
+                runes: [{ ...lifestealRune, currentLvl: 2 }],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["froggy_slime", "dummy-row", "piggy_leather"],
+                [20, 3, 5]
+            ),
+        },
+    ],
+};
+
+export const gobelinoCraft: Craft = {
+    name: "Gobelino",
+    weaponArmor: [
+        {
+            equipment: setGear("gobelino", {
+                ...baseChest,
+                stats: [...baseChest.stats].map(
+                    (s) => (s = { ...s, value: s.value + 5 })
+                ),
+                runes: [
+                    { ...precisionRune, currentLvl: 1 },
+                    { ...ferocityRune, currentLvl: 1 },
+                ],
+            }) as ITemplateArmor,
+            materials: setMaterial(
+                ["gobelino_candy", "dummy-row", "sheepy_fur"],
+                [5, 4, 6]
+            ),
+        },
+        {
+            equipment: setGear("gobelino", {
+                ...baseAxe,
+                stats: [...baseAxe.stats].map(
+                    (s) => (s = { ...s, value: s.value + 3 })
+                ),
+                runes: [
+                    { ...ferocityRune, currentLvl: 1 },
+                    { ...precisionRune, currentLvl: 2 },
+                ],
+            }) as ITemplateWeapon,
+            materials: setMaterial(
+                ["gobelino_axe", "dummy-screw", "gobelino_candy"],
+                [5, 3, 4]
+            ),
+        },
+    ],
+};
+export const GobossCraft: Craft = {
+    name: "Goboss",
+    weaponArmor: [
+        {
+            equipment: setGear("goboss", {
+                ...baseChest,
+                stats: [...baseChest.stats].map(
+                    (s) => (s = { ...s, value: s.value + 5 })
+                ),
+                runes: [
+                    { ...powerRune, currentLvl: 1 },
+                    { ...enduranceRune, currentLvl: 1 },
+                ],
+            }) as ITemplateArmor,
+            materials: setMaterial(["sheepy_fur", "piggy_leather"], [10, 10]),
+        },
+        {
+            equipment: setGear("goboss", {
+                ...baseBoots,
+                stats: [...baseBoots.stats].map(
+                    (s) => (s = { ...s, value: s.value + 5 })
+                ),
+                runes: [
+                    { ...powerRune, currentLvl: 1 },
+                    { ...enduranceRune, currentLvl: 1 },
+                ],
+            }) as ITemplateArmor,
+            materials: setMaterial(["sheepy_fur", "piggy_leather"], [7, 6]),
+        },
+        {
+            equipment: setGear("goboss", {
+                ...baseGloves,
+                stats: [...baseGloves.stats].map(
+                    (s) => (s = { ...s, value: s.value + 5 })
+                ),
+                runes: [
+                    { ...powerRune, currentLvl: 1 },
+                    { ...enduranceRune, currentLvl: 1 },
+                ],
+            }) as ITemplateArmor,
+            materials: setMaterial(["sheepy_fur", "piggy_leather"], [6, 7]),
         },
     ],
 };

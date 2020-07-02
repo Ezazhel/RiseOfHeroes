@@ -11,7 +11,7 @@ import {
 import * as baseItem from "../game-data/game-data.data";
 import { toNumber } from "@ngneat/transloco";
 import * as craft from "../craft/craft.utils";
-import { entityId } from "../utils";
+import { entityId, getNumberFixed } from "../utils";
 import { pickFromLootbag } from "./loot.utils";
 import { rareRunes, epicRunes } from "../runes/runes.data";
 import { Rune } from "../runes/runes.model";
@@ -237,10 +237,14 @@ function generateWeapon(
         level: level,
         icon: pickRandomIcon(icons),
         quality: quality,
-        attack: baseWeapon.attack * level,
+        attack: craft.modifyStat(quality, baseWeapon.attack, level),
         value: craft.modifyPrice(quality, baseWeapon.value * level),
+        runes: pickRandomRuneFromArray(quality),
         dps: toNumber(
-            ((baseWeapon.attack * level) / (baseWeapon.speed / 1000)).toFixed(2)
+            (
+                craft.modifyStat(quality, baseWeapon.attack, level) /
+                (baseWeapon.speed / 1000)
+            ).toFixed(2)
         ),
         stats: [...baseWeapon.stats].map((s) => ({
             ...s,
@@ -281,13 +285,13 @@ export function getFromLootbag(level: number, bag: LootbagItem[]): Reward {
         case "armor":
             const armor = generateRandomArmor(level, 0, rwd.itemQuality);
             return {
-                reward: { ...armor, value: armor.value * 0.5 },
+                reward: { ...armor, value: Math.floor(armor.value * 0.5) },
                 rewardType: "armor",
             };
         case "weapon":
             const weapon = generateRandomWeapon(level, 0, rwd.itemQuality);
             return {
-                reward: { ...weapon, value: weapon.value * 0.5 }, //% will change with rune or passive or unlockable
+                reward: { ...weapon, value: Math.floor(weapon.value * 0.5) }, //% will change with rune or passive or unlockable
                 rewardType: "weapon",
             };
         case "currency":

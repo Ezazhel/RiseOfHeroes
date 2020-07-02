@@ -73,7 +73,7 @@ export function houseReducer(
                 ...state,
                 trainingEquipment: update(
                     state.trainingEquipment,
-                    (t: TrainingEquipment) => t.id == action.payload,
+                    (t: TrainingEquipment) => t.id == action.payload.id,
                     (t: TrainingEquipment) => {
                         return {
                             ...t,
@@ -88,15 +88,19 @@ export function houseReducer(
                 ...state,
                 trainingEquipment: update(
                     [...state.trainingEquipment].map((t) => {
-                        return t.id != action.payload
+                        return t.id != action.payload.id
                             ? { ...t, isActive: false }
                             : t;
                     }),
-                    (t: TrainingEquipment) => t.id == action.payload,
+                    (t: TrainingEquipment) => t.id == action.payload.id,
                     (t: TrainingEquipment) => {
                         return { ...t, isActive: !t.isActive };
                     }
                 ),
+                works: [...state.works].map((t) => ({
+                    ...t,
+                    isActive: false,
+                })),
             };
         case HouseAction.HOUSE_WORKING:
             return {
@@ -108,7 +112,24 @@ export function houseReducer(
                             : t;
                     }),
                     (t: Work) => t.id == action.payload,
-                    (t: Work) => ({ ...t, isActive: !t.isActive })
+                    (t: Work) => ({
+                        ...t,
+                        isActive: !t.isActive,
+                        done: t.done + 1,
+                    })
+                ),
+                trainingEquipment: [...state.trainingEquipment].map((t) => ({
+                    ...t,
+                    isActive: false,
+                })),
+            };
+        case HouseAction.HOUSE_PROMOTION:
+            return {
+                ...state,
+                works: update(
+                    [...state.works],
+                    (t: Work) => t.id == action.payload.id,
+                    (t: Work) => action.payload
                 ),
             };
         case HouseAction.HOUSE_BUILD:

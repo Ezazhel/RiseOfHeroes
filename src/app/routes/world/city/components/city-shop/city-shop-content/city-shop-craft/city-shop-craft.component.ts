@@ -149,10 +149,13 @@ export class CityShopCraftComponent implements OnInit, OnDestroy {
             let weapon = item as ITemplateWeapon;
             weapon = {
                 ...weapon,
-                attack: weapon.attack * l,
+                attack: modifyStat("legendary", weapon.attack, l),
                 value: modifyPrice(weapon.quality, weapon.value * l),
                 dps: toNumber(
-                    ((weapon.attack * l) / (weapon.speed / 1000)).toFixed(2)
+                    (
+                        modifyStat("legendary", weapon.attack, l) /
+                        (weapon.speed / 1000)
+                    ).toFixed(2)
                 ),
             };
             item = { ...weapon };

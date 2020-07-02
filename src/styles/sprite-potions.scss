@@ -1,953 +1,635 @@
+@mixin potion($x: 0, $y: 0, $width: 0, $height: 0) {
+    background-position: $x $y;
+    width: $width;
+    height: $height;
+}
+
 .potion {
     background-image: url(~/assets/potions.png);
     background-repeat: no-repeat;
     display: block;
 
     &.PotionIconsAdd_01 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -5px;
+        @include potion(-5px, -5px, 48px, 48px);
     }
 
     &.PotionIconsAdd_02 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -5px;
+        @include potion(-63px, -5px, 48px, 48px);
     }
 
     &.PotionIconsAdd_03 {
-        width: 48px;
-        height: 48px;
-        background-position: -121px -5px;
+        @include potion(-121px, -5px, 48px, 48px);
     }
 
     &.PotionIconsAdd_04 {
-        width: 48px;
-        height: 48px;
-        background-position: -179px -5px;
+        @include potion(-179px, -5px, 48px, 48px);
     }
 
     &.PotionIconsAdd_05 {
-        width: 48px;
-        height: 48px;
-        background-position: -237px -5px;
+        @include potion(-237px, -5px, 48px, 48px);
     }
 
     &.PotionIconsAdd_06 {
-        width: 48px;
-        height: 48px;
-        background-position: -295px -5px;
+        @include potion(-295px, -5px, 48px, 48px);
     }
 
     &.PotionIconsAdd_07 {
-        width: 48px;
-        height: 48px;
-        background-position: -353px -5px;
+        @include potion(-353px, -5px, 48px, 48px);
     }
 
     &.PotionIconsAdd_08 {
-        width: 48px;
-        height: 48px;
-        background-position: -411px -5px;
+        @include potion(-411px, -5px, 48px, 48px);
     }
 
     &.PotionIconsAdd_09 {
-        width: 48px;
-        height: 48px;
-        background-position: -469px -5px;
+        @include potion(-469px, -5px, 48px, 48px);
     }
 
     &.PotionIconsAdd_10 {
-        width: 48px;
-        height: 48px;
-        background-position: -527px -5px;
+        @include potion(-527px, -5px, 48px, 48px);
     }
 
     &.az_bottle1 {
-        width: 48px;
-        height: 48px;
-        background-position: -585px -5px;
+        @include potion(-585px, -5px, 48px, 48px);
     }
 
     &.az_bottle10 {
-        width: 48px;
-        height: 48px;
-        background-position: -643px -5px;
+        @include potion(-643px, -5px, 48px, 48px);
     }
 
     &.az_bottle2 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -63px;
+        @include potion(-5px, -63px, 48px, 48px);
     }
 
     &.az_bottle3 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -63px;
+        @include potion(-63px, -63px, 48px, 48px);
     }
 
     &.az_bottle4 {
-        width: 48px;
-        height: 48px;
-        background-position: -121px -63px;
+        @include potion(-121px, -63px, 48px, 48px);
     }
 
     &.az_bottle5 {
-        width: 48px;
-        height: 48px;
-        background-position: -179px -63px;
+        @include potion(-179px, -63px, 48px, 48px);
     }
 
     &.az_bottle6 {
-        width: 48px;
-        height: 48px;
-        background-position: -237px -63px;
+        @include potion(-237px, -63px, 48px, 48px);
     }
 
     &.az_bottle7 {
-        width: 48px;
-        height: 48px;
-        background-position: -295px -63px;
+        @include potion(-295px, -63px, 48px, 48px);
     }
 
     &.az_bottle8 {
-        width: 48px;
-        height: 48px;
-        background-position: -353px -63px;
+        @include potion(-353px, -63px, 48px, 48px);
     }
 
     &.az_bottle9 {
-        width: 48px;
-        height: 48px;
-        background-position: -411px -63px;
+        @include potion(-411px, -63px, 48px, 48px);
     }
 
     &.t_01 {
-        width: 48px;
-        height: 48px;
-        background-position: -469px -63px;
+        @include potion(-469px, -63px, 48px, 48px);
     }
 
     &.t_02 {
-        width: 48px;
-        height: 48px;
-        background-position: -527px -63px;
+        @include potion(-527px, -63px, 48px, 48px);
     }
 
     &.t_03 {
-        width: 48px;
-        height: 48px;
-        background-position: -585px -63px;
+        @include potion(-585px, -63px, 48px, 48px);
     }
 
     &.t_04 {
-        width: 48px;
-        height: 48px;
-        background-position: -643px -63px;
+        @include potion(-643px, -63px, 48px, 48px);
     }
 
     &.t_05 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -121px;
+        @include potion(-5px, -121px, 48px, 48px);
     }
 
     &.t_06 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -121px;
+        @include potion(-63px, -121px, 48px, 48px);
     }
 
     &.t_08 {
-        width: 48px;
-        height: 48px;
-        background-position: -121px -121px;
+        @include potion(-121px, -121px, 48px, 48px);
     }
 
     &.t_09 {
-        width: 48px;
-        height: 48px;
-        background-position: -179px -121px;
+        @include potion(-179px, -121px, 48px, 48px);
     }
 
     &.t_10 {
-        width: 48px;
-        height: 48px;
-        background-position: -237px -121px;
+        @include potion(-237px, -121px, 48px, 48px);
     }
 
     &.t_101 {
-        width: 48px;
-        height: 48px;
-        background-position: -295px -121px;
+        @include potion(-295px, -121px, 48px, 48px);
     }
 
     &.t_102 {
-        width: 48px;
-        height: 48px;
-        background-position: -353px -121px;
+        @include potion(-353px, -121px, 48px, 48px);
     }
 
     &.t_103 {
-        width: 48px;
-        height: 48px;
-        background-position: -411px -121px;
+        @include potion(-411px, -121px, 48px, 48px);
     }
 
     &.t_104 {
-        width: 48px;
-        height: 48px;
-        background-position: -469px -121px;
+        @include potion(-469px, -121px, 48px, 48px);
     }
 
     &.t_106 {
-        width: 48px;
-        height: 48px;
-        background-position: -527px -121px;
+        @include potion(-527px, -121px, 48px, 48px);
     }
 
     &.t_108 {
-        width: 48px;
-        height: 48px;
-        background-position: -585px -121px;
+        @include potion(-585px, -121px, 48px, 48px);
     }
 
     &.t_109 {
-        width: 48px;
-        height: 48px;
-        background-position: -643px -121px;
+        @include potion(-643px, -121px, 48px, 48px);
     }
 
     &.t_11 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -179px;
+        @include potion(-5px, -179px, 48px, 48px);
     }
 
     &.t_110 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -179px;
+        @include potion(-63px, -179px, 48px, 48px);
     }
 
     &.t_111 {
-        width: 48px;
-        height: 48px;
-        background-position: -121px -179px;
+        @include potion(-121px, -179px, 48px, 48px);
     }
 
     &.t_112 {
-        width: 48px;
-        height: 48px;
-        background-position: -179px -179px;
+        @include potion(-179px, -179px, 48px, 48px);
     }
 
     &.t_115 {
-        width: 48px;
-        height: 48px;
-        background-position: -237px -179px;
+        @include potion(-237px, -179px, 48px, 48px);
     }
 
     &.t_116 {
-        width: 48px;
-        height: 48px;
-        background-position: -295px -179px;
+        @include potion(-295px, -179px, 48px, 48px);
     }
 
     &.t_117 {
-        width: 48px;
-        height: 48px;
-        background-position: -353px -179px;
+        @include potion(-353px, -179px, 48px, 48px);
     }
 
     &.t_118 {
-        width: 48px;
-        height: 48px;
-        background-position: -411px -179px;
+        @include potion(-411px, -179px, 48px, 48px);
     }
 
     &.t_12 {
-        width: 48px;
-        height: 48px;
-        background-position: -469px -179px;
+        @include potion(-469px, -179px, 48px, 48px);
     }
 
     &.t_120 {
-        width: 48px;
-        height: 48px;
-        background-position: -527px -179px;
+        @include potion(-527px, -179px, 48px, 48px);
     }
 
     &.t_122 {
-        width: 48px;
-        height: 48px;
-        background-position: -585px -179px;
+        @include potion(-585px, -179px, 48px, 48px);
     }
 
     &.t_123 {
-        width: 48px;
-        height: 48px;
-        background-position: -643px -179px;
+        @include potion(-643px, -179px, 48px, 48px);
     }
 
     &.t_124 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -237px;
+        @include potion(-5px, -237px, 48px, 48px);
     }
 
     &.t_126 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -237px;
+        @include potion(-63px, -237px, 48px, 48px);
     }
 
     &.t_127 {
-        width: 48px;
-        height: 48px;
-        background-position: -121px -237px;
+        @include potion(-121px, -237px, 48px, 48px);
     }
 
     &.t_129 {
-        width: 48px;
-        height: 48px;
-        background-position: -179px -237px;
-    }
-
-    &.t_13 {
-        width: 48px;
-        height: 48px;
-        background-position: -237px -237px;
+        @include potion(-179px, -237px, 48px, 48px);
     }
 
     &.t_131 {
-        width: 48px;
-        height: 48px;
-        background-position: -295px -237px;
+        @include potion(-237px, -237px, 48px, 48px);
     }
 
     &.t_132 {
-        width: 48px;
-        height: 48px;
-        background-position: -353px -237px;
+        @include potion(-295px, -237px, 48px, 48px);
     }
 
     &.t_133 {
-        width: 48px;
-        height: 48px;
-        background-position: -411px -237px;
+        @include potion(-353px, -237px, 48px, 48px);
     }
 
     &.t_135 {
-        width: 48px;
-        height: 48px;
-        background-position: -469px -237px;
+        @include potion(-411px, -237px, 48px, 48px);
     }
 
     &.t_136 {
-        width: 48px;
-        height: 48px;
-        background-position: -527px -237px;
+        @include potion(-469px, -237px, 48px, 48px);
     }
 
     &.t_138 {
-        width: 48px;
-        height: 48px;
-        background-position: -585px -237px;
+        @include potion(-527px, -237px, 48px, 48px);
     }
 
     &.t_139 {
-        width: 48px;
-        height: 48px;
-        background-position: -643px -237px;
+        @include potion(-585px, -237px, 48px, 48px);
     }
 
     &.t_14 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -295px;
+        @include potion(-643px, -237px, 48px, 48px);
     }
 
     &.t_141 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -295px;
+        @include potion(-5px, -295px, 48px, 48px);
     }
 
     &.t_142 {
-        width: 48px;
-        height: 48px;
-        background-position: -121px -295px;
+        @include potion(-63px, -295px, 48px, 48px);
     }
 
     &.t_144 {
-        width: 48px;
-        height: 48px;
-        background-position: -179px -295px;
+        @include potion(-121px, -295px, 48px, 48px);
     }
 
     &.t_145 {
-        width: 48px;
-        height: 48px;
-        background-position: -237px -295px;
+        @include potion(-179px, -295px, 48px, 48px);
     }
 
     &.t_147 {
-        width: 48px;
-        height: 48px;
-        background-position: -295px -295px;
+        @include potion(-237px, -295px, 48px, 48px);
     }
 
     &.t_148 {
-        width: 48px;
-        height: 48px;
-        background-position: -353px -295px;
+        @include potion(-295px, -295px, 48px, 48px);
     }
 
     &.t_15 {
-        width: 48px;
-        height: 48px;
-        background-position: -411px -295px;
+        @include potion(-353px, -295px, 48px, 48px);
     }
 
     &.t_150 {
-        width: 48px;
-        height: 48px;
-        background-position: -469px -295px;
+        @include potion(-411px, -295px, 48px, 48px);
     }
 
     &.t_151 {
-        width: 48px;
-        height: 48px;
-        background-position: -527px -295px;
+        @include potion(-469px, -295px, 48px, 48px);
     }
 
     &.t_153 {
-        width: 48px;
-        height: 48px;
-        background-position: -585px -295px;
+        @include potion(-527px, -295px, 48px, 48px);
     }
 
     &.t_154 {
-        width: 48px;
-        height: 48px;
-        background-position: -643px -295px;
+        @include potion(-585px, -295px, 48px, 48px);
     }
 
     &.t_156 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -353px;
+        @include potion(-643px, -295px, 48px, 48px);
     }
 
     &.t_157 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -353px;
+        @include potion(-5px, -353px, 48px, 48px);
     }
 
     &.t_159 {
-        width: 48px;
-        height: 48px;
-        background-position: -121px -353px;
+        @include potion(-63px, -353px, 48px, 48px);
     }
 
     &.t_16 {
-        width: 48px;
-        height: 48px;
-        background-position: -179px -353px;
+        @include potion(-121px, -353px, 48px, 48px);
     }
 
     &.t_160 {
-        width: 48px;
-        height: 48px;
-        background-position: -237px -353px;
+        @include potion(-179px, -353px, 48px, 48px);
     }
 
     &.t_162 {
-        width: 48px;
-        height: 48px;
-        background-position: -295px -353px;
+        @include potion(-237px, -353px, 48px, 48px);
     }
 
     &.t_163 {
-        width: 48px;
-        height: 48px;
-        background-position: -353px -353px;
+        @include potion(-295px, -353px, 48px, 48px);
     }
 
     &.t_165 {
-        width: 48px;
-        height: 48px;
-        background-position: -411px -353px;
+        @include potion(-353px, -353px, 48px, 48px);
     }
 
     &.t_166 {
-        width: 48px;
-        height: 48px;
-        background-position: -469px -353px;
+        @include potion(-411px, -353px, 48px, 48px);
     }
 
     &.t_168 {
-        width: 48px;
-        height: 48px;
-        background-position: -527px -353px;
+        @include potion(-469px, -353px, 48px, 48px);
     }
 
     &.t_169 {
-        width: 48px;
-        height: 48px;
-        background-position: -585px -353px;
+        @include potion(-527px, -353px, 48px, 48px);
     }
 
     &.t_17 {
-        width: 48px;
-        height: 48px;
-        background-position: -643px -353px;
+        @include potion(-585px, -353px, 48px, 48px);
     }
 
     &.t_170 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -411px;
+        @include potion(-643px, -353px, 48px, 48px);
     }
 
     &.t_171 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -411px;
+        @include potion(-5px, -411px, 48px, 48px);
     }
 
     &.t_172 {
-        width: 48px;
-        height: 48px;
-        background-position: -121px -411px;
+        @include potion(-63px, -411px, 48px, 48px);
     }
 
     &.t_174 {
-        width: 48px;
-        height: 48px;
-        background-position: -179px -411px;
+        @include potion(-121px, -411px, 48px, 48px);
     }
 
     &.t_175 {
-        width: 48px;
-        height: 48px;
-        background-position: -237px -411px;
+        @include potion(-179px, -411px, 48px, 48px);
     }
 
     &.t_176 {
-        width: 48px;
-        height: 48px;
-        background-position: -295px -411px;
+        @include potion(-237px, -411px, 48px, 48px);
     }
 
     &.t_178 {
-        width: 48px;
-        height: 48px;
-        background-position: -353px -411px;
+        @include potion(-295px, -411px, 48px, 48px);
     }
 
     &.t_179 {
-        width: 48px;
-        height: 48px;
-        background-position: -411px -411px;
+        @include potion(-353px, -411px, 48px, 48px);
     }
 
     &.t_18 {
-        width: 48px;
-        height: 48px;
-        background-position: -469px -411px;
-    }
-
-    &.t_19 {
-        width: 48px;
-        height: 48px;
-        background-position: -527px -411px;
+        @include potion(-411px, -411px, 48px, 48px);
     }
 
     &.t_20 {
-        width: 48px;
-        height: 48px;
-        background-position: -585px -411px;
+        @include potion(-469px, -411px, 48px, 48px);
     }
 
     &.t_21 {
-        width: 48px;
-        height: 48px;
-        background-position: -643px -411px;
+        @include potion(-527px, -411px, 48px, 48px);
     }
 
     &.t_22 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -469px;
+        @include potion(-585px, -411px, 48px, 48px);
     }
 
     &.t_23 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -469px;
+        @include potion(-643px, -411px, 48px, 48px);
     }
 
     &.t_24 {
-        width: 48px;
-        height: 48px;
-        background-position: -121px -469px;
+        @include potion(-5px, -469px, 48px, 48px);
     }
 
     &.t_26 {
-        width: 48px;
-        height: 48px;
-        background-position: -179px -469px;
+        @include potion(-63px, -469px, 48px, 48px);
     }
 
     &.t_27 {
-        width: 48px;
-        height: 48px;
-        background-position: -237px -469px;
+        @include potion(-121px, -469px, 48px, 48px);
     }
 
     &.t_28 {
-        width: 48px;
-        height: 48px;
-        background-position: -295px -469px;
-    }
-
-    &.t_29 {
-        width: 48px;
-        height: 48px;
-        background-position: -353px -469px;
+        @include potion(-179px, -469px, 48px, 48px);
     }
 
     &.t_30 {
-        width: 48px;
-        height: 48px;
-        background-position: -411px -469px;
+        @include potion(-237px, -469px, 48px, 48px);
     }
 
     &.t_31 {
-        width: 48px;
-        height: 48px;
-        background-position: -469px -469px;
+        @include potion(-295px, -469px, 48px, 48px);
     }
 
     &.t_32 {
-        width: 48px;
-        height: 48px;
-        background-position: -527px -469px;
+        @include potion(-353px, -469px, 48px, 48px);
     }
 
     &.t_34 {
-        width: 48px;
-        height: 48px;
-        background-position: -585px -469px;
+        @include potion(-411px, -469px, 48px, 48px);
     }
 
     &.t_35 {
-        width: 48px;
-        height: 48px;
-        background-position: -643px -469px;
+        @include potion(-469px, -469px, 48px, 48px);
     }
 
     &.t_36 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -527px;
+        @include potion(-527px, -469px, 48px, 48px);
     }
 
     &.t_37 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -527px;
+        @include potion(-585px, -469px, 48px, 48px);
     }
 
     &.t_38 {
-        width: 48px;
-        height: 48px;
-        background-position: -121px -527px;
+        @include potion(-643px, -469px, 48px, 48px);
     }
 
     &.t_40 {
-        width: 48px;
-        height: 48px;
-        background-position: -179px -527px;
+        @include potion(-5px, -527px, 48px, 48px);
     }
 
     &.t_41 {
-        width: 48px;
-        height: 48px;
-        background-position: -237px -527px;
+        @include potion(-63px, -527px, 48px, 48px);
     }
 
     &.t_42 {
-        width: 48px;
-        height: 48px;
-        background-position: -295px -527px;
+        @include potion(-121px, -527px, 48px, 48px);
     }
 
     &.t_44 {
-        width: 48px;
-        height: 48px;
-        background-position: -353px -527px;
+        @include potion(-179px, -527px, 48px, 48px);
     }
 
     &.t_45 {
-        width: 48px;
-        height: 48px;
-        background-position: -411px -527px;
+        @include potion(-237px, -527px, 48px, 48px);
     }
 
     &.t_46 {
-        width: 48px;
-        height: 48px;
-        background-position: -469px -527px;
+        @include potion(-295px, -527px, 48px, 48px);
     }
 
     &.t_47 {
-        width: 48px;
-        height: 48px;
-        background-position: -527px -527px;
+        @include potion(-353px, -527px, 48px, 48px);
     }
 
     &.t_49 {
-        width: 48px;
-        height: 48px;
-        background-position: -585px -527px;
+        @include potion(-411px, -527px, 48px, 48px);
     }
 
     &.t_50 {
-        width: 48px;
-        height: 48px;
-        background-position: -643px -527px;
+        @include potion(-469px, -527px, 48px, 48px);
     }
 
     &.t_52 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -585px;
+        @include potion(-527px, -527px, 48px, 48px);
     }
 
     &.t_53 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -585px;
+        @include potion(-585px, -527px, 48px, 48px);
     }
 
     &.t_54 {
-        width: 48px;
-        height: 48px;
-        background-position: -121px -585px;
+        @include potion(-643px, -527px, 48px, 48px);
     }
 
     &.t_55 {
-        width: 48px;
-        height: 48px;
-        background-position: -179px -585px;
+        @include potion(-5px, -585px, 48px, 48px);
     }
 
     &.t_57 {
-        width: 48px;
-        height: 48px;
-        background-position: -237px -585px;
+        @include potion(-63px, -585px, 48px, 48px);
     }
 
     &.t_59 {
-        width: 48px;
-        height: 48px;
-        background-position: -295px -585px;
+        @include potion(-121px, -585px, 48px, 48px);
     }
 
     &.t_60 {
-        width: 48px;
-        height: 48px;
-        background-position: -353px -585px;
+        @include potion(-179px, -585px, 48px, 48px);
     }
 
     &.t_61 {
-        width: 48px;
-        height: 48px;
-        background-position: -411px -585px;
+        @include potion(-237px, -585px, 48px, 48px);
     }
 
     &.t_62 {
-        width: 48px;
-        height: 48px;
-        background-position: -469px -585px;
+        @include potion(-295px, -585px, 48px, 48px);
     }
 
     &.t_64 {
-        width: 48px;
-        height: 48px;
-        background-position: -527px -585px;
+        @include potion(-353px, -585px, 48px, 48px);
     }
 
     &.t_65 {
-        width: 48px;
-        height: 48px;
-        background-position: -585px -585px;
+        @include potion(-411px, -585px, 48px, 48px);
     }
 
     &.t_66 {
-        width: 48px;
-        height: 48px;
-        background-position: -643px -585px;
+        @include potion(-469px, -585px, 48px, 48px);
     }
 
     &.t_67 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -643px;
+        @include potion(-527px, -585px, 48px, 48px);
     }
 
     &.t_68 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -643px;
+        @include potion(-585px, -585px, 48px, 48px);
     }
 
     &.t_69 {
-        width: 48px;
-        height: 48px;
-        background-position: -121px -643px;
+        @include potion(-643px, -585px, 48px, 48px);
     }
 
     &.t_70 {
-        width: 48px;
-        height: 48px;
-        background-position: -179px -643px;
+        @include potion(-5px, -643px, 48px, 48px);
     }
 
     &.t_72 {
-        width: 48px;
-        height: 48px;
-        background-position: -237px -643px;
+        @include potion(-63px, -643px, 48px, 48px);
     }
 
     &.t_73 {
-        width: 48px;
-        height: 48px;
-        background-position: -295px -643px;
+        @include potion(-121px, -643px, 48px, 48px);
     }
 
     &.t_74 {
-        width: 48px;
-        height: 48px;
-        background-position: -353px -643px;
+        @include potion(-179px, -643px, 48px, 48px);
     }
 
     &.t_75 {
-        width: 48px;
-        height: 48px;
-        background-position: -411px -643px;
+        @include potion(-237px, -643px, 48px, 48px);
     }
 
     &.t_76 {
-        width: 48px;
-        height: 48px;
-        background-position: -469px -643px;
+        @include potion(-295px, -643px, 48px, 48px);
     }
 
     &.t_78 {
-        width: 48px;
-        height: 48px;
-        background-position: -527px -643px;
+        @include potion(-353px, -643px, 48px, 48px);
     }
 
     &.t_79 {
-        width: 48px;
-        height: 48px;
-        background-position: -585px -643px;
+        @include potion(-411px, -643px, 48px, 48px);
     }
 
     &.t_80 {
-        width: 48px;
-        height: 48px;
-        background-position: -643px -643px;
+        @include potion(-469px, -643px, 48px, 48px);
     }
 
     &.t_82 {
-        width: 48px;
-        height: 48px;
-        background-position: -701px -5px;
+        @include potion(-527px, -643px, 48px, 48px);
     }
 
     &.t_83 {
-        width: 48px;
-        height: 48px;
-        background-position: -701px -63px;
+        @include potion(-585px, -643px, 48px, 48px);
     }
 
     &.t_85 {
-        width: 48px;
-        height: 48px;
-        background-position: -701px -121px;
+        @include potion(-643px, -643px, 48px, 48px);
     }
 
     &.t_86 {
-        width: 48px;
-        height: 48px;
-        background-position: -701px -179px;
+        @include potion(-701px, -5px, 48px, 48px);
+    }
+
+    &.t_87 {
+        @include potion(-701px, -63px, 48px, 48px);
     }
 
     &.t_88 {
-        width: 48px;
-        height: 48px;
-        background-position: -701px -237px;
+        @include potion(-701px, -121px, 48px, 48px);
     }
 
     &.t_89 {
-        width: 48px;
-        height: 48px;
-        background-position: -701px -295px;
+        @include potion(-701px, -179px, 48px, 48px);
     }
 
     &.t_90 {
-        width: 48px;
-        height: 48px;
-        background-position: -701px -353px;
+        @include potion(-701px, -237px, 48px, 48px);
     }
 
     &.t_91 {
-        width: 48px;
-        height: 48px;
-        background-position: -701px -411px;
+        @include potion(-701px, -295px, 48px, 48px);
     }
 
     &.t_93 {
-        width: 48px;
-        height: 48px;
-        background-position: -701px -469px;
+        @include potion(-701px, -353px, 48px, 48px);
     }
 
     &.t_94 {
-        width: 48px;
-        height: 48px;
-        background-position: -701px -527px;
+        @include potion(-701px, -411px, 48px, 48px);
     }
 
     &.t_95 {
-        width: 48px;
-        height: 48px;
-        background-position: -701px -585px;
+        @include potion(-701px, -469px, 48px, 48px);
     }
 
     &.t_97 {
-        width: 48px;
-        height: 48px;
-        background-position: -701px -643px;
+        @include potion(-701px, -527px, 48px, 48px);
     }
 
     &.t_98 {
-        width: 48px;
-        height: 48px;
-        background-position: -5px -701px;
+        @include potion(-701px, -585px, 48px, 48px);
     }
 
     &.t_99 {
-        width: 48px;
-        height: 48px;
-        background-position: -63px -701px;
+        @include potion(-701px, -643px, 48px, 48px);
     }
 }

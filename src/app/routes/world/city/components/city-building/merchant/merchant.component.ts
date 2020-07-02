@@ -36,8 +36,8 @@ export class MerchantComponent implements OnInit, OnDestroy {
                 this.currencies$,
                 (event: CurrencyConversion, currencies) => {
                     if (
-                        currencies.find((c) => c.name === "gold").quantity >
-                        event.from.quantity
+                        currencies.find((c) => c.name === event.from.name)
+                            ?.quantity >= event.from.quantity
                     ) {
                         this.store.dispatch(
                             new GameStateCurrenciesAddCurrencyAction(event.to)
@@ -73,9 +73,9 @@ export class MerchantComponent implements OnInit, OnDestroy {
 
     public canConvert(item: CurrencyConversion) {
         let can = false;
-        this.getCurrency("gold")
+        this.getCurrency(item.from.name)
             .pipe(first())
-            .subscribe((g) => (can = g.quantity > item.from.quantity));
+            .subscribe((g) => (can = g?.quantity >= item.from.quantity));
         return can;
     }
     trackByFn(index: number, el: CurrencyConversion) {

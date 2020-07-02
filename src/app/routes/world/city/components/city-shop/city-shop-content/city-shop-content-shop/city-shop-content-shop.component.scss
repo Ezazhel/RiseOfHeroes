@@ -9,15 +9,12 @@
 
 .content {
     height: 60px;
-    width: 200px;
     cursor: pointer;
     box-shadow: 0 0.2rem 0.15rem lightslategrey;
     box-sizing: border-box;
     margin: 5px;
     border: 1px solid lightslategrey;
-    background: white;
     padding-right: 5px;
-    color: $body;
     font-weight: bold;
     &.disabled {
         cursor: default;
@@ -49,6 +46,6 @@
     }
     &.common {
         box-shadow: 0 0.2rem 0.15rem $carreraWhite;
-        color: $body !important;
+        color: $carreraWhite;
     }
 }

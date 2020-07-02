@@ -115,8 +115,8 @@ const effects: Map<string, EffectMethod> = new Map([
             );
             target.hp = target.hp - damage;
             isCrit
-                ? notifier.notify(damage.toString(), "", "damageCrit")
-                : notifier.notify(damage.toString(), "", "damage");
+                ? notifier.notify(damage.toString(), "", "damageCrit", 1000)
+                : notifier.notify(damage.toString(), "", "damage", 1000);
             store.dispatch(
                 new GameStateUpdateHeroAction(
                     lifeSteal(launcher, damage * (isCrit ? 2 : 1), notifier)
