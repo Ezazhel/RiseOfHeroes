@@ -1,4 +1,4 @@
-<ng-container *transloco="let t; read: 'notification'">
+<ng-container *transloco="let t">
     <div *ngIf="src" fxLayout="column-reverse">
         <ng-container
             *ngFor="let notification of src.notifications; trackBy: trackByFn"
@@ -8,18 +8,100 @@
                     (click)="src.destroy(notification)"
                     fxLayout="row"
                     fxLayoutAlign="flex-start center"
+                    [ngSwitch]="notification.type"
                 >
-                    <i
-                        *ngIf="notification.icon != ''"
-                        class="{{ notification.icon }}"
-                        [attr.data-qty]="notification?.qty"
-                    ></i>
-                    <span>{{
-                        t(notification.type, {
-                            param: notification.param,
-                            value: notification.qty
-                        })
-                    }}</span>
+                    <div
+                        *ngSwitchCase="'1icon'"
+                        fxLayout="row"
+                        fxLayoutAlign="flex-start center"
+                    >
+                        <span>{{
+                            t("notification." + notification.subType, {
+                                param: t(notification.param)
+                            })
+                        }}</span>
+
+                        <div [ngSwitch]="notification.subType">
+                            <i
+                                *ngIf="
+                                    notification.subType == 'bougth' ||
+                                    notification.subType == 'selled'
+                                "
+                                class="{{ notification.item.subType }} {{
+                                    notification.item.icon
+                                }} {{ notification.item.quality }}"
+                            ></i>
+                            <div
+                                fxLayout="row"
+                                fxLayoutAlign="center center"
+                                *ngSwitchCase="'convert'"
+                            >
+                                <i
+                                    class="currency {{
+                                        notification.currencies[0].name
+                                    }}"
+                                    [attr.data-qty]="
+                                        notification.currencies[0].quantity
+                                    "
+                                ></i>
+                                >
+                                <i
+                                    class="currency {{
+                                        notification.currencies[1].name
+                                    }}"
+                                    [attr.data-qty]="
+                                        notification.currencies[1].quantity
+                                    "
+                                ></i>
+                            </div>
+                            <div
+                                *ngIf="
+                                    notification.subType === 'need' ||
+                                    notification.subType === 'reward.earn'
+                                "
+                            >
+                                <i
+                                    *ngIf="
+                                        notification.currencies !== null &&
+                                        notification.currencies !== undefined
+                                    "
+                                    class="currency {{
+                                        (notification?.currencies)[0]?.name
+                                    }}"
+                                    [attr.data-qty]="
+                                        (notification?.currencies)[0]?.quantity
+                                    "
+                                >
+                                </i>
+                                <i
+                                    *ngIf="
+                                        notification.item !== null &&
+                                        notification.item !== undefined
+                                    "
+                                    class="
+                                {{ notification?.item?.subType }} {{
+                                        notification.item.icon
+                                    }} {{ notification?.item?.quality }}"
+                                >
+                                </i>
+                            </div>
+                        </div>
+
+                        <i
+                            *ngIf="notification.icon != ''"
+                            class="{{ notification.icon }}"
+                            [attr.data-qty]="notification?.qty"
+                        ></i>
+                    </div>
+                    <div *ngSwitchDefault>
+                        <span>{{
+                            t("notification." + notification.subType, {
+                                param: t(notification.text)
+                                    ? t(notification.text)
+                                    : notification.text
+                            })
+                        }}</span>
+                    </div>
                 </div>
             </div>
         </ng-container>

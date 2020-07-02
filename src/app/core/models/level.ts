@@ -19,7 +19,7 @@ export function getXPForAction(level, action: ActionType): number {
     let percent: number;
     switch (action) {
         case "train":
-            percent = 0.01;
+            percent = 1;
             break;
         case "work":
             percent = 0.001;
@@ -67,7 +67,7 @@ export function levelUp(
     if (isLevelUp(hero.exp, xpReward, xpForLevel)) {
         exp = hero.exp + xpReward - xpForLevel;
         level += 1;
-        notifier.notify(`Level up ! ${level}`, "", "text", 0, 5000);
+        notifier.notify("text", "levelUp", `notification.levelUp`, 5000); //levelUp
         //getUnlock for level, notify...
     } else {
         exp = hero.exp + xpReward;
@@ -167,14 +167,14 @@ function levelUpUnlock(
 ) {
     switch (level) {
         case 3:
-            notifier.notify("Construction", "", "unlock", 0, 5000);
+            notifier.notify("text", "unlock", "Construction", 5000); //unlock
             break; //Unlock Construction automatically
         case 5:
-            notifier.notify("New city", "", "unlock", 0, 5000);
+            notifier.notify("text", "unlock", "New city", 5000);
             store.dispatch(new CityAddCity(cities.get("heapoo")));
             break; //Unlock new city
         case 10:
-            notifier.notify("Talent", "", "unlock", 0, 5000);
+            notifier.notify("text", "unlock", "Talent", 5000);
             break;
     }
 }

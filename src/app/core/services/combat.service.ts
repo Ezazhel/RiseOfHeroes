@@ -1,3 +1,4 @@
+import { getNumberFixed } from "@core/models/utils";
 import { first } from "rxjs/operators";
 import {
     Currency,
@@ -34,6 +35,7 @@ import { getFromLootbag } from "@core/models/loot/item-generation";
 import { Potion } from "@core/models/potions/potions.model";
 import { getEffect } from "@core/models/potions/potions.utils";
 import { availableSlot } from "@core/models/selector";
+import { NotificationType } from "app/notification/notification.model";
 
 @Injectable({
     providedIn: "root",
@@ -94,13 +96,22 @@ export class CombatService {
         ).subscribe(() => {
             let crit: number = 1;
             let damage: number = getHeroDamage(this.hero);
-            let text: string = `You hit for ${damage}`;
+            let text: NotificationType = `damage`;
             if (isCrit(this.hero)) {
                 crit = 2;
-                text = `You critical hit for : ${damage * 2}`;
+                damage = damage * 2;
+                text = `damageCrit`;
             }
-            this.fighter.hp = Math.floor(this.fighter.hp - damage * crit);
-            this._notifier.notify(text, "", "text", 0, weapon.speed / 2);
+            this.fighter.hp = getNumberFixed(this.fighter.hp - damage * crit);
+            this._notifier.notify(
+                "text",
+                text,
+                damage,
+                weapon.speed / 2,
+                null,
+                null,
+                null
+            );
             //heal after hit
             this.store.dispatch(
                 new GameStateUpdateHeroAction(
@@ -119,7 +130,7 @@ export class CombatService {
             this.store.dispatch(
                 new GameStateUpdateHeroAction({
                     ...this.hero,
-                    hp: this.hero.hp - this.fighter.attack,
+                    hp: getNumberFixed(this.hero.hp - this.fighter.attack),
                 })
             );
             if (this.hero.hp <= 0) {
@@ -223,10 +234,13 @@ export class CombatService {
                         )
                     );
                     this._notifier.notify(
-                        (rwd.reward as Currency).name,
-                        `currency ${(rwd.reward as Currency).name}`,
-                        "reward",
-                        (rwd.reward as Currency).quantity
+                        "1icon",
+                        "reward.earn",
+                        "",
+                        3000,
+                        null,
+                        [rwd.reward as Currency],
+                        ""
                     );
                     break;
                 case "armor":
@@ -237,17 +251,12 @@ export class CombatService {
                         .subscribe((available: number) => {
                             if (available <= 0) {
                                 this._notifier.notify(
-                                    `${
-                                        (rwd.reward as ITemplateBaseItem)
-                                            .quality
-                                    } - ${
-                                        (rwd.reward as ITemplateBaseItem).name
-                                    } `,
-                                    `   
-                            ${(rwd.reward as ITemplateBaseItem).subType} 
-                            ${(rwd.reward as ITemplateBaseItem).icon}
-                        `,
-                                    "inventoryFull"
+                                    "1icon",
+                                    "reward.earn",
+
+                                    "notification.inventoryfull",
+                                    3000,
+                                    rwd.reward as ITemplateBaseItem
                                 );
                                 return;
                             }
@@ -257,20 +266,19 @@ export class CombatService {
                                 )
                             );
                             this._notifier.notify(
-                                `${
-                                    (rwd.reward as ITemplateBaseItem).quality
-                                } - ${(rwd.reward as ITemplateBaseItem).name}`,
-                                `   
-                            ${(rwd.reward as ITemplateBaseItem).subType} 
-                            ${(rwd.reward as ITemplateBaseItem).icon}
-                        `,
-                                "reward"
+                                "1icon",
+                                "reward.earn",
+                                "",
+                                3000,
+                                rwd.reward as ITemplateBaseItem,
+                                null,
+                                ""
                             );
                         });
                     break;
             }
         } else {
-            this._notifier.notify("", "", "noReward");
+            this._notifier.notify("text", "noReward", "");
         }
     }
 }

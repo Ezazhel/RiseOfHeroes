@@ -109,9 +109,9 @@ export class GymComponent implements OnInit, OnDestroy {
                                 })
                             );
                             this._notifier.notify(
-                                `${event.training.reward} ${event.training.type}`,
-                                "",
-                                "reward"
+                                "text",
+                                "reward.earn",
+                                `${event.training.reward} ${event.training.type}`
                             );
                             this.doTraining$.next({
                                 ...event,
@@ -124,7 +124,11 @@ export class GymComponent implements OnInit, OnDestroy {
                             );
                         }, time);
                     } else {
-                        this._notifier.notify("No more training", "", "text");
+                        this._notifier.notify(
+                            "text",
+                            "text",
+                            "house.training.noMore"
+                        );
                         this.store.dispatch(
                             new CityBuildingTrainHero({
                                 city: this.city.id,

@@ -70,12 +70,13 @@ export class WorkComponent implements OnInit, OnDestroy {
                             )
                         );
                         this._notifier.notify(
+                            "1icon",
+                            "reward.earn",
                             "",
-                            `currency ${event.currency.name}`,
-                            "reward",
-                            reward.currency.quantity,
-                            time - 100
-                        );
+                            time - 100,
+                            null,
+                            [event.currency]
+                        ); //reward -currencyqty
                         this.store.dispatch(
                             new GameStateUpdateHeroAction(
                                 levelUpFromAction(
@@ -87,11 +88,11 @@ export class WorkComponent implements OnInit, OnDestroy {
                             )
                         );
                         this._notifier.notify(
-                            `exp ${getXPForAction(hero.level, "work")}`,
-                            "",
-                            "reward",
+                            "text",
+                            "reward.exp",
+                            `${getXPForAction(hero.level, "work")}`,
                             time - 100
-                        );
+                        ); //reward
                         event = { ...event, done: event.done + 1 };
                         if (event.done >= event.promotion) {
                             event = {
@@ -110,11 +111,11 @@ export class WorkComponent implements OnInit, OnDestroy {
                             this.store.dispatch(new HousePromotion(event));
 
                             this._notifier.notify(
-                                `${event.name} : ${event.level}`,
-                                "",
-                                "unlock",
+                                "text",
+                                "promote",
+                                `${event.name}`,
                                 2000
-                            );
+                            ); //unlock promote work
                         }
                         this.store.dispatch(new HouseWorking("none"));
                         this.doWorking$.next(event);

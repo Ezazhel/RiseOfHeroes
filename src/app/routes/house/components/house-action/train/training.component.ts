@@ -82,10 +82,11 @@ export class TrainingComponent implements OnInit, OnDestroy {
                                     new HouseUpdateTrainingEquipmentDone(event)
                                 );
                                 this._notifier.notify(
+                                    "text",
+                                    "reward.earn",
                                     `${event.reward} ${event.id}`,
-                                    "",
-                                    "reward"
-                                );
+                                    1000
+                                ); //reward
                                 this.store.dispatch(
                                     new GameStateUpdateHeroAction(
                                         levelUpFromAction(
@@ -97,14 +98,11 @@ export class TrainingComponent implements OnInit, OnDestroy {
                                     )
                                 );
                                 this._notifier.notify(
-                                    `exp ${getXPForAction(
-                                        hero.level,
-                                        "train"
-                                    )}`,
-                                    "",
-                                    "reward",
-                                    500
-                                );
+                                    "text",
+                                    "reward.exp",
+                                    `${getXPForAction(hero.level, "train")}`,
+                                    1000
+                                ); //reward
                                 this.doTraining$.next({
                                     ...event,
                                     done: event.done + 1,
@@ -112,7 +110,11 @@ export class TrainingComponent implements OnInit, OnDestroy {
                             }, time)
                         );
                     } else {
-                        this._notifier.notify("No more training", "", "text");
+                        this._notifier.notify(
+                            "text",
+                            "text",
+                            "house.training.noMore"
+                        ); //text no more training
                     }
                 }
             )

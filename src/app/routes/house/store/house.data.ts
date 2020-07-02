@@ -62,14 +62,18 @@ export const constructionEffects: Map<
             store.dispatch(
                 new HouseBuild("sawmill", worksData.get("lumberjack"))
             );
-            _notifier.notify("Built add trad", "", "text");
+            _notifier.notify(
+                "text",
+                "unlock",
+                worksData.get("lumberjack").name
+            );
         },
     ],
     [
         "mine",
         (store, _notifier) => {
             store.dispatch(new HouseBuild("mine", worksData.get("miner")));
-            _notifier.notify("Built add trad", "", "text");
+            _notifier.notify("text", "unlock", worksData.get("miner").name);
         },
     ],
 ]);

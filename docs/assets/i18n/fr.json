@@ -1,18 +1,23 @@
 {
     "notification": {
-        "text": "{{param}}",
+        "text": "{{param}} {{value}}",
         "damage": "Vous avez infligé {{param}}",
+        "convert": "Vous avez converti",
         "damageCrit": "Vous avez infligé {{param}}, coup critique !",
         "unlock": "Vous avez débloqué : {{param}}",
         "levelUp": "Vous êtes monté d'un niveau, bravo ! ",
-        "selled": "Vous avez vendu {{param}} pour {{value}}g",
-        "bougth": "Vous avez acheté {{param}}",
-        "reward": "Vous avez gagné {{param}}",
-        "need": "Vous avez besoin de {{param}}",
+        "selled": "Vous avez vendu {{param}}",
+        "bougth": "Vous avez acheté",
+        "reward": {
+            "earn": "Vous avez gagné",
+            "exp": "Vous avez gagné {{param}} exp"
+        },
+        "need": "Vous avez besoin de",
+        "promote": "Vous devenez un meilleur {{param}}",
         "noReward": "Le monstre n'a rien donné",
         "cantCraft": "Vous ne pouvez pas fabriquer {{param}} vous n'avez pas les composants",
         "inventoryFull": "Vous n'avez pas reçu {{param}} : votre inventaire est plein",
-        "heal": "Vous vous êtes soigné pour {{param}} pv"
+        "heal": "Vous vous êtes soigné pour {{param}}"
     },
     "messageButton": {
         "all": "Tout",
@@ -111,6 +116,7 @@
         "yourHouse": "Ma maison",
         "houseInformation": "N'hésitez pas à vous entrainer, aller travailler (vous ne pourrez pas faire les deux !)",
         "training": {
+            "noMore": "Vous n'avez plus d'entraînements.",
             "buttonText": "Entraînement",
             "strength": {
                 "cardHeader": "Force",

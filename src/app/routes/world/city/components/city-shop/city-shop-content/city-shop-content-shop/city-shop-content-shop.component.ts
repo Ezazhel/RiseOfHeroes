@@ -56,9 +56,9 @@ export class CityShopContentShopComponent
                 (event: ITemplateBaseItem, availableSlot: number) => {
                     if (availableSlot <= 0) {
                         this._notifier.notify(
-                            `${event.name}`,
-                            "",
-                            "inventoryFull"
+                            "text",
+                            "inventoryFull",
+                            `${event.name}`
                         );
                     } else {
                         let currentGold: number;
@@ -76,11 +76,13 @@ export class CityShopContentShopComponent
                             this.itemNull.emit(true);
                         } else {
                             this._notifier.notify(
-                                "",
-                                "currency gold",
+                                "1icon",
                                 "need",
-                                event.value
-                            );
+                                "",
+                                3000,
+                                null,
+                                [{ name: "gold", quantity: event.value }]
+                            ); //need
                         }
                     }
                 }

@@ -109,7 +109,7 @@ export function lifeSteal(
     if (lifesteal === 0) return hero;
     const regen = lifesteal + hero.hp;
     const maxHp = regen > hero.maxHp ? hero.maxHp : regen;
-    notifier.notify(`(trd)lifesteal : ${lifesteal}`, "", "text");
+    notifier.notify("text", "heal", lifesteal);
     return { ...hero, hp: getNumberFixed(maxHp) };
 }
 

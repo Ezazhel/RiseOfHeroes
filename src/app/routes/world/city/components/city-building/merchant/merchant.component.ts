@@ -49,18 +49,18 @@ export class MerchantComponent implements OnInit, OnDestroy {
                             })
                         );
                         this._notifier.notify(
-                            event.to.name,
-                            `currency ${event.to.name}`,
-                            "bougth",
-                            event.to.quantity
+                            "1icon",
+                            "convert",
+                            "",
+                            3000,
+                            null,
+                            [event.from, event.to]
                         );
                     } else {
-                        this._notifier.notify(
-                            event.from.name,
-                            `currency ${event.from.name}`,
-                            "need",
-                            event.from.quantity
-                        );
+                        this._notifier.notify("1icon", "need", "", 3000, null, [
+                            event.from,
+                            event.to,
+                        ]);
                     }
                 }
             )

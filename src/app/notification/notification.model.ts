@@ -1,12 +1,23 @@
+import {
+    ITemplateBaseEquipment,
+    ITemplateBaseItem,
+    Currency,
+} from "@core/models/game-data/game-data.model";
+
 export type NotificationType =
     | "text"
+    | "1icon"
+    | "multipleIcon"
+    | "convert"
     | "damage"
     | "damageCrit"
     | "unlock"
     | "levelUp"
     | "selled"
     | "bougth"
-    | "reward"
+    | "reward.earn"
+    | "promote"
+    | "reward.exp"
     | "need"
     | "noReward"
     | "inventoryFull"
@@ -15,9 +26,11 @@ export type NotificationType =
 
 export class Notification {
     constructor(
-        public param: string,
         public type: NotificationType = "text",
-        public qty?: number,
+        public subType: NotificationType,
+        public text: string | number,
+        public item?: ITemplateBaseItem,
+        public currencies?: Currency[],
         public icon?: string
     ) {}
 }

@@ -86,17 +86,17 @@ export class CityShopCraftComponent implements OnInit, OnDestroy {
                     const item = event;
                     if (!this.canCraft(item.materials)) {
                         this._notifier.notify(
-                            `${event.equipment.name}`,
-                            "",
-                            "cantCraft"
+                            "text",
+                            "cantCraft",
+                            `${event.equipment.name}`
                         );
                         return;
                     }
                     if (availableSlot <= 0) {
                         this._notifier.notify(
-                            `${event.equipment.name}`,
-                            "",
-                            "inventoryFull"
+                            "text",
+                            "inventoryFull",
+                            `${event.equipment.name}`
                         );
                         return;
                     } else {

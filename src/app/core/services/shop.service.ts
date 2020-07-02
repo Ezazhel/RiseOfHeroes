@@ -80,11 +80,7 @@ export class ShopService {
             })
         );
         this.store.dispatch(new GameStateInventoryAddItemAction(item));
-        this._notifier.notify(
-            item.name,
-            `${item.subType} ${item.icon}`,
-            "bougth"
-        );
+        this._notifier.notify("1icon", "bougth", item.name, 1000, item); //bought
     }
 
     sellItem(item: ITemplateBaseItem, shopType: string, cityId: string) {
@@ -102,11 +98,6 @@ export class ShopService {
             })
         );
         this.store.dispatch(new GameStateInventoryRemoveItemAction(item.id));
-        this._notifier.notify(
-            item.name,
-            `${item.subType} ${item.icon}`,
-            "selled",
-            item.value
-        );
+        this._notifier.notify("1icon", "selled", item.name, 1000, item); //selled
     }
 }

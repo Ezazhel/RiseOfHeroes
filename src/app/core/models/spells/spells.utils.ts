@@ -114,9 +114,7 @@ const effects: Map<string, EffectMethod> = new Map([
                 getHeroDamage(launcher) * spells.power * (isCrit ? 2 : 1)
             );
             target.hp = target.hp - damage;
-            isCrit
-                ? notifier.notify(damage.toString(), "", "damageCrit", 1000)
-                : notifier.notify(damage.toString(), "", "damage", 1000);
+            notifier.notify("text", isCrit ? "damageCrit" : "damage", damage);
             store.dispatch(
                 new GameStateUpdateHeroAction(
                     lifeSteal(launcher, damage * (isCrit ? 2 : 1), notifier)
@@ -183,7 +181,7 @@ const effectsPassives: Map<string, PassiveMethod> = new Map<
         "peasantHearth",
         (notifier) => {
             let spell = PeasantSpells.find((s) => s.id === "peasantHearth");
-            notifier.notify(spell.name, "", "unlock");
+            notifier.notify("text", "unlock", spell.name); //unlock
             return { type: "endurance", add: 10, mult: spell.power };
         },
     ],
@@ -191,7 +189,7 @@ const effectsPassives: Map<string, PassiveMethod> = new Map<
         "peasantLabor",
         (notifier) => {
             let spell = PeasantSpells.find((s) => s.id === "peasantLabor");
-            notifier.notify(spell.name, "", "unlock");
+            notifier.notify("text", "unlock", spell.name); //unlock
             return { type: "loot", add: 0, mult: 2 };
         },
     ],
@@ -201,7 +199,7 @@ const effectsPassives: Map<string, PassiveMethod> = new Map<
             let spell = PeasantSpells.find(
                 (s) => s.id === "peasantProficiency"
             );
-            notifier.notify(spell.name, "", "unlock");
+            notifier.notify("text", "unlock", spell.name);
             return { type: "critc", add: spell.power, mult: 0 };
         },
     ],

@@ -27,7 +27,7 @@ export class GameService {
             exp: 0,
             armor: 0,
             equipments: [
-                { type: "weapon", id: "null", icon: "w" },
+                { type: "weapon", speed: 1000, id: "null", icon: "w" },
                 { type: "armor", subType: "helmet", id: "null", icon: "h" },
                 { type: "armor", subType: "chest", id: "null", icon: "c" },
                 { type: "armor", subType: "gloves", id: "null", icon: "g" },

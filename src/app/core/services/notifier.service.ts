@@ -4,6 +4,10 @@ import {
     Notification,
     NotificationType,
 } from "../../notification/notification.model";
+import {
+    ITemplateBaseItem,
+    Currency,
+} from "@core/models/game-data/game-data.model";
 @Injectable({
     providedIn: "root",
 })
@@ -11,16 +15,20 @@ export class NotifierService {
     public notifier = new Notifier();
 
     public notify(
-        param: string,
-        icon?: string,
         type: NotificationType = "text",
-        qty?: number,
-        duration: number = 3 * 1000
+        subType: NotificationType,
+        text: string | number,
+        duration: number = 3 * 1000,
+        item?: ITemplateBaseItem,
+        currencies?: Currency[],
+        icon?: string
     ): void {
         const notification: Notification = new Notification(
-            param,
             type,
-            qty,
+            subType,
+            text,
+            item,
+            currencies,
             icon
         );
         const dismissWait = () => {

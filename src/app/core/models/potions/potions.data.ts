@@ -42,9 +42,9 @@ export const potionAdvance: Map<PotionType, PotionAdvance> = new Map<
                     })
                 );
                 notification.notify(
-                    `${(hero.maxHp * potion.power) / 100}`,
-                    "",
-                    "heal"
+                    "text",
+                    "heal",
+                    `${(hero.maxHp * potion.power) / 100}`
                 );
             },
             description: (potion) => {

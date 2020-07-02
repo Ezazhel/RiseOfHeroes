@@ -1,18 +1,23 @@
 {
     "notification": {
-        "text": "{{param}}",
+        "text": "{{param}} {{value}}",
         "damage": "You dealt {{param}}",
+        "convert": "You converted",
         "damageCrit": "You dealt {{param}}, critical hit !",
         "unlock": "You just unlocked : {{param}}",
-        "levelUp": "You leveled up, Gg ! ",
-        "selled": "You selled {{param}} for {{value}}",
-        "bougth": "You bougth {{param}}",
-        "reward": "You earn {{param}}",
+        "levelUp": "You leveled up {{value}}, Gg ! ",
+        "selled": "You selled {{param}}",
+        "bougth": "You bougth",
+        "reward": {
+            "earn": "You earn {{param}}",
+            "exp": "You earn {{param}} exp"
+        },
+        "promote": "You become a better {{param}}",
         "noReward": "Monster drop nothing",
         "cantCraft": "You can't craft {{param}} you don't have the ressources",
         "inventoryFull": "Couldn't get {{param}} : your inventory is full",
-        "need": "You need {{param}}",
-        "heal": "You heal yourself for {{param}} hp"
+        "need": "You need",
+        "heal": "You heal yourself for {{param}}"
     },
     "messageButton": {
         "all": "All",
@@ -111,6 +116,7 @@
         "yourHouse": "This is your house",
         "houseInformation": "Feel free to train, go to work. (Be careful as you can't do both)",
         "training": {
+            "noMore": "No more training !",
             "buttonText": "Training",
             "strength": {
                 "cardHeader": "Strength",
