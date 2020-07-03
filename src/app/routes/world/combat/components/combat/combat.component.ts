@@ -70,6 +70,7 @@ export class CombatComponent implements OnInit, OnDestroy {
             )
         );
         this.subscription.unsubscribe();
+        this.combatService.fighter = null; //correction when leaving as "activate spell reset fight"
         this.combatService.stop();
     }
 }

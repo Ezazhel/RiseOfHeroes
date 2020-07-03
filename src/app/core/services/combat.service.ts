@@ -29,7 +29,7 @@ import {
     OvertimeSpells,
     HealSpells,
 } from "@core/models/spells/spells.model";
-import { levelUp, levelUpFromCombat } from "@core/models/level";
+import { levelUpFromCombat } from "@core/models/level";
 import { NotifierService } from "./notifier.service";
 import { getFromLootbag } from "@core/models/loot/item-generation";
 import { Potion } from "@core/models/potions/potions.model";
@@ -145,6 +145,10 @@ export class CombatService {
 
     startFight() {
         setTimeout(() => {
+            if (this.fighter === null) {
+                this.stop();
+                return;
+            }
             this.fightIntervals.add(this.heroAttack());
             this.fightIntervals.add(this.fighterAttack());
             this.launchSpell(this.hero);
@@ -155,6 +159,7 @@ export class CombatService {
         this.fightIntervals.forEach((subscription: Subscription) => {
             subscription.unsubscribe();
         });
+
         this.fightIntervals.clear();
         this.isFigthing = false;
     }
@@ -183,10 +188,13 @@ export class CombatService {
                 this.store.dispatch(
                     new CombatStateHeroSpell({ ...spell, isInCooldown: false })
                 );
-                setTimeout(() => this.activateSpell(spell), 10);
+                if (this.isFigthing) {
+                    console.log("spell activated");
+                    this.activateSpell(spell);
+                }
             })
         );
-        if (this.fighter.hp <= 0) {
+        if (this.fighter.hp <= 0 && this.isFigthing) {
             this.victory();
             this.death();
         }

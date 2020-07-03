@@ -87,39 +87,39 @@
     &.sword {
         @include stitches(-237px, -179px, 48px, 48px);
     }
-    .froggy {
-        @include base();
-        &.boots {
-            @include stitches(-5px, -5px, 48px, 48px);
-        }
-
-        &.helmet {
-            @include stitches(-63px, -5px, 48px, 48px);
-        }
-
-        &.pants {
-            @include stitches(-121px, -5px, 48px, 48px);
-        }
+}
+.froggy {
+    @include base();
+    &.boots {
+        @include stitches(-5px, -5px, 48px, 48px);
     }
-    .gobelino {
-        @include base();
-        &.axe {
-            @include stitches(-179px, -5px, 48px, 48px);
-        }
-        &.chest {
-            @include stitches(-237px, -5px, 48px, 48px);
-        }
+
+    &.helmet {
+        @include stitches(-63px, -5px, 48px, 48px);
     }
-    .goboss {
-        @include base();
-        &.chest {
-            @include stitches(-5px, -63px, 48px, 48px);
-        }
-        &.boots {
-            @include stitches(-63px, -63px, 48px, 48px);
-        }
-        &.gloves {
-            @include stitches(-121px, -63px, 48px, 48px);
-        }
+
+    &.pants {
+        @include stitches(-121px, -5px, 48px, 48px);
+    }
+}
+.gobelino {
+    @include base();
+    &.axe {
+        @include stitches(-179px, -5px, 48px, 48px);
+    }
+    &.chest {
+        @include stitches(-237px, -5px, 48px, 48px);
+    }
+}
+.goboss {
+    @include base();
+    &.chest {
+        @include stitches(-5px, -63px, 48px, 48px);
+    }
+    &.boots {
+        @include stitches(-63px, -63px, 48px, 48px);
+    }
+    &.gloves {
+        @include stitches(-121px, -63px, 48px, 48px);
     }
 }

@@ -19,10 +19,12 @@ export function getXPForAction(level, action: ActionType): number {
     let percent: number;
     switch (action) {
         case "train":
-            percent = 1;
+            percent = 0.005;
             break;
         case "work":
             percent = 0.001;
+        case "cheat":
+            percent = 1;
             break;
     }
     return getNumberFixed(getXPForLevel(level) * percent);

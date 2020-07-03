@@ -1,7 +1,13 @@
 import { BuildingAction } from "@routes/world/city/store/cities.model";
 import { fighters } from "./game-data/game-data.data";
 
-export type ActionType = "work" | "train" | "hunt" | "promote" | "recruit";
+export type ActionType =
+    | "cheat"
+    | "work"
+    | "train"
+    | "hunt"
+    | "promote"
+    | "recruit";
 
 export function descriptionFor(action: BuildingAction) {
     switch (action.type) {
