@@ -20,27 +20,8 @@ export class HouseActionComponent implements OnInit, OnDestroy {
     clearTimer() {
         clearTimeout(this.timer);
     }
-    cheat() {
-        this.store
-            .pipe(select(heroSelector))
-            .pipe(first())
-            .subscribe((h) => {
-                this.store.dispatch(
-                    new GameStateUpdateHeroAction(
-                        levelUpFromAction(
-                            h,
-                            "cheat",
-                            this._notifier,
-                            this.store
-                        )
-                    )
-                );
-            });
-    }
-    constructor(
-        private store: Store<AppState>,
-        private _notifier: NotifierService
-    ) {}
+
+    constructor() {}
 
     ngOnInit(): void {}
 

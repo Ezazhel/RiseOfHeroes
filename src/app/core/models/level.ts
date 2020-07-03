@@ -23,8 +23,6 @@ export function getXPForAction(level, action: ActionType): number {
             break;
         case "work":
             percent = 0.001;
-        case "cheat":
-            percent = 1;
             break;
     }
     return getNumberFixed(getXPForLevel(level) * percent);

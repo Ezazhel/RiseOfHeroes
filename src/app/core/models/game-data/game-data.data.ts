@@ -40,7 +40,6 @@ export const agilityStat: Stat = {
     value: 0,
 };
 //#endregion Stats
-
 //#region Weapon
 export const baseWeapon: ITemplateWeapon = {
     id: "", //will be set randomly
