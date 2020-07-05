@@ -1,53 +1,19 @@
 <ng-container *transloco="let t">
-    <div class="content" fxLayout="row wrap" fxLayoutAlign="center">
-        <ng-container *ngFor="let item of goods; trackBy: trackByFn">
-            <app-card
-                (click)="doConvert$.next(item)"
-                class="merchant-goods"
-                [ngClass]="{ cant: !canConvert(item) }"
-            >
-                <ng-container cardHeader>
-                    {{ t("currencies." + item.to.name) }}
-                </ng-container>
-                <ng-container cardBody>
-                    <div
-                        fxLayout="row"
-                        fxLayoutAlign="center center"
-                        fxFlex="grow"
-                    >
-                        <i
-                            class="currency {{ item.from.name }}"
-                            [attr.data-qty]="item.from.quantity || 0"
-                        ></i>
-                        <span> > </span>
-                        <i
-                            class="currency {{ item.to.name }}"
-                            [attr.data-qty]="item.to.quantity || 0"
-                        ></i>
-                    </div>
-                </ng-container>
-                <ng-container cardFooter>
-                    <div class="information">
-                        <span>
-                            {{ t("house.work.current") }}
-                        </span>
-                        <i
-                            class="currency {{ item.from.name }}"
-                            [attr.data-qty]="
-                                (getCurrency(item.from.name) | async)
-                                    ?.quantity || 0
-                            "
-                        ></i>
-                        <i
-                            class="currency {{ item.to.name }}"
-                            [attr.data-qty]="
-                                (getCurrency(item.to.name) | async)?.quantity ||
-                                0
-                            "
-                        ></i>
-                    </div>
-                </ng-container>
-            </app-card>
-        </ng-container>
+    <div class="content" fxLayout="column wrap" fxLayoutAlign="center">
+        <h4 (click)="setIsVisible('b')">{{ t("currencies.currencies") }}</h4>
+
+        <merchant-item
+            [hidden]="isVisible('b')"
+            [goods]="goodsBougth"
+            (convert)="doConvert$.next($event)"
+        ></merchant-item>
+
+        <h4 (click)="setIsVisible('s')">{{ t("currencies.gold") }}</h4>
+
+        <merchant-item
+            [hidden]="isVisible('s')"
+            [goods]="goodsSell"
+            (convert)="doConvert$.next($event)"
+        ></merchant-item>
     </div>
 </ng-container>

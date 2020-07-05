@@ -13,6 +13,18 @@ import { NotifierService } from "@core/services/notifier.service";
 })
 export class HouseActionComponent implements OnInit, OnDestroy {
     public timer: number;
+    public d: Map<string, boolean> = new Map<string, boolean>([
+        ["training", false],
+        ["work", false],
+        ["construction", false],
+    ]);
+
+    isVisible(s: string) {
+        return this.d.get(s);
+    }
+    setIsVisible(s: string) {
+        this.d.set(s, !this.isVisible(s));
+    }
     setTimer(timer: number) {
         this.clearTimer();
         this.timer = timer;

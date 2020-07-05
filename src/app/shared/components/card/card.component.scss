@@ -23,12 +23,19 @@
         height: 250px;
         cursor: default !important;
         background-color: $body;
-        box-shadow: 0px 0px 1px 1px $carreraWhite;
+        box-shadow: 0px 0px 0.5px 0.1px $carreraWhite;
         color: $carreraWhite;
         &:hover {
-            box-shadow: 0px 0px 1px 1px $carreraWhite;
+            box-shadow: 0px 0px 1px 0.5px $carreraWhite;
             transform: none;
         }
+        .card .card-header {
+            border-bottom: none;
+        }
+    }
+    &.merchant-goods {
+        cursor: default;
+        height: fit-content;
     }
     &.hunting {
         width: 128px;

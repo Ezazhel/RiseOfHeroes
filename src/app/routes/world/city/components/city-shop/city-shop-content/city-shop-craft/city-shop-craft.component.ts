@@ -1,3 +1,4 @@
+import { heroSelector } from "./../../../../../../../core/models/selector";
 import { levelSelector, availableSlot } from "@core/models/selector";
 import { currenciesSelector, equippedSelector } from "@core/models/selector";
 import { AppState } from "@core/models";
@@ -23,11 +24,13 @@ import { take, withLatestFrom } from "rxjs/operators";
 import {
     GameStateInventoryAddItemAction,
     GameStateCurrenciesAddCurrencyAction,
+    GameStateUpdateHeroAction,
 } from "@core/models/game-state/game-state.action";
 import { modifyStat, modifyPrice } from "@core/models/craft/craft.utils";
 import { entityId } from "@core/models/utils";
 import { toNumber } from "@ngneat/transloco";
 import { NotifierService } from "@core/services/notifier.service";
+import { levelUpFromAction, getXPForAction } from "@core/models/level";
 
 @Component({
     selector: "app-city-shop-craft",
@@ -57,6 +60,7 @@ export class CityShopCraftComponent implements OnInit, OnDestroy {
 
     _shop: Shop;
     currency$: Observable<Currency[]> = this.store.select(currenciesSelector);
+    hero$ = this.store.select(heroSelector);
     level$ = this.store.select(levelSelector);
     private _availableSlot$ = this.store.select(availableSlot);
 
@@ -82,7 +86,8 @@ export class CityShopCraftComponent implements OnInit, OnDestroy {
         .pipe(
             withLatestFrom(
                 this._availableSlot$,
-                (event: CraftSet, availableSlot: number) => {
+                this.hero$,
+                (event: CraftSet, availableSlot: number, hero) => {
                     const item = event;
                     if (!this.canCraft(item.materials)) {
                         this._notifier.notify(
@@ -120,6 +125,24 @@ export class CityShopCraftComponent implements OnInit, OnDestroy {
                                     })
                                 );
                             });
+
+                            //gain exp
+                            this.store.dispatch(
+                                new GameStateUpdateHeroAction(
+                                    levelUpFromAction(
+                                        hero,
+                                        "craft",
+                                        1,
+                                        this._notifier,
+                                        this.store
+                                    )
+                                )
+                            );
+                            this._notifier.notify(
+                                "text",
+                                "reward.exp",
+                                `${getXPForAction(hero.level, "craft")}`
+                            ); //reward
                         }
                     }
                 }

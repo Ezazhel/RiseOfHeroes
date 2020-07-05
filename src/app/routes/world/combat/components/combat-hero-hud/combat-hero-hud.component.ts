@@ -19,6 +19,7 @@ import { Potion } from "@core/models/potions/potions.model";
 import { heroSelector } from "@core/models/selector";
 import { Store } from "@ngrx/store";
 import { AppState } from "@core/models";
+import { CombatService } from "@core/services/combat.service";
 export interface CastEvent {
     spell?: Spells;
     potion?: Potion;
@@ -107,9 +108,14 @@ export class CombatHeroHudComponent implements OnInit, OnDestroy {
     trackByFn(index: number, el: Spells | OvertimeSpells | HealSpells) {
         return el;
     }
-    constructor(private store: Store<AppState>) {}
+    constructor(
+        private store: Store<AppState>,
+        private combatService: CombatService
+    ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.combatService.spellCasted = this.spellCasted;
+    }
 
     ngOnDestroy(): void {
         this._castSpellSubscription.unsubscribe();

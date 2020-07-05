@@ -10,6 +10,7 @@ import { HuntPostPost } from "./city-building/hunt/city-building-hunt-post-post.
 import { CityShopCraftComponent } from "./city-shop/city-shop-content/city-shop-craft/city-shop-craft.component";
 import { GymComponent } from "./city-building/gym/gym.component";
 import { MerchantComponent } from "./city-building/merchant/merchant.component";
+import { MerchantItemComponent } from "./city-building/merchant/item/merchant-item.component";
 
 export const components: any[] = [
     CityComponent,
@@ -24,6 +25,7 @@ export const components: any[] = [
     CityShopCraftComponent,
     GymComponent,
     MerchantComponent,
+    MerchantItemComponent,
 ];
 
 export * from "./city/city.component";

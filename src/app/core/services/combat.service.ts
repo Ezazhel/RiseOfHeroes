@@ -3,6 +3,7 @@ import { first } from "rxjs/operators";
 import {
     Currency,
     ITemplateBaseItem,
+    ITemplateBaseEquipment,
 } from "@core/models/game-data/game-data.model";
 import { effectFor } from "@core/models/spells/spells.utils";
 import {
@@ -14,7 +15,7 @@ import {
 } from "./../models/game-state/game-state.action";
 import { Hero, Fighter } from "../models/entity/entity";
 import { Store } from "@ngrx/store";
-import { Injectable } from "@angular/core";
+import { Injectable, EventEmitter } from "@angular/core";
 import { AppState } from "@core/models";
 import {
     getHeroDamage,
@@ -44,6 +45,7 @@ export class CombatService {
     hero: Hero;
     fighter: Fighter;
     isFigthing: boolean;
+    spellCasted = new EventEmitter<boolean>();
     fightIntervals = new Set();
 
     constructor(
@@ -94,15 +96,15 @@ export class CombatService {
                 ? getMultiplier("swiftness", this.hero, weapon.speed)
                 : getMultiplier("swiftness", this.hero, 1000)
         ).subscribe(() => {
-            let crit: number = 1;
+            let multCrit = 1;
             let damage: number = getHeroDamage(this.hero);
             let text: NotificationType = `damage`;
             if (isCrit(this.hero)) {
-                crit = 2;
-                damage = damage * 2;
+                multCrit = getMultiplier("ferocity", this.hero, 2);
+                damage = damage * multCrit;
                 text = `damageCrit`;
             }
-            this.fighter.hp = getNumberFixed(this.fighter.hp - damage * crit);
+            this.fighter.hp = getNumberFixed(this.fighter.hp - damage);
             this._notifier.notify(
                 "text",
                 text,
@@ -115,7 +117,7 @@ export class CombatService {
             //heal after hit
             this.store.dispatch(
                 new GameStateUpdateHeroAction(
-                    lifeSteal(this.hero, damage * crit, this._notifier)
+                    lifeSteal(this.hero, damage, this._notifier)
                 )
             );
             if (this.fighter.hp <= 0) {
@@ -144,15 +146,13 @@ export class CombatService {
     }
 
     startFight() {
-        setTimeout(() => {
-            if (this.fighter === null) {
-                this.stop();
-                return;
-            }
-            this.fightIntervals.add(this.heroAttack());
-            this.fightIntervals.add(this.fighterAttack());
-            this.launchSpell(this.hero);
-        }, 1000);
+        if (this.fighter === null) {
+            this.stop();
+            return;
+        }
+        this.fightIntervals.add(this.heroAttack());
+        this.fightIntervals.add(this.fighterAttack());
+        this.launchSpell(this.hero);
     }
 
     stop() {
@@ -170,13 +170,19 @@ export class CombatService {
     }
 
     activateSpell(spell: Spells | OvertimeSpells | HealSpells) {
+        this.spellCasted.emit(true);
         effectFor(
             spell,
             this.fighter,
             this.hero,
             isCrit(this.hero),
             this._notifier,
-            this.store
+            this.store,
+            () => {
+                this.victory();
+                this.death();
+                return;
+            }
         );
         this.store.dispatch(
             new CombatStateHeroSpell({ ...spell, isInCooldown: true })
@@ -185,6 +191,7 @@ export class CombatService {
             timer(
                 getMultiplier("swiftness", this.hero, spell.cooldown * 1000)
             ).subscribe(() => {
+                console.log("reset Cd");
                 this.store.dispatch(
                     new CombatStateHeroSpell({ ...spell, isInCooldown: false })
                 );
@@ -194,7 +201,7 @@ export class CombatService {
                 }
             })
         );
-        if (this.fighter.hp <= 0 && this.isFigthing) {
+        if (this.fighter.hp <= 0) {
             this.victory();
             this.death();
         }
@@ -257,12 +264,12 @@ export class CombatService {
                         .select(availableSlot)
                         .pipe(first())
                         .subscribe((available: number) => {
+                            rwd.reward = rwd.reward as ITemplateBaseEquipment;
                             if (available <= 0) {
                                 this._notifier.notify(
                                     "1icon",
-                                    "reward.earn",
-
-                                    "notification.inventoryfull",
+                                    "inventoryFull",
+                                    `${rwd.reward.type}.${rwd.reward.subType}`,
                                     3000,
                                     rwd.reward as ITemplateBaseItem
                                 );

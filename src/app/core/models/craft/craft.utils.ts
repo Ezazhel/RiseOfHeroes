@@ -1,5 +1,4 @@
 import {
-    ITemplateBaseEquipment,
     Currency,
     ItemQuality,
     ITemplateWeapon,
@@ -63,7 +62,9 @@ export const modifyStat = (
             statValue = epicFormula(statValue);
             break;
         case "legendary":
-            statValue = legendaryFormula(statValue);
+            console.log(statValue);
+            statValue = epicFormula(statValue); //legendaryFormula(statValue);
+            console.log(statValue);
             break;
     }
     return Math.floor(statValue);
@@ -71,9 +72,9 @@ export const modifyStat = (
 //#region Stat
 export const commonFormula = (stat: number, level: number) =>
     (stat + level) * (1 + level / 50);
-export const uncommonFormula = (stat: number) => stat * 1.1 + 1;
-export const rareFormula = (stat: number) => (uncommonFormula(stat) + 2) * 1.15;
-export const epicFormula = (stat: number) => (rareFormula(stat) + 2) * 1.2;
+export const uncommonFormula = (stat: number) => (stat + 1) * 1.1;
+export const rareFormula = (stat: number) => (uncommonFormula(stat) + 3) * 1.15;
+export const epicFormula = (stat: number) => rareFormula(stat) * 1.05;
 export const legendaryFormula = (stat: number) => (epicFormula(stat) + 3) * 1.1;
 //#endregion Stat
 //#region  Price

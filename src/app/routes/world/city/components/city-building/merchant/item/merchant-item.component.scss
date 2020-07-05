@@ -1,0 +1,15 @@
+@import "variables.scss";
+@import "sprite-currencies.scss";
+@import "buttons.scss";
+.information {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: x-small;
+    align-items: flex-end;
+}
+.content {
+    width: 80vw;
+}
+button {
+    margin-top: 10px;
+}

@@ -1,6 +1,7 @@
 import { EntityType } from "../entity/entity";
 import { CurrencyType } from "./game-data.data";
 import { Rune } from "../runes/runes.model";
+import { NotifierService } from "@core/services/notifier.service";
 
 export type BuffType =
     | "armor"
@@ -22,7 +23,7 @@ export type BuffType =
     | "worker"
     | "craft"
     | "speed";
-
+export type PassiveMethod = (notifier?: NotifierService) => Buff;
 export type ItemCategories = "item" | "weapon" | "armor";
 
 export type ItemSellableType = "equipment" | "consumable";

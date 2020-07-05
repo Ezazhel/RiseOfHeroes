@@ -1,4 +1,4 @@
-import { Description, BuffType } from "../game-data/game-data.model";
+import { Description, BuffType, Buff } from "../game-data/game-data.model";
 
 export interface Talent {
     id: string;
@@ -10,7 +10,7 @@ export interface Talent {
     selected: boolean;
 }
 
-export type EffectTalent = (talent: Talent, statToUpdate: number) => number;
+export type EffectTalent = (talent: Talent) => Buff;
 export type DescriptionTalent = (talent: Talent) => Description;
 export interface TalentAdvance {
     effect: EffectTalent;

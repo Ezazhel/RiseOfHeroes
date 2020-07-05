@@ -15,7 +15,7 @@
         "promote": "You become a better {{param}}",
         "noReward": "Monster drop nothing",
         "cantCraft": "You can't craft {{param}} you don't have the ressources",
-        "inventoryFull": "Couldn't get {{param}} : your inventory is full",
+        "inventoryFull": "Couldn't get {{param}} inventory full",
         "need": "You need",
         "heal": "You heal yourself for {{param}}"
     },
@@ -32,6 +32,7 @@
         "levelUp": "You gain a level !"
     },
     "currencies": {
+        "currencies": "Currencies",
         "gold": "Gold",
         "goboss_tooth": "Goboss's Tooth",
         "froggy_slime": "Froggy's Slime",

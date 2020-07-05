@@ -6,5 +6,5 @@ export const getDescription = (talent: Talent) =>
         .get(talent.id)
         .description(talent);
 
-export const getEffect = (talent: Talent, statToUpdate: number) =>
-    peasantTalentAdvance.get(talent.id).effect(talent, statToUpdate);
+export const getEffect = (talent: Talent) =>
+    peasantTalentAdvance.get(talent.id).effect(talent);

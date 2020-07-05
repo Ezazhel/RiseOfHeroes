@@ -17,7 +17,7 @@
                     >
                         <span>{{
                             t("notification." + notification.subType, {
-                                param: t(notification.param)
+                                param: t(notification.text)
                             })
                         }}</span>
 
@@ -25,7 +25,8 @@
                             <i
                                 *ngIf="
                                     notification.subType == 'bougth' ||
-                                    notification.subType == 'selled'
+                                    notification.subType == 'selled' ||
+                                    notification.subType == 'inventoryFull'
                                 "
                                 class="{{ notification.item.subType }} {{
                                     notification.item.icon

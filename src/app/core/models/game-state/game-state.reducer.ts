@@ -11,7 +11,7 @@ import { Spells } from "../spells/spells.model";
 const initialState: GameState = {
     companions: null,
     inventory: [],
-    currencies: [{ name: "gold", quantity: 1000 }],
+    currencies: [{ name: "gold", quantity: 0 }],
     location: "house",
     combatZone: "",
     maxSlots: 16,

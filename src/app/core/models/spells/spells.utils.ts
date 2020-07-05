@@ -9,13 +9,19 @@ import {
 import { Spells, OvertimeSpells, HealSpells } from "./spells.model";
 import { Hero, Fighter } from "../entity/entity";
 import { getHeroOffensivePower } from "../entity/entity.utils";
-import { Description, BuffType, Buff } from "../game-data/game-data.model";
+import {
+    Description,
+    BuffType,
+    Buff,
+    PassiveMethod,
+} from "../game-data/game-data.model";
 import { NotifierService } from "@core/services/notifier.service";
 import { AppState } from "..";
 import { Store } from "@ngrx/store";
 import { PeasantSpells } from "./spells.data";
 import { getEffect } from "../runes/runes.utils";
 import { GameStateUpdateHeroAction } from "../game-state/game-state.action";
+import { callbackify } from "util";
 
 export function descriptionFor(
     spells: Spells | OvertimeSpells | HealSpells,
@@ -35,7 +41,8 @@ export function effectFor(
     launcher: Hero | Fighter,
     isCrit: boolean,
     notifier?: NotifierService,
-    shop?: Store<AppState>
+    shop?: Store<AppState>,
+    callback?: Function
 ) {
     return effects.get(spells.id)(
         spells,
@@ -43,7 +50,8 @@ export function effectFor(
         launcher,
         isCrit,
         notifier,
-        shop
+        shop,
+        callback
     );
 }
 type DescriptionMethod = (
@@ -57,10 +65,10 @@ type EffectMethod = (
     launcher: Hero | Fighter,
     isCrit?: boolean,
     notifier?: NotifierService,
-    shop?: Store<AppState>
+    shop?: Store<AppState>,
+    callback?: Function
 ) => void;
 
-type PassiveMethod = (notifier?: NotifierService) => Buff;
 const descriptions: Map<string, DescriptionMethod> = new Map([
     [
         "powerAttack",
@@ -97,6 +105,16 @@ const descriptions: Map<string, DescriptionMethod> = new Map([
             param: spells.power,
         }),
     ],
+    [
+        "ateAnApple",
+        (spells: HealSpells, hero: Hero) => ({
+            param:
+                Math.floor(
+                    10 + getHeroOffensivePower(hero) * 0.3 * spells.power
+                ) * spells.duration,
+            param2: spells.duration,
+        }),
+    ],
 ]);
 
 const effects: Map<string, EffectMethod> = new Map([
@@ -108,18 +126,30 @@ const effects: Map<string, EffectMethod> = new Map([
             launcher: Hero,
             isCrit: boolean,
             notifier: NotifierService,
-            store: Store<AppState>
+            store: Store<AppState>,
+            callback
         ) => {
+            const multIfCrit = isCrit
+                ? getMultiplier("ferocity", launcher, 2)
+                : 1;
             let damage = getNumberFixed(
-                getHeroDamage(launcher) * spells.power * (isCrit ? 2 : 1)
+                getHeroDamage(launcher) * spells.power * multIfCrit
             );
             target.hp = target.hp - damage;
-            notifier.notify("text", isCrit ? "damageCrit" : "damage", damage);
+            notifier.notify(
+                "text",
+                isCrit ? "damageCrit" : "damage",
+                damage,
+                1000
+            );
             store.dispatch(
                 new GameStateUpdateHeroAction(
-                    lifeSteal(launcher, damage * (isCrit ? 2 : 1), notifier)
+                    lifeSteal(launcher, damage * multIfCrit, notifier)
                 )
             );
+            if (target.hp <= 0) {
+                callback();
+            }
         },
     ],
     [
@@ -128,7 +158,10 @@ const effects: Map<string, EffectMethod> = new Map([
             spells: OvertimeSpells,
             target: Fighter,
             launcher: Hero,
-            isCrit: boolean
+            isCrit: boolean,
+            notifier,
+            store,
+            callback
         ) => {
             if (
                 target.debuffs != undefined &&
@@ -144,14 +177,26 @@ const effects: Map<string, EffectMethod> = new Map([
                 );
             }, getMultiplier("swiftness", launcher, spells.duration) * 1000);
             let dot = window.setInterval(() => {
-                target.hp =
-                    target.hp -
-                    Math.floor(
-                        5 +
-                            getHeroOffensivePower(launcher as Hero) *
-                                spells.power *
-                                (isCrit ? 2 : 1)
-                    );
+                const damage = getNumberFixed(
+                    5 +
+                        getHeroOffensivePower(launcher as Hero) *
+                            spells.power *
+                            (isCrit
+                                ? getMultiplier("ferocity", launcher, 2)
+                                : 1)
+                );
+                target.hp = target.hp - Math.floor(damage);
+                notifier.notify(
+                    "text",
+                    isCrit ? "damageCrit" : "damage",
+                    damage,
+                    1000
+                );
+                if (target.hp <= 0) {
+                    clearInterval(dot);
+                    clearTimeout(timeOutDot);
+                    callback();
+                }
             }, getMultiplier("swiftness", launcher, 1000));
             target.debuffs = updateInsert(
                 target.debuffs,
@@ -169,6 +214,23 @@ const effects: Map<string, EffectMethod> = new Map([
                     isInCooldown: true,
                 }
             );
+        },
+    ],
+    [
+        "ateAnApple",
+        (
+            spells: OvertimeSpells,
+            target: Fighter,
+            launcher: Hero,
+            isCrit: boolean
+        ) => {
+            if (
+                launcher.buffs != undefined &&
+                launcher.buffs.findIndex((d) => d.id == spells.id) != -1
+            ) {
+                //if already exist do not apply
+                return;
+            }
         },
     ],
 ]);

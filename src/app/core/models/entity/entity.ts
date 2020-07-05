@@ -43,20 +43,14 @@ export interface Hero extends BaseEntity {
     readonly exp?: number;
     readonly subType?: EntitySubtype;
     readonly equipments?: (ITemplateWeapon | ITemplateArmor)[];
-    // readonly weapon?: ITemplateWeapon;
-    // readonly helmet?: ITemplateArmor;
-    // readonly chest?: ITemplateArmor;
-    // readonly gloves?: ITemplateArmor;
-    // readonly pants?: ITemplateArmor;
-    // readonly boots?: ITemplateArmor;
-    // readonly accesory?: null;
+    readonly buffs?: (OvertimeSpells | HealSpells)[];
     readonly armor: number;
     readonly stats: Array<Stat>;
     readonly spells: Array<Spells | OvertimeSpells | HealSpells>;
     readonly equippedSpell: Array<Spells | OvertimeSpells | HealSpells>;
     readonly potion: Potion;
     readonly talents: Talent[];
-    readonly buffs: Buff[];
+    readonly buffsStats: Buff[];
 }
 
 export interface Companion extends BaseEntity {}

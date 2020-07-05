@@ -62,8 +62,8 @@ export const runeAdvance: Map<RuneType, RuneAdvance> = new Map<
     [
         "ferocity",
         {
-            effect: (rune: Rune = ferocityRune) => {
-                return getNumberFixed(rune.currentLvl / 3);
+            effect: (rune: Rune = ferocityRune, damageCrit) => {
+                return damageCrit + getNumberFixed(rune.currentLvl / 3);
             },
             description: (rune) => ({
                 param: getNumberFixed(rune.currentLvl / 3) * 100,
@@ -88,8 +88,8 @@ export const runeAdvance: Map<RuneType, RuneAdvance> = new Map<
     [
         "lifesteal",
         {
-            effect: (rune: Rune, damage) => {
-                return damage * (0.05 * rune.currentLvl);
+            effect: (rune: Rune, lifesteal) => {
+                return lifesteal + 5 * rune.currentLvl;
             },
             description: (rune) => {
                 return {
@@ -105,14 +105,14 @@ function setRuneLoot(rune: Rune, weigthbonus: number = 1): LootbagItem {
     return { item: "Rune", rune, weigth: rune.baseDrop * weigthbonus };
 }
 export const rareRunes: LootbagItem[] = [
-    { item: "none", weigth: 60 },
+    { item: "none", weigth: 30 },
     setRuneLoot(swiftnessRune),
     setRuneLoot(powerRune),
     setRuneLoot(precisionRune),
     setRuneLoot(enduranceRune),
 ];
 export const epicRunes: LootbagItem[] = [
-    { item: "none", weigth: 30 },
+    { item: "none", weigth: 15 },
     setRuneLoot(ferocityRune),
     setRuneLoot(powerRune),
     setRuneLoot(lifestealRune),

@@ -1,6 +1,6 @@
 import { EntitySubtype } from "../entity/entity";
 import { Talent, TalentAdvance } from "./talent.model";
-import { BuffType } from "../game-data/game-data.model";
+import { BuffType, Buff } from "../game-data/game-data.model";
 
 export function setTalent(
     subtype: EntitySubtype,
@@ -60,8 +60,12 @@ export const peasantTalentAdvance: Map<string, TalentAdvance> = new Map([
     [
         "stronger",
         {
-            effect: (talent: Talent, stat: number) => {
-                return stat * 1.2;
+            effect: (talent: Talent): Buff => {
+                return {
+                    type: talent.bonus,
+                    add: 0,
+                    mult: 0.2,
+                };
             },
             description: (talent: Talent) => {
                 return {
@@ -73,8 +77,12 @@ export const peasantTalentAdvance: Map<string, TalentAdvance> = new Map([
     [
         "tougher",
         {
-            effect: (talent: Talent, stat: number) => {
-                return stat * 1.2;
+            effect: (talent: Talent) => {
+                return {
+                    type: talent.bonus,
+                    add: 0,
+                    mult: 0.2,
+                };
             },
             description: (talent: Talent) => {
                 return {
@@ -86,8 +94,12 @@ export const peasantTalentAdvance: Map<string, TalentAdvance> = new Map([
     [
         "vampiric",
         {
-            effect: (talent: Talent, stat: number) => {
-                return stat * 1.2; //mandatory, need to add dispatch, check if talent is active etc etc.
+            effect: (talent: Talent) => {
+                return {
+                    type: talent.bonus,
+                    add: 15,
+                    mult: 0,
+                };
             },
             description: (talent: Talent) => {
                 return {
@@ -99,8 +111,12 @@ export const peasantTalentAdvance: Map<string, TalentAdvance> = new Map([
     [
         "richer",
         {
-            effect: (talent: Talent, stat: number) => {
-                return stat * 1.2; //mandatory, need to add dispatch, check if talent is active etc etc.
+            effect: (talent: Talent) => {
+                return {
+                    type: talent.bonus,
+                    add: 0,
+                    mult: 0.5,
+                };
             },
             description: (talent: Talent) => {
                 return {
@@ -112,8 +128,12 @@ export const peasantTalentAdvance: Map<string, TalentAdvance> = new Map([
     [
         "luckier",
         {
-            effect: (talent: Talent, stat: number) => {
-                return stat * 1.2; //mandatory, need to add dispatch, check if talent is active etc etc.
+            effect: (talent: Talent) => {
+                return {
+                    type: talent.bonus,
+                    add: 0,
+                    mult: 0.5,
+                };
             },
             description: (talent: Talent) => {
                 return {
@@ -125,8 +145,12 @@ export const peasantTalentAdvance: Map<string, TalentAdvance> = new Map([
     [
         "manager",
         {
-            effect: (talent: Talent, stat: number) => {
-                return stat * 1.2; //mandatory, need to add dispatch, check if talent is active etc etc.
+            effect: (talent: Talent) => {
+                return {
+                    type: talent.bonus,
+                    add: 0,
+                    mult: 0.15,
+                };
             },
             description: (talent: Talent) => {
                 return {
@@ -138,8 +162,12 @@ export const peasantTalentAdvance: Map<string, TalentAdvance> = new Map([
     [
         "worker",
         {
-            effect: (talent: Talent, stat: number) => {
-                return stat * 1.2; //mandatory, need to add dispatch, check if talent is active etc etc.
+            effect: (talent: Talent) => {
+                return {
+                    type: talent.bonus,
+                    add: 0,
+                    mult: 0.15,
+                };
             },
             description: (talent: Talent) => {
                 return {
@@ -151,8 +179,12 @@ export const peasantTalentAdvance: Map<string, TalentAdvance> = new Map([
     [
         "fighter",
         {
-            effect: (talent: Talent, stat: number) => {
-                return stat * 1.2; //mandatory, need to add dispatch, check if talent is active etc etc.
+            effect: (talent: Talent) => {
+                return {
+                    type: talent.bonus,
+                    add: 0,
+                    mult: 0.1,
+                };
             },
             description: (talent: Talent) => {
                 return {
@@ -164,8 +196,12 @@ export const peasantTalentAdvance: Map<string, TalentAdvance> = new Map([
     [
         "crafter",
         {
-            effect: (talent: Talent, stat: number) => {
-                return stat * 1.2; //mandatory, need to add dispatch, check if talent is active etc etc.
+            effect: (talent: Talent) => {
+                return {
+                    type: talent.bonus,
+                    add: 0,
+                    mult: 0.25,
+                };
             },
             description: (talent: Talent) => {
                 return {
@@ -177,8 +213,12 @@ export const peasantTalentAdvance: Map<string, TalentAdvance> = new Map([
     [
         "looter",
         {
-            effect: (talent: Talent, stat: number) => {
-                return stat * 1.2; //mandatory, need to add dispatch, check if talent is active etc etc.
+            effect: (talent: Talent) => {
+                return {
+                    type: talent.bonus,
+                    add: 0,
+                    mult: 0.25,
+                };
             },
             description: (talent: Talent) => {
                 return {
@@ -190,8 +230,12 @@ export const peasantTalentAdvance: Map<string, TalentAdvance> = new Map([
     [
         "fighterTwo",
         {
-            effect: (talent: Talent, stat: number) => {
-                return stat * 1.2; //mandatory, need to add dispatch, check if talent is active etc etc.
+            effect: (talent: Talent) => {
+                return {
+                    type: talent.bonus,
+                    add: 0,
+                    mult: 0.25,
+                };
             },
             description: (talent: Talent) => {
                 return {
@@ -203,8 +247,12 @@ export const peasantTalentAdvance: Map<string, TalentAdvance> = new Map([
     [
         "jack",
         {
-            effect: (talent: Talent, stat: number) => {
-                return stat * 1.15;
+            effect: (talent: Talent) => {
+                return {
+                    type: talent.bonus,
+                    add: 0,
+                    mult: 0.15,
+                };
             },
             description: (talent: Talent) => {
                 return {

@@ -1,13 +1,24 @@
 <ng-container>
     <ng-container *transloco="let tsl">
-        <h4>{{ tsl("house.training.buttonText") }}</h4>
+        <h4 (click)="setIsVisible('training')">
+            {{ tsl("house.training.buttonText") }}
+        </h4>
         <training
+            [hidden]="isVisible('training')"
             (doTraining)="clearTimer()"
             (setTimer)="setTimer($event)"
         ></training>
-        <h4>{{ tsl("house.work.buttonText") }}</h4>
-        <work (doWorking)="clearTimer()" (setTimer)="setTimer($event)"></work>
-        <h4>{{ tsl("house.construction.buttonText") }}</h4>
-        <construction></construction>
+        <h4 (click)="setIsVisible('work')">
+            {{ tsl("house.work.buttonText") }}
+        </h4>
+        <work
+            [hidden]="isVisible('work')"
+            (doWorking)="clearTimer()"
+            (setTimer)="setTimer($event)"
+        ></work>
+        <h4 (click)="setIsVisible('construction')">
+            {{ tsl("house.construction.buttonText") }}
+        </h4>
+        <construction [hidden]="isVisible('construction')"></construction>
     </ng-container>
 </ng-container>

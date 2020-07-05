@@ -92,6 +92,7 @@ export class TrainingComponent implements OnInit, OnDestroy {
                                         levelUpFromAction(
                                             hero,
                                             "train",
+                                            1,
                                             this._notifier,
                                             this.store
                                         )

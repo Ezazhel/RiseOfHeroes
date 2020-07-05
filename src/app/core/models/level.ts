@@ -14,7 +14,11 @@ import { ActionType } from "./actions";
 export function getXPForLevel(level: number) {
     return 35 + level * 5 * (35 + 2 * level);
 }
-export function getXPForAction(level, action: ActionType): number {
+export function getXPForAction(
+    level,
+    action: ActionType,
+    bonus: number = 1
+): number {
     //Percentage of total exp earn
     let percent: number;
     switch (action) {
@@ -24,8 +28,13 @@ export function getXPForAction(level, action: ActionType): number {
         case "work":
             percent = 0.001;
             break;
+        case "convert":
+            percent = 0.005;
+        case "craft":
+            percent = 0.02;
+            break;
     }
-    return getNumberFixed(getXPForLevel(level) * percent);
+    return getNumberFixed(getXPForLevel(level) * (percent * bonus));
 }
 export function rewardXp(level: number, difLvl: number) {
     let xp =
@@ -64,20 +73,15 @@ export function levelUp(
     let xpForLevel = getXPForLevel(hero.level);
     let exp: number;
     let level: number = hero.level;
+    let baseStats = [...hero.baseStats];
+    let stats = [...hero.stats];
+    let maxHp = hero.maxHp;
+    let buffs: Buff[] = [...hero.buffsStats];
     if (isLevelUp(hero.exp, xpReward, xpForLevel)) {
         exp = hero.exp + xpReward - xpForLevel;
         level += 1;
         notifier.notify("text", "levelUp", `notification.levelUp`, 5000); //levelUp
         //getUnlock for level, notify...
-    } else {
-        exp = hero.exp + xpReward;
-    }
-    exp = toNumber(exp.toFixed(2));
-    let baseStats = [...hero.baseStats];
-    let stats = [...hero.stats];
-    let maxHp = hero.maxHp;
-    let buffs: Buff[] = [...hero.buffs];
-    if (hero.level != level) {
         //get unlocked, add passive to buff, should unlocked with an effect on heroUpdate check if levelUp or not
         [...hero.spells]
             .filter((s) => !s.isActive && s.levelRequired === level) // === because we do it once.
@@ -102,14 +106,17 @@ export function levelUp(
             ...s,
             value: AddBuffToStat(s.value, s.type, {
                 ...hero,
-                buffs: buffs,
+                buffsStats: buffs,
                 level: level,
             }),
         }));
         maxHp = getHeroMaxHp(stats.find((s) => s.type == "endurance").value);
 
         levelUpUnlock(level, store, notifier);
+    } else {
+        exp = hero.exp + xpReward;
     }
+    exp = getNumberFixed(exp);
 
     return {
         ...hero,
@@ -118,7 +125,7 @@ export function levelUp(
         baseStats, //BaseStat may be the same stat if no levelup
         stats,
         maxHp,
-        buffs,
+        buffsStats: buffs,
         hp: maxHp,
     };
 }
@@ -126,10 +133,16 @@ export function levelUp(
 export function levelUpFromAction(
     hero: Hero,
     action: ActionType,
+    bonus: number,
     notifier: NotifierService,
     store: Store<AppState>
 ) {
-    return levelUp(hero, getXPForAction(hero.level, action), notifier, store);
+    return levelUp(
+        hero,
+        getXPForAction(hero.level, action, bonus),
+        notifier,
+        store
+    );
 }
 
 export function getStrengthForLevel(level: number, model: BaseEntity) {

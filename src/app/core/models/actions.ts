@@ -3,7 +3,9 @@ import { fighters } from "./game-data/game-data.data";
 
 export type ActionType =
     | "cheat"
+    | "convert"
     | "work"
+    | "craft"
     | "train"
     | "hunt"
     | "promote"

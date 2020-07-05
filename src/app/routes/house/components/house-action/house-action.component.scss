@@ -1,5 +1,9 @@
 @import "variables.scss";
 @import "sprite-currencies.scss";
+:host {
+    max-height: 80vh;
+    overflow: auto;
+}
 .information {
     display: flex;
     justify-content: space-evenly;
@@ -8,6 +12,14 @@
 }
 h4 {
     text-align: center;
+    box-shadow: 0px 0px 0.3px 0.4px #f2f1ef;
+    padding: 5px;
+    min-width: 50vw;
+    margin: 5px;
+    &:hover {
+        box-shadow: 0px 0px 0.6px 0.4px $carreraWhite;
+        cursor: pointer;
+    }
 }
 .tab {
     button {

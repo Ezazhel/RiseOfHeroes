@@ -85,7 +85,7 @@ export function getMultiplier(runeType: RuneType, hero: Hero, stat: number) {
 }
 
 export function getAddBuff(hero: Hero, stat: Stat) {
-    return hero.buffs
+    return hero.buffsStats
         .filter((b) => b.type === stat.type || b.type === "stat")
         .reduce((sum, b: Buff) => sum + b.add, stat.value);
 }
@@ -102,14 +102,14 @@ export function lifeSteal(
     damage: number,
     notifier: NotifierService
 ) {
-    let r = [...getHeroRune(hero)].find((r) => r.type === "lifesteal");
-    const lifesteal = r !== undefined ? getEffect(r, damage) : 0;
-
+    let lifesteal = getNumberFixed(
+        damage * (AddBuffToStat(0, "lifesteal", hero) / 100)
+    );
     //let percentLife = hero.buffs.filter((b) => b.type === "lifesteal").reduce((sum, b: Buff) => sum+b.add, 0);
     if (lifesteal === 0) return hero;
     const regen = lifesteal + hero.hp;
     const maxHp = regen > hero.maxHp ? hero.maxHp : regen;
-    notifier.notify("text", "heal", lifesteal);
+    notifier.notify("text", "heal", lifesteal, 500);
     return { ...hero, hp: getNumberFixed(maxHp) };
 }
 
@@ -320,7 +320,7 @@ export function findEquipment(
 //#endregion FindEquipment
 
 export function AddBuffToStat(stat: number, buff: BuffType, hero: Hero) {
-    const b = hero.buffs.find((b) => b.type === buff);
+    const b = hero.buffsStats.find((b) => b.type === buff);
     //add Rune bonus
     const r = [...getHeroRune(hero)].find((r) => r.type == buff);
     stat = b != undefined ? (stat + b.add) * (1 + b.mult) : stat; //buff first

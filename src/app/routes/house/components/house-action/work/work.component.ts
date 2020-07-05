@@ -47,7 +47,7 @@ export class WorkComponent implements OnInit, OnDestroy {
                     this.store.dispatch(new HouseWorking(event.id));
                 }, 10);
                 let time = getMultiplier("swiftness", hero, event.speed);
-                const buffMult = hero.buffs.find((b) => b.type === "loot");
+                const buffMult = hero.buffsStats.find((b) => b.type === "loot");
                 const reward = {
                     ...event,
                     currency:
@@ -75,13 +75,14 @@ export class WorkComponent implements OnInit, OnDestroy {
                             "",
                             time - 100,
                             null,
-                            [event.currency]
+                            [reward.currency]
                         ); //reward -currencyqty
                         this.store.dispatch(
                             new GameStateUpdateHeroAction(
                                 levelUpFromAction(
                                     hero,
                                     "work",
+                                    1,
                                     this._notifier,
                                     this.store
                                 )

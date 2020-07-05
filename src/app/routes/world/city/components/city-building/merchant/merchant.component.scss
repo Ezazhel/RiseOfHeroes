@@ -9,6 +9,17 @@
 .content {
     width: 80vw;
 }
+h4 {
+    text-align: center;
+    box-shadow: 0px 0px 0.3px 0.4px #f2f1ef;
+    padding: 5px;
+    min-width: 50vw;
+    margin: 5px;
+    &:hover {
+        box-shadow: 0px 0px 0.6px 0.4px $carreraWhite;
+        cursor: pointer;
+    }
+}
 .merchant-goods {
     box-shadow: 0px 0px 10px 5px $greenCommonItem;
     &.cant {
@@ -16,5 +27,8 @@
         &:hover {
             box-shadow: 0px 0px 10px 5px $red !important;
         }
+    }
+    &:hover {
+        box-shadow: 0px 0px 10px 5px $greenCommonItem;
     }
 }

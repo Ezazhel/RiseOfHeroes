@@ -32,6 +32,7 @@
         "levelUp": "Vous avez gagné un niveau !"
     },
     "currencies": {
+        "currencies": "Ressources",
         "gold": "Or",
         "goboss_tooth": "Dent de Goboss",
         "froggy_slime": "Bave de Froggy",
