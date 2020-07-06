@@ -1,4 +1,6 @@
 import { Currency } from "@core/models/game-data/game-data.model";
+import { NotifierService } from "@core/services/notifier.service";
+import { Store } from "@ngrx/store";
 
 export type TrainingType = "none" | "strength" | "endurance";
 export type WorkingType =
@@ -36,13 +38,17 @@ export interface Work extends IdlingHouse {
     promotion: number;
     basePromotion: number;
 }
-
-export type ConstructionType = "sawmill" | "mine";
+export type ConstructionEffect = (
+    store: Store,
+    _notifier: NotifierService
+) => void;
 export interface Construction {
-    id: ConstructionType;
+    id: string;
     name: string;
     description: string;
     cost: Currency[];
-    built?: boolean;
-    required?: ConstructionType;
+    built: boolean;
+    maxLevel?: number;
+    required?: string;
+    effect?: ConstructionEffect;
 }

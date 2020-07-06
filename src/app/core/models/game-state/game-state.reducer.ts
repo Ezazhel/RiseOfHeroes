@@ -12,9 +12,8 @@ const initialState: GameState = {
     companions: null,
     inventory: [],
     currencies: [{ name: "gold", quantity: 0 }],
-    location: "house",
-    combatZone: "",
     maxSlots: 16,
+    workers: null,
     hero: GameService.create("peasant"),
 };
 
@@ -22,10 +21,9 @@ export interface GameState {
     readonly hero: Hero; //Player
     readonly companions: Immutable.Map<string, Companion>; //NPC or Pet that follow you
     readonly inventory: Array<ITemplateBaseItem>; // list of id item player have;
+    readonly workers: any;
     readonly maxSlots: number;
     readonly currencies: Array<Currency>; //Currency don't take place in inventory
-    readonly location: string; //City where the player is
-    readonly combatZone: string; //Combat zone do determine monster
 }
 
 export function gameRecuder(

@@ -163,6 +163,7 @@ export interface LootbagItem {
     weigth: number;
     rangeFrom?: number;
     rangeTo?: number;
+    maxQuantity?: number;
 }
 export interface Reward {
     rewardType: LootBagPossibleReward;

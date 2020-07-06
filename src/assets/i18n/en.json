@@ -369,7 +369,7 @@
             "description": "Heal you for {{param}}% of your health"
         }
     },
-    "weapons": {
+    "weapon": {
         "sword": "Sword",
         "hammer": "Hammer",
         "axe": "Axe",

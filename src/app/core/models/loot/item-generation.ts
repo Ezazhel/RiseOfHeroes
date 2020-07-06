@@ -295,6 +295,12 @@ export function getFromLootbag(level: number, bag: LootbagItem[]): Reward {
                 rewardType: "weapon",
             };
         case "currency":
-            return { reward: rwd.currency, rewardType: "currency" };
+            return {
+                reward: {
+                    ...rwd.currency,
+                    quantity: Math.ceil(Math.random() * rwd.maxQuantity),
+                },
+                rewardType: "currency",
+            };
     }
 }

@@ -1,8 +1,8 @@
 import {
     Work,
     WorkingType,
-    ConstructionType,
     Construction,
+    ConstructionEffect,
 } from "./house.model";
 import { Currency } from "@core/models/game-data/game-data.model";
 import { Store } from "@ngrx/store";
@@ -34,46 +34,48 @@ export const worksData: Map<WorkingType, Work> = new Map<WorkingType, Work>([
 ]);
 
 const setConstruction = (
-    id: ConstructionType,
-    cost: Currency[]
+    id: string,
+    cost: Currency[],
+    effect: ConstructionEffect
 ): Construction => ({
     id: id,
     required: null,
     cost: cost,
+    built: false,
     description: `house.construction.${id}.description`,
     name: `house.construction.${id}.name`,
+    effect,
 });
-export const constructionData: Map<ConstructionType, Construction> = new Map<
-    ConstructionType,
+export const constructionData: Map<string, Construction> = new Map<
+    string,
     Construction
 >([
-    ["sawmill", setConstruction("sawmill", [{ name: "gold", quantity: 100 }])],
-    ["mine", setConstruction("mine", [{ name: "gold", quantity: 250 }])],
-]);
-
-type ConstructionEffect = (store: Store, _notifier: NotifierService) => void;
-export const constructionEffects: Map<
-    ConstructionType,
-    ConstructionEffect
-> = new Map<ConstructionType, ConstructionEffect>([
     [
         "sawmill",
-        (store, _notifier) => {
-            store.dispatch(
-                new HouseBuild("sawmill", worksData.get("lumberjack"))
-            );
-            _notifier.notify(
-                "text",
-                "unlock",
-                worksData.get("lumberjack").name
-            );
-        },
+        setConstruction(
+            "sawmill",
+            [{ name: "gold", quantity: 100 }],
+            (store, _notifier) => {
+                store.dispatch(
+                    new HouseBuild("sawmill", worksData.get("lumberjack"))
+                );
+                _notifier.notify(
+                    "text",
+                    "unlock",
+                    worksData.get("lumberjack").name
+                );
+            }
+        ),
     ],
     [
         "mine",
-        (store, _notifier) => {
-            store.dispatch(new HouseBuild("mine", worksData.get("miner")));
-            _notifier.notify("text", "unlock", worksData.get("miner").name);
-        },
+        setConstruction(
+            "mine",
+            [{ name: "gold", quantity: 250 }],
+            (store, _notifier) => {
+                store.dispatch(new HouseBuild("mine", worksData.get("miner")));
+                _notifier.notify("text", "unlock", worksData.get("miner").name);
+            }
+        ),
     ],
 ]);

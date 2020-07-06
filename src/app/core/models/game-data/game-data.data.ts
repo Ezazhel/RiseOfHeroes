@@ -57,7 +57,7 @@ export const baseWeapon: ITemplateWeapon = {
 };
 export const baseDagger: ITemplateWeapon = {
     ...baseWeapon,
-    name: "weapons.dagger",
+    name: "weapon.dagger",
     attack: 5, //will change accordigng to level of weapon and bonuses of hero
     value: 50, //will change according to level of weapon and bonuses of hero
     subType: "dagger",
@@ -77,7 +77,7 @@ export const baseDagger: ITemplateWeapon = {
 
 export const baseAxe: ITemplateWeapon = {
     ...baseWeapon,
-    name: "weapons.axe",
+    name: "weapon.axe",
     attack: 9, //will change accordigng to level of weapon and bonuses of hero
     value: 65, //will change according to level of weapon and bonuses of hero
     subType: "axe",
@@ -96,7 +96,7 @@ export const baseAxe: ITemplateWeapon = {
 };
 export const baseHammer: ITemplateWeapon = {
     ...baseWeapon,
-    name: "weapons.hammer",
+    name: "weapon.hammer",
     attack: 12, //will change accordigng to level of weapon and bonuses of hero
     value: 80, //will change according to level of weapon and bonuses of hero
     subType: "hammer",
@@ -116,7 +116,7 @@ export const baseHammer: ITemplateWeapon = {
 
 export const baseSword: ITemplateWeapon = {
     ...baseWeapon,
-    name: "weapons.sword",
+    name: "weapon.sword",
     attack: 7, //will change accordigng to level of weapon and bonuses of hero
     value: 55, //will change according to level of weapon and bonuses of hero
     subType: "sword",
@@ -276,16 +276,19 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
                 {
                     item: "currency",
                     currency: { name: "dummy-row", quantity: 1 },
+                    maxQuantity: 3,
                     weigth: 10,
                 },
                 {
                     item: "currency",
                     currency: { name: "dummy-screw", quantity: 1 },
+                    maxQuantity: 4,
                     weigth: 10,
                 },
                 {
                     item: "currency",
                     currency: { name: "dummy-wood", quantity: 1 },
+                    maxQuantity: 3,
                     weigth: 10,
                 },
             ],
@@ -309,21 +312,25 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
                 {
                     item: "currency",
                     currency: { name: "sheepy_fur", quantity: 1 },
+                    maxQuantity: 4,
                     weigth: 15,
                 },
                 {
                     item: "currency",
                     currency: { name: "dummy-screw", quantity: 2 },
+                    maxQuantity: 4,
                     weigth: 15,
                 },
                 {
                     item: "currency",
                     currency: { name: "tooth", quantity: 1 },
+                    maxQuantity: 3,
                     weigth: 15,
                 },
                 {
                     item: "currency",
                     currency: { name: "bones", quantity: 1 },
+                    maxQuantity: 4,
                     weigth: 15,
                 },
             ],
@@ -349,16 +356,19 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
                 {
                     item: "currency",
                     currency: { name: "tooth", quantity: 2 },
+                    maxQuantity: 4,
                     weigth: 10,
                 },
                 {
                     item: "currency",
                     currency: { name: "bones", quantity: 2 },
+                    maxQuantity: 5,
                     weigth: 10,
                 },
                 {
                     item: "currency",
                     currency: { name: "piggy_leather", quantity: 1 },
+                    maxQuantity: 3,
                     weigth: 10,
                 },
             ],
@@ -379,13 +389,15 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
             lootbag: [
                 {
                     item: "currency",
-                    currency: { name: "froggy_slime", quantity: 10 },
+                    currency: { name: "froggy_slime", quantity: 5 },
+                    maxQuantity: 10,
                     weigth: 15,
                 },
                 { item: "armor", itemQuality: "rare", weigth: 20 },
                 {
                     item: "currency",
                     currency: { name: "gold", quantity: 200 },
+                    maxQuantity: 1500,
                     weigth: 30,
                 },
             ],
@@ -410,21 +422,25 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
                 {
                     item: "currency",
                     currency: { name: "gold", quantity: 400 },
+                    maxQuantity: 2000,
                     weigth: 10,
                 },
                 {
                     item: "currency",
                     currency: { name: "bones", quantity: 4 },
+                    maxQuantity: 6,
                     weigth: 10,
                 },
                 {
                     item: "currency",
                     currency: { name: "gobelino_axe", quantity: 1 },
+                    maxQuantity: 3,
                     weigth: 15,
                 },
                 {
                     item: "currency",
                     currency: { name: "gobelino_candy", quantity: 2 },
+                    maxQuantity: 4,
                     weigth: 15,
                 },
                 {
@@ -458,11 +474,13 @@ export const fighters: Map<string, Fighter> = new Map<string, Fighter>([
                 {
                     item: "currency",
                     currency: { name: "gold", quantity: 550 },
+                    maxQuantity: 3500,
                     weigth: 10,
                 },
                 {
                     item: "currency",
                     currency: { name: "goboss_tooth", quantity: 4 },
+                    maxQuantity: 6,
                     weigth: 15,
                 },
             ],

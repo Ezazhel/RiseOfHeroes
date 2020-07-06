@@ -9,7 +9,6 @@ import { constructions } from "@routes/house/store/house.selector";
 import { Currency } from "@core/models/game-data/game-data.model";
 import { withLatestFrom } from "rxjs/operators";
 import { NotifierService } from "@core/services/notifier.service";
-import { constructionEffects } from "@routes/house/store/house.data";
 @Component({
     selector: "construction",
     templateUrl: "./construction.component.html",
@@ -26,10 +25,7 @@ export class ConstructionComponent implements OnInit, OnDestroy {
         .pipe(
             withLatestFrom(this._hero$, (event: Construction, hero: Hero) => {
                 if (!event.built) {
-                    constructionEffects.get(event.id)(
-                        this.store,
-                        this._notifier
-                    );
+                    event.effect(this.store, this._notifier);
                 }
             })
         )

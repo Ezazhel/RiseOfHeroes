@@ -33,13 +33,16 @@ const initialState: HouseState = {
         },
     ],
     works: [{ ...worksData.get("peasant") }],
-    constructions: Array.from(constructionData.values()),
+    constructions: [...constructionData.values()].reduce((acc, cur) => {
+        acc[cur.id] = cur.built;
+        return acc;
+    }, {}),
 };
 
 export interface HouseState {
     trainingEquipment: Array<TrainingEquipment>;
     works: Work[];
-    constructions: Construction[];
+    constructions: { [constructionId: string]: boolean };
 }
 
 export function houseReducer(
@@ -135,14 +138,10 @@ export function houseReducer(
         case HouseAction.HOUSE_BUILD:
             return {
                 ...state,
-                constructions: update(
-                    state.constructions,
-                    (c: Construction) => c.id === action.payload,
-                    (c: Construction) => ({
-                        ...c,
-                        built: true,
-                    })
-                ),
+                constructions: {
+                    ...state.constructions,
+                    [action.payload]: true,
+                },
                 works: updateInsert(
                     state.works,
                     (t: Work) => t.id == action.workToAdd.id,
