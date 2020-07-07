@@ -143,6 +143,7 @@
             }
         },
         "work": {
+            "nextPromotion": "Next Promotion : ",
             "buttonText": "Work",
             "current": "own",
             "peasant": {

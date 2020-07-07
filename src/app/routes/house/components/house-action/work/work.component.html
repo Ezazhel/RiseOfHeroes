@@ -15,6 +15,10 @@
                 </label>
             </ng-container>
             <ng-container cardFooter>
+                <div>
+                    {{ tsl("house.work.nextPromotion") }} {{ work.done }} /
+                    {{ work.basePromotion * work.level }}
+                </div>
                 <div class="information">
                     <span> {{ tsl("house.reward") }} : </span>
                     <i

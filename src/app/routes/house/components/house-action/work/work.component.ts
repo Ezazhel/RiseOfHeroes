@@ -43,9 +43,9 @@ export class WorkComponent implements OnInit, OnDestroy {
         .pipe(
             withLatestFrom(this._hero$, (event: Work, hero: Hero) => {
                 this.doWorking.emit();
-                setTimeout(() => {
-                    this.store.dispatch(new HouseWorking(event.id));
-                }, 10);
+                this.store.dispatch(new HouseWorking(null));
+
+                setTimeout(() => this.store.dispatch(new HouseWorking(event)));
                 let time = getMultiplier("swiftness", hero, event.speed);
                 const buffMult = hero.buffsStats.find((b) => b.type === "loot");
                 const reward = {
@@ -95,30 +95,11 @@ export class WorkComponent implements OnInit, OnDestroy {
                             time - 100
                         ); //reward
                         event = { ...event, done: event.done + 1 };
-                        if (event.done >= event.promotion) {
-                            event = {
-                                ...event,
-                                level: event.level + 1,
-                                promotion:
-                                    event.basePromotion +
-                                    event.basePromotion * event.level,
-                                currency: {
-                                    ...event.currency,
-                                    quantity:
-                                        event.currency.quantity +
-                                        event.currency.quantity * event.level,
-                                },
-                            };
-                            this.store.dispatch(new HousePromotion(event));
-
-                            this._notifier.notify(
-                                "text",
-                                "promote",
-                                `${event.name}`,
-                                2000
-                            ); //unlock promote work
-                        }
-                        this.store.dispatch(new HouseWorking("none"));
+                        event = event.upgrade(
+                            this.store,
+                            this._notifier,
+                            event
+                        );
                         this.doWorking$.next(event);
                     }, time)
                 );

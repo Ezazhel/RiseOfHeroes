@@ -31,12 +31,18 @@ export interface TrainingEquipment extends IdlingHouse {
     done: number;
 }
 
+export type WorkEffect = (
+    store: Store,
+    _notifier: NotifierService,
+    work: Work
+) => Work;
 export interface Work extends IdlingHouse {
-    id: WorkingType;
+    id: string;
     currency: Currency;
     level: number;
     promotion: number;
     basePromotion: number;
+    upgrade: WorkEffect;
 }
 export type ConstructionEffect = (
     store: Store,

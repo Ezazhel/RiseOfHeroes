@@ -32,7 +32,7 @@ export class HouseTraining implements Action {
 }
 export class HouseWorking implements Action {
     readonly type = HOUSE_WORKING;
-    constructor(public payload: WorkingType) {}
+    constructor(public payload: Work) {}
 }
 export class HousePromotion implements Action {
     readonly type = HOUSE_PROMOTION;

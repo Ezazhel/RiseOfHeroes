@@ -1,5 +1,10 @@
 import { worksData, constructionData } from "./house.data";
-import { TrainingEquipment, Work, Construction } from "./house.model";
+import {
+    TrainingEquipment,
+    Work,
+    Construction,
+    WorkingType,
+} from "./house.model";
 import * as HouseAction from "./house.action";
 import { updateInsert, update } from "@core/models/utils";
 
@@ -32,7 +37,7 @@ const initialState: HouseState = {
             isActive: false,
         },
     ],
-    works: [{ ...worksData.get("peasant") }],
+    works: { ["peasant"]: worksData.get("peasant") },
     constructions: [...constructionData.values()].reduce((acc, cur) => {
         acc[cur.id] = cur.built;
         return acc;
@@ -41,7 +46,7 @@ const initialState: HouseState = {
 
 export interface HouseState {
     trainingEquipment: Array<TrainingEquipment>;
-    works: Work[];
+    works: { [workId: string]: Work };
     constructions: { [constructionId: string]: boolean };
 }
 
@@ -100,27 +105,31 @@ export function houseReducer(
                         return { ...t, isActive: !t.isActive };
                     }
                 ),
-                works: [...state.works].map((t) => ({
-                    ...t,
-                    isActive: false,
-                })),
+                works: Object.keys(state.works)
+                    .map((t) => ({
+                        ...state.works[t],
+                        isActive: false,
+                    }))
+                    .reduce((acc, cur) => {
+                        acc[cur.id] = cur;
+                        return acc;
+                    }, {}),
             };
         case HouseAction.HOUSE_WORKING:
+            let works = { ...state.works };
+            Object.keys(works).forEach((t) => {
+                works[t] = { ...works[t], isActive: false };
+                if (action.payload != null && t === action.payload.id) {
+                    works[t] = {
+                        ...works[t],
+                        isActive: !works[t].isActive,
+                        done: action.payload.done,
+                    };
+                }
+            });
             return {
                 ...state,
-                works: update(
-                    [...state.works].map((t) => {
-                        return t.id != action.payload
-                            ? { ...t, isActive: false }
-                            : t;
-                    }),
-                    (t: Work) => t.id == action.payload,
-                    (t: Work) => ({
-                        ...t,
-                        isActive: !t.isActive,
-                        done: t.done + 1,
-                    })
-                ),
+                works,
                 trainingEquipment: [...state.trainingEquipment].map((t) => ({
                     ...t,
                     isActive: false,
@@ -129,11 +138,7 @@ export function houseReducer(
         case HouseAction.HOUSE_PROMOTION:
             return {
                 ...state,
-                works: update(
-                    [...state.works],
-                    (t: Work) => t.id == action.payload.id,
-                    (t: Work) => action.payload
-                ),
+                works: { ...state.works, [action.payload.id]: action.payload },
             };
         case HouseAction.HOUSE_BUILD:
             return {
@@ -142,12 +147,10 @@ export function houseReducer(
                     ...state.constructions,
                     [action.payload]: true,
                 },
-                works: updateInsert(
-                    state.works,
-                    (t: Work) => t.id == action.workToAdd.id,
-                    (t: Work) => ({ ...t, isActive: !t.isActive }),
-                    action.workToAdd
-                ),
+                works: {
+                    ...state.works,
+                    [action.workToAdd.id]: action.workToAdd,
+                },
             };
         default:
             return state;

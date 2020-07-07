@@ -3,13 +3,17 @@ import {
     WorkingType,
     Construction,
     ConstructionEffect,
+    WorkEffect,
 } from "./house.model";
 import { Currency } from "@core/models/game-data/game-data.model";
-import { Store } from "@ngrx/store";
-import { NotifierService } from "@core/services/notifier.service";
-import { HouseBuild } from "./house.action";
+import { HouseBuild, HousePromotion } from "./house.action";
+import { levelUp } from "@core/models/level";
 
-const setWork = (id: WorkingType, currency: Currency): Work => ({
+const setWork = (
+    id: string,
+    currency: Currency,
+    upgrade: WorkEffect
+): Work => ({
     id: id,
     cardHeader: `house.work.${id}.name`,
     name: `house.work.${id}.name`,
@@ -23,14 +27,81 @@ const setWork = (id: WorkingType, currency: Currency): Work => ({
     level: 1,
     basePromotion: 50,
     promotion: 50,
+    upgrade,
 });
 
-export const worksData: Map<WorkingType, Work> = new Map<WorkingType, Work>([
-    ["peasant", setWork("peasant", { name: "gold", quantity: 1 })],
-    ["miner", setWork("miner", { name: "stone", quantity: 2 })],
-    ["lumberjack", setWork("lumberjack", { name: "wood", quantity: 2 })],
-    ["mayor", setWork("mayor", { name: "gold", quantity: 100 })],
-    ["artist", setWork("artist", { name: "gold", quantity: 1000 })],
+export const worksData: Map<string, Work> = new Map<string, Work>([
+    [
+        "peasant",
+        setWork(
+            "peasant",
+            { name: "gold", quantity: 1 },
+            (store, notifier, work) => {
+                if (
+                    work.level < 8 &&
+                    work.done == work.level * work.basePromotion
+                ) {
+                    //lvl 8 stop promotion.
+                    //update add Construction to update work.
+                    work = {
+                        ...work,
+                        level: work.level + 1,
+                        done: 0,
+                        currency: {
+                            ...work.currency,
+                            quantity:
+                                work.level == 5
+                                    ? work.currency.quantity * 10
+                                    : work.currency.quantity * 2,
+                        },
+                    };
+                    store.dispatch(new HousePromotion(work));
+                    notifier.notify("text", "promote", `${work.name}`, 2000); //unlock promote work
+                }
+                return work;
+            }
+        ),
+    ],
+    [
+        "miner",
+        setWork(
+            "miner",
+            { name: "stone", quantity: 2 },
+            (store, notifier, work) => {
+                return work;
+            }
+        ),
+    ],
+    [
+        "lumberjack",
+        setWork(
+            "lumberjack",
+            { name: "wood", quantity: 2 },
+            (store, notifier, work) => {
+                return work;
+            }
+        ),
+    ],
+    [
+        "mayor",
+        setWork(
+            "mayor",
+            { name: "gold", quantity: 100 },
+            (store, notifier, work) => {
+                return work;
+            }
+        ),
+    ],
+    [
+        "artist",
+        setWork(
+            "artist",
+            { name: "gold", quantity: 1000 },
+            (store, notifier, work) => {
+                return work;
+            }
+        ),
+    ],
 ]);
 
 const setConstruction = (

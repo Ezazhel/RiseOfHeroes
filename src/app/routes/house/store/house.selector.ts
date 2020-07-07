@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { HouseState } from "./house.reducer";
-import { constructionData } from "./house.data";
+import { constructionData, worksData } from "./house.data";
 
 export const houseStateSelector = createFeatureSelector<HouseState>("house");
 
@@ -11,7 +11,18 @@ export const trainingEquipement = createSelector(
 
 export const works = createSelector(
     houseStateSelector,
-    (houseState: HouseState) => houseState.works
+    (houseState: HouseState) => {
+        if (houseState.works) {
+            return Object.keys(houseState.works).map((idWork) => {
+                return {
+                    ...houseState.works[idWork],
+                    upgrade: worksData.get(idWork).upgrade,
+                };
+            });
+        } else {
+            return null;
+        }
+    }
 );
 
 export const constructions = createSelector(
